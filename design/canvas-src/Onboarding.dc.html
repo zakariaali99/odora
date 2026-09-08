@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;color:#2B2B26;}
+    a{color:#6E7A58;} a:hover{color:#464F39;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:844px;background:#F4F0EC;display:flex;flex-direction:column;overflow:hidden;">
+  <!-- sage hero -->
+  <div style="position:relative;height:500px;background:linear-gradient(160deg,#9CA882,#7C8863);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,0.22),transparent 60%);"></div>
+    <div style="position:absolute;top:66px;left:50%;transform:translateX(-50%);"><img src="logo-cream.png" alt="odora" style="width:130px;height:auto;"></div>
+    <div style="position:absolute;top:118px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(244,240,236,0.75);">Scent of atmosphere</div>
+    <!-- mist -->
+    <div style="position:absolute;top:150px;left:50%;transform:translateX(-50%);width:6px;height:44px;border-radius:5px;background:linear-gradient(to top,rgba(244,240,236,0.5),transparent);filter:blur(2px);"></div>
+    <div style="position:relative;width:170px;height:240px;margin-top:60px;background:linear-gradient(155deg,#C4CCB2,#8C9772);border-radius:84px 84px 52px 52px;box-shadow:0 34px 60px rgba(0,0,0,0.22),inset 0 -16px 30px rgba(0,0,0,0.14),inset 0 12px 24px rgba(255,255,255,0.3);"><span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#8C9772;"></span></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,#F4F0EC);"></div>
+  </div>
+
+  <!-- content -->
+  <div style="position:relative;flex:1;display:flex;flex-direction:column;padding:16px 30px 40px;">
+    <div style="font-size:30px;font-weight:300;line-height:1.2;text-align:center;">Set the mood<br>in every room.</div>
+    <div style="font-size:15px;line-height:1.7;color:#8F8F82;text-align:center;margin-top:16px;">Control your Odora diffusers, choose scents, and schedule the perfect atmosphere — all from one app.</div>
+
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:24px;">
+      <span style="width:22px;height:6px;border-radius:3px;background:#919C7A;"></span>
+      <span style="width:6px;height:6px;border-radius:3px;background:#D7D2C7;"></span>
+      <span style="width:6px;height:6px;border-radius:3px;background:#D7D2C7;"></span>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <div style="height:60px;border-radius:30px;background:#1C1C1A;color:#F4F0EC;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;box-shadow:0 14px 28px rgba(28,28,26,0.24);">Get started</div>
+    <div style="text-align:center;font-size:14px;color:#8F8F82;margin-top:18px;">Already have an account? <a href="#" style="font-weight:500;">Sign in</a></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

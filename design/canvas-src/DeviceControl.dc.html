@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;}
+    a{color:#6E7A58;} a:hover{color:#464F39;}
+    .card{background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(70,79,57,0.04),0 8px 22px rgba(70,79,57,0.06);}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;mix-blend-mode:multiply;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:1180px;background:#F4F0EC;color:#2B2B26;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="height:52px;"></div>
+  <!-- app bar -->
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:8px 22px;">
+    <div style="width:42px;height:42px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(70,79,57,0.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <img src="logo.png" alt="odora" style="height:20px;width:auto;display:block;">
+    <div style="width:42px;height:42px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(70,79,57,0.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></div>
+  </div>
+
+  <!-- title -->
+  <div style="position:relative;text-align:center;padding:14px 22px 2px;">
+    <div style="font-size:24px;font-weight:500;">Living Room</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:#8F8F82;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#919C7A;box-shadow:0 0 0 4px rgba(145,156,122,0.18);"></span> On · Level 8 · running 1h 20m
+    </div>
+  </div>
+
+  <!-- device hero with mist + glow -->
+  <div style="position:relative;display:flex;justify-content:center;padding:30px 0 26px;">
+    <div style="position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(145,156,122,0.22),transparent 65%);top:10px;"></div>
+    <!-- mist wisps -->
+    <div style="position:absolute;top:-2px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <div style="width:5px;height:34px;border-radius:4px;background:linear-gradient(to top,rgba(145,156,122,0.30),transparent);filter:blur(1px);"></div>
+    </div>
+    <div style="position:relative;">
+      <div style="width:150px;height:212px;background:linear-gradient(155deg,#B4BE9F 0%,#93A075 55%,#7C8863 100%);border-radius:74px 74px 46px 46px;position:relative;box-shadow:0 30px 55px rgba(124,136,99,0.4),inset 0 -16px 30px rgba(0,0,0,0.14),inset 0 10px 22px rgba(255,255,255,0.28);">
+        <span style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:#7C8863;box-shadow:inset 0 -2px 3px rgba(0,0,0,0.25);"></span>
+        <span style="position:absolute;left:26px;top:22px;width:26px;height:120px;border-radius:20px;background:linear-gradient(to bottom,rgba(255,255,255,0.35),transparent);filter:blur(3px);"></span>
+        <img src="logo-cream.png" alt="odora" style="position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:60px;height:auto;opacity:0.92;">
+      </div>
+    </div>
+  </div>
+
+  <!-- quick stats: oil ring + scent -->
+  <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 22px 14px;">
+    <div class="card" style="padding:18px;display:flex;align-items:center;gap:14px;">
+      <svg width="52" height="52" viewBox="0 0 52 52"><circle cx="26" cy="26" r="21" fill="none" stroke="#EAE6DF" stroke-width="6"/><circle cx="26" cy="26" r="21" fill="none" stroke="#919C7A" stroke-width="6" stroke-linecap="round" stroke-dasharray="132" stroke-dashoffset="37" transform="rotate(-90 26 26)"/></svg>
+      <div><div style="font-size:19px;font-weight:500;">72%</div><div style="font-size:11.5px;color:#8F8F82;margin-top:2px;">Oil level</div></div>
+    </div>
+    <div class="card" style="padding:18px;">
+      <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Scent</div>
+      <div style="font-size:16px;font-weight:500;margin-top:6px;">Forest Sage</div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;"><span style="font-size:10.5px;background:#E1F2BD;color:#464F39;padding:4px 9px;border-radius:10px;">Cedar</span><span style="font-size:10.5px;background:#F0ECE4;color:#8F8F82;padding:4px 9px;border-radius:10px;">Sage</span></div>
+    </div>
+  </div>
+
+  <!-- intensity slider with value bubble -->
+  <div class="card" style="position:relative;margin:0 22px 12px;padding:20px;">
+    <div style="display:flex;justify-content:space-between;font-size:13px;color:#8F8F82;margin-bottom:16px;"><span style="letter-spacing:0.1em;text-transform:uppercase;">Intensity</span></div>
+    <div style="position:relative;height:8px;border-radius:5px;background:#EAE6DF;">
+      <div style="position:absolute;left:0;top:0;height:8px;width:78%;border-radius:5px;background:linear-gradient(90deg,#A7B191,#919C7A);"></div>
+      <div style="position:absolute;left:78%;top:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#FFFFFF;border:2px solid #919C7A;box-shadow:0 4px 10px rgba(70,79,57,0.2);"></div>
+      <div style="position:absolute;left:78%;top:-34px;transform:translateX(-50%);background:#1C1C1A;color:#F4F0EC;font-size:11px;padding:4px 10px;border-radius:10px;">Level 8</div>
+    </div>
+  </div>
+
+  <!-- setting rows -->
+  <div style="position:relative;margin:0 22px;display:flex;flex-direction:column;gap:11px;">
+    <div class="card" style="padding:17px 18px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;">Mist</span><span style="display:flex;align-items:center;gap:8px;color:#8F8F82;font-size:14px;">Medium <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></div>
+    <div class="card" style="padding:17px 18px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;">Timer</span><span style="display:flex;align-items:center;gap:8px;color:#8F8F82;font-size:14px;">2 Hours <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></div>
+    <div class="card" style="padding:17px 18px;display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;">Ambient light</span><span style="display:flex;align-items:center;gap:8px;color:#8F8F82;font-size:14px;">Low <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></div>
+  </div>
+
+  <!-- usage mini chart -->
+  <div class="card" style="position:relative;margin:14px 22px 0;padding:18px 20px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">This week</span><span style="font-size:12px;color:#8F8F82;">9h 40m</span></div>
+    <div style="display:flex;align-items:flex-end;gap:8px;height:56px;margin-top:14px;">
+      <div style="flex:1;height:40%;background:#E1F2BD;border-radius:5px;"></div>
+      <div style="flex:1;height:66%;background:#B7C0A4;border-radius:5px;"></div>
+      <div style="flex:1;height:52%;background:#E1F2BD;border-radius:5px;"></div>
+      <div style="flex:1;height:80%;background:#919C7A;border-radius:5px;"></div>
+      <div style="flex:1;height:60%;background:#B7C0A4;border-radius:5px;"></div>
+      <div style="flex:1;height:100%;background:#919C7A;border-radius:5px;"></div>
+      <div style="flex:1;height:34%;background:#E1F2BD;border-radius:5px;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:#B4B1A6;"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+  </div>
+
+  <div style="flex:1;min-height:16px;"></div>
+  <!-- power -->
+  <div style="position:relative;padding:16px 22px 40px;">
+    <div style="height:62px;border-radius:31px;background:#1C1C1A;display:flex;align-items:center;justify-content:center;gap:10px;color:#F4F0EC;box-shadow:0 14px 30px rgba(28,28,26,0.3);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4F0EC" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v8"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/></svg><span style="font-size:15px;font-weight:500;">Turn off</span></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

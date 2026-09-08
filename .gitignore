@@ -18,3 +18,7 @@ node_modules/
 dist/
 build/
 .cache/
+venv/
+*.sqlite3
+backend/venv/
+backend/media/

@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;}
+    a{color:#6E7A58;text-decoration:none;} a:hover{color:#464F39;}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;mix-blend-mode:multiply;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:844px;background:#F4F0EC;color:#2B2B26;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="height:52px;"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 22px;">
+    <div style="width:42px;height:42px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(70,79,57,0.06);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </div>
+    <div style="font-size:18px;font-weight:500;">Cart</div>
+    <div style="width:42px;height:42px;"></div>
+  </div>
+
+  <!-- items -->
+  <div style="display:flex;flex-direction:column;gap:12px;padding:16px 22px 0;">
+    <div style="background:#FFFFFF;border-radius:18px;padding:14px;display:flex;gap:14px;align-items:center;box-shadow:0 4px 14px rgba(70,79,57,0.05);">
+      <div style="width:60px;height:78px;background:linear-gradient(160deg,#A7B191,#7C8863);border-radius:26px 26px 18px 18px;position:relative;flex:none;"><span style="position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:#7C8863;"></span></div>
+      <div style="flex:1;">
+        <div style="font-size:15px;font-weight:500;">Odora Diffuser</div>
+        <div style="font-size:12.5px;color:#8F8F82;margin-top:3px;">Sage Green</div>
+        <div style="font-size:15px;font-weight:500;color:#464F39;margin-top:8px;">320 LYD</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="width:28px;height:28px;border-radius:9px;background:#F0ECE4;display:flex;align-items:center;justify-content:center;color:#8F8F82;">−</span>
+        <span style="font-size:14px;">1</span>
+        <span style="width:28px;height:28px;border-radius:9px;background:#919C7A;display:flex;align-items:center;justify-content:center;color:#F4F0EC;">+</span>
+      </div>
+    </div>
+
+    <div style="background:#FFFFFF;border-radius:18px;padding:14px;display:flex;gap:14px;align-items:center;box-shadow:0 4px 14px rgba(70,79,57,0.05);">
+      <div style="width:60px;height:78px;background:#F1EDE6;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;">
+        <div style="width:30px;height:56px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:6px;position:relative;"><span style="position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:14px;height:9px;border-radius:2px;background:#1C1C1A;"></span></div>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:15px;font-weight:500;">Forest Sage</div>
+        <div style="font-size:12.5px;color:#8F8F82;margin-top:3px;">Premium oil · 10ml</div>
+        <div style="font-size:15px;font-weight:500;color:#464F39;margin-top:8px;">45 LYD</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="width:28px;height:28px;border-radius:9px;background:#F0ECE4;display:flex;align-items:center;justify-content:center;color:#8F8F82;">−</span>
+        <span style="font-size:14px;">2</span>
+        <span style="width:28px;height:28px;border-radius:9px;background:#919C7A;display:flex;align-items:center;justify-content:center;color:#F4F0EC;">+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- promo -->
+  <div style="margin:16px 22px 0;background:#E1F2BD;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;color:#464F39;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 8h20v4H2zM12 8v12"/><path d="M12 8S10 3 7.5 4.5 9 8 12 8Z"/></svg>
+    <span style="font-size:13px;">Free delivery on orders over 300 LYD</span>
+  </div>
+
+  <div style="flex:1;min-height:20px;"></div>
+
+  <!-- summary -->
+  <div style="background:#FFFFFF;border-radius:26px 26px 0 0;padding:24px 22px 40px;box-shadow:0 -6px 22px rgba(70,79,57,0.06);">
+    <div style="display:flex;justify-content:space-between;font-size:14px;color:#8F8F82;">
+      <span>Subtotal</span><span style="color:#2B2B26;">410 LYD</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;color:#8F8F82;margin-top:10px;">
+      <span>Delivery</span><span style="color:#919C7A;">Free</span>
+    </div>
+    <div style="height:1px;background:#EAE6DF;margin:16px 0;"></div>
+    <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:500;">
+      <span>Total</span><span style="color:#464F39;">410 LYD</span>
+    </div>
+    <div style="height:60px;border-radius:30px;background:#1C1C1A;display:flex;align-items:center;justify-content:center;color:#F4F0EC;margin-top:20px;box-shadow:0 12px 24px rgba(28,28,26,0.26);">
+      <span style="font-size:15px;font-weight:500;">Checkout · 410 LYD</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;color:#2B2B26;}
+    a{color:#6E7A58;} a:hover{color:#464F39;}
+    .card{background:#FFFFFF;border-radius:18px;box-shadow:0 1px 2px rgba(70,79,57,0.04),0 6px 18px rgba(70,79,57,0.06);}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;mix-blend-mode:multiply;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:1080px;background:#F4F0EC;color:#2B2B26;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="height:52px;"></div>
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:8px 22px;">
+    <div style="width:42px;height:42px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(70,79,57,0.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></div>
+    <div style="font-size:18px;font-weight:500;">Checkout</div>
+    <div style="width:42px;height:42px;"></div>
+  </div>
+
+  <!-- delivery address -->
+  <div style="position:relative;padding:18px 22px 6px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Deliver to</div>
+  <div class="card" style="position:relative;margin:0 22px;padding:18px;display:flex;gap:14px;align-items:flex-start;">
+    <div style="width:40px;height:40px;border-radius:12px;background:#E1F2BD;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+    <div style="flex:1;"><div style="font-size:15px;font-weight:500;">Mostafa · Home</div><div style="font-size:13px;color:#8F8F82;margin-top:4px;line-height:1.6;">Misrata, Libya · Near the city center</div></div>
+    <a href="#" style="font-size:13px;">Change</a>
+  </div>
+
+  <!-- delivery method -->
+  <div style="position:relative;padding:20px 22px 6px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Delivery</div>
+  <div style="position:relative;margin:0 22px;display:flex;flex-direction:column;gap:11px;">
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:14px;border:2px solid #919C7A;">
+      <span style="width:20px;height:20px;border-radius:50%;border:6px solid #919C7A;background:#FFFFFF;flex:none;"></span>
+      <div style="flex:1;"><div style="font-size:15px;">Free delivery</div><div style="font-size:12.5px;color:#8F8F82;margin-top:2px;">2–4 days · orders over 300 LYD</div></div>
+      <span style="font-size:14px;color:#919C7A;font-weight:500;">Free</span>
+    </div>
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:14px;">
+      <span style="width:20px;height:20px;border-radius:50%;border:2px solid #D7D2C7;flex:none;"></span>
+      <div style="flex:1;"><div style="font-size:15px;">Express</div><div style="font-size:12.5px;color:#8F8F82;margin-top:2px;">Next day</div></div>
+      <span style="font-size:14px;color:#2B2B26;">25 LYD</span>
+    </div>
+  </div>
+
+  <!-- payment -->
+  <div style="position:relative;padding:20px 22px 6px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Payment</div>
+  <div style="position:relative;margin:0 22px;display:flex;flex-direction:column;gap:11px;">
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:14px;border:2px solid #919C7A;">
+      <span style="width:20px;height:20px;border-radius:50%;border:6px solid #919C7A;background:#FFFFFF;flex:none;"></span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
+      <div style="flex:1;font-size:15px;">Cash on delivery</div>
+    </div>
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:14px;">
+      <span style="width:20px;height:20px;border-radius:50%;border:2px solid #D7D2C7;flex:none;"></span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8F8F82" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M7 15h4"/></svg>
+      <div style="flex:1;font-size:15px;color:#8F8F82;">Card</div>
+    </div>
+  </div>
+
+  <!-- order summary -->
+  <div class="card" style="position:relative;margin:20px 22px 0;padding:18px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Order · 2 items</span><a href="#" style="font-size:12.5px;">Edit</a></div>
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <div style="width:44px;height:56px;background:linear-gradient(160deg,#B4BE9F,#7C8863);border-radius:18px 18px 12px 12px;flex:none;"></div>
+      <div style="width:44px;height:56px;background:#F1EDE6;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;"><div style="width:20px;height:38px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:5px;"></div></div>
+    </div>
+    <div style="height:1px;background:#F0ECE4;margin:16px 0;"></div>
+    <div style="display:flex;justify-content:space-between;font-size:13.5px;color:#8F8F82;"><span>Subtotal</span><span style="color:#2B2B26;">410 LYD</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:13.5px;color:#8F8F82;margin-top:8px;"><span>Delivery</span><span style="color:#919C7A;">Free</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:500;margin-top:12px;"><span>Total</span><span style="color:#464F39;">410 LYD</span></div>
+  </div>
+
+  <div style="flex:1;min-height:16px;"></div>
+  <div style="position:relative;padding:16px 22px 40px;">
+    <div style="height:62px;border-radius:31px;background:#1C1C1A;display:flex;align-items:center;justify-content:center;gap:10px;color:#F4F0EC;box-shadow:0 14px 30px rgba(28,28,26,0.3);"><span style="font-size:15px;font-weight:500;">Place order · 410 LYD</span></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:12px;color:#8F8F82;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8F8F82" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Secure checkout · 1-year warranty</div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

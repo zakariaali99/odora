@@ -1,0 +1,16 @@
+{
+  "artboards": [
+    { "file": "Onboarding.dc.html",     "x": 0,    "y": 0, "w": 390, "h": 900,  "title": "Onboarding" },
+    { "file": "Main.dc.html",           "x": 490,  "y": 0, "w": 390, "h": 1010, "title": "Home" },
+    { "file": "DeviceControl.dc.html",  "x": 980,  "y": 0, "w": 390, "h": 1200, "title": "Device Control" },
+    { "file": "Schedule.dc.html",       "x": 1470, "y": 0, "w": 390, "h": 960,  "title": "Schedule" },
+    { "file": "Shop.dc.html",           "x": 1960, "y": 0, "w": 390, "h": 1100, "title": "Shop" },
+    { "file": "Product.dc.html",        "x": 2450, "y": 0, "w": 390, "h": 1140, "title": "Product" },
+    { "file": "Cart.dc.html",           "x": 2940, "y": 0, "w": 390, "h": 960,  "title": "Cart" },
+    { "file": "Checkout.dc.html",       "x": 3430, "y": 0, "w": 390, "h": 1120, "title": "Checkout" }
+  ],
+  "annotations": [
+    { "id": "note-brief", "x": 0, "y": -150, "w": 720, "text": "Odora — mobile app (elevated). Flow: Onboarding → Home → Device Control → Schedule → Shop → Product → Cart → Checkout. Tokens: sage #919C7A, pale #E1F2BD, cream #F4F0EC, real logo." }
+  ],
+  "launch": { "view": "focused", "file": "Onboarding.dc.html" }
+}

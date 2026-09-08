@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;}
+    a{color:#6E7A58;text-decoration:none;} a:hover{color:#464F39;}
+    .card{background:#FFFFFF;border-radius:18px;box-shadow:0 1px 2px rgba(70,79,57,0.04),0 6px 18px rgba(70,79,57,0.06);}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;mix-blend-mode:multiply;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:990px;background:#F4F0EC;color:#2B2B26;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="height:52px;"></div>
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:6px 22px 4px;">
+    <img src="logo.png" alt="odora" style="height:24px;width:auto;display:block;">
+    <div style="width:42px;height:42px;border-radius:50%;background:#E8E3DA;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+  </div>
+
+  <div style="position:relative;padding:18px 22px 8px;">
+    <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8F8F82;">Good evening, Mostafa</div>
+    <div style="font-size:26px;font-weight:400;margin-top:6px;line-height:1.25;">Your atmosphere,<br>set the mood.</div>
+  </div>
+
+  <!-- active card with glow + mist -->
+  <div style="position:relative;margin:14px 22px 4px;background:linear-gradient(150deg,#9CA882,#828E67);border-radius:22px;padding:22px;color:#F4F0EC;display:flex;justify-content:space-between;align-items:center;box-shadow:0 16px 36px rgba(130,142,103,0.36);overflow:hidden;">
+    <div style="position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.18),transparent 70%);"></div>
+    <div style="position:relative;">
+      <div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;opacity:0.85;">Now diffusing</div>
+      <div style="font-size:21px;font-weight:500;margin-top:8px;">Living Room</div>
+      <div style="font-size:13px;margin-top:4px;opacity:0.9;">Forest Sage · Medium</div>
+      <div style="display:inline-flex;align-items:center;gap:7px;margin-top:16px;background:rgba(244,240,236,0.18);padding:7px 13px;border-radius:20px;font-size:12px;"><span style="width:7px;height:7px;border-radius:50%;background:#E1F2BD;"></span> On · 100% · 72% oil</div>
+    </div>
+    <div style="position:relative;width:74px;height:104px;background:linear-gradient(160deg,#B4BE9F,#7C8863);border-radius:38px 38px 26px 26px;box-shadow:inset 0 -8px 16px rgba(0,0,0,0.14),inset 0 6px 12px rgba(255,255,255,0.25);"><span style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#7C8863;"></span></div>
+  </div>
+
+  <!-- quick actions -->
+  <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px 22px 4px;">
+    <div class="card" style="padding:14px;text-align:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:6px;"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg><div style="font-size:11.5px;color:#8F8F82;">All on</div></div>
+    <div class="card" style="padding:14px;text-align:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:6px;"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><div style="font-size:11.5px;color:#8F8F82;">Schedule</div></div>
+    <div class="card" style="padding:14px;text-align:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:6px;"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg><div style="font-size:11.5px;color:#8F8F82;">Scents</div></div>
+  </div>
+
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:22px 22px 10px;"><div style="font-size:16px;font-weight:500;">Your spaces</div><a href="#" style="font-size:13px;">See all</a></div>
+  <div style="position:relative;display:flex;flex-direction:column;gap:12px;padding:0 22px;">
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:16px;">
+      <div style="width:44px;height:60px;background:linear-gradient(160deg,#B4BE9F,#7C8863);border-radius:22px 22px 15px 15px;position:relative;flex:none;box-shadow:inset 0 -4px 8px rgba(0,0,0,0.12);"><span style="position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#7C8863;"></span></div>
+      <div style="flex:1;"><div style="font-size:15px;font-weight:500;">Bedroom</div><div style="font-size:12.5px;color:#8F8F82;margin-top:3px;">Cotton Linen · Low · 88% oil</div></div>
+      <div style="width:46px;height:28px;border-radius:16px;background:#919C7A;position:relative;flex:none;"><span style="position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;background:#F4F0EC;"></span></div>
+    </div>
+    <div class="card" style="padding:16px 18px;display:flex;align-items:center;gap:16px;">
+      <div style="width:44px;height:60px;background:linear-gradient(160deg,#EFEBE3,#DAD3C6);border-radius:22px 22px 15px 15px;position:relative;flex:none;"><span style="position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#CFC7B8;"></span></div>
+      <div style="flex:1;"><div style="font-size:15px;font-weight:500;">Office</div><div style="font-size:12.5px;color:#8F8F82;margin-top:3px;">Idle · tap to start</div></div>
+      <div style="width:46px;height:28px;border-radius:16px;background:#E4E0D8;position:relative;flex:none;"><span style="position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#FFFFFF;"></span></div>
+    </div>
+  </div>
+
+  <!-- discover scents strip -->
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:22px 22px 10px;"><div style="font-size:16px;font-weight:500;">Discover scents</div><a href="#" style="font-size:13px;">Shop</a></div>
+  <div style="position:relative;display:flex;gap:12px;padding:0 22px;overflow:hidden;">
+    <div class="card" style="min-width:130px;padding:14px;"><div style="height:70px;border-radius:12px;background:linear-gradient(160deg,#B7C0A4,#8C9772);"></div><div style="font-size:13.5px;font-weight:500;margin-top:10px;">Forest Sage</div><div style="font-size:11.5px;color:#8F8F82;margin-top:2px;">Woody · Fresh</div></div>
+    <div class="card" style="min-width:130px;padding:14px;"><div style="height:70px;border-radius:12px;background:linear-gradient(160deg,#EFEBE3,#D9D2C4);"></div><div style="font-size:13.5px;font-weight:500;margin-top:10px;">Cotton Linen</div><div style="font-size:11.5px;color:#8F8F82;margin-top:2px;">Clean · Soft</div></div>
+    <div class="card" style="min-width:130px;padding:14px;"><div style="height:70px;border-radius:12px;background:linear-gradient(160deg,#C8B49A,#A98F6E);"></div><div style="font-size:13.5px;font-weight:500;margin-top:10px;">Amber Oud</div><div style="font-size:11.5px;color:#8F8F82;margin-top:2px;">Warm · Rich</div></div>
+  </div>
+
+  <div style="flex:1;min-height:20px;"></div>
+  <div style="position:relative;display:flex;justify-content:space-around;align-items:center;padding:14px 22px 30px;background:#FFFFFF;border-top:1px solid #EAE6DF;margin-top:22px;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#464F39;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span style="font-size:11px;">Home</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#B4B1A6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span style="font-size:11px;">Shop</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#B4B1A6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span style="font-size:11px;">Schedule</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:#B4B1A6;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4B1A6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg><span style="font-size:11px;">Profile</span></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

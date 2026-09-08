@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;}
+    a{color:#6E7A58;} a:hover{color:#464F39;}
+    .card{background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(70,79,57,0.04),0 6px 18px rgba(70,79,57,0.06);}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.035;pointer-events:none;mix-blend-mode:multiply;}
+    .stars{display:flex;align-items:center;gap:4px;font-size:11.5px;color:#8F8F82;}
+  </style>
+</helmet>
+<div style="position:relative;width:390px;min-height:1080px;background:#F4F0EC;color:#2B2B26;display:flex;flex-direction:column;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="height:52px;"></div>
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:8px 22px;">
+    <div style="font-size:22px;font-weight:500;">Shop</div>
+    <div style="width:42px;height:42px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(70,79,57,0.06);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
+  </div>
+
+  <div style="position:relative;display:flex;gap:9px;padding:12px 22px 6px;">
+    <span style="font-size:13px;background:#919C7A;color:#F4F0EC;padding:9px 18px;border-radius:18px;">All</span>
+    <span style="font-size:13px;background:#FFFFFF;color:#8F8F82;padding:9px 18px;border-radius:18px;">Diffusers</span>
+    <span style="font-size:13px;background:#FFFFFF;color:#8F8F82;padding:9px 18px;border-radius:18px;">Oils</span>
+    <span style="font-size:13px;background:#FFFFFF;color:#8F8F82;padding:9px 18px;border-radius:18px;">Bundles</span>
+  </div>
+
+  <!-- featured banner with glow -->
+  <div style="position:relative;margin:14px 22px 6px;background:linear-gradient(150deg,#4E5740,#3C4432);border-radius:22px;padding:24px;color:#F4F0EC;display:flex;justify-content:space-between;align-items:center;overflow:hidden;box-shadow:0 16px 34px rgba(60,68,50,0.32);">
+    <div style="position:absolute;right:-20px;bottom:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(225,242,189,0.16),transparent 70%);"></div>
+    <div style="position:relative;"><div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#E1F2BD;">New bundle</div><div style="font-size:21px;font-weight:400;margin-top:8px;line-height:1.3;">Starter set,<br>save 15%.</div><div style="margin-top:16px;display:inline-block;font-size:13px;background:#E1F2BD;color:#464F39;padding:9px 16px;border-radius:18px;">Explore</div></div>
+    <div style="position:relative;width:60px;height:88px;background:linear-gradient(160deg,#B4BE9F,#7C8863);border-radius:30px 30px 20px 20px;flex:none;box-shadow:inset 0 -6px 12px rgba(0,0,0,0.14);"><span style="position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:#7C8863;"></span></div>
+  </div>
+
+  <div style="position:relative;font-size:16px;font-weight:500;padding:20px 22px 12px;">Diffusers</div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 22px;">
+    <div class="card" style="padding:16px;position:relative;">
+      <span style="position:absolute;top:14px;left:14px;font-size:10px;background:#E1F2BD;color:#464F39;padding:4px 9px;border-radius:10px;">Bestseller</span>
+      <div style="height:120px;display:flex;align-items:center;justify-content:center;"><div style="width:60px;height:88px;background:linear-gradient(160deg,#B4BE9F,#7C8863);border-radius:30px 30px 20px 20px;position:relative;box-shadow:inset 0 -6px 12px rgba(0,0,0,0.12);"><span style="position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:#7C8863;"></span></div></div>
+      <div style="font-size:14.5px;font-weight:500;margin-top:8px;">Odora Diffuser</div>
+      <div class="stars" style="margin-top:5px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#919C7A"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>4.8 (214)</div>
+      <div style="font-size:15px;font-weight:500;margin-top:8px;color:#464F39;">320 LYD</div>
+    </div>
+    <div class="card" style="padding:16px;">
+      <div style="height:120px;display:flex;align-items:center;justify-content:center;"><div style="width:60px;height:88px;background:linear-gradient(160deg,#F1EDE6,#DAD3C6);border-radius:30px 30px 20px 20px;position:relative;"><span style="position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:#CFC7B8;"></span></div></div>
+      <div style="font-size:14.5px;font-weight:500;margin-top:8px;">Odora Diffuser</div>
+      <div class="stars" style="margin-top:5px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#919C7A"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>4.7 (168)</div>
+      <div style="font-size:15px;font-weight:500;margin-top:8px;color:#464F39;">320 LYD</div>
+    </div>
+  </div>
+
+  <div style="position:relative;font-size:16px;font-weight:500;padding:22px 22px 12px;">Fragrance oils</div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 22px;">
+    <div class="card" style="padding:16px;">
+      <div style="height:110px;display:flex;align-items:center;justify-content:center;"><div style="width:44px;height:82px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:8px 8px 10px 10px;position:relative;box-shadow:0 6px 12px rgba(74,49,21,0.25);"><span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:20px;height:12px;border-radius:3px;background:#1C1C1A;"></span><span style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:30px;height:34px;border-radius:3px;background:#F1EDE6;"></span></div></div>
+      <div style="font-size:14.5px;font-weight:500;margin-top:8px;">Forest Sage</div>
+      <div style="font-size:12px;color:#8F8F82;margin-top:3px;">Woody · Fresh · 10ml</div>
+      <div style="font-size:15px;font-weight:500;margin-top:8px;color:#464F39;">45 LYD</div>
+    </div>
+    <div class="card" style="padding:16px;">
+      <div style="height:110px;display:flex;align-items:center;justify-content:center;"><div style="width:44px;height:82px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:8px 8px 10px 10px;position:relative;box-shadow:0 6px 12px rgba(74,49,21,0.25);"><span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:20px;height:12px;border-radius:3px;background:#1C1C1A;"></span><span style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:30px;height:34px;border-radius:3px;background:#F1EDE6;"></span></div></div>
+      <div style="font-size:14.5px;font-weight:500;margin-top:8px;">Cotton Linen</div>
+      <div style="font-size:12px;color:#8F8F82;margin-top:3px;">Clean · Soft · 10ml</div>
+      <div style="font-size:15px;font-weight:500;margin-top:8px;color:#464F39;">45 LYD</div>
+    </div>
+  </div>
+  <div style="height:34px;"></div>
+</div>
+</x-dc>
+</body>
+</html>

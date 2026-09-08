@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Odora",
+    "slug": "odora",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "primaryColor": "#919C7A",
+    "backgroundColor": "#F4F0EC",
+    "extra": {
+      "supportsRTL": true
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.odora.diffuser"
+    },
+    "android": {
+      "package": "com.odora.diffuser",
+      "adaptiveIcon": {
+        "backgroundColor": "#F4F0EC",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-localization",
+      "expo-font"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",    "x": 0,    "y": 0, "w": 1440, "h": 2600, "title": "Landing" },
+    { "file": "Shop.dc.html",    "x": 1560, "y": 0, "w": 1440, "h": 1580, "title": "Shop" },
+    { "file": "Product.dc.html", "x": 3120, "y": 0, "w": 1440, "h": 1920, "title": "Product" },
+    { "file": "Cart.dc.html",    "x": 4680, "y": 0, "w": 1440, "h": 1100, "title": "Cart" }
+  ],
+  "annotations": [
+    { "id": "note-store", "x": 0, "y": -170, "w": 780, "text": "Odora — web store (desktop, elevated). Depth, texture, how-it-works, testimonials, scent pyramid, specs, reviews, related. Sage #919C7A, cream #F4F0EC, Geomini/Poppins, real logo." }
+  ],
+  "launch": { "view": "focused", "file": "Main.dc.html" }
+}

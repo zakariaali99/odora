@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    *{box-sizing:border-box;}
+    body{margin:0;background:#F4F0EC;font-family:'Poppins',system-ui,sans-serif;color:#2B2B26;}
+    a{color:#464F39;text-decoration:none;} a:hover{color:#919C7A;}
+    .card{background:#FFFFFF;border-radius:20px;box-shadow:0 1px 2px rgba(70,79,57,0.04),0 10px 28px rgba(70,79,57,0.07);}
+    .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.03;pointer-events:none;mix-blend-mode:multiply;}
+  </style>
+</helmet>
+<div style="position:relative;width:1440px;min-height:1900px;background:#F4F0EC;overflow:hidden;">
+  <div class="grain"></div>
+  <div style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:26px 80px;border-bottom:1px solid #EAE6DF;">
+    <img src="logo.png" alt="odora" style="height:26px;width:auto;display:block;">
+    <div style="display:flex;gap:40px;font-size:15px;"><a href="#">Shop</a><a href="#">Fragrances</a><a href="#">Technology</a><a href="#">About</a></div>
+    <div style="display:flex;gap:22px;align-items:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B2B26" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
+  </div>
+
+  <div style="position:relative;font-size:13px;color:#8F8F82;padding:26px 80px 0;">Shop / Diffusers / <span style="color:#2B2B26;">Odora Diffuser</span></div>
+
+  <div style="position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px;padding:30px 80px 60px;align-items:start;">
+    <!-- gallery -->
+    <div>
+      <div class="card" style="height:560px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(145,156,122,0.10),transparent 60%);"></div>
+        <div style="position:relative;width:200px;height:288px;background:linear-gradient(155deg,#C4CCB2,#8C9772);border-radius:100px 100px 60px 60px;box-shadow:0 34px 60px rgba(124,136,99,0.32),inset 0 -16px 30px rgba(0,0,0,0.13),inset 0 12px 24px rgba(255,255,255,0.28);"><span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#8C9772;"></span></div>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:18px;">
+        <div class="card" style="flex:1;height:100px;border:2px solid #919C7A;"></div>
+        <div class="card" style="flex:1;height:100px;"></div>
+        <div class="card" style="flex:1;height:100px;"></div>
+      </div>
+    </div>
+
+    <!-- info -->
+    <div>
+      <div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#8F8F82;">Electronic diffuser</div>
+      <div style="font-size:42px;font-weight:300;margin-top:14px;">Odora Diffuser</div>
+      <div style="display:flex;align-items:center;gap:14px;margin-top:12px;"><span style="color:#919C7A;font-size:16px;">★★★★★</span><span style="font-size:13.5px;color:#8F8F82;">4.8 · 214 reviews</span></div>
+      <div style="font-size:26px;font-weight:400;color:#464F39;margin-top:16px;">320 LYD</div>
+      <div style="font-size:16px;line-height:1.75;color:#8F8F82;margin-top:20px;max-width:480px;">Waterless cold-air diffusion for spaces up to 900 m². Whisper-quiet, app-controlled scheduling, and a soft matte finish designed to sit beautifully in any room.</div>
+
+      <div style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;margin-top:30px;">Colour — Sage Green</div>
+      <div style="display:flex;gap:16px;margin-top:14px;"><span style="width:46px;height:46px;border-radius:50%;background:#919C7A;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #919C7A;"></span><span style="width:46px;height:46px;border-radius:50%;background:#E8E3DA;box-shadow:0 0 0 1px #EAE6DF;"></span><span style="width:46px;height:46px;border-radius:50%;background:#1C1C1A;"></span></div>
+
+      <!-- scent pyramid -->
+      <div class="card" style="padding:22px;margin-top:26px;">
+        <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8F8F82;">Scent notes — Forest Sage</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px;">
+          <div style="display:flex;align-items:center;gap:16px;"><span style="width:56px;font-size:12px;color:#8F8F82;">Top</span><span style="font-size:15px;">Bergamot · Eucalyptus</span></div>
+          <div style="height:1px;background:#F0ECE4;"></div>
+          <div style="display:flex;align-items:center;gap:16px;"><span style="width:56px;font-size:12px;color:#8F8F82;">Heart</span><span style="font-size:15px;">Sage · Cedar</span></div>
+          <div style="height:1px;background:#F0ECE4;"></div>
+          <div style="display:flex;align-items:center;gap:16px;"><span style="width:56px;font-size:12px;color:#8F8F82;">Base</span><span style="font-size:15px;">Amber · Musk</span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;margin-top:26px;align-items:center;">
+        <div style="height:60px;border-radius:30px;background:#1C1C1A;color:#F4F0EC;display:flex;align-items:center;justify-content:center;padding:0 44px;font-size:16px;box-shadow:0 14px 28px rgba(28,28,26,0.24);">Add to cart · 320 LYD</div>
+        <div style="width:60px;height:60px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(70,79,57,0.06);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#464F39" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg></div>
+      </div>
+      <div style="display:flex;gap:30px;margin-top:26px;padding-top:24px;border-top:1px solid #EAE6DF;font-size:13.5px;color:#8F8F82;"><span>Free delivery over 300 LYD</span><span>1-year warranty</span><span>Installation included</span></div>
+    </div>
+  </div>
+
+  <!-- specs table -->
+  <div style="position:relative;padding:20px 80px 10px;"><div style="font-size:26px;font-weight:300;">Specifications</div></div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding:20px 80px 40px;">
+    <div class="card" style="padding:26px;"><div style="font-size:24px;font-weight:400;">900 m²</div><div style="font-size:13px;color:#8F8F82;margin-top:6px;">Coverage area</div></div>
+    <div class="card" style="padding:26px;"><div style="font-size:24px;font-weight:400;">1000 ml</div><div style="font-size:13px;color:#8F8F82;margin-top:6px;">Oil capacity</div></div>
+    <div class="card" style="padding:26px;"><div style="font-size:24px;font-weight:400;">&lt; 25 dB</div><div style="font-size:13px;color:#8F8F82;margin-top:6px;">Noise level</div></div>
+    <div class="card" style="padding:26px;"><div style="font-size:24px;font-weight:400;">12V / 2A</div><div style="font-size:13px;color:#8F8F82;margin-top:6px;">Power</div></div>
+  </div>
+
+  <!-- reviews -->
+  <div style="position:relative;padding:30px 80px 10px;display:flex;align-items:baseline;gap:16px;"><div style="font-size:26px;font-weight:300;">Reviews</div><div style="font-size:14px;color:#8F8F82;">4.8 out of 5 · 214 reviews</div></div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:20px 80px 40px;">
+    <div class="card" style="padding:28px;"><div style="color:#919C7A;">★★★★★</div><div style="font-size:15px;line-height:1.7;margin-top:12px;">"Looks stunning on the console and the scent is even across the whole living room."</div><div style="font-size:13px;color:#8F8F82;margin-top:14px;">Nour · Verified buyer</div></div>
+    <div class="card" style="padding:28px;"><div style="color:#919C7A;">★★★★★</div><div style="font-size:15px;line-height:1.7;margin-top:12px;">"Genuinely silent. The app scheduling means it's on before I get home."</div><div style="font-size:13px;color:#8F8F82;margin-top:14px;">Khaled · Verified buyer</div></div>
+    <div class="card" style="padding:28px;"><div style="color:#919C7A;">★★★★☆</div><div style="font-size:15px;line-height:1.7;margin-top:12px;">"Beautiful build. Would love more scent options — the Forest Sage is perfect though."</div><div style="font-size:13px;color:#8F8F82;margin-top:14px;">Rania · Verified buyer</div></div>
+  </div>
+
+  <!-- related -->
+  <div style="position:relative;padding:30px 80px 10px;font-size:26px;font-weight:300;">You may also like</div>
+  <div style="position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:20px 80px 70px;">
+    <div class="card" style="padding:24px;"><div style="height:150px;display:flex;align-items:center;justify-content:center;"><div style="width:60px;height:110px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:10px;position:relative;"><span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:26px;height:13px;border-radius:3px;background:#1C1C1A;"></span><span style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:42px;height:46px;border-radius:3px;background:#F1EDE6;"></span></div></div><div style="font-size:15px;font-weight:500;margin-top:10px;">Forest Sage</div><div style="font-size:15px;font-weight:500;color:#464F39;margin-top:8px;">45 LYD</div></div>
+    <div class="card" style="padding:24px;"><div style="height:150px;display:flex;align-items:center;justify-content:center;"><div style="width:60px;height:110px;background:linear-gradient(160deg,#6B4A24,#4A3115);border-radius:10px;position:relative;"><span style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:26px;height:13px;border-radius:3px;background:#1C1C1A;"></span><span style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:42px;height:46px;border-radius:3px;background:#F1EDE6;"></span></div></div><div style="font-size:15px;font-weight:500;margin-top:10px;">Cotton Linen</div><div style="font-size:15px;font-weight:500;color:#464F39;margin-top:8px;">45 LYD</div></div>
+    <div class="card" style="padding:24px;"><div style="height:150px;display:flex;align-items:center;justify-content:center;"><div style="width:76px;height:110px;background:linear-gradient(160deg,#F1EDE6,#DAD3C6);border-radius:38px 38px 22px 22px;position:relative;"><span style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#CFC7B8;"></span></div></div><div style="font-size:15px;font-weight:500;margin-top:10px;">Diffuser · White</div><div style="font-size:15px;font-weight:500;color:#464F39;margin-top:8px;">320 LYD</div></div>
+    <div class="card" style="padding:24px;background:#464F39;color:#F4F0EC;display:flex;flex-direction:column;justify-content:center;"><div style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#E1F2BD;">Bundle</div><div style="font-size:19px;font-weight:400;margin-top:10px;">Diffuser + 2 oils</div><div style="font-size:16px;font-weight:500;margin-top:14px;">380 LYD</div></div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
