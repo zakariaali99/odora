@@ -100,7 +100,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </span>
           <span className="text-xs text-brand-muted font-medium">{t('common.currency')}</span>
           {product.has_discount && (
-            <span className="text-xs text-stone-400 line-through ms-1 font-poppins">
+            <span className="text-xs text-stone-500 line-through ms-1 font-poppins">
               {product.price}
             </span>
           )}

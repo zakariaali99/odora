@@ -70,12 +70,12 @@ export const MyOrdersPage: React.FC = () => {
               <div className="flex items-center justify-between sm:justify-end gap-6 pt-3 sm:pt-0 border-t sm:border-0 border-stone-100">
                 <div className="text-start">
                   <span className="text-xs text-brand-muted font-medium block">{language === 'ar' ? 'الإجمالي:' : 'Total:'}</span>
-                  <span className="text-base font-bold text-brand-sage font-sans">{order.total_amount} {language === 'ar' ? 'د.ل' : 'LYD'}</span>
+                  <span className="text-base font-bold text-brand-sage-dark font-sans">{order.total_amount} {language === 'ar' ? 'د.ل' : 'LYD'}</span>
                 </div>
 
                 <Link
                   to={`/order-tracking?orderNumber=${order.order_number}`}
-                  className="px-4 py-2 rounded-full bg-brand-pale/40 text-brand-sage hover:bg-brand-sage hover:text-white transition-colors text-xs font-bold flex items-center gap-1.5 border border-stone-200 shadow-2xs"
+                  className="px-4 py-2 rounded-full bg-brand-pale/60 text-brand-sage-dark hover:bg-brand-sage hover:text-white transition-colors text-xs font-bold flex items-center gap-1.5 border border-brand-sage/30 shadow-2xs"
                 >
                   <Truck className="w-3.5 h-3.5" />
                   <span>{language === 'ar' ? 'تتبع الشحنة' : 'Track Order'}</span>

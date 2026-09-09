@@ -133,7 +133,7 @@ export const CartPage: React.FC = () => {
 
                 <button
                   onClick={() => removeItem(item.id)}
-                  className="text-stone-400 hover:text-red-600 p-1.5 transition-colors"
+                  className="text-stone-500 hover:text-red-600 p-1.5 transition-colors"
                   aria-label="Remove item"
                 >
                   <Trash2 className="w-4 h-4" />

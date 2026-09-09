@@ -126,7 +126,7 @@ export const OrderTrackingPage: React.FC = () => {
             </div>
             <div className="text-start sm:text-end">
               <span className="text-xs text-brand-muted font-medium">{language === 'ar' ? 'حالة الشحنة الحالية:' : 'Current Status:'}</span>
-              <div className="text-xs font-bold text-brand-sage bg-brand-pale/40 border border-brand-sage/30 px-3 py-1 rounded-full mt-0.5 inline-block">
+              <div className="text-xs font-bold text-brand-sage-dark bg-brand-pale/60 border border-brand-sage/40 px-3 py-1 rounded-full mt-0.5 inline-block">
                 {order.status_display}
               </div>
             </div>
@@ -147,13 +147,13 @@ export const OrderTrackingPage: React.FC = () => {
                           ? 'bg-brand-ink text-white ring-4 ring-brand-pale shadow-md'
                           : isPassed
                           ? 'bg-brand-sage text-white'
-                          : 'bg-stone-100 text-stone-400 border border-stone-200'
+                          : 'bg-stone-100 text-stone-600 border border-stone-300'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className={`text-xs block font-bold ${isPassed ? 'text-brand-ink' : 'text-stone-400'}`}>
+                      <span className={`text-xs block font-bold ${isPassed ? 'text-brand-ink' : 'text-stone-600'}`}>
                         {step.label}
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export const OrderTrackingPage: React.FC = () => {
                     <div key={log.id} className="relative">
                       <div className="text-xs font-bold text-brand-ink">{log.status_display}</div>
                       <div className="text-[11px] text-brand-muted">{log.note}</div>
-                      <div className="text-[10px] text-stone-400 font-sans mt-0.5">
+                      <div className="text-[10px] text-stone-600 font-sans mt-0.5">
                         {new Date(log.created_at).toLocaleString(language === 'ar' ? 'ar-LY' : 'en-US')}
                       </div>
                     </div>

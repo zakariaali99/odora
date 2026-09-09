@@ -19,7 +19,7 @@ export default {
           muted: '#52524B',
           olive: '#242B1D',
           dark: '#141612',
-          amber: '#A67336',
+          amber: '#946128',
           'amber-light': '#FDF6ED',
         },
         odora: {
@@ -34,7 +34,7 @@ export default {
           muted: '#52524B',
           olive: '#242B1D',
           dark: '#141612',
-          amber: '#A67336',
+          amber: '#946128',
           'amber-light': '#FDF6ED',
         },
       },

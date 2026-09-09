@@ -61,12 +61,12 @@ export const HomePage: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#181816] leading-[1.15] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light text-brand-ink leading-[1.15] tracking-tight">
               {t('home.heroTitle1', 'أجواء استثنائية،')} <br />
               <span className="font-semibold text-brand-sage">{t('home.heroTitle2', 'في كل مساحة.')}</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-[#52524B] leading-relaxed max-w-xl font-normal">
+            <p className="text-base sm:text-lg text-brand-muted leading-relaxed max-w-xl font-normal">
               {t('home.heroDesc', 'أجهزة تعطير إلكترونية فاخرة تجمع بين التقنية الدقيقة والتصميم الإيطالي الهادئ — تقنية الرذاذ البارد بدون ماء، فائقة الهدوء، مع تحكم وجدولة ذكية عبر التطبيق.')}
             </p>
 
@@ -74,13 +74,13 @@ export const HomePage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
                 to="/products?category=diffusers"
-                className="px-8 py-3.5 rounded-full bg-[#181816] hover:bg-stone-800 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg active:scale-95"
+                className="px-8 py-3.5 rounded-full bg-brand-ink hover:bg-stone-800 text-white font-bold text-sm transition-all shadow-md hover:shadow-lg active:scale-95"
               >
                 {t('home.shopDiffusers', 'تسوق أجهزة التعطير')}
               </Link>
               <Link
                 to="/products?category=fragrance-oils"
-                className="px-8 py-3.5 rounded-full bg-white border border-stone-300 hover:border-brand-sage hover:bg-stone-50 text-[#181816] font-bold text-sm transition-all shadow-xs active:scale-95"
+                className="px-8 py-3.5 rounded-full bg-white border border-stone-300 hover:border-brand-sage hover:bg-stone-50 text-brand-ink font-bold text-sm transition-all shadow-xs active:scale-95"
               >
                 {t('home.exploreOils', 'استكشف الزيوت النقية')}
               </Link>
@@ -89,19 +89,19 @@ export const HomePage: React.FC = () => {
             {/* Micro Stats */}
             <div className="pt-6 border-t border-stone-200/90 grid grid-cols-3 gap-6 max-w-md">
               <div>
-                <div className="text-2xl font-bold text-[#181816] font-sans flex items-center gap-1">
+                <div className="text-2xl font-bold text-brand-ink font-sans flex items-center gap-1">
                   <span>4.8</span>
-                  <Star className="w-4 h-4 fill-[#A67336] text-[#A67336]" />
+                  <Star className="w-4 h-4 fill-brand-amber text-brand-amber" />
                 </div>
-                <div className="text-xs text-[#52524B] font-medium mt-0.5">{t('home.stat1Label', '+2,400 تقييم مؤكد')}</div>
+                <div className="text-xs text-brand-muted font-medium mt-0.5">{t('home.stat1Label', '+2,400 تقييم مؤكد')}</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[#181816] font-sans">{t('home.stat2Value', '900 م²')}</div>
-                <div className="text-xs text-[#52524B] font-medium mt-0.5">{t('home.stat2Label', 'تغطية متجانسة')}</div>
+                <div className="text-2xl font-bold text-brand-ink font-sans">{t('home.stat2Value', '900 م²')}</div>
+                <div className="text-xs text-brand-muted font-medium mt-0.5">{t('home.stat2Label', 'تغطية متجانسة')}</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[#181816] font-sans">{t('home.stat3Value', '< 25 dB')}</div>
-                <div className="text-xs text-[#52524B] font-medium mt-0.5">{t('home.stat3Label', 'همس فائق الهدوء')}</div>
+                <div className="text-2xl font-bold text-brand-ink font-sans">{t('home.stat3Value', '< 25 dB')}</div>
+                <div className="text-xs text-brand-muted font-medium mt-0.5">{t('home.stat3Label', 'همس فائق الهدوء')}</div>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export const HomePage: React.FC = () => {
                 
                 {/* Specs pill at top */}
                 <div className="absolute top-4 inset-x-4 z-20 flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[11px] font-bold text-[#181816] shadow-xs border border-stone-200/60">
+                  <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[11px] font-bold text-brand-ink shadow-xs border border-stone-200/60">
                     A316 Series
                   </span>
                   <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[11px] font-bold text-brand-sage shadow-xs border border-stone-200/60 flex items-center gap-1">
@@ -161,8 +161,8 @@ export const HomePage: React.FC = () => {
                 {/* Floating Device Badge */}
                 <div className="absolute bottom-3 inset-x-3 z-20 bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-md flex items-center justify-between border border-stone-200/80">
                   <div>
-                    <div className="text-xs font-bold text-[#181816]">{t('home.deviceBadgeName', 'جهاز أودورا A316 الذكي')}</div>
-                    <div className="text-[11px] text-[#52524B] font-medium">
+                    <div className="text-xs font-bold text-brand-ink">{t('home.deviceBadgeName', 'جهاز أودورا A316 الذكي')}</div>
+                    <div className="text-[11px] text-brand-muted font-medium">
                       {heroColorway === 'sage' ? (isRtl ? 'الأخضر المريمي' : 'Sage Green') : heroColorway === 'white' ? (isRtl ? 'الأبيض المطفي' : 'Matte White') : (isRtl ? 'الأسود الفاحم' : 'Matte Black')} · 900 m²
                     </div>
                   </div>
@@ -184,42 +184,42 @@ export const HomePage: React.FC = () => {
       <section className="border-y border-stone-200/80 bg-white py-10 px-4 sm:px-6 lg:px-8 shadow-xs">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-start">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-3.5">
-            <div className="w-10 h-10 rounded-full bg-[#F7F7F5] border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-brand-canvas border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
               <Droplets className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-[#181816]">{t('home.value1Title', 'رذاذ بارد بدون ماء')}</h4>
-              <p className="text-xs text-[#52524B] font-medium mt-1 leading-relaxed">{t('home.value1Desc', 'Waterless cold-air، عبير نقي 100% بدون حرارة.')}</p>
+              <h4 className="font-bold text-sm sm:text-base text-brand-ink">{t('home.value1Title', 'رذاذ بارد بدون ماء')}</h4>
+              <p className="text-xs text-brand-muted font-medium mt-1 leading-relaxed">{t('home.value1Desc', 'Waterless cold-air، عبير نقي 100% بدون حرارة.')}</p>
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-3.5">
-            <div className="w-10 h-10 rounded-full bg-[#F7F7F5] border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-brand-canvas border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
               <Wind className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-[#181816]">{t('home.value2Title', 'تغطية حتى 900 م²')}</h4>
-              <p className="text-xs text-[#52524B] font-medium mt-1 leading-relaxed">{t('home.value2Desc', 'انتشار متوازن ومثالي للمنازل الفسيحة والشركات.')}</p>
+              <h4 className="font-bold text-sm sm:text-base text-brand-ink">{t('home.value2Title', 'تغطية حتى 900 م²')}</h4>
+              <p className="text-xs text-brand-muted font-medium mt-1 leading-relaxed">{t('home.value2Desc', 'انتشار متوازن ومثالي للمنازل الفسيحة والشركات.')}</p>
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-3.5">
-            <div className="w-10 h-10 rounded-full bg-[#F7F7F5] border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-brand-canvas border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
               <Wifi className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-[#181816]">{t('home.value3Title', 'تحكم وجدولة ذكية')}</h4>
-              <p className="text-xs text-[#52524B] font-medium mt-1 leading-relaxed">{t('home.value3Desc', 'برمجة أوقات الرش والشدة من التطبيق بسهولة.')}</p>
+              <h4 className="font-bold text-sm sm:text-base text-brand-ink">{t('home.value3Title', 'تحكم وجدولة ذكية')}</h4>
+              <p className="text-xs text-brand-muted font-medium mt-1 leading-relaxed">{t('home.value3Desc', 'برمجة أوقات الرش والشدة من التطبيق بسهولة.')}</p>
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-3.5">
-            <div className="w-10 h-10 rounded-full bg-[#F7F7F5] border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-brand-canvas border border-stone-200 text-brand-sage flex items-center justify-center shrink-0">
               <Volume2 className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-sm sm:text-base text-[#181816]">{t('home.value4Title', 'همس هادئ < 25 dB')}</h4>
-              <p className="text-xs text-[#52524B] font-medium mt-1 leading-relaxed">{t('home.value4Desc', 'هدوء فائق لا يُشعر به أثناء النوم والعمل.')}</p>
+              <h4 className="font-bold text-sm sm:text-base text-brand-ink">{t('home.value4Title', 'همس هادئ < 25 dB')}</h4>
+              <p className="text-xs text-brand-muted font-medium mt-1 leading-relaxed">{t('home.value4Desc', 'هدوء فائق لا يُشعر به أثناء النوم والعمل.')}</p>
             </div>
           </div>
         </div>
@@ -229,10 +229,10 @@ export const HomePage: React.FC = () => {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#A67336] font-mono">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-amber font-mono">
               CURATED SELECTION · تشكيلة مختارة
             </span>
-            <h2 className="text-3xl sm:text-4xl font-light text-[#181816] mt-1.5">
+            <h2 className="text-3xl sm:text-4xl font-light text-brand-ink mt-1.5">
               {t('home.featuredTitle', 'المجموعة المميزة')}
             </h2>
           </div>
@@ -263,41 +263,41 @@ export const HomePage: React.FC = () => {
       {/* How It Works: Section Rhythm on Subtle Warm Surface */}
       <section className="py-18 bg-[#EFEFEA] border-t border-b border-stone-200/80 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center space-y-3 mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#A67336] font-mono">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-amber font-mono">
             {t('home.howItWorksEyebrow', 'طريقة العمل')}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-light text-[#181816]">
+          <h2 className="text-3xl sm:text-4xl font-light text-brand-ink">
             {t('home.howItWorksTitle', 'بساطة فائقة في ثلاث خطوات')}
           </h2>
         </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white rounded-2xl p-8 text-start space-y-4 shadow-sm border border-stone-200/90 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-[#FDF6ED] border border-[#A67336]/20 text-[#A67336] font-sans font-bold text-lg flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-brand-amber-light border border-brand-amber/20 text-brand-amber font-sans font-bold text-lg flex items-center justify-center">
               1
             </div>
-            <h3 className="text-lg font-bold text-[#181816]">{t('home.step1Title', 'أضف الزيت العطري')}</h3>
-            <p className="text-sm text-[#52524B] leading-relaxed font-normal">
+            <h3 className="text-lg font-bold text-brand-ink">{t('home.step1Title', 'أضف الزيت العطري')}</h3>
+            <p className="text-sm text-brand-muted leading-relaxed font-normal">
               {t('home.step1Desc', 'ضع الزيت العطري النقي مباشرة في الخزان دون إضافة قطرة ماء واحدة.')}
             </p>
           </div>
 
           <div className="bg-white rounded-2xl p-8 text-start space-y-4 shadow-sm border border-stone-200/90 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-[#FDF6ED] border border-[#A67336]/20 text-[#A67336] font-sans font-bold text-lg flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-brand-amber-light border border-brand-amber/20 text-brand-amber font-sans font-bold text-lg flex items-center justify-center">
               2
             </div>
-            <h3 className="text-lg font-bold text-[#181816]">{t('home.step2Title', 'اضبط التوقيت والشدة')}</h3>
-            <p className="text-sm text-[#52524B] leading-relaxed font-normal">
+            <h3 className="text-lg font-bold text-brand-ink">{t('home.step2Title', 'اضبط التوقيت والشدة')}</h3>
+            <p className="text-sm text-brand-muted leading-relaxed font-normal">
               {t('home.step2Desc', 'حدد جدول العمل المناسب لمساحتك ومستوى الكثافة عبر التطبيق أو الأزرار.')}
             </p>
           </div>
 
           <div className="bg-white rounded-2xl p-8 text-start space-y-4 shadow-sm border border-stone-200/90 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-full bg-[#FDF6ED] border border-[#A67336]/20 text-[#A67336] font-sans font-bold text-lg flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-brand-amber-light border border-brand-amber/20 text-brand-amber font-sans font-bold text-lg flex items-center justify-center">
               3
             </div>
-            <h3 className="text-lg font-bold text-[#181816]">{t('home.step3Title', 'تنفس النقاء والهدوء')}</h3>
-            <p className="text-sm text-[#52524B] leading-relaxed font-normal">
+            <h3 className="text-lg font-bold text-brand-ink">{t('home.step3Title', 'تنفس النقاء والهدوء')}</h3>
+            <p className="text-sm text-brand-muted leading-relaxed font-normal">
               {t('home.step3Desc', 'جزيئات معلقة مجهرية تنشر العبير بهدوء تام دون أي رطوبة على الأثاث.')}
             </p>
           </div>
@@ -307,57 +307,57 @@ export const HomePage: React.FC = () => {
       {/* Customer Testimonials: Elevated White Cards with Amber Star Rating */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center space-y-2 mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#A67336] font-mono">
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-amber font-mono">
             VERIFIED EXPERIENCES · تجارب حقيقية
           </span>
-          <h2 className="text-3xl sm:text-4xl font-light text-[#181816]">
+          <h2 className="text-3xl sm:text-4xl font-light text-brand-ink">
             {t('home.testimonialsTitle', 'ما يقوله عملاؤنا في ليبيا')}
           </h2>
-          <p className="text-sm text-[#52524B] font-medium">{t('home.testimonialsSubtitle', 'تجارب حقيقية من منازل ومكاتب وفنادق استثنائية')}</p>
+          <p className="text-sm text-brand-muted font-medium">{t('home.testimonialsSubtitle', 'تجارب حقيقية من منازل ومكاتب وفنادق استثنائية')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl p-7 space-y-4 border border-stone-200/90 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex gap-1 text-[#A67336]">
+            <div className="flex gap-1 text-brand-amber">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#A67336] text-[#A67336]" />
+                <Star key={i} className="w-4 h-4 fill-brand-amber text-brand-amber" />
               ))}
             </div>
-            <p className="text-sm text-[#181816] leading-relaxed font-normal">
+            <p className="text-sm text-brand-ink leading-relaxed font-normal">
               {t('home.test1Text', '"غيّر الجهاز من انطباع زوار المعرض تماماً، يلاحظ الجميع الرائحة النقية والراقية بمجرد الدخول."')}
             </p>
-            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-[#52524B] font-medium">
-              <span className="font-bold text-[#181816]">{t('home.test1Author', 'ليلى · استوديو تصميم داخلي (طرابلس)')}</span>
+            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-brand-muted font-medium">
+              <span className="font-bold text-brand-ink">{t('home.test1Author', 'ليلى · استوديو تصميم داخلي (طرابلس)')}</span>
               <span className="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border border-emerald-200/60">{t('common.verifiedBuyer', 'شراء مؤكد')}</span>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-7 space-y-4 border border-stone-200/90 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex gap-1 text-[#A67336]">
+            <div className="flex gap-1 text-brand-amber">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#A67336] text-[#A67336]" />
+                <Star key={i} className="w-4 h-4 fill-brand-amber text-brand-amber" />
               ))}
             </div>
-            <p className="text-sm text-[#181816] leading-relaxed font-normal">
+            <p className="text-sm text-brand-ink leading-relaxed font-normal">
               {t('home.test2Text', '"تحفة فنية حقيقية، صامت تماماً والجدولة الذكية تجعل المنزل معطراً قبل عودتي من العمل."')}
             </p>
-            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-[#52524B] font-medium">
-              <span className="font-bold text-[#181816]">{t('home.test2Author', 'عمر · فيلا خاصة (بنغازي)')}</span>
+            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-brand-muted font-medium">
+              <span className="font-bold text-brand-ink">{t('home.test2Author', 'عمر · فيلا خاصة (بنغازي)')}</span>
               <span className="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border border-emerald-200/60">{t('common.verifiedBuyer', 'شراء مؤكد')}</span>
             </div>
           </div>
 
           <div className="bg-white rounded-2xl p-7 space-y-4 border border-stone-200/90 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex gap-1 text-[#A67336]">
+            <div className="flex gap-1 text-brand-amber">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-[#A67336] text-[#A67336]" />
+                <Star key={i} className="w-4 h-4 fill-brand-amber text-brand-amber" />
               ))}
             </div>
-            <p className="text-sm text-[#181816] leading-relaxed font-normal">
+            <p className="text-sm text-brand-ink leading-relaxed font-normal">
               {t('home.test3Text', '"نشغل 6 أجهزة في صالات الاستقبال والغرف التنفيذية بسهولة تامة من تطبيق واحد."')}
             </p>
-            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-[#52524B] font-medium">
-              <span className="font-bold text-[#181816]">{t('home.test3Author', 'سارة · إدارة ضيافة (مصراتة)')}</span>
+            <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-brand-muted font-medium">
+              <span className="font-bold text-brand-ink">{t('home.test3Author', 'سارة · إدارة ضيافة (مصراتة)')}</span>
               <span className="text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border border-emerald-200/60">{t('common.verifiedBuyer', 'شراء مؤكد')}</span>
             </div>
           </div>
@@ -370,7 +370,7 @@ export const HomePage: React.FC = () => {
           <div className="absolute right-0 top-0 w-96 h-96 rounded-full bg-radial from-[#717E57]/20 to-transparent pointer-events-none" />
           
           <div className="relative z-10 max-w-xl space-y-4">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#A67336] font-mono">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-amber font-mono">
               {t('home.brandBandEyebrow', 'تناغم العطر مع التصميم')}
             </span>
             <h2 className="text-3xl sm:text-4xl font-light leading-snug text-white">
@@ -382,7 +382,7 @@ export const HomePage: React.FC = () => {
             <div className="pt-2">
               <Link
                 to="/products"
-                className="inline-block px-8 py-3.5 rounded-full bg-white hover:bg-stone-100 text-[#181816] font-bold text-sm transition-all shadow-md active:scale-95"
+                className="inline-block px-8 py-3.5 rounded-full bg-white hover:bg-stone-100 text-brand-ink font-bold text-sm transition-all shadow-md active:scale-95"
               >
                 {t('home.brandBandCta', 'اكتشف المجموعة الكاملة')}
               </Link>
@@ -394,10 +394,10 @@ export const HomePage: React.FC = () => {
       {/* Newsletter Signup: Clean Layered Card */}
       <section className="border-t border-stone-200/80 bg-white py-14 px-4 text-center">
         <div className="max-w-md mx-auto space-y-3">
-          <h3 className="text-2xl font-light text-[#181816]">
+          <h3 className="text-2xl font-light text-brand-ink">
             {isRtl ? 'ابقَ على تواصل مع أودورا' : 'Stay Connected with Odora'}
           </h3>
-          <p className="text-xs text-[#52524B] font-medium leading-relaxed">
+          <p className="text-xs text-brand-muted font-medium leading-relaxed">
             {isRtl
               ? 'انضم لنشرتنا البريدية لتصلك العروض الحصرية وإصدارات العطور الجديدة أولاً بأول.'
               : 'Subscribe to receive private updates, new fragrance releases, and seasonal offers.'}
@@ -416,11 +416,11 @@ export const HomePage: React.FC = () => {
                 placeholder={isRtl ? 'أدخل بريدك الإلكتروني...' : 'Enter your email...'}
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="flex-1 px-4 py-2.5 text-xs border border-stone-300 rounded-full focus:outline-none focus:border-brand-sage bg-white text-[#181816] shadow-xs"
+                className="flex-1 px-4 py-2.5 text-xs border border-stone-300 rounded-full focus:outline-none focus:border-brand-sage bg-white text-brand-ink shadow-xs"
               />
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-[#181816] hover:bg-stone-800 text-white rounded-full text-xs font-bold transition-colors shrink-0 shadow-sm active:scale-95"
+                className="px-6 py-2.5 bg-brand-ink hover:bg-stone-800 text-white rounded-full text-xs font-bold transition-colors shrink-0 shadow-sm active:scale-95"
               >
                 {isRtl ? 'اشتراك' : 'Subscribe'}
               </button>

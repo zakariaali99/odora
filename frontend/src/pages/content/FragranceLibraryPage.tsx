@@ -94,7 +94,7 @@ const FRAGRANCES: FragranceProfile[] = [
       baseAr: 'الفانيليا المدخنة، الباتشولي، أخشاب دافئة',
       baseEn: 'Smoked Vanilla, Patchouli, Rich Woods'
     },
-    image: '/photos/diffuser_black_office.png'
+    image: '/products/oil-forest-sage.png'
   },
   {
     id: 'citrus-breeze',
@@ -116,7 +116,7 @@ const FRAGRANCES: FragranceProfile[] = [
       baseAr: 'خشب الأرز الفاتح، العنبر الأبيض',
       baseEn: 'Blonde Cedar, Clean Amber'
     },
-    image: '/photos/diffuser_sage_closeup.png'
+    image: '/products/oil-cotton-linen.png'
   }
 ];
 

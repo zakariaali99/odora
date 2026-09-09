@@ -76,7 +76,7 @@ export const AddressesPage: React.FC = () => {
         {addresses.map((addr) => (
           <div key={addr.id} className="odora-card p-6 bg-white border border-stone-200 shadow-sm space-y-3 relative">
             {addr.is_default && (
-              <span className="absolute top-4 end-4 px-2.5 py-0.5 rounded-full bg-brand-pale/40 text-brand-sage border border-brand-sage/30 text-[11px] font-bold">
+              <span className="absolute top-4 end-4 px-2.5 py-0.5 rounded-full bg-brand-pale/60 text-brand-sage-dark border border-brand-sage/40 text-[11px] font-bold">
                 {language === 'ar' ? 'العنوان الافتراضي' : 'Default'}
               </span>
             )}

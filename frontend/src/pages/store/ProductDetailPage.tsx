@@ -203,7 +203,7 @@ export const ProductDetailPage: React.FC = () => {
                 {product.final_price} {t('common.currency', 'د.ل')}
               </span>
               {product.has_discount && (
-                <span className="text-lg text-stone-400 line-through font-sans">
+                <span className="text-lg text-stone-500 line-through font-sans">
                   {product.price} {t('common.currency', 'د.ل')}
                 </span>
               )}

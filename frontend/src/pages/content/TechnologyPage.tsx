@@ -81,7 +81,7 @@ export const TechnologyPage: React.FC = () => {
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-brand-pale/50 text-brand-sage flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-stone-200">
+              <div className="w-8 h-8 rounded-full bg-brand-pale text-brand-olive flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-brand-sage/30">
                 1
               </div>
               <div>
@@ -95,7 +95,7 @@ export const TechnologyPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-brand-pale/50 text-brand-sage flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-stone-200">
+              <div className="w-8 h-8 rounded-full bg-brand-pale text-brand-olive flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-brand-sage/30">
                 2
               </div>
               <div>
@@ -109,7 +109,7 @@ export const TechnologyPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-brand-pale/50 text-brand-sage flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-stone-200">
+              <div className="w-8 h-8 rounded-full bg-brand-pale text-brand-olive flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-brand-sage/30">
                 3
               </div>
               <div>
@@ -123,7 +123,7 @@ export const TechnologyPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-brand-pale/50 text-brand-sage flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-stone-200">
+              <div className="w-8 h-8 rounded-full bg-brand-pale text-brand-olive flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 border border-brand-sage/30">
                 4
               </div>
               <div>
@@ -182,7 +182,7 @@ export const TechnologyPage: React.FC = () => {
             <thead>
               <tr className="border-b border-stone-200 text-xs uppercase font-bold text-brand-muted">
                 <th className="py-3 px-4 text-start">{isRtl ? 'المعيار' : 'Feature'}</th>
-                <th className="py-3 px-4 text-start bg-brand-pale/40 text-brand-sage font-bold rounded-t-xl">{isRtl ? 'أودورا A316' : 'Odora A316'}</th>
+                <th className="py-3 px-4 text-start bg-brand-pale/60 text-brand-sage-dark font-bold rounded-t-xl">{isRtl ? 'أودورا A316' : 'Odora A316'}</th>
                 <th className="py-3 px-4 text-start">{isRtl ? 'فواحات الماء المائية' : 'Ultrasonic Water'}</th>
                 <th className="py-3 px-4 text-start">{isRtl ? 'بخاخات الرذاذ الجوي' : 'Aerosol Sprays'}</th>
                 <th className="py-3 px-4 text-start">{isRtl ? 'الشموع المعطرة' : 'Scented Candles'}</th>
@@ -192,7 +192,7 @@ export const TechnologyPage: React.FC = () => {
               {comparisonData.map((row, idx) => (
                 <tr key={idx} className="hover:bg-stone-50 transition">
                   <td className="py-4 px-4 font-bold text-brand-ink">{row.feature}</td>
-                  <td className="py-4 px-4 bg-brand-pale/20 font-bold text-brand-sage">{row.odora}</td>
+                  <td className="py-4 px-4 bg-brand-pale/30 font-bold text-brand-sage-dark">{row.odora}</td>
                   <td className="py-4 px-4 text-brand-muted">{row.traditional}</td>
                   <td className="py-4 px-4 text-brand-muted">{row.aerosol}</td>
                   <td className="py-4 px-4 text-brand-muted">{row.candle}</td>

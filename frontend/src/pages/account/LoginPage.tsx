@@ -101,14 +101,14 @@ export const LoginPage: React.FC = () => {
 
         {/* Quick Demo Credentials Assistant */}
         <div className="pt-4 border-t border-stone-100 text-xs space-y-2">
-          <span className="text-stone-400 block text-[11px]">
+          <span className="text-stone-600 block text-[11px] font-medium">
             {language === 'ar' ? 'بيانات تجريبية سريعة:' : 'Quick Demo Credentials:'}
           </span>
           <div className="flex gap-2">
             <button
               type="button"
               onClick={() => handleQuickFill('admin@odora.ly', 'odora2026!')}
-              className="flex-1 py-1.5 px-2 bg-brand-pale/40 hover:bg-brand-pale text-brand-sage rounded-lg text-[11px] font-bold transition-colors border border-stone-200"
+              className="flex-1 py-1.5 px-2 bg-brand-pale/60 hover:bg-brand-pale text-brand-sage-dark rounded-lg text-[11px] font-bold transition-colors border border-stone-200"
             >
               {language === 'ar' ? 'حساب الإدارة (Admin)' : 'Admin Login'}
             </button>
@@ -124,7 +124,7 @@ export const LoginPage: React.FC = () => {
 
         <div className="text-center text-xs text-brand-muted font-medium">
           <span>{language === 'ar' ? 'ليس لديك حساب بعد؟ ' : "Don't have an account? "}</span>
-          <Link to="/register" className="font-bold text-brand-sage hover:underline">
+          <Link to="/register" className="font-bold text-brand-sage-dark hover:underline">
             {t('nav.register', 'إنشاء حساب جديد')}
           </Link>
         </div>

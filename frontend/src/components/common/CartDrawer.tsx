@@ -51,7 +51,7 @@ export const CartDrawer: React.FC = () => {
             </div>
             <button
               onClick={closeCart}
-              className="p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+              className="p-2 rounded-full text-stone-600 hover:text-stone-900 hover:bg-stone-100 transition-colors"
               aria-label={t('common.close')}
             >
               <X className="w-5 h-5" />
@@ -132,7 +132,7 @@ export const CartDrawer: React.FC = () => {
 
                   <button
                     onClick={() => removeItem(item.id)}
-                    className="p-1.5 text-stone-400 hover:text-red-600 transition-colors"
+                    className="p-1.5 text-stone-500 hover:text-red-600 transition-colors"
                     aria-label={t('common.delete')}
                   >
                     <Trash2 className="w-4 h-4" />

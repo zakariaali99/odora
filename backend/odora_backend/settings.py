@@ -24,7 +24,7 @@ if not SECRET_KEY:
     else:
         raise RuntimeError("CRITICAL SECURITY ERROR: DJANGO_SECRET_KEY environment variable must be set in production!")
 
-allowed_hosts_raw = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0')
+allowed_hosts_raw = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0,testserver')
 ALLOWED_HOSTS = [h.strip() for h in allowed_hosts_raw.split(',') if h.strip()]
 
 INSTALLED_APPS = [
