@@ -138,23 +138,24 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'rating': Decimal('4.85'),
                 'reviews_count': 214,
+                'main_image': 'products/diffuser-a316-sage.png',
             }
         )
         if d_created or not diffuser.colorways.exists():
             ProductColorway.objects.get_or_create(
                 product=diffuser,
                 name='Sage Green',
-                defaults={'name_ar': 'أخضر مريمي', 'hex_code': '#919C7A', 'is_default': True}
+                defaults={'name_ar': 'أخضر مريمي', 'hex_code': '#919C7A', 'is_default': True, 'image': 'products/diffuser-sage-clean.png'}
             )
             ProductColorway.objects.get_or_create(
                 product=diffuser,
                 name='Matte White',
-                defaults={'name_ar': 'أبيض مطفي', 'hex_code': '#E8E3DA', 'is_default': False}
+                defaults={'name_ar': 'أبيض مطفي', 'hex_code': '#E8E3DA', 'is_default': False, 'image': 'products/diffuser-white-clean.png'}
             )
             ProductColorway.objects.get_or_create(
                 product=diffuser,
                 name='Matte Black',
-                defaults={'name_ar': 'أسود فاحم', 'hex_code': '#1C1C1A', 'is_default': False}
+                defaults={'name_ar': 'أسود فاحم', 'hex_code': '#1C1C1A', 'is_default': False, 'image': 'products/diffuser-black-clean.png'}
             )
 
         # Product 2: Forest Sage Fragrance Oil
@@ -175,6 +176,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'rating': Decimal('4.90'),
                 'reviews_count': 98,
+                'main_image': 'products/oil-forest-sage.png',
             }
         )
         ScentNotePyramid.objects.get_or_create(
@@ -209,6 +211,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'rating': Decimal('4.75'),
                 'reviews_count': 64,
+                'main_image': 'products/oil-cotton-linen.png',
             }
         )
         ScentNotePyramid.objects.get_or_create(
@@ -243,6 +246,7 @@ class Command(BaseCommand):
                 'is_featured': True,
                 'rating': Decimal('5.00'),
                 'reviews_count': 52,
+                'main_image': 'products/bundle-signature.png',
             }
         )
 

@@ -31,6 +31,16 @@
 ### 6. Component & spacing consistency
 - Audit cards, inputs, chips, spacing scale, radii, and empty/loading/error states for consistency and polish across ALL pages.
 
+### 7. Migrate the frontend to TypeScript
+- Convert the web store (`frontend/`) from plain JS/JSX to **TypeScript (`.tsx`)** — types on props, API responses (`services/api`), and store state.
+- **Why:** type safety catches whole classes of bugs before runtime (e.g. the `useEffect is not defined` crash the JS build shipped).
+- **DoD:** `tsc --noEmit` passes; API responses and component props are typed.
+
+### 8. Replace the custom language store with `react-i18next`
+- Remove the hand-rolled `useLanguageStore` translations dict. Adopt **`react-i18next`** with `ar`/`en` resource files, `dir`/`lang` on `<html>`, and logical CSS for direction.
+- Every user-facing string comes from i18n (no hardcoded Arabic). Supersedes `fix-2026-09-08-dual-language.md`'s "centralize strings" step — do it via react-i18next.
+- **DoD:** switching AR/EN translates ALL text and lays out correctly in both directions; no hardcoded strings; no mixed/misaligned state.
+
 ## Process
 - **Redo the design language FIRST** (background/surface/contrast/accent tokens), then re-apply page by page. Don't polish pages on a broken foundation.
 - Re-check against `03-design-elevation.md` (depth/texture/imagery) once the base is fixed.
@@ -43,4 +53,6 @@
 - [ ] Sage is an accent; a purposeful secondary accent exists.
 - [ ] Real imagery everywhere (no moodboard collage).
 - [ ] Consistent components + states across every page.
+- [ ] Frontend is TypeScript; `tsc --noEmit` passes.
+- [ ] Language is via react-i18next; AR/EN both fully translate and lay out correctly.
 - [ ] Owner looks at it and it reads clean, legible, premium — not tiring.

@@ -1,3 +1,5 @@
+> ✅ APPLIED 2026-09-08 (settings.py): DEBUG default False, SECRET_KEY raises in prod, ALLOWED_HOSTS from env, CORS_ALLOW_ALL_ORIGINS=False + allow-list, HSTS/secure-cookies gated on prod. Verify before deploy.
+
 # FIX PLAN — Backend security (before any deploy)
 
 > **Type:** PLAN. Source: `reviews/review-2026-09-08-full.md`. All are fine for LOCAL dev; they MUST be locked before production/staging.
