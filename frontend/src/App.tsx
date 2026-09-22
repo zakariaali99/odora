@@ -95,7 +95,7 @@ export const App: React.FC = () => {
 
   return (
     <div 
-      className={`min-h-screen flex flex-col bg-brand-cream text-brand-ink selection:bg-brand-sage selection:text-white ${
+      className={`min-h-screen flex flex-col bg-brand-canvas text-brand-ink selection:bg-brand-olive selection:text-brand-surface ${
         isRtl ? 'font-arabic' : 'font-sans'
       }`}
       dir={dir}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error": "#ba1a1a", "on-tertiary-container": "#2c312a", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "on-secondary-fixed-variant": "#3e4b25", "surface-variant": "#e6e2de", "on-tertiary": "#ffffff", "on-surface": "#1c1c19", "inverse-primary": "#c0cba6", "outline": "#76786e", "primary-fixed-dim": "#c0cba6", "surface": "#fdf9f5", "surface-tint": "#586244", "tertiary": "#5b6057", "tertiary-fixed-dim": "#c3c8be", "surface-container-low": "#f7f3ef", "tertiary-fixed": "#dfe4d9", "on-primary-fixed": "#161e07", "on-surface-variant": "#46483f", "on-error-container": "#93000a", "surface-container-lowest": "#ffffff", "surface-container-high": "#ebe7e4", "error-container": "#ffdad6", "secondary-fixed-dim": "#bccd9a", "on-secondary": "#ffffff", "on-primary": "#ffffff", "surface-bright": "#fdf9f5", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "on-tertiary-fixed": "#181d16", "surface-dim": "#ddd9d6", "on-secondary-container": "#59683e", "outline-variant": "#c6c7bc", "secondary-container": "#d5e6b2", "primary": "#586244", "primary-container": "#919c7a", "on-primary-container": "#2a3319", "inverse-on-surface": "#f4f0ec", "primary-fixed": "#dce7c1", "inverse-surface": "#31302e", "on-primary-fixed-variant": "#404a2e", "on-secondary-fixed": "#131f01", "tertiary-container": "#94998f", "secondary": "#55633a", "on-background": "#1c1c19" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-md": "1rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "margin-desktop": "3.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "gutter-desktop": "2rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "display-lg": ["Outfit"], "label-md": ["Outfit"], "display-lg-mobile": ["Outfit"], "headline-md": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-lg": ["Outfit"], "headline-lg": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-sm": ["Outfit"], "headline-lg-mobile": ["Outfit"], "label-sm": ["Outfit"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0.015em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span><h1 class="font-headline-sm text-headline-sm font-medium tracking-tight text-on-surface uppercase">Devices</h1></div><div class="flex items-center gap-space-sm"><button class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-95"><span class="material-symbols-outlined text-[22px]">nest_remote</span></button><div class="w-8 h-8 rounded-full overflow-hidden p-0.5 bg-surface-container-high"><img alt="Profile" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UysQeN0AJDBUoXjhmEISAJPVc9w-SZqkZOZ7cUFBopM2lFTz8ZfXeUSlkWB_zt6PJ88tqc0X8qmgAkm8f-vA4jCptbGy2EH7gA1P6zqx-hZioYuSYVI18SsKVjOGBH1CS0pLI0LfhdFwQ6GQD_WZZnnDMOlHSjy61ue6INyMA1aGr3YwDx7HmXDmE887uLG2RvIhqBBu7Yf3G6kDsydZcnk2LhUwnnXzK28esV6PjqLzl_sOYVojILmkYkGmbwOaHR6I2kWTqD4Q"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface"><div class="flex flex-col w-full px-margin space-y-space-lg">
+<!-- Subtle Architectural Header & Pair Action -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-tertiary">Ecosystem</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight font-medium">Connected Diffusers</h2>
+</div>
+<button class="flex items-center gap-1.5 px-4 h-11 rounded-full bg-primary text-on-primary shadow-sm active:scale-95 transition-transform" id="pairBtn">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="font-label-md text-label-md font-semibold tracking-wide">Pair Device</span>
+</button>
+</div>
+<!-- Search / Filter Pill and View Mode Segmented Controls -->
+<div class="flex items-center gap-space-sm mt-1">
+<div class="relative flex-1 flex items-center bg-surface-container rounded-full px-3.5 h-11">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mr-2">search</span>
+<input class="w-full bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant" placeholder="Search rooms or scents..." type="text"/>
+</div>
+<div class="flex bg-surface-container rounded-full p-1 h-11 items-center">
+<button class="px-3.5 h-9 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md font-medium shadow-sm transition-all" id="tabActive">
+          Active (3)
+        </button>
+<button class="px-3 h-9 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-all" id="tabPreview">
+          New Room
+        </button>
+</div>
+</div>
+</div>
+<!-- Main View Container: Active Diffusers List -->
+<div class="flex flex-col space-y-space-lg" id="activeListView">
+<!-- Group: Living Area -->
+<section class="flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h3 class="font-label-lg text-label-lg tracking-wider uppercase text-on-surface font-semibold">Living Area</h3>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">2 Devices</span>
+</div>
+<!-- Card 1: Living Room Diffuser (Sage Green - Active) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm transition-all duration-300 relative overflow-hidden">
+<div class="flex items-start gap-space-md">
+<!-- Thumbnail hardware image placeholder with prompt matching provided image style -->
+<div class="w-20 h-24 rounded-DEFAULT bg-surface-container-low overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A sculptural minimal cylindrical matte sage green electronic diffuser standing on an organic pale travertine stone slab beside delicate dried botanical stems in a ceramic vase. Soft diffused morning sunlight, calm sanctuary minimalist interior aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoBpze4c6tKeN64c-1IV-D0vh_ciDsrXhfPgKoJdjZUCPwmloIiG7OMon9UkoPqqPhF8nWNopPBkBIq48VxT9bbi3oKbM4mEfZ5F209orpC19YVuZX9kHQVCA4sYXtcT1akfBe1fbClvncKRoyLlkxumU3kWnIY9ietgekJGWD7GjPnApKXfYF0sRHYg-rmr6venO5XecJvgP_7Edg48v2wmLB27JodHjhVfc0tBBe6S3jtJ0jEekd"/>
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-sm text-[9px] uppercase tracking-wider text-on-surface font-semibold">Live</span>
+</div>
+</div>
+<!-- Device Details -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Odora Air 01</span>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">bluetooth</span>
+<span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-medium text-on-surface truncate mt-0.5">Living Room Diffuser</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-primary-container inline-block"></span>
+              Sage Green • Cotton Linen
+            </p>
+<!-- Chamber Capacity Pill Gauge -->
+<div class="mt-2.5 flex items-center justify-between bg-surface-container-low px-2.5 py-1.5 rounded-full">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[15px]">opacity</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Oil 68%</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Level 6 Mist</span>
+</div>
+</div>
+</div>
+<!-- Inline Tactile Control Bar -->
+<div class="flex items-center justify-between pt-1 border-t border-surface-container/60 mt-1">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[14px]">airwave</span>
+<span>Active Misting</span>
+</button>
+<span class="font-label-sm text-label-sm text-tertiary">Quiet Mode</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center active:scale-90 transition-transform" data-toggle="living">
+<span class="material-symbols-outlined text-[20px] text-primary">power_settings_new</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Reading Nook (Matte White - Scheduled) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm transition-all duration-300">
+<div class="flex items-start gap-space-md">
+<div class="w-20 h-24 rounded-DEFAULT bg-surface-container-low overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Minimal matte white modern smart cylinder diffuser resting on warm white stone shelf. Soft neutral lighting, high-end editorial Scandinavian aesthetic with pale limestone and warm earth tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIP9cwbtolE0QyYG37UTQoofiVggtMAK3SVar7ipLaWbXtQOL6O6Z_v87DxkHP2_CRiEYcfnEez3i93e_P0OAIa5FOX_zUnv4LvkDimuHI8w6POSt1URFhP33DIJXl0VaA6Wbp-haZvID2QEBuzIucR3wUg3I41WZ4Up9cRTkigdqgu6Wt7YFImSctGHR3MN_i17NTaKWsXpa6ysdiwp6LQTxaNQbimBx-4_mkxit7NsIKYqydzGnK"/>
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-full bg-surface-container-lowest/80 backdrop-blur-sm">
+<span class="font-label-sm text-[9px] uppercase tracking-wider text-tertiary font-medium">In 45m</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Odora Air 01</span>
+<span class="material-symbols-outlined text-[16px] text-primary">bluetooth</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-medium text-on-surface truncate mt-0.5">Reading Nook</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-surface-variant inline-block"></span>
+              Matte White • Forest Sage
+            </p>
+<div class="mt-2.5 flex items-center justify-between bg-surface-container-low px-2.5 py-1.5 rounded-full">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[15px]">water_drop</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Oil 92%</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Level 3 Preset</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container/60 mt-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+<span class="font-label-sm text-label-sm">Scheduled: 8:00 PM Calm Wind</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center active:scale-90 transition-transform" data-toggle="reading">
+<span class="material-symbols-outlined text-[20px]">power_settings_new</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Group: Private Spaces -->
+<section class="flex flex-col space-y-space-sm pt-2">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<h3 class="font-label-lg text-label-lg tracking-wider uppercase text-on-surface font-semibold">Private Spaces</h3>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">1 Device</span>
+</div>
+<!-- Card 3: Master Bedroom (Matte Black - Low Oil Warning) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm transition-all duration-300">
+<div class="flex items-start gap-space-md">
+<div class="w-20 h-24 rounded-DEFAULT bg-surface-container-low overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Matte black cylinder fragrance aroma diffuser placed on a dark walnut bedside table. Minimal shadows, elegant bedroom interior luxury atmosphere, moody warm ambient light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTjMMdjLXOraTROb4sucUhLlDmLsdAunoW94X_J0pgePVbnzSmC7pnRzCx3kwtwRJcBuELa5Dp89canptdn4AYtf6EAFhKXkqPhl4AgbwHgsqXmDDONoAaRREfYAgmryJ_cSJnsvSgQMCtVfgqhX3S2uESdRXYVAZzoUonIEHm_nRb3NrE7_RzzKcKK5r2_d4jYGwO6rOgo-mpLiBUQ-MUeV-va3yJv6cDjJk3_7OMAVHQGn5mwKv"/>
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-full bg-error-container/90 text-on-error-container backdrop-blur-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[11px]">warning</span>
+<span class="font-label-sm text-[9px] uppercase tracking-wider font-semibold">24%</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Odora Air 01</span>
+<span class="material-symbols-outlined text-[16px] text-primary">bluetooth</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm font-medium text-on-surface truncate mt-0.5">Master Bedroom</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-inverse-surface inline-block"></span>
+              Matte Black • Santal Mist
+            </p>
+<div class="mt-2.5 flex items-center justify-between bg-error-container/30 px-2.5 py-1.5 rounded-full">
+<div class="flex items-center gap-1.5 text-on-error-container">
+<span class="material-symbols-outlined text-[15px]">oil_barrel</span>
+<span class="font-label-sm text-label-sm font-semibold">Low Oil • 24%</span>
+</div>
+<button class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-[11px] font-semibold active:scale-95 transition-transform shadow-xs">
+                Reorder
+              </button>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container/60 mt-1">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">bedtime</span>
+<span>Sleep Cycle (Silent)</span>
+</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center active:scale-90 transition-transform" data-toggle="bedroom">
+<span class="material-symbols-outlined text-[20px]">power_settings_new</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Quick Architectural Sensory Banner -->
+<div class="rounded-lg bg-secondary-fixed/40 p-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">nature</span>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg font-semibold text-on-secondary-fixed-variant">Synchronized Home Flow</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">All 3 units balance natural scent dispersion</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center text-on-surface active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Empty State / New Room Mode Preview Container (Hidden by default, toggled via tabs) -->
+<div class="hidden flex-col space-y-space-md" id="previewListView">
+<div class="bg-surface-container-lowest rounded-lg p-space-lg flex flex-col items-center text-center shadow-sm">
+<div class="w-20 h-20 rounded-full bg-secondary-fixed/60 flex items-center justify-center text-primary mb-space-sm">
+<span class="material-symbols-outlined text-[36px] animate-pulse">sensors</span>
+</div>
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-tertiary font-semibold">Bluetooth LE Discovery</span>
+<h3 class="font-headline-md text-headline-md font-medium text-on-surface mt-1">Ready to Discover Odora</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1">
+        Bring your Odora Air 01 within 2 meters. Tap the top brass capsule to broadcast proximity beacon.
+      </p>
+<!-- Step items in warm stone pills -->
+<div class="w-full flex flex-col gap-2 mt-space-md text-left">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-DEFAULT">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary font-label-sm text-center leading-6 font-semibold">1</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Power on Odora Air device</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-DEFAULT">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary font-label-sm text-center leading-6 font-semibold">2</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Automatic ultra-low energy sync</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-DEFAULT">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary font-label-sm text-center leading-6 font-semibold">3</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Assign room name &amp; fragrance note</span>
+</div>
+</div>
+<button class="mt-space-md w-full h-12 rounded-full bg-primary text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-sm" id="startScanBtn">
+<span class="material-symbols-outlined text-[18px]">bluetooth_searching</span>
+<span>Begin Pairing Scan</span>
+</button>
+</div>
+<!-- Scent Catalog Recommendation Tile -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-DEFAULT bg-surface-container-high overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Amber glass fragrance oil bottle with minimalist Odora label resting beside botanical eucalyptus leaves and soft textile on pale stone surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-ljbEZ1NpcjEY_D91VXma-Fyyq9f-0OjgFIkVRvj-eAV-cGbPL0B2-qsSGhAltLnPf8ZDPWrduWkVQvDOZHY0fielzvH8Q4XzLnYKPU9hBcIS5JZKn6s-CyfNgb3d2A9vSCNo4uj4oiJIGFrAThBfTB2o3rE8dS84KVYbeLbiqJ7s1ZvL0ZUTjytkW-2Ehjrr4dbH76ZevptAxeT2BUem0_o0PNL_UX78VnJf9T4WU2n51OwoMSPM"/>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Cartridge Refill</span>
+<h4 class="font-headline-sm text-headline-sm font-medium text-on-surface truncate">Cotton Linen Oil</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cold-pressed 10ml flacon</p>
+</div>
+<button class="px-3.5 h-9 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold active:scale-90 transition-transform">
+        Explore
+      </button>
+</div>
+</div>
+<!-- Interactive Pair Sheet Modal (Simulated) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-end justify-center" id="pairModal">
+<div class="w-full max-w-md bg-surface rounded-t-xl p-space-lg shadow-xl flex flex-col gap-space-md animate-in slide-in-from-bottom duration-300">
+<div class="w-12 h-1.5 rounded-full bg-surface-variant self-center mb-1"></div>
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Pairing Hub</span>
+<h3 class="font-headline-md text-headline-md font-medium text-on-surface">Found Devices Near You</h3>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface active:scale-90" id="closeModalBtn">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<div class="p-3 bg-surface-container-lowest rounded-DEFAULT flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-primary animate-pulse"></span>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface font-medium">Odora Air 01 (Studio)</p>
+<p class="font-body-sm text-body-sm text-tertiary">RSSI -42dBm • Ready</p>
+</div>
+</div>
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-semibold active:scale-95 transition-transform">
+            Connect
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Tab switching interaction
+  const tabActive = document.getElementById('tabActive');
+  const tabPreview = document.getElementById('tabPreview');
+  const activeListView = document.getElementById('activeListView');
+  const previewListView = document.getElementById('previewListView');
+
+  tabActive.addEventListener('click', () => {
+    tabActive.className = "px-3.5 h-9 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md font-medium shadow-sm transition-all";
+    tabPreview.className = "px-3 h-9 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-all";
+    activeListView.classList.remove('hidden');
+    previewListView.classList.add('hidden');
+    previewListView.classList.remove('flex');
+  });
+
+  tabPreview.addEventListener('click', () => {
+    tabPreview.className = "px-3.5 h-9 rounded-full bg-surface-container-lowest text-on-surface font-label-md text-label-md font-medium shadow-sm transition-all";
+    tabActive.className = "px-3 h-9 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-all";
+    activeListView.classList.add('hidden');
+    previewListView.classList.remove('hidden');
+    previewListView.classList.add('flex');
+  });
+
+  // Pairing Modal Interactions
+  const pairBtn = document.getElementById('pairBtn');
+  const startScanBtn = document.getElementById('startScanBtn');
+  const pairModal = document.getElementById('pairModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  function openModal() {
+    pairModal.classList.remove('hidden');
+    pairModal.classList.add('flex');
+  }
+
+  function closeModal() {
+    pairModal.classList.add('hidden');
+    pairModal.classList.remove('flex');
+  }
+
+  pairBtn.addEventListener('click', openModal);
+  if (startScanBtn) startScanBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+
+  // Power toggles feedback
+  document.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (btn.classList.contains('bg-primary')) {
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-surface-container');
+        icon.classList.remove('text-on-primary');
+        icon.classList.add('text-on-surface-variant');
+      } else {
+        btn.classList.remove('bg-surface-container', 'bg-surface-container-high');
+        btn.classList.add('bg-primary');
+        icon.classList.remove('text-on-surface-variant', 'text-primary');
+        icon.classList.add('text-on-primary');
+      }
+    });
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-8px_24px_rgba(35,40,33,0.04)]" data-active-classes="text-primary font-semibold"><div class="h-16 px-space-md flex items-center justify-around"><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="home" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">airwave</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Home</span></a><a aria-current="page" class="group flex flex-col items-center justify-center w-14 h-14 rounded-full transition-all duration-200 active:scale-90 text-primary font-semibold" data-path="devices" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">devices_other</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Devices</span></a><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="store" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">science</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Store</span></a><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="account" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">person</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Account</span></a></div></nav></body></html>

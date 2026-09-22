@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'primary-fixed-dim': '#c0cba6', 'on-primary-fixed': '#161e07', 'primary-container': '#919c7a', 'inverse-on-surface': '#f4f0ec', 'surface-dim': '#ddd9d6', 'outline-variant': '#c6c7bc', 'on-secondary': '#ffffff', 'inverse-primary': '#c0cba6', 'on-surface': '#1c1c19', 'surface-container': '#f1ede9', 'tertiary-fixed-dim': '#c3c8be', 'background': '#fdf9f5', 'on-secondary-fixed': '#131f01', 'inverse-surface': '#31302e', 'on-background': '#1c1c19', 'primary': '#586244', 'on-error': '#ffffff', 'on-secondary-fixed-variant': '#3e4b25', 'primary-fixed': '#dce7c1', 'tertiary-container': '#94998f', 'on-primary-container': '#2a3319', 'on-tertiary': '#ffffff', 'surface': '#fdf9f5', 'outline': '#76786e', 'secondary-container': '#d5e6b2', 'on-tertiary-fixed-variant': '#434840', 'surface-container-low': '#f7f3ef', 'on-primary-fixed-variant': '#404a2e', 'surface-container-high': '#ebe7e4', 'tertiary-fixed': '#dfe4d9', 'on-secondary-container': '#59683e', 'on-primary': '#ffffff', 'secondary-fixed': '#d8e9b5', 'surface-container-highest': '#e6e2de', 'secondary': '#55633a', 'on-tertiary-container': '#2c312a', 'tertiary': '#5b6057', 'surface-container-lowest': '#ffffff', 'error-container': '#ffdad6', 'surface-variant': '#e6e2de', 'error': '#ba1a1a', 'secondary-fixed-dim': '#bccd9a', 'surface-bright': '#fdf9f5', 'on-tertiary-fixed': '#181d16', 'on-surface-variant': '#46483f', 'surface-tint': '#586244', 'on-error-container': '#93000a' }, borderRadius: { DEFAULT: '1rem', lg: '2rem', xl: '3rem', full: '9999px' }, spacing: { 'gutter': '1rem', 'gutter-tablet': '1.5rem', 'space-xl': '2.5rem', 'margin-tablet': '2rem', 'margin-desktop': '3.5rem', 'space-md': '1rem', 'space-xs': '0.25rem', 'space-sm': '0.5rem', 'margin': '1.25rem', 'space-lg': '1.5rem', 'gutter-desktop': '2rem' }, fontFamily: { 'headline-sm': ['Outfit'], 'headline-lg-mobile': ['Outfit'], 'body-md': ['Plus Jakarta Sans'], 'label-sm': ['Outfit'], 'headline-lg': ['Outfit'], 'headline-md': ['Outfit'], 'body-sm': ['Plus Jakarta Sans'], 'display-lg': ['Outfit'], 'label-md': ['Outfit'], 'body-lg': ['Plus Jakarta Sans'], 'label-lg': ['Outfit'], 'display-lg-mobile': ['Outfit'] }, fontSize: { 'headline-sm': ['18px', { lineHeight: '26px', letterSpacing: '0.01em', fontWeight: '500' }], 'headline-lg-mobile': ['26px', { lineHeight: '34px', letterSpacing: '-0.01em', fontWeight: '400' }], 'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0.015em', fontWeight: '400' }], 'label-sm': ['10px', { lineHeight: '14px', letterSpacing: '0.14em', fontWeight: '600' }], 'headline-lg': ['32px', { lineHeight: '40px', letterSpacing: '-0.01em', fontWeight: '400' }], 'headline-md': ['22px', { lineHeight: '30px', letterSpacing: '0em', fontWeight: '500' }], 'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.02em', fontWeight: '400' }], 'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.02em', fontWeight: '400' }], 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.08em', fontWeight: '500' }], 'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0.01em', fontWeight: '400' }], 'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.04em', fontWeight: '600' }], 'display-lg-mobile': ['36px', { lineHeight: '44px', letterSpacing: '-0.015em', fontWeight: '400' }] } } } };</script><style>@layer base { html, body { margin: 0; padding: 0; min-height: 100%; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-full antialiased pt-safe pb-safe"><main class="flex-1 flex flex-col relative w-full bg-surface"><div class="flex flex-col w-full px-margin pb-8 space-y-6">
+<!-- Top Bar / Actions -->
+<div class="flex items-center justify-between pt-3">
+<div class="flex items-center space-x-2">
+<span class="font-headline-md text-headline-md tracking-tight text-primary font-normal">odora</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block mb-1"></span>
+</div>
+<button class="px-3 py-1.5 rounded-full text-on-surface-variant font-label-md text-label-md uppercase hover:text-on-surface transition-colors" id="skip-btn">
+      Skip
+    </button>
+</div>
+<!-- Main Showcase Container -->
+<div class="relative w-full bg-surface-container-low rounded-lg p-5 shadow-sm overflow-hidden flex flex-col items-center">
+<!-- Ambient Diffuser Glow Decoration -->
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-64 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Product Imagery Frame -->
+<div class="relative w-full h-80 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-opacity duration-500 ease-out" data-alt="Sculptural minimal matte sage green cylinder electronic diffuser standing serenely on a pale travertine stone slab, accompanied by an amber glass essential oil bottle labeled 'odora Forest Sage' and soft cedar branches in an artisanal ceramic vase. Soft daylight, warm alabaster sanctuary ambiance, editorial luxury interior." id="carousel-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3b2rtXWcVUeg10huSnZRrN_udSGmytwRorNdl_hhDQ5pJVSWFk-KiTx-pg0bPHBY9O3uhsg6_NC8KJzuj5CKc8XXHEMvyNX2gKqOxEvXFMGnS-GseDTNVLdobVHaa5c80WALvrHhFCTd-iij7u0Ysa3a6d6s5ZSJJnK_qDnTMMZtAXWQSiWiWRrKxREnMVx1xd-MNDLQ5by0G1uQvbYnTabLEyjXd92aa9m1gufB-q-PENtnm5NPM"/>
+<!-- Subtle Micro-mist Particle Badge -->
+<div class="absolute bottom-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center space-x-1.5 shadow-sm" id="tech-badge">
+<span class="material-symbols-outlined text-primary text-[18px]">air</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface" id="tech-badge-label">Cold Diffusion Active</span>
+</div>
+<div class="absolute top-3 right-3 bg-inverse-surface/80 text-inverse-on-surface px-2.5 py-1 rounded-full font-label-sm text-label-sm">
+<span id="step-counter">01</span> / 03
+      </div>
+</div>
+<!-- Carousel Narrative Content Area -->
+<div class="w-full text-center mt-6 px-1 flex flex-col items-center">
+<div class="inline-flex items-center space-x-1.5 px-3 py-0.5 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm mb-3">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span id="slide-tag">TECHNOLOGY • PURITY</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-normal tracking-tight min-h-[44px]" id="slide-title">
+        Atmosphere, Perfected.
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2.5 max-w-xs leading-relaxed min-h-[66px]" id="slide-desc">
+        Waterless cold-air micro-misting preserves uncompromised therapeutic botanicals without heat, breakdown, or dilution.
+      </p>
+<!-- Carousel Pagination Pill Indicators -->
+<div class="flex items-center justify-center space-x-2 mt-6" role="tablist">
+<button aria-label="Slide 1" class="carousel-dot h-2 w-8 rounded-full bg-primary-container transition-all duration-300" data-index="0"></button>
+<button aria-label="Slide 2" class="carousel-dot h-2 w-2 rounded-full bg-outline-variant/60 transition-all duration-300" data-index="1"></button>
+<button aria-label="Slide 3" class="carousel-dot h-2 w-2 rounded-full bg-outline-variant/60 transition-all duration-300" data-index="2"></button>
+</div>
+</div>
+</div>
+<!-- Sensory Attribute Quick Strip -->
+<div class="grid grid-cols-3 gap-2 py-1">
+<div class="bg-surface-container-low rounded-DEFAULT p-3 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1">spa</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider">100% PURE</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Zero dilution</span>
+</div>
+<div class="bg-surface-container-low rounded-DEFAULT p-3 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1">volume_off</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider">&lt; 18 dB</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Whisper silent</span>
+</div>
+<div class="bg-surface-container-low rounded-DEFAULT p-3 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1">schedule</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider">SMART BLE</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Circadian sync</span>
+</div>
+</div>
+<!-- Action Stack -->
+<div class="flex flex-col space-y-3 pt-2">
+<button class="w-full h-14 bg-inverse-surface hover:bg-inverse-surface/90 active:scale-[0.99] text-inverse-on-surface font-label-lg text-label-lg rounded-full shadow-md flex items-center justify-center space-x-2 transition-all" id="primary-cta">
+<span id="cta-label">Continue</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center space-x-6 py-1">
+<button class="font-label-md text-label-md text-outline hover:text-on-surface disabled:opacity-30 flex items-center space-x-1" disabled="" id="prev-btn">
+<span class="material-symbols-outlined text-[16px]">west</span>
+<span>Previous</span>
+</button>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">
+        Pair Diffuser Manual
+      </button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const slides = [
+      {
+        tag: "TECHNOLOGY • PURITY",
+        title: "Atmosphere, Perfected.",
+        desc: "Waterless cold-air micro-misting preserves uncompromised therapeutic botanicals without heat, breakdown, or dilution.",
+        badge: "Cold Diffusion Active",
+        icon: "air",
+        step: "01",
+        btnText: "Continue",
+        imgPrompt: "Sculptural minimal matte sage green cylinder electronic diffuser standing serenely on a pale travertine stone slab, accompanied by an amber glass essential oil bottle labeled 'odora Forest Sage' and soft cedar branches in an artisanal ceramic vase. Soft daylight, warm alabaster sanctuary ambiance, editorial luxury interior."
+      },
+      {
+        tag: "RITUALS • CONTROL",
+        title: "Intelligent Harmony.",
+        desc: "Fine-tune mist intensity, create circadian automated scent schedules, and choreograph multiple rooms with BLE responsiveness.",
+        badge: "BLE 5.3 Connected",
+        icon: "tune",
+        step: "02",
+        btnText: "Continue",
+        imgPrompt: "Editorial lifestyle shot of a modern serene living room side table featuring the matte sage green Odora smart fragrance device, subtle natural vapor rising into soft sunlight, minimalist ceramic cup and architectural book nearby."
+      },
+      {
+        tag: "SOURCING • BOTANICALS",
+        title: "Kyoto to Grasse.",
+        desc: "Curated wildcrafted master oils extracted from sustainably harvested hinoki wood, bergamot rind, and rare high-elevation herbs.",
+        badge: "100% Sustainable",
+        icon: "eco",
+        step: "03",
+        btnText: "Get Started",
+        imgPrompt: "Warm artisanal still life of three dark amber apothecary dropper bottles labeled Odora beside crushed green botanical leaves, dried sage twigs, and smooth limestone pebbles under warm ambient studio lighting."
+      }
+    ];
+
+    let currentIndex = 0;
+
+    const imgEl = document.getElementById("carousel-img");
+    const tagEl = document.getElementById("slide-tag");
+    const titleEl = document.getElementById("slide-title");
+    const descEl = document.getElementById("slide-desc");
+    const badgeLabel = document.getElementById("tech-badge-label");
+    const badgeIcon = document.querySelector("#tech-badge .material-symbols-outlined");
+    const stepEl = document.getElementById("step-counter");
+    const ctaLabel = document.getElementById("cta-label");
+    const primaryCta = document.getElementById("primary-cta");
+    const prevBtn = document.getElementById("prev-btn");
+    const dots = document.querySelectorAll(".carousel-dot");
+
+    function renderSlide(index) {
+      const slide = slides[index];
+
+      // Cross-fade image
+      imgEl.classList.add("opacity-0");
+      setTimeout(() => {
+        imgEl.setAttribute("data-alt", slide.imgPrompt);
+        imgEl.classList.remove("opacity-0");
+      }, 200);
+
+      // Text swap
+      tagEl.textContent = slide.tag;
+      titleEl.textContent = slide.title;
+      descEl.textContent = slide.desc;
+      badgeLabel.textContent = slide.badge;
+      badgeIcon.textContent = slide.icon;
+      stepEl.textContent = slide.step;
+      ctaLabel.textContent = slide.btnText;
+
+      // Update dots
+      dots.forEach((dot, idx) => {
+        if (idx === index) {
+          dot.className = "carousel-dot h-2 w-8 rounded-full bg-primary-container transition-all duration-300";
+        } else {
+          dot.className = "carousel-dot h-2 w-2 rounded-full bg-outline-variant/60 transition-all duration-300";
+        }
+      });
+
+      // Controls state
+      prevBtn.disabled = index === 0;
+    }
+
+    primaryCta.addEventListener("click", () => {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        renderSlide(currentIndex);
+      } else {
+        // Final completion flash
+        primaryCta.classList.add("bg-primary");
+        ctaLabel.textContent = "Connecting to Device...";
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderSlide(currentIndex);
+      }
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        currentIndex = parseInt(dot.getAttribute("data-index"), 10);
+        renderSlide(currentIndex);
+      });
+    });
+
+    document.getElementById("skip-btn").addEventListener("click", () => {
+      currentIndex = slides.length - 1;
+      renderSlide(currentIndex);
+    });
+  })();
+</script></main></body></html>

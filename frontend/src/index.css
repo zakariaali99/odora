@@ -5,12 +5,26 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: #F4F0EC;
   }
   
   body {
-    background-color: #F7F7F5;
-    color: #181816;
+    margin: 0;
+    background-color: #F4F0EC;
+    color: #2B2B26;
+    font-family: 'Poppins', system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+  }
+
+  [dir='rtl'] body {
+    font-family: 'Tajawal', 'Cairo', sans-serif;
+  }
+
+  ::selection {
+    background: #464F39;
+    color: #FBFAF7;
   }
 
   /* Accessible focus indicators (WCAG AA) */
@@ -20,8 +34,8 @@
   textarea:focus-visible,
   button:focus-visible,
   a:focus-visible {
-    outline: 2px solid #717E57 !important;
-    outline-offset: 2px !important;
+    outline: 2px solid #464F39 !important;
+    outline-offset: 3px !important;
   }
 
   /* Custom luxury scrollbar */
@@ -30,14 +44,52 @@
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #F7F7F5;
+    background: #F4F0EC;
   }
   ::-webkit-scrollbar-thumb {
-    background: #D4D8C8;
+    background: #C9C3BA;
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #717E57;
+    background: #919C7A;
+  }
+}
+
+@layer components {
+  .editorial-container {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .editorial-section {
+    @apply py-20 sm:py-28 lg:py-32;
+  }
+
+  .editorial-surface {
+    @apply rounded-[26px] bg-brand-surface shadow-soft-card;
+  }
+
+  .editorial-button-primary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-brand-dark px-7 py-3 text-sm font-medium text-brand-surface shadow-btn-dark transition duration-300 hover:-translate-y-0.5 hover:bg-brand-olive hover:shadow-lifted active:translate-y-0 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .editorial-button-secondary {
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-brand-ink/20 px-7 py-3 text-sm font-medium text-brand-ink transition duration-300 hover:border-brand-olive hover:bg-brand-surface active:scale-[0.99];
+  }
+
+  .editorial-link {
+    @apply inline-flex items-center gap-2 border-b border-brand-ink/30 pb-1 text-sm font-medium text-brand-ink transition-colors hover:border-brand-sage hover:text-brand-olive;
+  }
+
+  .editorial-input {
+    @apply w-full rounded-2xl border border-brand-ink/15 bg-brand-surface px-4 py-3 text-sm text-brand-ink placeholder:text-brand-muted focus:border-brand-olive focus:outline-none;
+  }
+
+  .editorial-rule {
+    @apply border-brand-ink/10;
+  }
+
+  .image-stage {
+    @apply overflow-hidden rounded-[28px] bg-brand-surface shadow-soft-card;
   }
 }
 
@@ -46,7 +98,7 @@
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.035;
+  opacity: 0.025;
   pointer-events: none;
   mix-blend-mode: multiply;
 }
@@ -73,15 +125,28 @@
 
 /* Card hover transition */
 .odora-card {
-  background: #FFFFFF;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 10px 24px rgba(0, 0, 0, 0.05);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FBFAF7;
+  border-radius: 24px;
+  box-shadow: 0 2px 3px rgba(43, 43, 38, 0.03), 0 18px 48px rgba(70, 79, 57, 0.08);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .odora-card:hover {
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-  border-color: rgba(113, 126, 87, 0.25);
+  box-shadow: 0 20px 55px rgba(70, 79, 57, 0.13);
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

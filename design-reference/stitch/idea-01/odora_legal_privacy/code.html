@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface-variant": "#46483f", "secondary-fixed-dim": "#bccd9a", "on-tertiary-container": "#2c3228", "on-primary-container": "#2a3319", "on-primary": "#ffffff", "primary": "#586244", "tertiary-fixed-dim": "#c2c9ba", "tertiary": "#5a6055", "inverse-on-surface": "#f4f0ec", "primary-fixed": "#dce7c1", "on-secondary-fixed": "#131f01", "surface-container-high": "#ebe7e4", "inverse-surface": "#31302e", "secondary-container": "#d5e6b2", "surface": "#fdf9f5", "on-background": "#1c1c19", "error": "#ba1a1a", "primary-container": "#919c7a", "surface-variant": "#e6e2de", "outline": "#76786e", "on-tertiary": "#ffffff", "surface-container": "#f1ede9", "outline-variant": "#c6c7bc", "secondary": "#55633a", "on-error": "#ffffff", "error-container": "#ffdad6", "on-error-container": "#93000a", "tertiary-container": "#949a8d", "primary-fixed-dim": "#c0cba6", "secondary-fixed": "#d8e9b5", "on-tertiary-fixed": "#171d14", "on-tertiary-fixed-variant": "#42493e", "surface-bright": "#fdf9f5", "on-primary-fixed": "#161e07", "on-secondary-container": "#59683e", "surface-container-lowest": "#ffffff", "on-primary-fixed-variant": "#404a2e", "on-surface": "#1c1c19", "background": "#fdf9f5", "surface-container-low": "#f7f3ef", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#3e4b25", "surface-dim": "#ddd9d6", "inverse-primary": "#c0cba6", "surface-container-highest": "#e6e2de", "tertiary-fixed": "#dfe5d6", "surface-tint": "#586244" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2.5rem", "gutter": "1.5rem", "margin-mobile": "1.25rem", "space-sm": "0.5rem", "gutter-mobile": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "margin": "3rem", "space-lg": "1.5rem" }, "fontFamily": { "display-lg-mobile": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "label-md": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Space Grotesk"], "label-lg": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "body-xl": ["Plus Jakarta Sans"] }, "fontSize": { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }] } } } }</script><style>@layer base { .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 24; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors duration-200" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><div class="flex items-center gap-2 pl-1"><img alt="Brand logo. - Primary color: #919c7a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface hidden xs:inline-block">Odora</span></div></div><div class="flex-1 text-center px-space-xs truncate"><span class="font-headline-sm text-headline-sm text-on-surface truncate block">Legal And Account Privacy</span></div><div class="flex items-center justify-end w-11 h-11"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-space-xl space-y-space-lg">
+<!-- Overview Section -->
+<section class="space-y-space-xs pt-space-sm">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+      Governance &amp; Trust
+    </div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+      Privacy, Transparency &amp; Rights
+    </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+      Last updated: November 2023 • Odora Sensory Technology LLC, Dubai Design District (d3), United Arab Emirates.
+    </p>
+</section>
+<!-- Atmospheric Philosophy Banner -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container p-space-md shadow-sm">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-fixed text-[20px]">shield_lock</span>
+</div>
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Purity of Personal Space</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Your ambient aroma preferences, mist schedules, and domestic rhythm are intimate. We hold our technological stewardship to the same uncompromising standards as our distilled botanical essences.
+        </p>
+</div>
+</div>
+</div>
+<!-- Legal & Regulatory Documents List -->
+<section class="space-y-space-xs">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Regulatory Agreements</span>
+<span class="font-label-sm text-label-sm text-primary">4 Documents</span>
+</div>
+<div class="space-y-2">
+<!-- Item 1 -->
+<button class="w-full text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 p-space-md rounded-xl shadow-sm flex items-center justify-between group" type="button">
+<div class="flex items-center gap-3.5 min-w-0 pr-2">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[20px]">contract</span>
+</div>
+<div class="min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate group-hover:text-primary transition-colors">Terms of Service &amp; Atelier Sale</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Bespoke hardware agreement, subscription &amp; concierge terms</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] group-hover:text-on-surface transition-colors shrink-0">arrow_forward_ios</span>
+</button>
+<!-- Item 2 -->
+<button class="w-full text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 p-space-md rounded-xl shadow-sm flex items-center justify-between group" type="button">
+<div class="flex items-center gap-3.5 min-w-0 pr-2">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">air</span>
+</div>
+<div class="min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate group-hover:text-primary transition-colors">Privacy &amp; Atmospheric Data Policy</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">BLE cryptographic handshake &amp; on-device sensory storage</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] group-hover:text-on-surface transition-colors shrink-0">arrow_forward_ios</span>
+</button>
+<!-- Item 3 -->
+<button class="w-full text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 p-space-md rounded-xl shadow-sm flex items-center justify-between group" type="button">
+<div class="flex items-center gap-3.5 min-w-0 pr-2">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+</div>
+<div class="min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate group-hover:text-primary transition-colors">2-Year Atelier Warranty &amp; Care</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Precision transducer coverage &amp; ceramic shell replacement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] group-hover:text-on-surface transition-colors shrink-0">arrow_forward_ios</span>
+</button>
+<!-- Item 4 -->
+<button class="w-full text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-150 p-space-md rounded-xl shadow-sm flex items-center justify-between group" type="button">
+<div class="flex items-center gap-3.5 min-w-0 pr-2">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="min-w-0">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate group-hover:text-primary transition-colors">Concierge Delivery &amp; Flacon Refills</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">White-glove replenishment &amp; seasonal vial rotations</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px] group-hover:text-on-surface transition-colors shrink-0">arrow_forward_ios</span>
+</button>
+</div>
+</section>
+<!-- Data Governance & Telemetry -->
+<section class="space-y-space-sm">
+<div class="px-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Atmospheric Data Governance</span>
+</div>
+<!-- Local-first BLE card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">bluetooth_connected</span>
+</div>
+<div class="space-y-1">
+<p class="font-headline-sm text-headline-sm text-on-surface">Local-First Architecture</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Diffuser dispersion rates, diurnal schedules, and olfactory profiles reside strictly on the diffuser's internal flash memory. Cloud synchronization occurs only with explicit opt-in for cross-residence synchronization.
+          </p>
+</div>
+</div>
+<!-- Action buttons inside governance -->
+<div class="space-y-2 pt-2">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all active:scale-[0.99]" id="btnExportData" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">download</span>
+          Request Personal Data Archive (JSON / PDF)
+        </button>
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-lg text-label-lg transition-all active:scale-[0.99]" id="btnClearTelemetry" type="button">
+<span class="material-symbols-outlined text-[18px]">history_toggle_off</span>
+          Clear Local Diffuser Usage Telemetry
+        </button>
+</div>
+<!-- Ephemeral Confirmation Feedback -->
+<div class="hidden p-3 rounded-lg bg-surface-container-high text-on-surface font-body-sm text-body-sm flex items-center gap-2" id="telemetryFeedback">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span>Hardware memory scheduled for cache cycle upon next Bluetooth sync.</span>
+</div>
+</div>
+</section>
+<!-- International Compliance & Certification Badges -->
+<section class="space-y-space-xs">
+<div class="px-1">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Certifications &amp; Accreditations</span>
+</div>
+<div class="grid grid-cols-1 gap-2.5">
+<!-- Badge 1: UAE -->
+<div class="p-3.5 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[22px]">policy</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="font-headline-sm text-headline-sm text-on-surface">UAE Federal Decree Law No. 45/2021</p>
+<span class="px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-secondary-container text-on-secondary-container">Compliant</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Full alignment with UAE personal data protection framework</p>
+</div>
+</div>
+<!-- Badge 2: GDPR & ISO -->
+<div class="p-3.5 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[22px]">security</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="font-headline-sm text-headline-sm text-on-surface">GDPR &amp; ISO/IEC 27001</p>
+<span class="px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed">Certified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Zero-knowledge cloud synchronization &amp; end-to-end telemetry</p>
+</div>
+</div>
+<!-- Badge 3: TDRA UAE -->
+<div class="p-3.5 bg-surface-container-lowest rounded-xl shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-[22px]">radar</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<p class="font-headline-sm text-headline-sm text-on-surface">TDRA Wireless Authorization</p>
+<span class="px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-tertiary-fixed text-on-tertiary-fixed">Authorized</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">UAE Telecommunications and Digital Government Regulatory Authority</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Critical Account Actions Container (Rose/Muted Warning Box) -->
+<section class="space-y-space-sm pt-space-xs">
+<div class="px-1">
+<span class="font-label-md text-label-md text-error uppercase tracking-wider">Account Termination &amp; Sessions</span>
+</div>
+<!-- Muted Warning Surface -->
+<div class="rounded-xl bg-error-container/20 p-space-md shadow-sm space-y-space-md">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div class="space-y-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Delete Odora Sanctuary Account</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Permanently remove your sensory profile, fragrance auto-replenishments, custom mist schedules, and unpair all connected diffusers. 2-Year Atelier warranty certificates tied to this account will be transferred to unregistered guest status.
+          </p>
+</div>
+</div>
+<div class="pt-1 flex flex-col gap-2">
+<button class="w-full py-3 px-4 rounded-xl bg-error text-on-error font-label-lg text-label-lg tracking-wide hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-sm" id="btnOpenDeleteModal" type="button">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+          Delete Account Permanently...
+        </button>
+<button class="w-full py-3 px-4 rounded-xl bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-lg text-label-lg transition-all flex items-center justify-center gap-2" id="btnSignOutAll" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">logout</span>
+          Sign Out of All Mobile &amp; Tablet Devices
+        </button>
+</div>
+</div>
+</section>
+<!-- Legal Footer Disclaimer -->
+<footer class="pt-space-xs pb-space-md text-center space-y-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Odora Sensory Technology LLC • Reg. No. 8942-D3</p>
+<p class="font-label-sm text-label-sm text-outline">Encrypted via TLS 1.3 &amp; AES-256 GCM Hardware Keystores</p>
+</footer>
+<!-- Modal Backdrop & Dialog for Account Deletion (Default: Hidden) -->
+<div class="hidden fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-space-md transition-opacity duration-200" id="deleteModal">
+<div class="w-full max-w-sm bg-surface-container-lowest rounded-xl p-space-lg shadow-xl space-y-space-md">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-[28px]">sentiment_dissatisfied</span>
+</div>
+<div class="text-center space-y-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Parting with your Sanctuary?</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Please confirm you wish to erase all olfactory scenes and void real-time concierge replenishment. This cannot be undone.
+        </p>
+</div>
+<div class="space-y-2 pt-2">
+<button class="w-full py-3 rounded-xl bg-error text-on-error font-label-lg text-label-lg active:scale-[0.98] transition-transform" id="btnConfirmDelete" type="button">
+          Yes, Erase Everything
+        </button>
+<button class="w-full py-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-colors" id="btnCancelDelete" type="button">
+          Return to Sanctuary
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const btnExport = document.getElementById('btnExportData');
+    const btnClear = document.getElementById('btnClearTelemetry');
+    const feedback = document.getElementById('telemetryFeedback');
+    const openModalBtn = document.getElementById('btnOpenDeleteModal');
+    const closeModalBtn = document.getElementById('btnCancelDelete');
+    const confirmDeleteBtn = document.getElementById('btnConfirmDelete');
+    const modal = document.getElementById('deleteModal');
+    const signOutBtn = document.getElementById('btnSignOutAll');
+
+    if (btnExport) {
+      btnExport.addEventListener('click', function() {
+        const originalText = btnExport.innerHTML;
+        btnExport.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Compiling Sanctuary Dossier...';
+        btnExport.disabled = true;
+        setTimeout(function() {
+          btnExport.innerHTML = '<span class="material-symbols-outlined text-[18px]">mark_email_read</span> Sent to your verified email';
+          setTimeout(function() {
+            btnExport.innerHTML = originalText;
+            btnExport.disabled = false;
+          }, 3000);
+        }, 1200);
+      });
+    }
+
+    if (btnClear) {
+      btnClear.addEventListener('click', function() {
+        if (feedback) {
+          feedback.classList.remove('hidden');
+          setTimeout(function() {
+            feedback.classList.add('hidden');
+          }, 4500);
+        }
+      });
+    }
+
+    if (openModalBtn && modal) {
+      openModalBtn.addEventListener('click', function() {
+        modal.classList.remove('hidden');
+      });
+    }
+
+    if (closeModalBtn && modal) {
+      closeModalBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+      });
+    }
+
+    if (confirmDeleteBtn && modal) {
+      confirmDeleteBtn.addEventListener('click', function() {
+        confirmDeleteBtn.innerText = 'Deregistering Hardware...';
+        setTimeout(function() {
+          modal.classList.add('hidden');
+          alert('Account deletion request queued in compliance with UAE Data Protection Law. All sensory profiles will be purged within 24 hours.');
+        }, 1000);
+      });
+    }
+
+    if (signOutBtn) {
+      signOutBtn.addEventListener('click', function() {
+        const orig = signOutBtn.innerHTML;
+        signOutBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Revoked 3 Session Keys';
+        setTimeout(function() {
+          signOutBtn.innerHTML = orig;
+        }, 2500);
+      });
+    }
+  })();
+</script></main></body></html>

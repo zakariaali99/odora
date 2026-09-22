@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Odora App — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@300;400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#0E100D; --card:#191B15; --card2:#20231B; --line:rgba(234,226,208,.10);
+    --cream:#F4EFE4; --dim:#CFC9BB; --muted:#8B8D80; --sage:#AEBB8E;
+    --brass:#C8A45C; --brass-b:#E7CC8F; --frame:#ECE8E0;
+    --ok:#8FB27A;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:#050604;display:flex;justify-content:center;align-items:center;
+    min-height:100vh;font-family:'Tajawal',system-ui,sans-serif;padding:20px 0}
+  .ar-h{font-family:'Cairo',sans-serif}
+  .lat{font-family:'Fraunces',serif}
+
+  /* phone shell */
+  .phone{width:402px;height:858px;background:var(--canvas);border-radius:46px;position:relative;
+    box-shadow:0 40px 120px rgba(0,0,0,.7), inset 0 0 0 10px #0a0b09, inset 0 0 0 11px #2a2c24;
+    overflow:hidden}
+  .notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:26px;
+    background:#050604;border-radius:0 0 16px 16px;z-index:60}
+  .statusbar{height:46px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 26px 6px;color:var(--cream);font-size:13px;font-weight:600;position:relative;z-index:20}
+  .statusbar .dots{display:flex;gap:5px;align-items:center;font-size:11px}
+
+  .screenwrap{height:812px;position:relative}
+  .screen{position:absolute;inset:0;overflow-y:auto;padding:0 20px 108px;display:none;scrollbar-width:none}
+  .screen::-webkit-scrollbar{display:none}
+  .screen.active{display:block}
+
+  /* glow */
+  .phone::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(60% 30% at 78% 8%,rgba(200,164,92,.10),transparent 60%)}
+
+  /* header */
+  .top{display:flex;align-items:center;justify-content:space-between;padding:4px 0 18px}
+  .hi .k{font-size:13px;color:var(--brass);letter-spacing:.04em}
+  .hi .n{font-family:'Cairo';font-weight:700;font-size:24px;color:var(--cream);margin-top:2px}
+  .avatar{width:42px;height:42px;border-radius:50%;background:var(--card2);border:1px solid var(--line);
+    display:grid;place-items:center;color:var(--sage);font-family:'Cairo';font-weight:700}
+  .iconbtn{width:42px;height:42px;border-radius:50%;background:var(--card2);border:1px solid var(--line);
+    display:grid;place-items:center}
+  .ic{width:20px;height:20px;stroke:var(--dim);fill:none;stroke-width:1.7}
+
+  .eyebrow{font-size:11px;letter-spacing:.22em;color:var(--brass);text-transform:uppercase;font-weight:600}
+  .sec-h{display:flex;align-items:center;justify-content:space-between;margin:24px 2px 14px}
+  .sec-h h3{font-family:'Cairo';font-weight:700;font-size:18px;margin:0;color:var(--cream)}
+  .sec-h a{font-size:13px;color:var(--brass)}
+
+  /* HERO device card */
+  .hero{border-radius:26px;overflow:hidden;position:relative;border:1px solid rgba(200,164,92,.22);
+    background:linear-gradient(180deg,var(--card2),var(--card));box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .hero .pic{height:230px;background:var(--frame);position:relative;overflow:hidden}
+  .hero .pic img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
+  .hero .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,22,17,.85))}
+  .mist{position:absolute;top:14px;right:14px;z-index:3;display:flex;align-items:center;gap:7px;
+    background:rgba(14,16,13,.6);backdrop-filter:blur(6px);border:1px solid var(--line);
+    border-radius:999px;padding:7px 13px;font-size:12px;color:var(--cream)}
+  .mist .pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(143,178,122,.6);
+    animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(143,178,122,.55)}70%{box-shadow:0 0 0 10px rgba(143,178,122,0)}100%{box-shadow:0 0 0 0 rgba(143,178,122,0)}}
+  .hero .meta{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:16px 18px;display:flex;
+    align-items:flex-end;justify-content:space-between}
+  .hero .meta .rn{font-family:'Cairo';font-weight:700;font-size:20px;color:var(--cream)}
+  .hero .meta .sub{font-size:12px;color:var(--dim);margin-top:3px;display:flex;align-items:center;gap:6px}
+  .hero .meta .sub b{color:var(--brass);font-weight:600}
+  .power{width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
+    background:radial-gradient(circle at 30% 30%,var(--brass-b),var(--brass));
+    box-shadow:0 10px 24px rgba(200,164,92,.4);display:grid;place-items:center}
+  .power svg{width:24px;height:24px;stroke:#241a08;stroke-width:2.4;fill:none}
+  .hero .quick{display:flex;background:var(--card);border-top:1px solid var(--line)}
+  .hero .quick .q{flex:1;padding:14px 8px;text-align:center;border-inline-start:1px solid var(--line)}
+  .hero .quick .q:first-child{border:none}
+  .hero .quick .q .v{font-family:'Cairo';font-weight:700;font-size:17px;color:var(--cream)}
+  .hero .quick .q .v b{color:var(--brass)}
+  .hero .quick .q .l{font-size:11px;color:var(--muted);margin-top:2px}
+
+  /* device list row */
+  .drow{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:12px;margin-bottom:12px}
+  .drow .th{width:56px;height:56px;border-radius:14px;overflow:hidden;background:var(--frame);flex:none}
+  .drow .th img{width:100%;height:100%;object-fit:cover}
+  .drow .info{flex:1}
+  .drow .info .t{font-family:'Cairo';font-weight:600;font-size:15px;color:var(--cream)}
+  .drow .info .s{font-size:12px;color:var(--muted);margin-top:2px}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .on{background:var(--ok)} .off{background:var(--muted)}
+  .mini-power{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card2);
+    display:grid;place-items:center}
+  .mini-power svg{width:16px;height:16px;stroke:var(--sage);stroke-width:2.2;fill:none}
+
+  /* store teaser */
+  .teaser{border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--line);height:150px}
+  .teaser img{width:100%;height:100%;object-fit:cover}
+  .teaser .ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,16,13,.9),transparent);
+    display:flex;flex-direction:column;justify-content:center;padding:20px}
+  .teaser .ov .k{font-size:11px;color:var(--brass);letter-spacing:.14em}
+  .teaser .ov .t{font-family:'Cairo';font-weight:700;font-size:19px;color:var(--cream);margin:6px 0 10px;max-width:180px}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:var(--brass);color:#221806;
+    font-weight:700;font-size:13px;border-radius:999px;padding:9px 16px;width:max-content}
+
+  /* ===== DEVICE CONTROL ===== */
+  .dc-head{text-align:center;padding:6px 0 4px}
+  .dc-head .t{font-family:'Cairo';font-weight:700;font-size:22px;color:var(--cream)}
+  .dc-head .s{font-size:13px;color:var(--muted);margin-top:3px}
+  .dc-head .s b{color:var(--ok)}
+  .dial-wrap{position:relative;width:260px;height:260px;margin:22px auto 6px}
+  .dial-wrap svg{transform:rotate(135deg)}
+  .dial-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .dial-center .lvl{font-family:'Cairo';font-weight:800;font-size:66px;color:var(--cream);line-height:1}
+  .dial-center .of{font-size:14px;color:var(--muted);margin-top:2px}
+  .dial-center .cap{font-size:12px;letter-spacing:.18em;color:var(--brass);margin-top:10px;text-transform:uppercase}
+  .dc-btns{display:flex;justify-content:center;gap:20px;margin-top:6px}
+  .rnd{width:60px;height:60px;border-radius:50%;border:1px solid var(--line);background:var(--card2);
+    color:var(--cream);font-size:28px;cursor:pointer;display:grid;place-items:center}
+  .rnd:active{background:var(--card)}
+  .dc-power{width:76px;height:76px;border-radius:50%;border:none;cursor:pointer;
+    background:radial-gradient(circle at 30% 30%,var(--brass-b),var(--brass));
+    box-shadow:0 12px 30px rgba(200,164,92,.45)}
+  .dc-power svg{width:30px;height:30px;stroke:#241a08;stroke-width:2.6;fill:none}
+  .dc-power.off{background:var(--card2);box-shadow:none;border:1px solid var(--line)}
+  .dc-power.off svg{stroke:var(--muted)}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+  .panel .row{display:flex;align-items:center;justify-content:space-between}
+  .panel .row .t{font-family:'Cairo';font-weight:600;color:var(--cream);font-size:15px}
+  .panel .row .v{color:var(--brass);font-family:'Cairo';font-weight:700}
+  .bar{height:8px;border-radius:99px;background:var(--card2);margin-top:12px;overflow:hidden}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--brass),var(--sage));border-radius:99px}
+  .link-row{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;margin-top:12px;
+    background:var(--card);border:1px solid var(--line);border-radius:16px}
+  .link-row .t{display:flex;align-items:center;gap:12px;color:var(--cream);font-weight:500}
+  .link-row .ic{stroke:var(--brass)}
+  .chev{color:var(--muted)}
+  .pyramid .p{display:flex;justify-content:space-between;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:14px}
+  .pyramid .p span:first-child{color:var(--muted)} .pyramid .p span:last-child{color:var(--cream)}
+
+  /* ===== STORE ===== */
+  .search{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);
+    border-radius:14px;padding:12px 16px;color:var(--muted);font-size:14px;margin-bottom:8px}
+  .chips{display:flex;gap:9px;overflow-x:auto;padding:6px 0 4px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{white-space:nowrap;font-size:13px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+  .chip.on{background:var(--brass);color:#221806;border-color:transparent;font-weight:700}
+  .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .pcard .ph{aspect-ratio:1;background:var(--frame);position:relative}
+  .pcard .ph img{width:100%;height:100%;object-fit:cover}
+  .pcard .tag{position:absolute;top:10px;right:10px;background:var(--brass);color:#221806;font-size:11px;
+    font-weight:700;padding:4px 9px;border-radius:99px}
+  .pcard .b{padding:12px}
+  .pcard .cat{font-size:10px;letter-spacing:.14em;color:var(--brass);text-transform:uppercase}
+  .pcard .nm{font-family:'Cairo';font-weight:600;font-size:14px;color:var(--cream);margin:5px 0}
+  .pcard .pr{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .pcard .pr .price{font-family:'Fraunces';font-size:16px;color:var(--cream)}
+  .pcard .add{width:32px;height:32px;border-radius:50%;background:var(--brass);color:#221806;display:grid;place-items:center;font-size:18px}
+
+  /* ===== ACCOUNT ===== */
+  .profile{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+    border-radius:20px;padding:18px;margin-top:4px}
+  .profile .av{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--sage),var(--brass));
+    display:grid;place-items:center;font-family:'Cairo';font-weight:800;color:#141612;font-size:22px}
+  .profile .nm{font-family:'Cairo';font-weight:700;font-size:18px;color:var(--cream)}
+  .profile .em{font-size:13px;color:var(--muted);margin-top:2px}
+  .acct-stats{display:flex;gap:12px;margin-top:14px}
+  .acct-stats .s{flex:1;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+  .acct-stats .s .v{font-family:'Cairo';font-weight:800;font-size:22px;color:var(--brass)}
+  .acct-stats .s .l{font-size:11px;color:var(--muted);margin-top:3px}
+  .menu{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .menu .m{display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid var(--line)}
+  .menu .m:last-child{border:none}
+  .menu .m .t{display:flex;align-items:center;gap:13px;color:var(--cream);font-weight:500;font-size:15px}
+  .menu .m .ic{stroke:var(--sage)}
+
+  /* bottom tabs */
+  .tabs{position:absolute;left:0;right:0;bottom:0;z-index:50;height:88px;
+    background:rgba(12,13,10,.92);backdrop-filter:blur(16px);border-top:1px solid var(--line);
+    display:flex;padding:12px 14px 26px}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;color:var(--muted)}
+  .tab svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .tab span{font-size:11px;font-weight:600}
+  .tab.on{color:var(--brass);background:transparent}
+  .tab.on svg{stroke:var(--brass)}
+  .tab:focus,.tab:active{outline:none;background:transparent}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="statusbar"><span>9:41</span><span class="dots">أودورا ‹⌁› ▮▮▮</span></div>
+  <div class="screenwrap">
+
+    <!-- ================= HOME ================= -->
+    <div class="screen active" id="s-home">
+      <div class="top">
+        <div class="hi"><div class="k">مساء الخير 🌙</div><div class="n">أهلًا مصطفى</div></div>
+        <div class="iconbtn"><svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
+      </div>
+
+      <div class="hero">
+        <div class="pic">
+          <img src="/photos/diffuser_sage_livingroom.png" alt="">
+          <div class="mist"><span class="pulse"></span> ينفث العطر الآن</div>
+          <div class="meta">
+            <div><div class="rn">غرفة المعيشة</div>
+              <div class="sub"><span class="dot on"></span> A316 · <b>متصل عبر البلوتوث</b></div></div>
+            <button class="power"><svg viewBox="0 0 24 24"><path d="M12 3v9M6.4 6.4a9 9 0 1011.2 0"/></svg></button>
+          </div>
+        </div>
+        <div class="quick">
+          <div class="q"><div class="v"><b>78</b>%</div><div class="l">مستوى الزيت</div></div>
+          <div class="q"><div class="v">المستوى <b>8</b></div><div class="l">شدة الرذاذ</div></div>
+          <div class="q"><div class="v"><b>25</b>dB</div><div class="l">الهدوء</div></div>
+        </div>
+      </div>
+
+      <div class="sec-h"><h3>أجهزتي</h3><a>+ إضافة جهاز</a></div>
+      <div class="drow">
+        <div class="th"><img src="/photos/diffuser-a316-white.png"></div>
+        <div class="info"><div class="t">غرفة النوم</div><div class="s"><span class="dot off"></span> متوقّف · زيت 40%</div></div>
+        <div class="mini-power"><svg viewBox="0 0 24 24"><path d="M12 3v9M6.4 6.4a9 9 0 1011.2 0"/></svg></div>
+      </div>
+      <div class="drow">
+        <div class="th"><img src="/photos/diffuser-a316-black.png"></div>
+        <div class="info"><div class="t">المكتب</div><div class="s"><span class="dot on"></span> يعمل · المستوى 5</div></div>
+        <div class="mini-power"><svg viewBox="0 0 24 24"><path d="M12 3v9M6.4 6.4a9 9 0 1011.2 0"/></svg></div>
+      </div>
+
+      <div class="sec-h"><h3>عطر اليوم</h3><a>مكتبة الروائح</a></div>
+      <div class="teaser">
+        <img src="/photos/diffuser_black_office.png">
+        <div class="ov"><div class="k">FOREST SAGE</div>
+          <div class="t">جدّد أجواءك بزيتٍ نقي</div>
+          <span class="pill">تسوّق الزيوت ←</span></div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+
+    <!-- ================= DEVICE CONTROL ================= -->
+    <div class="screen" id="s-device">
+      <div class="top">
+        <div class="iconbtn" onclick="go('home')"><svg class="ic" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="hi" style="text-align:center"><div class="n" style="font-size:20px">غرفة المعيشة</div></div>
+        <div class="iconbtn"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 00-1.7-1L14.5 3h-5l-.3 2.5a7 7 0 00-1.7 1l-2.4-1-2 3.5L3.1 11a7 7 0 000 2l-2 1.5 2 3.5 2.4-1a7 7 0 001.7 1L9.5 21h5l.3-2.5a7 7 0 001.7-1l2.4 1 2-3.5-2-1.5a7 7 0 00.1-1z"/></svg></div>
+      </div>
+      <div class="dc-head"><div class="s"><b>● يعمل</b> · ينفث العطر الآن</div></div>
+
+      <div class="dial-wrap">
+        <svg width="260" height="260" viewBox="0 0 260 260">
+          <circle cx="130" cy="130" r="112" fill="none" stroke="#24271E" stroke-width="16" stroke-linecap="round"
+            stroke-dasharray="528" stroke-dashoffset="0" transform="rotate(0)"/>
+          <circle id="arc" cx="130" cy="130" r="112" fill="none" stroke="url(#g)" stroke-width="16" stroke-linecap="round"
+            stroke-dasharray="528" stroke-dashoffset="106"/>
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#E7CC8F"/><stop offset="1" stop-color="#C8A45C"/></linearGradient></defs>
+        </svg>
+        <div class="dial-center">
+          <div class="lvl" id="lvl">8</div><div class="of">من 10</div>
+          <div class="cap">شدّة الرذاذ</div>
+        </div>
+      </div>
+      <div class="dc-btns">
+        <button class="rnd" onclick="setLvl(-1)">−</button>
+        <button class="dc-power" id="dcpow" onclick="togglePow()"><svg viewBox="0 0 24 24"><path d="M12 3v9M6.4 6.4a9 9 0 1011.2 0"/></svg></button>
+        <button class="rnd" onclick="setLvl(1)">+</button>
+      </div>
+
+      <div class="panel">
+        <div class="row"><div class="t">مستوى الزيت العطري</div><div class="v">78%</div></div>
+        <div class="bar"><i style="width:78%"></i></div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--muted)">
+          <span>يكفي ~9 أيام</span><span style="color:var(--brass)">اطلب زيت جديد ←</span></div>
+      </div>
+
+      <div class="link-row"><div class="t"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> الجدولة الذكية</div><span class="chev">3 مواعيد ›</span></div>
+
+      <div class="panel pyramid" style="margin-top:12px">
+        <div class="row" style="margin-bottom:6px"><div class="t">الهرم العطري · Forest Sage</div></div>
+        <div class="p"><span>القمة</span><span>مريمية · برغموت</span></div>
+        <div class="p"><span>القلب</span><span>خزامى · إبرة الصنوبر</span></div>
+        <div class="p" style="border:none"><span>القاعدة</span><span>خشب الأرز · مسك</span></div>
+      </div>
+      <div style="height:16px"></div>
+    </div>
+
+    <!-- ================= STORE ================= -->
+    <div class="screen" id="s-store">
+      <div class="top"><div class="hi"><div class="k">SCENT OF ATMOSPHERE</div><div class="n">المتجر</div></div>
+        <div class="iconbtn"><svg class="ic" viewBox="0 0 24 24"><path d="M6 2l1.5 3h9L18 2M4 7h16l-1.5 13a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 7z"/></svg></div></div>
+      <div class="search"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg> ابحث عن جهاز أو زيت…</div>
+      <div class="chips"><span class="chip on">الكل</span><span class="chip">الأجهزة</span><span class="chip">الزيوت</span><span class="chip">الباقات</span><span class="chip">إكسسوارات</span></div>
+      <div class="pgrid">
+        <div class="pcard"><div class="ph"><span class="tag">عرض خاص</span><img src="/photos/bundle-signature.png"></div>
+          <div class="b"><div class="cat">Bundle</div><div class="nm">باقة أودورا المتكاملة</div>
+            <div class="pr"><span class="price">380 د.ل</span><span class="add">＋</span></div></div></div>
+        <div class="pcard"><div class="ph"><img src="/photos/diffuser-a316-sage.png"></div>
+          <div class="b"><div class="cat">Diffuser</div><div class="nm">جهاز A316 — سيج</div>
+            <div class="pr"><span class="price">240 د.ل</span><span class="add">＋</span></div></div></div>
+        <div class="pcard"><div class="ph"><img src="/photos/oil-forest-sage.png"></div>
+          <div class="b"><div class="cat">Oil</div><div class="nm">زيت فورست سيج</div>
+            <div class="pr"><span class="price">65 د.ل</span><span class="add">＋</span></div></div></div>
+        <div class="pcard"><div class="ph"><img src="/photos/oil-cotton-linen.png"></div>
+          <div class="b"><div class="cat">Oil</div><div class="nm">زيت كوتون لينِن</div>
+            <div class="pr"><span class="price">65 د.ل</span><span class="add">＋</span></div></div></div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+
+    <!-- ================= ACCOUNT ================= -->
+    <div class="screen" id="s-acct">
+      <div class="top"><div class="hi"><div class="n">حسابي</div></div>
+        <div class="iconbtn"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 00-1.7-1L14.5 3h-5l-.3 2.5a7 7 0 00-1.7 1l-2.4-1-2 3.5L3.1 11a7 7 0 000 2l-2 1.5 2 3.5 2.4-1a7 7 0 001.7 1L9.5 21h5l.3-2.5a7 7 0 001.7-1l2.4 1 2-3.5-2-1.5a7 7 0 00.1-1z"/></svg></div></div>
+      <div class="profile"><div class="av">م</div><div><div class="nm">مصطفى العمّاري</div><div class="em">mostafa@odora.ly</div></div></div>
+      <div class="acct-stats">
+        <div class="s"><div class="v">3</div><div class="l">أجهزة</div></div>
+        <div class="s"><div class="v">7</div><div class="l">طلبات</div></div>
+        <div class="s"><div class="v">2</div><div class="l">اشتراكات زيت</div></div>
+      </div>
+      <div class="menu">
+        <div class="m"><div class="t"><svg class="ic" viewBox="0 0 24 24"><path d="M6 2l1.5 3h9L18 2M4 7h16l-1.5 13a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 7z"/></svg> طلباتي</div><span class="chev">›</span></div>
+        <div class="m"><div class="t"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg> اشتراك الزيوت التلقائي</div><span class="chev">›</span></div>
+        <div class="m"><div class="t"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3L18 20l-6-3-6 3 1.5-6.8L3 8.9 9 8z"/></svg> مكتبة الروائح المحفوظة</div><span class="chev">›</span></div>
+        <div class="m"><div class="t"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> العناوين وطرق الدفع</div><span class="chev">›</span></div>
+        <div class="m"><div class="t"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> المساعدة والدعم</div><span class="chev">›</span></div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab on" data-s="home" onclick="go('home')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg><span>الرئيسية</span></div>
+    <div class="tab" data-s="device" onclick="go('device')"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="4"/><path d="M12 7v3"/></svg><span>الأجهزة</span></div>
+    <div class="tab" data-s="store" onclick="go('store')"><svg viewBox="0 0 24 24"><path d="M6 2l1.5 3h9L18 2M4 7h16l-1.5 13a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 7z"/></svg><span>المتجر</span></div>
+    <div class="tab" data-s="acct" onclick="go('acct')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>حسابي</span></div>
+  </div>
+</div>
+
+<script>
+  function go(s){
+    document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
+    document.getElementById('s-'+s).classList.add('active');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.s===s));
+    document.querySelector('.screenwrap').scrollTop=0;
+    document.getElementById('s-'+s).scrollTop=0;
+  }
+  let lvl=8, on=true;
+  const C=2*Math.PI*112, MAXARC=C*0.75; // 270deg arc
+  function renderDial(){
+    document.getElementById('lvl').textContent=on?lvl:0;
+    const frac=(on?lvl:0)/10;
+    document.getElementById('arc').style.strokeDashoffset = 528 - (MAXARC*frac);
+    document.getElementById('arc').style.opacity = on?1:.25;
+  }
+  function setLvl(d){ if(!on)return; lvl=Math.max(1,Math.min(10,lvl+d)); renderDial(); }
+  function togglePow(){ on=!on; document.getElementById('dcpow').classList.toggle('off',!on); renderDial(); }
+  // init arc dasharray to full circle but only show 270
+  const arc=document.getElementById('arc'), base=document.querySelector('#s-device svg circle');
+  document.querySelectorAll('#s-device svg circle').forEach(c=>{c.setAttribute('stroke-dasharray',528);});
+  renderDial();
+  // hash routing for rendering/screenshots: #home #device #store #acct
+  (function(){ const h=location.hash.replace('#',''); if(['home','device','store','acct'].includes(h)) go(h); })();
+</script>
+</body>
+</html>

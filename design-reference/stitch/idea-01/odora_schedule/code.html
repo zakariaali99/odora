@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><title>Device Control</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fdf9f5;color:#1c1c19;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-primary": "#c0cba6", "on-primary": "#ffffff", "on-primary-container": "#2a3319", "surface-container-high": "#ebe7e4", "primary": "#586244", "outline": "#76786e", "on-secondary-fixed": "#131f01", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "inverse-on-surface": "#f4f0ec", "tertiary-fixed-dim": "#c2c9ba", "tertiary": "#5a6055", "on-tertiary-container": "#2c3228", "surface": "#fdf9f5", "on-secondary-fixed-variant": "#3e4b25", "primary-container": "#919c7a", "on-surface-variant": "#46483f", "outline-variant": "#c6c7bc", "on-tertiary": "#ffffff", "error-container": "#ffdad6", "on-background": "#1c1c19", "on-tertiary-fixed": "#171d14", "surface-bright": "#fdf9f5", "secondary-container": "#d5e6b2", "primary-fixed-dim": "#c0cba6", "surface-container-lowest": "#ffffff", "surface-variant": "#e6e2de", "error": "#ba1a1a", "on-primary-fixed-variant": "#404a2e", "surface-container-low": "#f7f3ef", "on-tertiary-fixed-variant": "#42493e", "background": "#fdf9f5", "on-surface": "#1c1c19", "on-primary-fixed": "#161e07", "inverse-surface": "#31302e", "tertiary-fixed": "#dfe5d6", "secondary-fixed-dim": "#bccd9a", "secondary": "#55633a", "tertiary-container": "#949a8d", "on-secondary": "#ffffff", "primary-fixed": "#dce7c1", "on-error-container": "#93000a", "on-secondary-container": "#59683e", "on-error": "#ffffff", "surface-container-highest": "#e6e2de", "surface-dim": "#ddd9d6", "surface-tint": "#586244" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-mobile": "1.25rem", "space-xl": "2.5rem", "gutter-mobile": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter": "1.5rem", "margin": "3rem", "space-xs": "0.25rem", "space-lg": "1.5rem" }, fontFamily: { "body-lg": ["Plus Jakarta Sans"], "display-lg": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "body-xl": ["Plus Jakarta Sans"], "label-lg": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "label-md": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "headline-xl": ["Space Grotesk"] }, fontSize: { "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "display-lg": ["56px", { lineHeight: "64px", letterSpacing: "-0.03em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }], "display-lg-mobile": ["38px", { lineHeight: "44px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "500" }], "body-xl": ["18px", { lineHeight: "28px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "500" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.12em", fontWeight: "500" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.06em", fontWeight: "500" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "500" }], "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Brand logo. - Primary color: #919c7a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate max-w-[180px]">Device Control</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Action" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-space-xl space-y-space-md">
+<!-- Active Device Selector Pill & Status -->
+<div class="flex items-center justify-between pt-space-xs">
+<button class="group flex items-center gap-space-xs bg-surface-container-lowest px-space-md py-space-sm rounded-full shadow-sm active:scale-95 transition-all text-left" type="button">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Living Room Diffuser</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] group-hover:translate-y-0.5 transition-transform">expand_more</span>
+</button>
+<div class="flex items-center gap-1.5 bg-secondary-container/50 px-space-sm py-1 rounded-full">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container uppercase tracking-wider">Active Cycle</span>
+</div>
+</div>
+<!-- Weekly Visual Timeline Overview Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md">
+<!-- Weekday Selection Tabs -->
+<div class="flex justify-between items-center gap-1 overflow-x-auto pb-1">
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Mon">
+<span class="font-label-sm text-label-sm font-semibold">M</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-secondary-container text-on-secondary-container transition-all shadow-xs" data-day="Tue">
+<span class="font-label-sm text-label-sm font-semibold">T</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Wed">
+<span class="font-label-sm text-label-sm font-semibold">W</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Thu">
+<span class="font-label-sm text-label-sm font-semibold">T</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Fri">
+<span class="font-label-sm text-label-sm font-semibold">F</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Sat">
+<span class="font-label-sm text-label-sm font-semibold">S</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary-container"></span>
+</button>
+<button class="day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container" data-day="Sun">
+<span class="font-label-sm text-label-sm font-semibold">S</span>
+<span class="w-1.5 h-1.5 mt-1 rounded-full bg-primary-container"></span>
+</button>
+</div>
+<!-- Daily Mist Rhythm Graph -->
+<div class="space-y-space-xs pt-space-xs">
+<div class="flex justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>24:00</span>
+</div>
+<!-- Segmented Diffusion Track -->
+<div class="relative w-full h-8 bg-surface-container rounded-full overflow-hidden flex items-center p-1">
+<!-- Awakening Session block: 07:00 - 09:30 (~10% to 24%) -->
+<div class="absolute left-[7%] w-[16%] h-6 rounded-full bg-primary-container/80 flex items-center justify-center group cursor-pointer hover:bg-primary-container transition-all" title="Morning Awakening: 07:00 - 09:30">
+<span class="material-symbols-outlined text-[13px] text-on-primary">wb_twilight</span>
+</div>
+<!-- Afternoon Focus: 13:00 - 16:00 (~38% to 55%) -->
+<div class="absolute left-[38%] w-[17%] h-6 rounded-full bg-tertiary-container/80 flex items-center justify-center group cursor-pointer hover:bg-tertiary-container transition-all" title="Afternoon Focus: 13:00 - 16:00">
+<span class="material-symbols-outlined text-[13px] text-on-primary">light_mode</span>
+</div>
+<!-- Evening Wind-down: 19:30 - 23:00 (~68% to 92%) -->
+<div class="absolute left-[68%] w-[22%] h-6 rounded-full bg-primary flex items-center justify-center group cursor-pointer hover:opacity-90 transition-all shadow-xs" title="Evening Wind-down: 19:30 - 23:00">
+<span class="material-symbols-outlined text-[13px] text-on-primary">nights_stay</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm px-1 pt-1">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          Scheduled diffusion: <strong class="text-on-surface font-headline-sm text-headline-sm">8h 00m</strong>
+</span>
+<span class="text-primary font-label-md text-label-md">Tuesday Rhythm</span>
+</div>
+</div>
+</div>
+<!-- Section Title & Quick Add -->
+<div class="flex items-center justify-between pt-space-xs">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Scheduled Routines</h2>
+<button class="flex items-center gap-1 text-primary hover:text-on-surface font-label-md text-label-md transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Add New</span>
+</button>
+</div>
+<!-- Routine Cards Stack -->
+<div class="space-y-space-md">
+<!-- Card 1: Morning Awakening -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Morning Awakening</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">07:00 AM – 09:30 AM <span class="text-outline text-body-sm font-body-sm">(2h 30m)</span></p>
+</div>
+<!-- Animated Tactile Toggle -->
+<button aria-checked="true" class="routine-toggle w-12 h-7 bg-primary rounded-full p-1 transition-colors relative flex items-center" data-active="true" role="switch" type="button">
+<span class="w-5 h-5 bg-on-primary rounded-full shadow-md transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<!-- Settings & Tags -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low/70 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span>
+<span>Mon, Tue, Wed, Thu, Fri</span>
+</div>
+<span class="bg-surface-container-lowest px-2 py-0.5 rounded-full font-label-sm text-label-sm text-primary">Weekdays</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-space-xs">
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">air</span>
+            Level 4 Intensity
+          </span>
+<span class="inline-flex items-center gap-1 bg-secondary-container/60 px-2.5 py-1 rounded-full font-label-md text-label-md text-on-secondary-container">
+<span class="material-symbols-outlined text-[14px]">local_florist</span>
+            Forest Sage
+          </span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant">
+            Continuous
+          </span>
+</div>
+</div>
+</div>
+<!-- Card 2: Evening Unwind & Serenity -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Evening Unwind &amp; Serenity</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">07:30 PM – 10:30 PM <span class="text-outline text-body-sm font-body-sm">(3h 00m)</span></p>
+</div>
+<!-- Toggle Button -->
+<button aria-checked="true" class="routine-toggle w-12 h-7 bg-primary rounded-full p-1 transition-colors relative flex items-center" data-active="true" role="switch" type="button">
+<span class="w-5 h-5 bg-on-primary rounded-full shadow-md transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<!-- Settings & Tags -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low/70 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">all_inclusive</span>
+<span>Every day</span>
+</div>
+<span class="bg-surface-container-lowest px-2 py-0.5 rounded-full font-label-sm text-label-sm text-on-surface-variant">Daily</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-space-xs">
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">air</span>
+            Level 6
+          </span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">light_mode</span>
+            Warm Glow 30%
+          </span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-outline">volume_mute</span>
+            Whisper Mode
+          </span>
+</div>
+</div>
+</div>
+<!-- Card 3: Weekend Deep Relaxation -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Weekend Deep Relaxation</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">10:00 AM – 06:00 PM <span class="text-outline text-body-sm font-body-sm">(20m Pulse)</span></p>
+</div>
+<!-- Toggle Button -->
+<button aria-checked="true" class="routine-toggle w-12 h-7 bg-primary rounded-full p-1 transition-colors relative flex items-center" data-active="true" role="switch" type="button">
+<span class="w-5 h-5 bg-on-primary rounded-full shadow-md transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<!-- Settings & Tags -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low/70 rounded-lg p-space-sm space-y-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">weekend</span>
+<span>Sat, Sun</span>
+</div>
+<span class="bg-surface-container-lowest px-2 py-0.5 rounded-full font-label-sm text-label-sm text-tertiary">Weekends</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-space-xs">
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-primary">air</span>
+            Level 7 Intensity
+          </span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">timelapse</span>
+            Interval 20m
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Smart Organic Atmosphere Automation Banner -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-xs">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">sensors</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Smart Adaptive Air</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adjust mist rhythm based on room humidity &amp; presence</p>
+</div>
+</div>
+<button aria-checked="false" class="smart-toggle w-12 h-7 bg-surface-container-highest rounded-full p-1 transition-colors relative flex items-center shrink-0" data-active="false" role="switch" type="button">
+<span class="w-5 h-5 bg-on-primary rounded-full shadow-md transform translate-x-0 transition-transform"></span>
+</button>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm bg-surface-container-lowest/80 px-space-md py-2 rounded-lg">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[15px]">water_drop</span>
+        Room Humidity: <strong class="text-on-surface font-label-md text-label-md">48% Optimal</strong>
+</span>
+<span class="flex items-center gap-1 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]">person</span>
+        Present
+      </span>
+</div>
+</div>
+<!-- Calming Cartridge Status Peek -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-md py-space-sm rounded-xl shadow-xs text-on-surface">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+</div>
+<div>
+<span class="font-label-md text-label-md block">Forest Sage Cartridge</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">78% remaining • Approx 24 days</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">chevron_right</span>
+</div>
+<!-- Primary Floating Action: Create Custom Preset -->
+<button class="w-full py-space-md px-space-lg bg-inverse-surface text-inverse-on-surface rounded-full font-headline-sm text-headline-sm flex items-center justify-center gap-space-xs shadow-md active:scale-[0.99] transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Schedule Routine</span>
+</button>
+</div>
+<script>
+  // Interactive Day Selector logic
+  const dayButtons = document.querySelectorAll('.day-chip');
+  dayButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      dayButtons.forEach(b => {
+        b.className = 'day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-surface-container-low text-on-surface-variant transition-all hover:bg-surface-container';
+      });
+      btn.className = 'day-chip flex flex-col items-center justify-center w-10 py-2 rounded-lg bg-secondary-container text-on-secondary-container transition-all shadow-xs';
+    });
+  });
+
+  // Tactile Routine Toggles
+  const toggles = document.querySelectorAll('.routine-toggle, .smart-toggle');
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const isActive = toggle.getAttribute('data-active') === 'true';
+      const puck = toggle.querySelector('span');
+      if (isActive) {
+        toggle.setAttribute('data-active', 'false');
+        toggle.classList.remove('bg-primary');
+        toggle.classList.add('bg-surface-container-highest');
+        puck.classList.remove('translate-x-5');
+        puck.classList.add('translate-x-0');
+      } else {
+        toggle.setAttribute('data-active', 'true');
+        toggle.classList.remove('bg-surface-container-highest');
+        toggle.classList.add('bg-primary');
+        puck.classList.remove('translate-x-0');
+        puck.classList.add('translate-x-5');
+      }
+    });
+  });
+</script></main></body></html>

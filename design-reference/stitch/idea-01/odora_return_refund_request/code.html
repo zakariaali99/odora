@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-container": "#59683e", "on-primary": "#ffffff", "surface": "#fdf9f5", "primary-container": "#919c7a", "tertiary-fixed-dim": "#c2c9ba", "inverse-surface": "#31302e", "secondary-fixed-dim": "#bccd9a", "on-background": "#1c1c19", "surface-container-high": "#ebe7e4", "surface-bright": "#fdf9f5", "on-secondary": "#ffffff", "surface-tint": "#586244", "error": "#ba1a1a", "surface-container-highest": "#e6e2de", "on-tertiary": "#ffffff", "on-primary-fixed": "#161e07", "tertiary-fixed": "#dfe5d6", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "surface-variant": "#e6e2de", "outline": "#76786e", "tertiary": "#5a6055", "on-primary-fixed-variant": "#404a2e", "on-error-container": "#93000a", "on-primary-container": "#2a3319", "primary": "#586244", "on-secondary-fixed": "#131f01", "secondary": "#55633a", "outline-variant": "#c6c7bc", "on-surface-variant": "#46483f", "on-surface": "#1c1c19", "secondary-container": "#d5e6b2", "primary-fixed-dim": "#c0cba6", "error-container": "#ffdad6", "tertiary-container": "#949a8d", "inverse-primary": "#c0cba6", "surface-container-low": "#f7f3ef", "on-tertiary-container": "#2c3228", "on-tertiary-fixed-variant": "#42493e", "on-tertiary-fixed": "#171d14", "surface-dim": "#ddd9d6", "background": "#fdf9f5", "on-error": "#ffffff", "inverse-on-surface": "#f4f0ec", "surface-container-lowest": "#ffffff", "primary-fixed": "#dce7c1", "on-secondary-fixed-variant": "#3e4b25" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "3rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter-mobile": "1rem" }, fontFamily: { "display-lg-mobile": ["Space Grotesk"], "label-md": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "body-xl": ["Plus Jakarta Sans"], "headline-xl": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"] }, fontSize: { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(45,51,41,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] -ml-2 flex items-center justify-center text-on-surface hover:text-primary transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Brand logo. - Primary color: #919c7a - Font: spaceGrotesk - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><span class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface hidden sm:inline">Odora</span></div><div class="flex-1 text-center px-space-xs"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Return / Refund Request</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Atmospheric Ambient Top Gradient Glow -->
+<div class="relative w-full px-margin-mobile pt-space-md pb-space-lg flex flex-col gap-space-lg">
+<!-- Subheader Guarantee Badge -->
+<div class="inline-flex items-center gap-space-xs self-start px-space-md py-1.5 rounded-full bg-secondary-container/60 text-on-secondary-container shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">30-Day Harmony Guarantee • White-Glove Care</span>
+</div>
+<!-- Screen Intro -->
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">Return or Exchange</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        If an olfactory formulation does not harmonise with your sanctuary, or your hardware requires atelier calibration, request an immediate exchange or refund below.
+      </p>
+</div>
+<!-- Active Order Banner Card -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">inventory_2</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Order #OD-84920</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">Delivered Yesterday</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Arrived Nov 18, 2023 • 3 formulation &amp; hardware pieces</p>
+</div>
+<!-- Step 1: Select Eligible Items -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-[11px] font-bold">1</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Select Items to Return</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-semibold" id="selected-counter">2 of 3 Selected</span>
+</div>
+<!-- Item A: Smart Diffuser (Selected) -->
+<label class="group relative flex flex-col gap-space-sm bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all cursor-pointer">
+<div class="flex items-start gap-space-md">
+<!-- Checkbox -->
+<div class="pt-1">
+<input checked="" class="item-checkbox sr-only peer" name="item-select" type="checkbox" value="diffuser"/>
+<div class="w-6 h-6 rounded-lg bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] peer-checked:opacity-100 opacity-0 transition-opacity">check</span>
+</div>
+</div>
+<!-- Thumbnail -->
+<div class="w-20 h-24 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<img alt="Odora One Smart Diffuser Botanical Sage Green" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtJKXmT6v2T3qUM8ZwwjYQZUYG18_IrZRR7HA-N2pXQI5aoEq89yfQf8fboVyws3QfIO0B82eVZ9jYIEY0DlZIV4KglaSKX3csMW_p0-qLrKgFc5-ZXSrva5MwdRTpAq1pOcxTwilapQMnKjpuQA7RModiGRgTtUipj-3KFZzevobbfwg1kmW-_wao7hY014yQLbdilTk_aUebt0Zoy63fOInr4InrcbTUgSPtkZgp1oQXm0uUIKhQS-0utdASoPjhrZc"/>
+</div>
+<!-- Info -->
+<div class="flex-1 min-w-0 flex flex-col justify-between h-24 py-0.5">
+<div>
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Odora One Diffuser</h3>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium shrink-0">$185</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Botanical Sage Green Edition</p>
+</div>
+<div class="flex items-center gap-1.5 py-1 px-2 rounded-md bg-secondary-container/40 self-start">
+<span class="material-symbols-outlined text-secondary text-[14px]">tune</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Acoustic resonance swap</span>
+</div>
+</div>
+</div>
+</label>
+<!-- Item B: Forest Sage Extract (Selected) -->
+<label class="group relative flex flex-col gap-space-sm bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all cursor-pointer">
+<div class="flex items-start gap-space-md">
+<div class="pt-1">
+<input checked="" class="item-checkbox sr-only peer" name="item-select" type="checkbox" value="forest-sage"/>
+<div class="w-6 h-6 rounded-lg bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] peer-checked:opacity-100 opacity-0 transition-opacity">check</span>
+</div>
+</div>
+<div class="w-20 h-24 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Dark amber glass dropper bottle of Odora Forest Sage pure essential extract sitting on warm off-white limestone surface with soft afternoon light casting gentle shadows in a minimalist serene wellness space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDTqHNRiybuow8mkg0mZNEES3dWCOJdd6RY-gZZPAdlfiQ8vZMvIqEhmBqXZW6uyuknVpQbBbY-EKl2XClz56Vl-EKqwTAa2grr3tBe5NDY50gzzrffRYgv-Nlhnfv0VUMEQwe8nE4lROXeoo9X9CtNDExCAdE8yOlwl--DvBDjxXx5z8a-PCEVWqBpU9O1j486WH2hMUhRNwZlB0fclvt3N9hr_NGu4SZou9-cn8G3sTMq0wgsYAjJg"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-24 py-0.5">
+<div>
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Forest Sage Extract</h3>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium shrink-0">$38</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Cold-Pressed Essence • 30ml</p>
+</div>
+<div class="flex items-center gap-1.5 py-1 px-2 rounded-md bg-secondary-container/40 self-start">
+<span class="material-symbols-outlined text-secondary text-[14px]">spa</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Scent note misalignment</span>
+</div>
+</div>
+</div>
+</label>
+<!-- Item C: Cotton Linen Extract (Unselected) -->
+<label class="group relative flex flex-col gap-space-sm bg-surface-container-lowest/60 rounded-xl p-space-md shadow-sm transition-all cursor-pointer opacity-75">
+<div class="flex items-start gap-space-md">
+<div class="pt-1">
+<input class="item-checkbox sr-only peer" name="item-select" type="checkbox" value="cotton-linen"/>
+<div class="w-6 h-6 rounded-lg bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] peer-checked:opacity-100 opacity-0 transition-opacity">check</span>
+</div>
+</div>
+<div class="w-20 h-24 rounded-lg bg-surface-container overflow-hidden shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Elegantly styled amber glass perfume oil bottle labeled Cotton Linen on a minimalist textured ceramic plinth with warm sunlight and organic linen backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_BolxlYe-0t7DH5w3864wQ-lNgqMvXueFgOtxC-dfqjbLmAMz3fRxfGXGz69_E6pf7KDBPgAIlYD6RTo17SxSbow60mOHqyICFnlU1J8kIKNXDmx-cgzJmwQpaDUnEfL8sIbz3-fo6bcsu8oS_pUHjetgPuOcrHR1M1l_vVIqzfEcfxRpc4KrQm1JhZ8mXrZG0HVVBIpWMnQaKjPP83XJV6LeCkqBSZ9ODSYkDTbjEstFDsnK4fddfw"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between h-24 py-0.5">
+<div>
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Cotton Linen Blend</h3>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium shrink-0">$38</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Delicate Home Fragrance • 30ml</p>
+</div>
+<div class="flex items-center gap-1.5 py-1 px-2 rounded-md bg-surface-container self-start">
+<span class="material-symbols-outlined text-outline text-[14px]">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Retaining item</span>
+</div>
+</div>
+</div>
+</label>
+</div>
+<!-- Step 2: Reason for Request -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-[11px] font-bold">2</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Sensory &amp; Hardware Feedback</span>
+</div>
+<!-- Pill chips -->
+<div class="flex flex-wrap gap-2" id="reason-chips">
+<button class="reason-pill px-3 py-1.5 rounded-full text-left font-label-md text-label-md transition-all bg-secondary-container text-on-secondary-container shadow-xs" type="button">
+          Diffuser Acoustic Resonance
+        </button>
+<button class="reason-pill px-3 py-1.5 rounded-full text-left font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:bg-surface-container-high" type="button">
+          Scent Sillage Too Strong
+        </button>
+<button class="reason-pill px-3 py-1.5 rounded-full text-left font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:bg-surface-container-high" type="button">
+          Accidental Duplicate
+        </button>
+<button class="reason-pill px-3 py-1.5 rounded-full text-left font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:bg-surface-container-high" type="button">
+          Changed Interior Decor
+        </button>
+<button class="reason-pill px-3 py-1.5 rounded-full text-left font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:bg-surface-container-high" type="button">
+          Damaged in Courier Transit
+        </button>
+</div>
+<!-- Detailed text area -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold" for="feedback-notes">Sanctuary Experience Notes</label>
+<textarea class="w-full bg-transparent resize-none font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="feedback-notes" placeholder="Please share your olfactory impressions, hardware symptoms, or notes for our atelier technicians..." rows="3"></textarea>
+</div>
+</div>
+<!-- Step 3: Photographic Evidence (Optional) -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-[11px] font-bold">3</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Photographic Evidence</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 of 4 uploaded</span>
+</div>
+<div class="grid grid-cols-3 gap-space-sm">
+<!-- Thumbnail 1 -->
+<div class="relative aspect-square rounded-xl bg-surface-container overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Close up photography of the top ultrasonic mist outlet of an Odora botanical olive green ceramic diffuser sitting on raw porous travertine stone surface in gentle ambient daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF0_mwMCtZRWtNb6xcUZ7fD9qoMznppCx1kD5awBCu3AHx9dauV2mStw7G1CFFNVtnpEGsqFr006zklft_D74lcPxtPjBvvRo4qryXT3yHzcWXYWpwRNN4TODCYiTKv6HqQRa2MiX8S617gKOd2WFU9LgLiWLxQT2sldaq7O29TM4CT2wtiIuPegAAZb7Dz4-F1y3hbxVrkKvRjNN58OhK-Ub40IRWLmfKmQpAszMHiyW1jHIKK6BuyQ"/>
+<button aria-label="Remove photo" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-inverse-surface/75 text-inverse-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<!-- Thumbnail 2 -->
+<div class="relative aspect-square rounded-xl bg-surface-container overflow-hidden shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Minimalist luxury eco packaging cardboard box of Odora diffuser with tactile embossed lettering resting on natural woven linen cloth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxhuoNbXJqvL-y30T_MgT7fNE7Md3H2klEHwtv7aZcbTlVxStG56IMV5K6Uj2BDaY34YdThdT2UbFh1Jiuz3GLNXltv-kkFL1Xgw8nzkR8F6tJOPOa_mAAFfdQrcFlMQNUYkikEjYOWjv1N_JJSXD2E3wfyKdDX_iLxM-YBBYzjMPgsqLqihjn7EfbB3vXfNHHyXGVz1q40H6dBTviFih2s7A8V6YPQUTwpl265S45BegIXD3FzjVOw"/>
+<button aria-label="Remove photo" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-inverse-surface/75 text-inverse-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<!-- Add Photo Slot -->
+<button class="aspect-square rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col items-center justify-center gap-1 text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-[24px] text-primary">add_a_photo</span>
+<span class="font-label-sm text-label-sm font-medium">Add Photo</span>
+</button>
+</div>
+</div>
+<!-- Step 4: Preferred Resolution -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-[11px] font-bold">4</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Preferred Resolution</span>
+</div>
+<div class="flex flex-col gap-space-sm" id="resolution-options">
+<!-- Option 1: Direct Atelier Exchange (Default Selected) -->
+<label class="resolution-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-start gap-space-md transition-all">
+<input checked="" class="resolution-radio sr-only peer" name="resolution" type="radio" value="exchange"/>
+<div class="w-5 h-5 rounded-full bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary shrink-0 mt-0.5 transition-colors">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1 flex flex-col gap-0.5 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Direct Atelier Exchange</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Recommended</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Complimentary doorstep swap via white-glove climate courier within 24h. No re-packing required.</p>
+</div>
+</label>
+<!-- Option 2: Odora Store Credit + 15% Privilege -->
+<label class="resolution-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-start gap-space-md transition-all">
+<input class="resolution-radio sr-only peer" name="resolution" type="radio" value="credit"/>
+<div class="w-5 h-5 rounded-full bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary shrink-0 mt-0.5 transition-colors">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1 flex flex-col gap-0.5 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Odora Credit + 15% Bonus</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">+$25 Value</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Instant digital account credit including formulation bonus for your next ambient exploration.</p>
+</div>
+</label>
+<!-- Option 3: Full Refund to Original Payment -->
+<label class="resolution-card cursor-pointer relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-start gap-space-md transition-all">
+<input class="resolution-radio sr-only peer" name="resolution" type="radio" value="refund"/>
+<div class="w-5 h-5 rounded-full bg-surface-container-high peer-checked:bg-primary flex items-center justify-center text-on-primary shrink-0 mt-0.5 transition-colors">
+<div class="w-2 h-2 rounded-full bg-surface-container-lowest opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex-1 flex flex-col gap-0.5 min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface">Full Refund to Original Payment</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Reverses $223.00 directly to your Visa card (ending in •••• 8842) within 3–5 business days.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Return Courier Pick-up Address -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+<span class="font-label-md text-label-md font-semibold tracking-wider uppercase text-on-surface">Sanctuary Pickup Address</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline" type="button">Edit Sanctuary</button>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-outline text-[18px] mt-0.5">location_on</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Elena Rostova</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Villa 14B, Palm Frond B, Jumeirah 3</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Dubai, United Arab Emirates</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Courier brings biodegradable return vessel</span>
+</div>
+</div>
+<!-- Bottom Actions Container -->
+<div class="flex flex-col gap-space-sm pt-space-xs pb-space-lg">
+<button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface hover:bg-on-background active:scale-[0.99] transition-all flex items-center justify-center gap-space-sm shadow-md font-headline-sm text-headline-sm" id="submit-btn" type="button">
+<span>Submit Return Request • 2 Items</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Reassurance Warranty Text -->
+<div class="flex items-center justify-center gap-2 text-center text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[16px]">format_image_left</span>
+<span class="font-body-sm text-body-sm">2-Year Atelier Warranty active. Zero restocking friction.</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    // Dynamic Selection Counter
+    const checkboxes = document.querySelectorAll('.item-checkbox');
+    const counterText = document.getElementById('selected-counter');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function updateItemCount() {
+      const selectedCount = document.querySelectorAll('.item-checkbox:checked').length;
+      if (counterText) {
+        counterText.textContent = `${selectedCount} of ${checkboxes.length} Selected`;
+      }
+      if (submitBtn) {
+        if (selectedCount === 0) {
+          submitBtn.innerHTML = `<span>Select Items to Continue</span>`;
+          submitBtn.classList.add('opacity-50', 'pointer-events-none');
+        } else {
+          submitBtn.classList.remove('opacity-50', 'pointer-events-none');
+          submitBtn.innerHTML = `<span>Submit Return Request • ${selectedCount} ${selectedCount === 1 ? 'Item' : 'Items'}</span><span class="material-symbols-outlined text-[20px]">arrow_forward</span>`;
+        }
+      }
+    }
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const card = cb.closest('label');
+        if (cb.checked) {
+          card.classList.remove('opacity-75');
+        } else {
+          card.classList.add('opacity-75');
+        }
+        updateItemCount();
+      });
+    });
+
+    // Reason Pill Selection Toggles
+    const reasonPills = document.querySelectorAll('.reason-pill');
+    reasonPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        reasonPills.forEach((p) => {
+          p.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+          p.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        pill.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        pill.classList.add('bg-secondary-container', 'text-on-secondary-container');
+      });
+    });
+
+    // Resolution Radio Styling
+    const resolutionRadios = document.querySelectorAll('.resolution-radio');
+    resolutionRadios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.resolution-card').forEach((card) => {
+          card.classList.remove('bg-surface-container-low');
+          card.classList.add('bg-surface-container-lowest');
+        });
+        if (radio.checked) {
+          radio.closest('.resolution-card').classList.add('bg-surface-container-low');
+          radio.closest('.resolution-card').classList.remove('bg-surface-container-lowest');
+        }
+      });
+    });
+
+    // Gentle submission feedback
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        submitBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Preparing Atelier Pickup...</span>`;
+        setTimeout(() => {
+          submitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Request Harmonised & Confirmed</span>`;
+          submitBtn.classList.remove('bg-inverse-surface');
+          submitBtn.classList.add('bg-primary');
+        }, 1200);
+      });
+    }
+  })();
+</script></main></body></html>

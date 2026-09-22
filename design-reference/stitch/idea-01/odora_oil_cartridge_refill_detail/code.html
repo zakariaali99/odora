@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode":"class","theme":{"extend":{"colors":{"inverse-surface":"#31302e","primary-fixed":"#dce7c1","on-error":"#ffffff","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#404a2e","secondary-fixed-dim":"#bccd9a","surface-dim":"#ddd9d6","on-primary-fixed":"#161e07","primary-container":"#919c7a","on-secondary-container":"#59683e","tertiary-container":"#949a8d","on-primary":"#ffffff","surface-container":"#f1ede9","surface-variant":"#e6e2de","secondary-container":"#d5e6b2","error":"#ba1a1a","on-background":"#1c1c19","on-tertiary-container":"#2c3228","on-error-container":"#93000a","surface-container-low":"#f7f3ef","on-secondary":"#ffffff","on-tertiary-fixed-variant":"#42493e","secondary-fixed":"#d8e9b5","tertiary-fixed":"#dfe5d6","surface":"#fdf9f5","surface-tint":"#586244","background":"#fdf9f5","on-surface":"#1c1c19","tertiary":"#5a6055","secondary":"#55633a","on-tertiary-fixed":"#171d14","on-tertiary":"#ffffff","outline":"#76786e","on-primary-container":"#2a3319","primary-fixed-dim":"#c0cba6","error-container":"#ffdad6","surface-container-high":"#ebe7e4","outline-variant":"#c6c7bc","primary":"#586244","surface-bright":"#fdf9f5","surface-container-highest":"#e6e2de","inverse-primary":"#c0cba6","tertiary-fixed-dim":"#c2c9ba","on-secondary-fixed":"#131f01","inverse-on-surface":"#f4f0ec","on-surface-variant":"#46483f","on-secondary-fixed-variant":"#3e4b25"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"3rem","space-sm":"0.5rem","space-md":"1rem","space-xl":"2.5rem","space-lg":"1.5rem","margin-mobile":"1.25rem","space-xs":"0.25rem","gutter":"1.5rem","gutter-mobile":"1rem"},"fontFamily":{"headline-xl":["Space Grotesk"],"headline-md":["Space Grotesk"],"headline-sm":["Space Grotesk"],"label-lg":["Space Grotesk"],"body-xl":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"display-lg-mobile":["Space Grotesk"],"headline-xl-mobile":["Space Grotesk"],"body-md":["Plus Jakarta Sans"],"display-lg":["Space Grotesk"],"headline-lg":["Space Grotesk"],"body-sm":["Plus Jakarta Sans"],"label-md":["Space Grotesk"],"label-sm":["Space Grotesk"]},"fontSize":{"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"500"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.04em","fontWeight":"600"}],"body-xl":["18px",{"lineHeight":"28px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"display-lg-mobile":["38px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"400"}],"headline-xl-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"display-lg":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"500"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"500"}]}}}</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span></button><img alt="Brand logo. - Primary color: #919c7a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC261GJnP2gORr2STYoQn6uSl2C-5qpWi8SDDeDtQ03XtGJUetKQrojrp2aSSWKbLouIY0wQ2lOkG1nsZjefZPaiSWI1kyUdk-Tfpsm8iKL9zJvichDqQaRMfJMm2mFRpf0VEYmdLkeakZBHQyeGllq9VD4WesBVWc9d_JSkrp8TyUQ4Rzl5Z-G00rlMyavB941EbTCKwgR0u4v1kaQhrYepyvjOfdnnJH_YNXgTxBQifCYVuxXONrJZQ"/><h1 class="font-headline-sm text-headline-sm tracking-tight text-on-surface truncate">Odora   Product Detail</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-32">
+<!-- Atelier Hero & Visual Showcase -->
+<section class="relative w-full px-gutter-mobile pt- space-sm">
+<!-- Gallery Card -->
+<div class="relative w-full rounded-2xl bg-surface-container-low overflow-hidden shadow-sm">
+<!-- Media Aspect Ratio Frame -->
+<div class="relative w-full aspect-[4/5] overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover object-center" data-alt="Minimalist luxury studio photograph of an Odora dark amber glass apothecary dropper bottle labeled Forest Sage beside a sage green cylindrical waterless diffuser and chic matte sage gift packaging. Natural warm limestone surface, soft directional morning sunlight, delicate sprig of wild dried sage in an unglazed ceramic vase." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZch6n_mtloeXj3pVBvfBA8CaTbLTc5zuFHJKpMrkNglt_VBuvnO3jRff6DkW69p45Z_ecDYA03intehblQDw40WshRBjuMuAkmSU_mGXcPJf3s5-nbq5ne2yJ0Qb3Ynx55TqAg1sKBxiZssKaDacZ0A0soHtvSL7-Yo0i9y6AJQIEfO1fBvMqf0koRP-K0IkOftkdKbJ4iEnuHgoRqdz8flKjlxKNburkJrgYDp-U"/>
+<!-- Ambient Radial Gradient for Depth -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent pointer-events-none"></div>
+<!-- Top Badges Floating Over Image -->
+<div class="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Pure Extract</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface-variant shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">verified</span>
+<span class="font-label-sm text-label-sm font-medium">Batch GR-24/09</span>
+</span>
+</div>
+<!-- Bottom Overlay Capsule -->
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-auto">
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">4.9</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">(84)</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">spa</span>
+<span class="font-label-sm text-label-sm text-on-surface">Cold-Air Nebulization</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Title & Olfactory Essence Header -->
+<section class="px-gutter-mobile pt-space-lg">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase font-semibold">Sanctuary Refill Flacon</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">30ml / 1.01 fl oz</span>
+</div>
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight mb-1">
+      Forest Sage &amp; Smoked Hinoki
+    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4">
+      Atmospheric room calibrator engineered for silent waterless nebulization. Imparts an architectural stillness through sun-cured alpine botanicals.
+    </p>
+<!-- Pricing Row & Live Availability -->
+<div class="flex items-baseline justify-between py-2 border-b border-surface-container-high">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">$38</span>
+<span class="font-label-md text-label-md text-on-surface-variant font-normal">/ 140 AED</span>
+</div>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">eco</span>
+<span class="font-label-sm text-label-sm font-medium">In Season • Fresh Press</span>
+</div>
+</div>
+</section>
+<!-- Purchase Tier Selection (Pills / Toggle) -->
+<section class="px-gutter-mobile pt-space-md">
+<div class="grid grid-cols-2 gap-2.5">
+<!-- One-time -->
+<button class="tier-pill flex flex-col p-3.5 rounded-xl text-left bg-surface-container-low transition-all duration-200" id="btn-single" onclick="selectPurchaseTier('single')" type="button">
+<span class="font-label-md text-label-md text-on-surface font-medium mb-0.5">One-Time Delivery</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">$38</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Single amber flacon</span>
+</button>
+<!-- Concierge Replenish (Active Default) -->
+<button class="tier-pill flex flex-col p-3.5 rounded-xl text-left bg-secondary-container transition-all duration-200 shadow-sm relative overflow-hidden" id="btn-sub" onclick="selectPurchaseTier('sub')" type="button">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-secondary-container font-semibold">Concierge Refill</span>
+<span class="px-1.5 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-[10px]">SAVE 15%</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-secondary-container font-semibold">$32.30</span>
+<span class="font-body-sm text-body-sm text-on-secondary-container mt-1">Replenished every 45 days</span>
+</button>
+</div>
+</section>
+<!-- Olfactory Architecture (Pyramid) -->
+<section class="px-gutter-mobile pt-space-xl">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase font-semibold">Sensory Diffusion</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Olfactory Progression</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-full">180h Diffusion Arc</span>
+</div>
+<div class="space-y-2.5">
+<!-- Top Note Card -->
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex gap-3.5 items-start">
+<div class="w-10 h-10 rounded-full bg-secondary-container/70 flex items-center justify-center shrink-0 text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">air</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-label-lg text-label-lg text-on-surface">Top Phase • 0–20 min</h3>
+<span class="font-label-sm text-label-sm text-primary font-medium">Clarity</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Calabrian Bergamot &amp; Crushed Thyme</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-normal">
+            Volatile cold-pressed citrus monoterpenes evaporate instantaneously to sharpen indoor cognitive focus.
+          </p>
+</div>
+</div>
+<!-- Heart Note Card -->
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex gap-3.5 items-start">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center shrink-0 text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">psychology_alt</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-label-lg text-label-lg text-on-surface">Heart Phase • 20 min–4 hrs</h3>
+<span class="font-label-sm text-label-sm text-primary font-medium">Equilibrium</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Wild French Clary Sage &amp; Cypress Needle</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-normal">
+            Linalyl acetate esters induce steady somatic easing without lethargy; harmonizes room atmosphere.
+          </p>
+</div>
+</div>
+<!-- Base Note Card -->
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex gap-3.5 items-start">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[20px]">nature</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="font-label-lg text-label-lg text-on-surface">Base Anchor • 4–12+ hrs</h3>
+<span class="font-label-sm text-label-sm text-primary font-medium">Resonance</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Smoked Japanese Hinoki &amp; Haitian Vetiver</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-normal">
+            Dense, grounding sesquiterpenes cling gently to untreated limestone and raw linens with zero oily residue.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Grasse Terroir & Origin Provenance Card (The Centerpiece) -->
+<section class="px-gutter-mobile pt-space-xl">
+<div class="p-5 rounded-2xl bg-surface-container-low shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">explore</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Terroir Provenance</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
+          AOC Certified
+        </span>
+</div>
+<!-- Terroir Visual Map Snippet / Imagery -->
+<div class="relative w-full h-36 rounded-xl overflow-hidden mb-4 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Aerial view of terraced organic clary sage and lavender slopes in Grasse, Southern France during early morning mist. Soft golden sun skimming limestone terraces with mountain foothills in soft focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPqR4qCeUG8v-lFLTs8hMVHQ1VN7YVMKPrxIKUMDlm6Xuk3gf9m-KIpJvFIjtDctTaXNOVvNiviSLM_J9CaYLlG3PJjTHezNo0NCBzJ2cFdR9BK__0kIH-CIw1plFdaDMrGRCNixWga4sYWfbNS0IIPOLkbAOyLXCUozoGOaxJsTh2K7oDI10OMy96XmJnIIVkV0uvoe7AC_b9eTH69IFlVfSuf8fv4FDFvDm5ve5G"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-2.5 left-3 text-inverse-on-surface">
+<p class="font-label-md text-label-md font-medium tracking-wide">Domaine de Saint-Cézaire</p>
+<p class="font-body-sm text-body-sm opacity-90">Grasse, Alpes-Maritimes, France • 480m Alt.</p>
+</div>
+</div>
+<!-- Specification Grid -->
+<div class="grid grid-cols-2 gap-3 mb-4">
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-0.5">Dawn Harvest</span>
+<span class="font-label-lg text-label-lg text-on-surface block font-medium">05:30 AM Sept 2024</span>
+<span class="font-body-sm text-body-sm text-tertiary">Pre-heat terpene lock</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-0.5">Extraction</span>
+<span class="font-label-lg text-label-lg text-on-surface block font-medium">Subcritical CO2</span>
+<span class="font-body-sm text-body-sm text-tertiary">Ultrasonic cold-press</span>
+</div>
+</div>
+<!-- Master Nez Signature Block -->
+<div class="flex items-center gap-3 pt-3 border-t border-surface-container-high">
+<div class="w-9 h-9 rounded-full bg-primary-container/40 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface">brush</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Marcelle D. — Master Parfumeur</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Odora Botanical Atelier, Grasse</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Nanoscale Nebulization Compatibility & Specs -->
+<section class="px-gutter-mobile pt-space-xl">
+<div class="flex items-center justify-between mb-space-md">
+<div>
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase font-semibold">Hardware Synergy</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Engineering Metrics</h2>
+</div>
+</div>
+<!-- Specs Bento Grid -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Nebulization Card -->
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-sm text-label-sm">Aerosolization</span>
+<span class="material-symbols-outlined text-[18px] text-primary">blur_on</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-medium">0.8 μm</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Dry cold-mist suspension with zero micro-droplets.</p>
+</div>
+</div>
+<!-- Device Compatibility -->
+<div class="p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-2">
+<span class="font-label-sm text-label-sm">Diffusers</span>
+<span class="material-symbols-outlined text-[18px] text-primary">devices</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-medium">One • Sculpt</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Magnetic quick-lock bayonet cartridge slot.</p>
+</div>
+</div>
+<!-- Residue & Purity Card (Full Width) -->
+<div class="col-span-2 p-4 rounded-xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">pets</span>
+<span class="font-label-lg text-label-lg text-on-surface">Pet &amp; Fabric Certified Safe</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-[10px]">IFRA 51st</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Zero alcohol carriers, zero propylene glycol, and non-sensitizing to feline and canine olfactory receptors when diffused at Level 1–3 presets.
+        </p>
+</div>
+</div>
+</section>
+<!-- Purity Lab Certificate Stamp -->
+<section class="px-gutter-mobile pt-space-lg">
+<div class="p-4 rounded-xl bg-surface-container flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">science</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">GC/MS Chromatography Passed</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Certificate #QC-88219-GR • 99.82% Actives</p>
+</div>
+</div>
+<button class="shrink-0 font-label-sm text-label-sm text-primary hover:text-on-surface transition-colors font-medium flex items-center gap-0.5" onclick="openPurityModal()" type="button">
+<span>View</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Floating Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl border-t border-surface-container-high px-gutter-mobile py-3 pb-safe shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+<div class="flex items-center gap-3 max-w-md mx-auto">
+<!-- Quantity Counter -->
+<div class="flex items-center bg-surface-container-low rounded-full px-2 py-1 shadow-sm shrink-0">
+<button aria-label="Decrease quantity" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="adjustQty(-1)" type="button">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="w-7 text-center font-headline-sm text-headline-sm text-on-surface font-semibold" id="cart-qty">1</span>
+<button aria-label="Increase quantity" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="adjustQty(1)" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Main Action Button -->
+<button class="flex-1 h-12 rounded-full bg-inverse-surface text-inverse-on-surface flex items-center justify-between px-5 hover:bg-on-background active:scale-[0.98] transition-all duration-200 shadow-md" id="btn-add-cart" onclick="triggerAddToCart()" type="button">
+<span class="font-label-lg text-label-lg font-medium tracking-wide">Add to Sanctuary</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-inverse-on-surface" id="cta-price">$32.30</span>
+</button>
+</div>
+<!-- Assurance Micro-Label -->
+<div class="flex items-center justify-center gap-1.5 mt-2 text-center">
+<span class="material-symbols-outlined text-[12px] text-tertiary">inventory_2</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant font-normal">
+        Complimentary Raw Grasse Linen Storage Pouch Included
+      </span>
+</div>
+</div>
+<!-- Toast Notification (Moments of Delight) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 transform opacity-0 translate-y-4 pointer-events-none transition-all duration-300 flex items-center gap-2 px-4 py-2.5 rounded-full bg-inverse-surface text-inverse-on-surface shadow-xl" id="toast-notification">
+<span class="material-symbols-outlined text-primary-fixed text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md" id="toast-text">Added to Sanctuary Bag</span>
+</div>
+</div>
+<script>
+  let currentTier = 'sub';
+  let quantity = 1;
+  const unitPrice = { single: 38.00, sub: 32.30 };
+
+  function selectPurchaseTier(tier) {
+    currentTier = tier;
+    const btnSingle = document.getElementById('btn-single');
+    const btnSub = document.getElementById('btn-sub');
+
+    if (tier === 'single') {
+      btnSingle.className = 'tier-pill flex flex-col p-3.5 rounded-xl text-left bg-surface-container transition-all duration-200 shadow-sm relative ring-1 ring-primary/40';
+      btnSub.className = 'tier-pill flex flex-col p-3.5 rounded-xl text-left bg-surface-container-low transition-all duration-200';
+    } else {
+      btnSub.className = 'tier-pill flex flex-col p-3.5 rounded-xl text-left bg-secondary-container transition-all duration-200 shadow-sm relative overflow-hidden';
+      btnSingle.className = 'tier-pill flex flex-col p-3.5 rounded-xl text-left bg-surface-container-low transition-all duration-200';
+    }
+    updateCtaDisplay();
+  }
+
+  function adjustQty(delta) {
+    quantity = Math.max(1, Math.min(8, quantity + delta));
+    document.getElementById('cart-qty').innerText = quantity;
+    updateCtaDisplay();
+  }
+
+  function updateCtaDisplay() {
+    const total = (unitPrice[currentTier] * quantity).toFixed(2);
+    document.getElementById('cta-price').innerText = '$' + total;
+  }
+
+  function triggerAddToCart() {
+    const btn = document.getElementById('btn-add-cart');
+    const toast = document.getElementById('toast-notification');
+    const toastText = document.getElementById('toast-text');
+    
+    // Tactile confirmation
+    btn.classList.add('scale-95');
+    setTimeout(() => btn.classList.remove('scale-95'), 150);
+
+    toastText.innerText = `Added ${quantity} Flacon${quantity > 1 ? 's' : ''} to Sanctuary`;
+    toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    }, 2400);
+  }
+
+  function openPurityModal() {
+    const toast = document.getElementById('toast-notification');
+    const toastText = document.getElementById('toast-text');
+    toastText.innerText = 'Report #QC-88219-GR Verified by Grasse Lab';
+    toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    }, 2000);
+  }
+</script></main></body></html>

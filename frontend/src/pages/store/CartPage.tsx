@@ -41,17 +41,15 @@ export const CartPage: React.FC = () => {
 
   if (!cart.items || cart.items.length === 0) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-brand-cream">
-        <div className="w-20 h-20 rounded-full bg-white border border-stone-200 shadow-xs flex items-center justify-center text-brand-muted mb-4">
-          <ShoppingBag className="w-10 h-10 text-brand-sage" />
-        </div>
-        <h2 className="text-2xl font-bold text-brand-ink">{t('cart.emptyTitle', 'سلتك فارغة حالياً')}</h2>
-        <p className="text-sm text-brand-muted font-medium mt-2 max-w-sm">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-brand-canvas">
+        <ShoppingBag className="w-10 h-10 text-brand-sage mb-7" />
+        <h2 className="text-3xl font-light text-brand-ink">{t('cart.emptyTitle', 'سلتك فارغة حالياً')}</h2>
+        <p className="text-sm text-brand-muted mt-3 max-w-sm leading-7">
           {t('cart.emptyDesc', 'لم تقم بإضافة أي أجهزة أو زيوت عطرية إلى سلتك بعد.')}
         </p>
         <Link
           to="/products"
-          className="mt-6 px-8 py-3 rounded-full bg-brand-ink hover:bg-stone-800 text-white font-bold text-sm transition-colors shadow-xs"
+          className="editorial-button-primary mt-8"
         >
           {t('cart.startShopping', 'تصفح المتجر والمنتجات')}
         </Link>
@@ -60,28 +58,28 @@ export const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen pb-20 pt-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-brand-cream">
-      <div className="border-b border-stone-200 pb-4 mb-8 flex items-baseline justify-between">
-        <h1 className="text-3xl font-light text-brand-ink">{t('cart.title', 'سلة المشتريات')}</h1>
+    <div className="editorial-container min-h-screen pb-24 pt-12 sm:pb-32 sm:pt-16 bg-brand-canvas">
+      <div className="border-b border-brand-ink/10 pb-8 mb-12 flex items-baseline justify-between">
+        <h1 className="text-4xl sm:text-6xl tracking-[-0.04em] font-light text-brand-ink">{t('cart.title', 'سلة المشتريات')}</h1>
         <button
           onClick={clearCart}
-          className="text-xs text-red-600 hover:underline font-bold"
+          className="text-xs text-brand-muted hover:text-red-700 hover:underline underline-offset-4"
         >
           {t('cart.clearCart', 'إفراغ السلة')}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         
         {/* Items List */}
-        <div className="lg:col-span-8 space-y-4">
+        <div className="lg:col-span-8 divide-y divide-brand-ink/10 border-y border-brand-ink/10">
           {cart.items.map((item) => (
             <div
               key={item.id}
-              className="odora-card p-4 sm:p-6 bg-white border border-stone-200 shadow-sm flex flex-col sm:flex-row items-center gap-6 justify-between"
+              className="py-6 sm:py-8 flex flex-col sm:flex-row items-center gap-6 justify-between"
             >
               <div className="flex items-center gap-4 w-full sm:w-auto">
-                <div className="w-20 h-20 rounded-xl bg-stone-50 flex items-center justify-center shrink-0 border border-stone-200 overflow-hidden">
+                <div className="w-24 h-28 rounded-[18px] bg-brand-surface flex items-center justify-center shrink-0 overflow-hidden shadow-soft-card">
                   <img
                     src={item.product?.main_image || '/products/diffuser-a316-sage.png'}
                     alt={item.product?.name_ar}
@@ -90,24 +88,24 @@ export const CartPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base text-brand-ink">
+                  <h3 className="font-medium text-base text-brand-ink">
                     {language === 'en'
                       ? item.product?.name || item.product?.name_ar
                       : item.product?.name_ar || item.product?.name}
                   </h3>
                   {item.colorway && (
-                    <p className="text-xs text-brand-muted font-medium mt-0.5">
+                    <p className="text-xs text-brand-muted mt-1">
                       {language === 'ar' ? `اللون: ${item.colorway.name_ar}` : `Color: ${item.colorway.name}`}
                     </p>
                   )}
-                  <p className="text-xs font-bold text-brand-sage mt-1">
+                  <p className="text-xs font-medium text-brand-olive mt-2 tabular-nums">
                     {item.unit_price} {t('common.currency', 'د.ل')}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-0 border-stone-100">
-                <div className="flex items-center border border-stone-200 rounded-full overflow-hidden bg-white shadow-2xs">
+              <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto pt-4 sm:pt-0 border-t sm:border-0 border-brand-ink/10">
+                <div className="flex items-center border border-brand-ink/15 rounded-full overflow-hidden bg-brand-surface">
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     className="p-2 text-stone-600 hover:bg-stone-100 transition-colors"
@@ -115,7 +113,7 @@ export const CartPage: React.FC = () => {
                   >
                     <Minus className="w-3.5 h-3.5" />
                   </button>
-                  <span className="px-3 text-xs font-bold text-brand-ink font-sans">{item.quantity}</span>
+                  <span className="px-3 text-xs font-medium text-brand-ink font-sans tabular-nums">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     className="p-2 text-stone-600 hover:bg-stone-100 transition-colors"
@@ -126,7 +124,7 @@ export const CartPage: React.FC = () => {
                 </div>
 
                 <div className="text-start min-w-[70px]">
-                  <span className="text-base font-bold text-brand-ink font-sans">
+                  <span className="text-base font-medium text-brand-ink font-sans tabular-nums">
                     {item.line_total} {t('common.currency', 'د.ل')}
                   </span>
                 </div>
@@ -144,15 +142,15 @@ export const CartPage: React.FC = () => {
         </div>
 
         {/* Summary Card */}
-        <div className="lg:col-span-4 odora-card p-6 bg-white border border-stone-200 shadow-md space-y-5">
-          <h2 className="text-lg font-bold text-brand-ink border-b border-stone-100 pb-3">
+        <aside className="lg:col-span-4 editorial-surface p-6 sm:p-8 space-y-6 lg:sticky lg:top-32">
+          <h2 className="text-xl font-medium text-brand-ink border-b border-brand-ink/10 pb-5">
             {language === 'ar' ? 'ملخص الطلب' : 'Order Summary'}
           </h2>
 
           <div className="space-y-3 text-sm">
-            <div className="flex justify-between text-brand-muted font-medium">
+            <div className="flex justify-between text-brand-muted">
               <span>{t('cart.subtotal', 'المجموع الفرعي')}</span>
-              <span className="font-sans text-brand-ink font-bold">{subtotal.toFixed(2)} {t('common.currency', 'د.ل')}</span>
+              <span className="font-sans text-brand-ink font-medium tabular-nums">{subtotal.toFixed(2)} {t('common.currency', 'د.ل')}</span>
             </div>
 
             <div className="flex justify-between text-brand-muted font-medium">
@@ -175,15 +173,15 @@ export const CartPage: React.FC = () => {
               </div>
             )}
 
-            <div className="pt-3 border-t border-stone-200 flex justify-between items-baseline text-base font-bold text-brand-ink">
+            <div className="pt-4 border-t border-brand-ink/10 flex justify-between items-baseline text-base font-medium text-brand-ink">
               <span>{t('cart.total', 'المجموع الكلي')}</span>
-              <span className="text-2xl text-brand-sage font-sans">{finalTotal.toFixed(2)} {t('common.currency', 'د.ل')}</span>
+              <span className="text-2xl text-brand-olive font-sans tabular-nums">{finalTotal.toFixed(2)} {t('common.currency', 'د.ل')}</span>
             </div>
           </div>
 
           {/* Coupon Input */}
           <form onSubmit={handleApplyCoupon} className="pt-2">
-            <label className="block text-xs font-bold text-brand-ink mb-1.5">
+            <label className="block text-xs font-medium text-brand-ink mb-2">
               {t('cart.couponLabel', 'هل لديك كوبون خصم؟')}
             </label>
             <div className="flex gap-2">
@@ -192,11 +190,11 @@ export const CartPage: React.FC = () => {
                 placeholder={t('cart.couponPlaceholder', 'كود الخصم (مثل ODORA10)')}
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="flex-1 px-3 py-2 text-xs border border-stone-200 rounded-xl uppercase focus:outline-none focus:border-brand-sage bg-white text-brand-ink font-sans"
+                className="editorial-input flex-1 py-2.5 text-xs uppercase font-sans"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-brand-ink text-xs font-bold rounded-xl transition-colors shrink-0 shadow-2xs"
+                className="px-4 py-2 rounded-full border border-brand-ink/15 text-brand-ink text-xs font-medium transition-colors shrink-0 hover:bg-brand-canvas"
               >
                 {t('cart.applyCoupon', 'تطبيق')}
               </button>
@@ -215,12 +213,12 @@ export const CartPage: React.FC = () => {
           {/* Checkout Button */}
           <button
             onClick={() => navigate('/checkout', { state: { couponCode: couponDiscount > 0 ? couponCode : '' } })}
-            className="w-full py-4 rounded-full bg-brand-ink hover:bg-stone-800 text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 active:scale-[0.99]"
+            className="editorial-button-primary w-full gap-2"
           >
             <span>{t('cart.checkout', 'إتمام الطلب')}</span>
             {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
           </button>
-        </div>
+        </aside>
 
       </div>
     </div>

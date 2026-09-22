@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-container": "#59683e", "on-primary": "#ffffff", "surface": "#fdf9f5", "primary-container": "#919c7a", "tertiary-fixed-dim": "#c2c9ba", "inverse-surface": "#31302e", "secondary-fixed-dim": "#bccd9a", "on-background": "#1c1c19", "surface-container-high": "#ebe7e4", "surface-bright": "#fdf9f5", "on-secondary": "#ffffff", "surface-tint": "#586244", "error": "#ba1a1a", "surface-container-highest": "#e6e2de", "on-tertiary": "#ffffff", "on-primary-fixed": "#161e07", "tertiary-fixed": "#dfe5d6", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "surface-variant": "#e6e2de", "outline": "#76786e", "tertiary": "#5a6055", "on-primary-fixed-variant": "#404a2e", "on-error-container": "#93000a", "on-primary-container": "#2a3319", "primary": "#586244", "on-secondary-fixed": "#131f01", "secondary": "#55633a", "outline-variant": "#c6c7bc", "on-surface-variant": "#46483f", "on-surface": "#1c1c19", "secondary-container": "#d5e6b2", "primary-fixed-dim": "#c0cba6", "error-container": "#ffdad6", "tertiary-container": "#949a8d", "inverse-primary": "#c0cba6", "surface-container-low": "#f7f3ef", "on-tertiary-container": "#2c3228", "on-tertiary-fixed-variant": "#42493e", "on-tertiary-fixed": "#171d14", "surface-dim": "#ddd9d6", "background": "#fdf9f5", "on-error": "#ffffff", "inverse-on-surface": "#f4f0ec", "surface-container-lowest": "#ffffff", "primary-fixed": "#dce7c1", "on-secondary-fixed-variant": "#3e4b25" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "3rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter-mobile": "1rem" }, fontFamily: { "display-lg-mobile": ["Space Grotesk"], "label-md": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "body-xl": ["Plus Jakarta Sans"], "headline-xl": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"] }, fontSize: { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen pt-safe pb-safe"><main class="flex-1 flex flex-col relative w-full bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive View State Controller Header -->
+<div class="px-margin-mobile pt-4 pb-2">
+<div class="bg-surface-container-high p-1 rounded-full flex items-center justify-between shadow-sm">
+<button class="flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 bg-surface text-on-surface shadow-sm flex items-center justify-center gap-1.5" id="tab-btn-update" onclick="switchOdoraView('update')">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span>Update (v2.5.0)</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5" id="tab-btn-maintenance" onclick="switchOdoraView('maintenance')">
+<span class="material-symbols-outlined text-[15px]">cloud_download</span>
+<span>Atelier Notice</span>
+</button>
+</div>
+</div>
+<!-- Primary View: Mandatory Force Update Required -->
+<div class="flex flex-col px-margin-mobile pb-8 space-y-6" id="view-force-update">
+<!-- Brand Mark Header -->
+<div class="text-center pt-3 pb-1">
+<div class="inline-flex flex-col items-center justify-center">
+<!-- Odora Wordmark styled according to brand geometry -->
+<span class="font-headline-xl text-[34px] leading-tight tracking-[-0.04em] text-primary lowercase font-semibold">
+          odora<span class="text-[14px] align-super ml-0.5 font-normal tracking-normal text-primary/70">®</span>
+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-[0.25em] text-on-surface-variant/80 mt-0.5">
+          Scent of Atmosphere
+        </span>
+</div>
+</div>
+<!-- Center Tactile Device & Atmospheric Cloud Card -->
+<div class="relative bg-surface-container-lowest rounded-xl p-6 shadow-sm overflow-hidden">
+<!-- Ambient aura glow -->
+<div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-secondary-container/40 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-12 -bottom-12 w-44 h-44 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<!-- Diffuser & Upgrade Graphic -->
+<div class="relative flex flex-col items-center justify-center">
+<div class="w-full h-44 relative rounded-lg overflow-hidden bg-surface-container flex items-center justify-center">
+<img class="w-full h-full object-cover opacity-90" data-alt="Minimalist luxury matte ceramic smart fragrance diffuser resting on pale travertine stone in warm, diffused morning architectural light with delicate botanical shadow patterns and soft sage green mist subtly ascending in high detail calm domestic tranquility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOrD7DsPu5mCVycM4rTKxoqQ3bNoHXw_pxpUgREVcmyj65HTxflRY2zq5-tZnQauhSMEH3JQe2tPiiWW9F6PCyPsSTpjdJgJ0nPgZ8v1EftWdTdTP2Rbd5jBUR0D3rq1AqPmPTVQRGaxupamJJQD8doIlWusxPhi31u9SnSrWYh0Z2XJZT1DwljMZ1nW1qph5pEHQv7P2zpbpTWWDJ-tqX3EoHMRAip40Td-aJxNHOiA4l025oXoKKrw"/>
+<!-- Neomorphic Floating Upgrade Badge Overlay -->
+<div class="absolute bottom-3 left-3 right-3 bg-surface-container-lowest/90 backdrop-blur-md px-3.5 py-2.5 rounded-lg shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-medium">Protocol</span>
+<span class="font-headline-sm text-label-md text-on-surface">Firmware Bridge 2.5</span>
+</div>
+</div>
+<div class="px-2 py-0.5 bg-primary/10 rounded-full font-label-sm text-label-sm text-primary font-semibold">
+              Required
+            </div>
+</div>
+</div>
+</div>
+<!-- Version Chip -->
+<div class="mt-5 flex items-center justify-center">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm tracking-widest uppercase flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Critical Architectural Upgrade • v2.5.0
+        </span>
+</div>
+<!-- Editorial Narrative -->
+<div class="text-center mt-3.5 space-y-2">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-semibold tracking-tight">
+          A New Atmosphere Awaits
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          To support next-generation ultrasonic mist harmonics, enhanced Bluetooth 5.3 mesh security, and UAE Atelier fragrance dispatches, Odora requires an immediate app update before continuing.
+        </p>
+</div>
+</div>
+<!-- Feature Highlights Bento Block -->
+<div class="bg-surface-container rounded-xl p-5 space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Release Highlights</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Build 204</span>
+</div>
+<div class="space-y-3">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg flex items-start gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex-shrink-0 flex items-center justify-center text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">graphic_eq</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-label-lg text-on-surface font-semibold">Ultra-Low Frequency Acoustics</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Enhanced 15.1 dB silent fluidic pumping curves for completely soundless nocturnal misting.
+            </p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg flex items-start gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex-shrink-0 flex items-center justify-center text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-label-lg text-on-surface font-semibold">Multi-Zone Sanctuary Blending</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Calibrate and harmonize fragrance intensity across up to 8 living spaces simultaneously.
+            </p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg flex items-start gap-3 shadow-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex-shrink-0 flex items-center justify-center text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">encrypted</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-label-lg text-on-surface font-semibold">AES-256 Vault Upgrades</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Hardware-level cryptographic validation for automatic cartridge concierge fulfillment.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Metadata & Build Info Well -->
+<div class="bg-surface-container-low px-4 py-3 rounded-lg flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">dns</span>
+<span>Build 2.4.1 (118) → 2.5.0 (204)</span>
+</div>
+<div class="font-medium text-on-surface">48.2 MB Package</div>
+</div>
+<!-- Action Section -->
+<div class="space-y-3 pt-1">
+<button class="w-full py-4 px-6 bg-inverse-surface active:bg-on-background text-inverse-on-surface rounded-full flex items-center justify-center gap-2.5 font-label-lg text-label-lg transition-transform active:scale-[0.99] shadow-md" onclick="triggerUpdateSimulation(this)">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span id="update-btn-label">Update Odora via App Store</span>
+</button>
+<button class="w-full py-3.5 px-6 bg-surface-container-lowest active:bg-surface-container text-on-surface rounded-full flex items-center justify-center gap-2 font-label-md text-label-md shadow-sm" onclick="toggleChangelogModal()">
+<span class="material-symbols-outlined text-[18px] text-primary">notes</span>
+<span>View Full Release Notes &amp; Changelog</span>
+</button>
+</div>
+<!-- Collapsible Atelier Maintenance Preview Card -->
+<div class="bg-surface-container-low rounded-xl p-4.5 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Scheduled Atelier Maintenance</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Tonight</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Cloud store &amp; cartridge ordering will undergo scheduled database maintenance at 02:00 GST. In-home Bluetooth misting schedules remain completely unaffected.
+      </p>
+<button class="font-label-sm text-label-sm text-primary flex items-center gap-1 hover:underline" onclick="switchOdoraView('maintenance')">
+<span>Review atelier operational schedule</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<!-- Brand Identity Anchor / Philosophy -->
+<div class="bg-secondary text-on-secondary rounded-xl p-6 relative overflow-hidden shadow-sm">
+<div class="space-y-4">
+<div>
+<span class="font-headline-sm text-headline-sm block font-semibold text-secondary-fixed">Positioning</span>
+<p class="font-body-md text-body-md text-on-secondary/90 mt-0.5">A premium home fragrance brand that blends technology with elegant interior design.</p>
+</div>
+<div class="w-12 h-0.5 bg-secondary-fixed/40"></div>
+<div>
+<span class="font-headline-sm text-headline-sm block font-semibold text-secondary-fixed">Mission</span>
+<p class="font-body-md text-body-md text-on-secondary/90 mt-0.5">Creating luxurious scent experiences through beautifully designed electronic diffusers.</p>
+</div>
+<div class="w-12 h-0.5 bg-secondary-fixed/40"></div>
+<div>
+<span class="font-headline-sm text-headline-sm block font-semibold text-secondary-fixed">Vision</span>
+<p class="font-body-md text-body-md text-on-secondary/90 mt-0.5">Become the leading premium diffuser brand in the Middle East before expanding globally.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary View: Scheduled Atelier Maintenance Details -->
+<div class="hidden flex-col px-margin-mobile pb-8 space-y-6" id="view-maintenance">
+<!-- Notice Hero -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm relative overflow-hidden space-y-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[24px]">construction</span>
+</div>
+<div class="space-y-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Infrastructure Resilience</span>
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface font-semibold">
+          Atelier Systems Refresh in Progress
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Cloud store &amp; fragrance ordering paused for scheduled infrastructure enhancements. Local diffuser schedules &amp; Bluetooth misting remain 100% operational.
+        </p>
+</div>
+<!-- Live Window Indicator -->
+<div class="bg-surface-container p-4 rounded-lg space-y-3">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Maintenance Window</span>
+<span class="font-semibold text-on-surface">01:00 — 04:00 GST</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full w-2/3 transition-all duration-700"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Started 01:00</span>
+<span class="text-primary font-medium">Expected Completion: 04:00 GST</span>
+</div>
+</div>
+</div>
+<!-- Active vs Paused Status Bento -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container p-4 rounded-xl space-y-2">
+<div class="w-7 h-7 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Operational</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Local schedules, Bluetooth diffuse control, ambient LED tone curves.</p>
+</div>
+<div class="bg-surface-container-high p-4 rounded-xl space-y-2">
+<div class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[16px]">pause_circle</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Paused</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fragrance cartridge shop, concierge reordering, remote account sync.</p>
+</div>
+</div>
+<!-- Emergency Concierge Support -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">support_agent</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-label-lg font-semibold text-on-surface">Dubai &amp; Zurich Private Concierge</h4>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Priority hardware and fragrance dispatch</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Our domestic olfactory architects remain reachable for bespoke residence calibrations throughout the update window.
+      </p>
+<button class="w-full py-3 bg-surface-container text-on-surface rounded-full font-label-md text-label-md flex items-center justify-center gap-1.5 active:bg-surface-container-high">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>Connect with Fragrance Concierge</span>
+</button>
+</div>
+<!-- Return action -->
+<button class="w-full py-4 bg-inverse-surface text-inverse-on-surface rounded-full font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm" onclick="switchOdoraView('update')">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Return to Required OS Update</span>
+</button>
+</div>
+<!-- Interactive Changelog Modal Sheet -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/40 backdrop-blur-sm hidden items-end justify-center p-3" id="changelog-modal">
+<div class="bg-surface rounded-xl w-full max-w-md max-h-[707px] overflow-y-auto p-6 space-y-4 shadow-xl">
+<div class="flex items-center justify-between pb-2">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">Odora OS v2.5.0</span>
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Complete Changelog</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface" onclick="toggleChangelogModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<div class="bg-surface-container-lowest p-3.5 rounded-lg space-y-1 shadow-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Acoustic Engineering</span>
+<p>Calibrated fluidic oscillator dynamics to eradicate 24kHz resonance noise during high-diffusion schedules.</p>
+</div>
+<div class="bg-surface-container-lowest p-3.5 rounded-lg space-y-1 shadow-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface block">UAE &amp; Middle East Atelier Expansion</span>
+<p>Native localized Arabic typography support and integrated automated cartridge replenishment for UAE, KSA, and Qatar residences.</p>
+</div>
+<div class="bg-surface-container-lowest p-3.5 rounded-lg space-y-1 shadow-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Circadian Atmosphere Sequencing</span>
+<p>New astronomical sun-tracking diffusion arcs shifting seamlessly from refreshing morning citrus to grounding evening cedarwood.</p>
+</div>
+<div class="bg-surface-container-lowest p-3.5 rounded-lg space-y-1 shadow-sm">
+<span class="font-label-md text-label-md font-semibold text-on-surface block">OTA Firmware Handshake</span>
+<p>Optimized packet redundancy prevents incomplete downloads even during low-signal residential mesh configurations.</p>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-container-high text-on-surface rounded-full font-label-md text-label-md" onclick="toggleChangelogModal()">
+        Close Notes
+      </button>
+</div>
+</div>
+<!-- Refined Architectural Signature Footer -->
+<div class="px-margin-mobile pb-6 pt-2 text-center space-y-1 text-on-surface-variant/70">
+<div class="flex items-center justify-center gap-2 font-label-sm text-label-sm uppercase tracking-wider">
+<span>Odora Olfactory Labs Zurich</span>
+<span class="text-[10px]">•</span>
+<span>Dubai Atelier</span>
+</div>
+<p class="font-label-sm text-[10px] tracking-wide text-on-surface-variant/50">
+      Hardware Resilience Protocol &amp; Secure OTA Gateway
+    </p>
+</div>
+</div>
+<script>
+  function switchOdoraView(target) {
+    const updateView = document.getElementById('view-force-update');
+    const maintenanceView = document.getElementById('view-maintenance');
+    const tabUpdate = document.getElementById('tab-btn-update');
+    const tabMaint = document.getElementById('tab-btn-maintenance');
+
+    if (target === 'update') {
+      updateView.classList.remove('hidden');
+      maintenanceView.classList.add('hidden');
+      tabUpdate.className = 'flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 bg-surface text-on-surface shadow-sm flex items-center justify-center gap-1.5';
+      tabMaint.className = 'flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5';
+    } else {
+      updateView.classList.add('hidden');
+      maintenanceView.classList.remove('hidden');
+      tabMaint.className = 'flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 bg-surface text-on-surface shadow-sm flex items-center justify-center gap-1.5';
+      tabUpdate.className = 'flex-1 py-2 px-3 rounded-full text-center font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1.5';
+    }
+  }
+
+  function toggleChangelogModal() {
+    const modal = document.getElementById('changelog-modal');
+    if (modal.classList.contains('hidden')) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    } else {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function triggerUpdateSimulation(btn) {
+    const label = document.getElementById('update-btn-label');
+    btn.disabled = true;
+    label.innerText = 'Redirecting to App Store...';
+    setTimeout(() => {
+      label.innerText = 'Downloading v2.5.0 Package...';
+      setTimeout(() => {
+        label.innerText = 'Installing Odora OS...';
+        setTimeout(() => {
+          label.innerText = 'Atmosphere Ready';
+          btn.disabled = false;
+        }, 1200);
+      }, 1000);
+    }, 800);
+  }
+</script></main></body></html>

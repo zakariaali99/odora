@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error": "#ba1a1a", "on-tertiary-container": "#2c312a", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "on-secondary-fixed-variant": "#3e4b25", "surface-variant": "#e6e2de", "on-tertiary": "#ffffff", "on-surface": "#1c1c19", "inverse-primary": "#c0cba6", "outline": "#76786e", "primary-fixed-dim": "#c0cba6", "surface": "#fdf9f5", "surface-tint": "#586244", "tertiary": "#5b6057", "tertiary-fixed-dim": "#c3c8be", "surface-container-low": "#f7f3ef", "tertiary-fixed": "#dfe4d9", "on-primary-fixed": "#161e07", "on-surface-variant": "#46483f", "on-error-container": "#93000a", "surface-container-lowest": "#ffffff", "surface-container-high": "#ebe7e4", "error-container": "#ffdad6", "secondary-fixed-dim": "#bccd9a", "on-secondary": "#ffffff", "on-primary": "#ffffff", "surface-bright": "#fdf9f5", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "on-tertiary-fixed": "#181d16", "surface-dim": "#ddd9d6", "on-secondary-container": "#59683e", "outline-variant": "#c6c7bc", "secondary-container": "#d5e6b2", "primary": "#586244", "primary-container": "#919c7a", "on-primary-container": "#2a3319", "inverse-on-surface": "#f4f0ec", "primary-fixed": "#dce7c1", "inverse-surface": "#31302e", "on-primary-fixed-variant": "#404a2e", "on-secondary-fixed": "#131f01", "tertiary-container": "#94998f", "secondary": "#55633a", "on-background": "#1c1c19" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-md": "1rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "margin-desktop": "3.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "gutter-desktop": "2rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "display-lg": ["Outfit"], "label-md": ["Outfit"], "display-lg-mobile": ["Outfit"], "headline-md": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-lg": ["Outfit"], "headline-lg": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-sm": ["Outfit"], "headline-lg-mobile": ["Outfit"], "label-sm": ["Outfit"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0.015em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><h1 class="font-headline-sm text-headline-sm font-medium tracking-tight text-on-surface uppercase">Odora — Store</h1></div><div class="flex items-center gap-space-sm"><a class="relative w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors active:scale-95" data-path="odora---cart" href="#"><span class="material-symbols-outlined text-[22px]">shopping_bag</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span></a><div class="w-8 h-8 rounded-full overflow-hidden p-0.5 bg-surface-container-high"><img alt="Profile" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UysQeN0AJDBUoXjhmEISAJPVc9w-SZqkZOZ7cUFBopM2lFTz8ZfXeUSlkWB_zt6PJ88tqc0X8qmgAkm8f-vA4jCptbGy2EH7gA1P6zqx-hZioYuSYVI18SsKVjOGBH1CS0pLI0LfhdFwQ6GQD_WZZnnDMOlHSjy61ue6INyMA1aGr3YwDx7HmXDmE887uLG2RvIhqBBu7Yf3G6kDsydZcnk2LhUwnnXzK28esV6PjqLzl_sOYVojILmkYkGmbwOaHR6I2kWTqD4Q"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Toast Notification Component -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 pointer-events-none opacity-0 translate-y-[-10px]" id="toast-banner">
+<div class="flex items-center gap-space-sm bg-inverse-surface text-inverse-on-surface px-space-md py-space-sm rounded-full shadow-lg font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">check_circle</span>
+<span id="toast-text">Added to Cart</span>
+</div>
+</div>
+<section class="px-margin pt-space-md pb-space-xs flex flex-col gap-space-md">
+<!-- Search & Filter Controls -->
+<div class="flex items-center gap-space-sm">
+<div class="relative flex-1 flex items-center bg-surface-container-lowest rounded-full px-space-md h-12 shadow-[0_2px_12px_rgba(35,40,33,0.03)]">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="w-full bg-transparent pl-space-sm text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="Search botanical fragrances, diffusers..." type="text"/>
+</div>
+<button aria-label="Filter Catalog" class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- Category Pill Carousels -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-space-xs -mx-margin px-margin">
+<button class="category-pill active shrink-0 px-space-md h-9 rounded-full bg-primary-container text-on-primary font-label-md text-label-md transition-all">
+        All
+      </button>
+<button class="category-pill shrink-0 px-space-md h-9 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all">
+        Diffusers (3)
+      </button>
+<button class="category-pill shrink-0 px-space-md h-9 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all">
+        Pure Oils (8)
+      </button>
+<button class="category-pill shrink-0 px-space-md h-9 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all">
+        Sanctuary Bundles (2)
+      </button>
+<button class="category-pill shrink-0 px-space-md h-9 rounded-full bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all">
+        Accessories
+      </button>
+</div>
+</section>
+<!-- Featured Spotlight: Autumn Harvest Trio -->
+<section class="px-margin py-space-sm">
+<div class="relative overflow-hidden rounded-lg bg-surface-container-low shadow-[0_12px_32px_-8px_rgba(35,40,33,0.06)] flex flex-col">
+<div class="relative w-full h-56 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover object-center" data-alt="A minimalist architectural tabletop scene showcasing three sleek cylindrical smart fragrance diffusers in sage green, matte white, and matte charcoal black placed on an artisanal natural travertine stone slab next to an amber glass dropper bottle of essential oil with soft natural studio daylight and dried botanical sprigs." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjkQTrjx0f7w1jugYxPMo4xXCuiIiqOe6AcRdwC90o14lSwRvoboBPpIPmUqi1zUPmNGPVN1gpMgqZ5YBw6O_JAyHaPkWiwNfB6HIM_hWHSShv7oQ05ODElBhIQlJn0JTsHJICYMULa9RWN-kemL8bpf1NGISNJu590PGfaF0uGIX1Tnz2HeHi0Zov7bygfzeNa2_pKX3o-XyjJlwNuLwQqXTaY0reRDYojNeKP0aiDSIJjA0OpMFM"/>
+<div class="absolute top-space-sm left-space-sm bg-secondary-container text-on-secondary-container px-space-sm py-1 rounded-full font-label-sm text-label-sm uppercase tracking-widest">
+          Limited Curation
+        </div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-sm bg-surface-container-lowest">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Autumn Harvest Trio</h2>
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<span class="text-primary font-semibold">$280</span>
+<span class="line-through text-outline font-normal">$340</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Waterless micro-diffusion for whole home harmony. Includes 3 colorways and signature harvest essence.
+        </p>
+<div class="pt-space-xs flex items-center justify-between">
+<div class="flex items-center -space-x-1.5">
+<span class="w-4 h-4 rounded-full bg-[#919c7a]"></span>
+<span class="w-4 h-4 rounded-full bg-[#f4f0ec]"></span>
+<span class="w-4 h-4 rounded-full bg-[#232821]"></span>
+</div>
+<button class="h-11 px-space-lg rounded-full bg-inverse-surface text-inverse-on-surface font-label-md text-label-md active:scale-95 transition-transform flex items-center gap-1.5 shadow-sm" onclick="triggerAddToCart('Autumn Harvest Trio')">
+<span>Shop Bundle</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Catalog Grid -->
+<section class="px-margin py-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Atmospheric Collection</h3>
+<span class="font-body-sm text-body-sm text-tertiary">5 creations tailored for architectural spaces</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline tracking-wider uppercase">In Stock</span>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Item 1: Odora Air 01 Diffuser -->
+<div class="col-span-2 rounded-lg bg-surface-container-lowest p-space-md shadow-[0_4px_16px_rgba(35,40,33,0.03)] flex flex-col gap-space-sm">
+<div class="relative w-full h-56 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sculptural sage green electronic cold-air waterless fragrance diffuser standing gracefully on an alabaster stone pedestal next to an amber glass botanical oil dropper bottle in warm morning ambient sunlight with olive branches in soft focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQT9DDkw7zlT93lQ1g2ZAj9VUG_3w5Ty2tEygXzwWrzi2gTdqB-6vHWEAXRYyiZs_FFjueTPMhmLKyd_hLqU1cxk_G2KdwnVskla5E6RlIXCGGh9XvC37F5E1aeDUZEYhL_JKX8nFcg0GA359URafmeCIVLquKsu01NqD5EcMSeBhspsVWbGa-dc_8jW0xsqV8b3XgbBkDZgqoGXTw55nIDP2Rd35776PpOO36bBSzNTEtmsy2m6E"/>
+<span class="absolute top-2.5 left-2.5 bg-primary text-on-primary px-2 py-0.5 rounded-full font-label-sm text-label-sm uppercase">
+            Best Seller
+          </span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Odora Air 01</h4>
+<span class="font-label-lg text-label-lg text-primary">$185</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cold-air waterless nebulizer with whisper mist technology.</p>
+</div>
+<!-- Color Finish Swatches -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1.5">
+<button class="w-5 h-5 rounded-full bg-[#919c7a] p-0.5 active:scale-90 transition-transform" title="Sage Green"></button>
+<button class="w-5 h-5 rounded-full bg-[#ebe7e4] p-0.5 active:scale-90 transition-transform" title="Matte White"></button>
+<button class="w-5 h-5 rounded-full bg-[#232821] p-0.5 active:scale-90 transition-transform" title="Matte Black"></button>
+</div>
+<button class="h-9 px-space-md rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-transform" onclick="triggerAddToCart('Odora Air 01')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add</span>
+</button>
+</div>
+</div>
+<!-- Item 2: Forest Sage Fragrance Oil -->
+<div class="flex flex-col rounded-lg bg-surface-container-lowest p-space-sm shadow-[0_4px_16px_rgba(35,40,33,0.03)] justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="relative w-full aspect-[4/5] rounded bg-surface-container overflow-hidden">
+<img alt="Forest Sage Fragrance Oil packaging and diffuser chamber" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH6GnuAaJndNStMQyrHNSl6rsIr-PtYnrC6DaOgBN3cC16oLA5ydAgnkJi3W8Uxe4XyNkmDL4VzALFedjD8FcdebZFdxDPZgPWetK7pathg1YCiNAG0C1Olv53G_HFyu90OhYJjWXONIVed63MTaMsP3c6jBm1O6a-G4nzGnIgdSiDnHlNuDjHFSq0sJxUShm3FlH9ZJAN2mKqexHd2o_u4aFTAbf0GH2mYiGm-THm2elKp9l0QP_nkjMc2GI5Ei4DNA"/>
+</div>
+<div class="pt-1">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Forest Sage</h4>
+<p class="font-body-sm text-body-sm text-tertiary">30ml Pure Oil</p>
+<p class="font-label-sm text-label-sm text-outline truncate pt-0.5">Eucalyptus · Cedar · Pine</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm">
+<span class="font-label-md text-label-md font-medium text-on-surface">$42</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary active:scale-90 transition-colors" onclick="triggerAddToCart('Forest Sage')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Item 3: Cotton Linen Ambient Oil -->
+<div class="flex flex-col rounded-lg bg-surface-container-lowest p-space-sm shadow-[0_4px_16px_rgba(35,40,33,0.03)] justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="relative w-full aspect-[4/5] rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An amber glass fragrance oil bottle with a clean white botanical typography label reading Cotton Linen beside a pristine woven organic flax textile under soft warm sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApO3s0dMC7plB8B6dd1Hy24jiXo2TH9ruChqRMNbbIEdFtVGdVS4jcyeq4YI26Ti-zhUhFs37oO53aMh055VSaqzy37wj3PrWr9eCaBPnoYbwT1_2iMu-3xS7objNUa3dwY6ZuY2gv9XJbFZ3phOm7P6TKLVUDXv0XeavLRu7sb7KJ4-YkeNb6360anq51oAM5BnklzoRuyGxpib7nbnXkdiFfrr6G-YljE3UWwScB0STeIELBUsTJ"/>
+</div>
+<div class="pt-1">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Cotton Linen</h4>
+<p class="font-body-sm text-body-sm text-tertiary">30ml Botanical</p>
+<p class="font-label-sm text-label-sm text-outline truncate pt-0.5">White Amber · Bergamot</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm">
+<span class="font-label-md text-label-md font-medium text-on-surface">$42</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary active:scale-90 transition-colors" onclick="triggerAddToCart('Cotton Linen')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Item 4: Santal Mist Oil Chamber -->
+<div class="flex flex-col rounded-lg bg-surface-container-lowest p-space-sm shadow-[0_4px_16px_rgba(35,40,33,0.03)] justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="relative w-full aspect-[4/5] rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Warm studio aesthetic shot of an apothecary amber glass fragrance oil vial placed delicately on smooth weathered sandstone rock with diffuse warm sunlight and cedarwood shavings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbgO5U1Ix7yMikzPSTebsbu0HaiJQ3XKuHWpqT3SF94AQpzV1w766EYFaPjTwC03W8qhz60WhmMStuGVfK-Kku42yIRvpMXw7wJKhqpKFRJIPN8PCnwudD3D_6QVjUiZyTf3zJWHEVZTrmizPpHNav4Hmgp5dx-d_royFGc2T4Yl4bzPaIWW3dwTmkt03mOQTO-pbprKth-7ZZptErKo13E4gRnt23Oc2zoyFcte2FqAbwd8ZwcLbZ"/>
+</div>
+<div class="pt-1">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Santal Mist</h4>
+<p class="font-body-sm text-body-sm text-tertiary">30ml Chamber</p>
+<p class="font-label-sm text-label-sm text-outline truncate pt-0.5">Sandalwood · Iris · Cardamom</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm">
+<span class="font-label-md text-label-md font-medium text-on-surface">$46</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary active:scale-90 transition-colors" onclick="triggerAddToCart('Santal Mist')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+<!-- Item 5: Travertine Stone Pedestal -->
+<div class="flex flex-col rounded-lg bg-surface-container-lowest p-space-sm shadow-[0_4px_16px_rgba(35,40,33,0.03)] justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="relative w-full aspect-[4/5] rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An artisanal circular solid travertine stone pedestal with charging disc contacts integrated seamlessly into the honed warm stone texture in an organic minimalist interior setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-EhnFzIgIa5G6bRKub-h4-OPvm9xlZ-vdMbT3zoWV6kGpm8CNbBo-P7HplXLsdLbp3Lme0VQHHjPXe0Dbf7CI5F9UoOfOzpnhwJNzrVqJpYlK4WtOa3O6bYXHg4KbIHMipLtKO5DMsk2YNXv5opkxqLgDhgoDLEa4qv2jmpcxQ4rycmfgJ9FmEUtPEtWocl4cWtQlENI6lL-dXE6UaR1Ejx7v1mGJyzA1_FUQ_UFYWark22E4s1tf"/>
+<span class="absolute top-2 left-2 bg-surface-container-highest text-on-surface px-1.5 py-0.5 rounded-full font-label-sm text-label-sm uppercase">
+              New
+            </span>
+</div>
+<div class="pt-1">
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Stone Pedestal</h4>
+<p class="font-body-sm text-body-sm text-tertiary">Charging Base</p>
+<p class="font-label-sm text-label-sm text-outline truncate pt-0.5">Honed Travertine</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-sm">
+<span class="font-label-md text-label-md font-medium text-on-surface">$65</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-primary hover:text-on-primary active:scale-90 transition-colors" onclick="triggerAddToCart('Stone Pedestal')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Value Propositions & Guarantee Banner -->
+<section class="px-margin py-space-lg">
+<div class="bg-surface-container rounded-lg p-space-lg flex flex-col gap-space-md shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Complimentary Express Delivery</span>
+<span class="font-body-sm text-body-sm text-tertiary">Curated ecological shipping on all orders over $100</span>
+</div>
+</div>
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">2-Year Architectural Warranty</span>
+<span class="font-body-sm text-body-sm text-tertiary">Complete coverage for cold-diffusion micro-turbines</span>
+</div>
+</div>
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Waterless Cold-Air Technology</span>
+<span class="font-body-sm text-body-sm text-tertiary">Zero dilution. Pure botanical therapeutic retention</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Editorial Brand Footer Statement -->
+<section class="px-margin pb-space-lg pt-space-xs text-center flex flex-col items-center gap-space-xs opacity-75">
+<span class="font-headline-sm text-headline-sm text-primary uppercase tracking-widest text-opacity-80">odora</span>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">Scent of Atmosphere</span>
+</section>
+</div>
+<script>
+  function triggerAddToCart(productName) {
+    const toast = document.getElementById('toast-banner');
+    const toastText = document.getElementById('toast-text');
+    if (!toast || !toastText) return;
+
+    toastText.textContent = `${productName} added to cart`;
+    toast.classList.remove('opacity-0', 'translate-y-[-10px]');
+    toast.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      toast.classList.remove('opacity-100', 'translate-y-0');
+      toast.classList.add('opacity-0', 'translate-y-[-10px]');
+    }, 2200);
+  }
+
+  // Interactive Category Pills
+  document.querySelectorAll('.category-pill').forEach((pill) => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.category-pill').forEach((p) => {
+        p.classList.remove('bg-primary-container', 'text-on-primary');
+        p.classList.add('bg-surface-container', 'text-on-surface');
+      });
+      pill.classList.remove('bg-surface-container', 'text-on-surface');
+      pill.classList.add('bg-primary-container', 'text-on-primary');
+    });
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-low/90 backdrop-blur-xl shadow-[0_-8px_24px_rgba(35,40,33,0.04)]" data-active-classes="text-primary font-semibold"><div class="h-16 px-space-md flex items-center justify-around"><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="odora---home" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">airwave</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Home</span></a><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="odora---devices" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">devices_other</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Devices</span></a><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="odora---store" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">storefront</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Store</span></a><a class="group flex flex-col items-center justify-center w-14 h-14 rounded-full text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-90" data-path="odora---account" href="#"><span class="material-symbols-outlined text-[24px] group-hover:scale-105 transition-transform">person</span><span class="font-label-sm text-label-sm mt-0.5 tracking-wider uppercase">Account</span></a></div></nav></body></html>

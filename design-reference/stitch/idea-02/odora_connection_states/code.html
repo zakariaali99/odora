@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {"darkMode": "class", "theme": {"extend": {"colors": {"on-primary": "#ffffff", "surface": "#fdf9f5", "on-secondary-container": "#59683e", "on-tertiary-container": "#2c312a", "error-container": "#ffdad6", "inverse-on-surface": "#f4f0ec", "inverse-primary": "#c0cba6", "on-secondary-fixed-variant": "#3e4b25", "surface-bright": "#fdf9f5", "on-secondary-fixed": "#131f01", "on-surface-variant": "#46483f", "surface-container": "#f1ede9", "surface-container-high": "#ebe7e4", "on-surface": "#1c1c19", "on-primary-container": "#2a3319", "secondary": "#55633a", "outline": "#76786e", "error": "#ba1a1a", "secondary-container": "#d5e6b2", "tertiary-container": "#94998f", "secondary-fixed-dim": "#bccd9a", "tertiary": "#5b6057", "on-secondary": "#ffffff", "surface-container-highest": "#e6e2de", "on-primary-fixed": "#161e07", "on-error-container": "#93000a", "primary-fixed-dim": "#c0cba6", "inverse-surface": "#31302e", "surface-dim": "#ddd9d6", "tertiary-fixed-dim": "#c3c8be", "surface-tint": "#586244", "primary-fixed": "#dce7c1", "background": "#fdf9f5", "on-tertiary-fixed": "#181d16", "surface-container-low": "#f7f3ef", "on-primary-fixed-variant": "#404a2e", "on-background": "#1c1c19", "primary": "#586244", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "secondary-fixed": "#d8e9b5", "surface-variant": "#e6e2de", "primary-container": "#919c7a", "on-tertiary": "#ffffff", "tertiary-fixed": "#dfe4d9", "on-tertiary-fixed-variant": "#434840", "outline-variant": "#c6c7bc"}, "borderRadius": {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"}, "spacing": {"margin": "1.25rem", "space-xl": "2.5rem", "space-sm": "0.5rem", "gutter": "1rem", "space-lg": "1.5rem", "margin-desktop": "3.5rem", "gutter-desktop": "2rem", "gutter-tablet": "1.5rem", "margin-tablet": "2rem", "space-md": "1rem", "space-xs": "0.25rem"}, "fontFamily": {"body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-md": ["Outfit"], "headline-md": ["Outfit"], "label-lg": ["Outfit"], "headline-lg-mobile": ["Outfit"], "display-lg": ["Outfit"], "headline-lg": ["Outfit"], "headline-sm": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Outfit"], "label-sm": ["Outfit"]}, "fontSize": {"body-sm": ["12px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "400"}], "body-lg": ["16px", {"lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500"}], "headline-md": ["22px", {"lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "500"}], "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600"}], "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "400"}], "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}], "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400"}], "headline-sm": ["18px", {"lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "22px", "letterSpacing": "0.015em", "fontWeight": "400"}], "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "400"}], "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "600"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface pt-safe pb-safe flex flex-col min-h-screen"><main class="flex flex-col relative w-full bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl">
+<!-- Interactive State Selector Bar -->
+<header class="flex flex-col items-center pt-space-md pb-space-lg text-center">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container mb-space-sm shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">sensors</span>
+<span class="font-label-sm uppercase tracking-wider">Hardware Telemetry</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">System Resonance</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mt-1">
+      Hardware status &amp; wireless BLE 5.2 synchronization diagnostic
+    </p>
+<!-- State Switcher Pills -->
+<div class="w-full max-w-sm mt-space-lg p-1 rounded-full bg-surface-container-high flex items-center shadow-inner">
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md transition-all duration-300 bg-primary text-on-primary shadow-sm flex items-center justify-center gap-1.5" id="tab-state-a" onclick="switchState('state-a')" type="button">
+<span class="material-symbols-outlined text-[16px]">bluetooth_disabled</span>
+<span>Disabled</span>
+</button>
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md transition-all duration-300 text-on-surface-variant flex items-center justify-center gap-1.5" id="tab-state-b" onclick="switchState('state-b')" type="button">
+<span class="material-symbols-outlined text-[16px]">podcasts</span>
+<span>Out of Range</span>
+</button>
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md transition-all duration-300 text-on-surface-variant flex items-center justify-center gap-1.5" id="tab-state-c" onclick="switchState('state-c')" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Syncing</span>
+</button>
+</div>
+</header>
+<!-- STATE A: Bluetooth Disabled (Active Default) -->
+<section class="flex flex-col items-center w-full transition-opacity duration-300" id="state-a">
+<!-- Visual Halo & Botanical Device Art -->
+<div class="relative w-full max-w-xs aspect-square flex items-center justify-center my-space-md">
+<!-- Ambient Glow Ring -->
+<div class="absolute inset-4 rounded-full bg-secondary-container/40 blur-2xl"></div>
+<!-- Ceramic Texture Visual Backdrop -->
+<div class="relative w-48 h-48 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-lg overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-multiply" data-alt="Minimalist sculptural stone aroma diffuser sitting on a warm alabaster travertine tabletop surrounded by delicate olive leaves under morning soft architectural sunlight in a quiet luxury home atelier with gentle sage mist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABHQCeZpFpvH_AHcfxZMQTCen-s2rpjeBzQHwXwb8fwDILobn2-zyPuzUKAkxlUu1sWE3X94NKVY8dpbHaJXykng2xFxbhecgWW76RN38PfR-Y0qIV85c89XbK9D_Tfl4D-rb0tzDFUNgE2aUPvJUw36hFr-QPRtBfX_InIhfsNOhnVCTN6kL7cr-yU719YW8MwpL6y7soh0DhJoTeMvgTyi5tZM47cQFAYkg7zUo8KMG2dvJ4GPFS"/>
+<!-- Minimalist Glowing Bluetooth Off Vector Graphic -->
+<div class="relative z-10 flex flex-col items-center justify-center">
+<div class="w-20 h-20 rounded-full bg-surface-container-low flex items-center justify-center shadow-md relative">
+<span class="material-symbols-outlined text-[42px] text-on-surface-variant">bluetooth_disabled</span>
+<!-- Glowing Slash Accent -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="w-14 h-0.5 bg-primary rotate-45 rounded-full shadow-sm"></span>
+</div>
+</div>
+<!-- Botanical sprig icon badge -->
+<span class="material-symbols-outlined absolute -bottom-1 -right-1 text-primary bg-secondary-container p-1.5 rounded-full shadow text-[18px]">eco</span>
+</div>
+</div>
+</div>
+<!-- Content & Context -->
+<div class="flex flex-col items-center text-center max-w-sm mt-space-xs">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant mb-space-sm">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-sm uppercase">Radio Transceiver Silent</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight mb-space-xs">
+        Bluetooth is Switched Off
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-space-lg px-2">
+        Odora requires Bluetooth Low Energy (BLE 5.2) to orchestrate cold-air micro-diffusion and read cartridge levels. Turn on Bluetooth in your device settings.
+      </p>
+<!-- Primary & Secondary CTA Buttons -->
+<div class="w-full flex flex-col gap-space-sm mb-space-md">
+<button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-[0.99] transition-transform" onclick="triggerDemoFeedback('Enabling BLE transceivers...')" type="button">
+<span class="material-symbols-outlined text-[20px]">bluetooth</span>
+<span>Open System Settings</span>
+</button>
+<button class="w-full h-12 rounded-full bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-space-xs active:bg-surface-variant transition-colors" onclick="triggerDemoFeedback('Switching to offline circadian cache...')" type="button">
+<span class="material-symbols-outlined text-[18px]">cloud_off</span>
+<span>Continue in Offline Read-Only Mode</span>
+</button>
+</div>
+<!-- Autonomous Circadian Tip Callout -->
+<div class="w-full rounded-lg bg-surface-container-low p-space-md flex items-start gap-space-sm text-left shadow-sm">
+<div class="p-2 rounded-full bg-secondary-container text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">wb_twilight</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm uppercase text-secondary">Autonomous Rhythm</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Your diffuser will continue its last active circadian cycle independently.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- STATE B: Out of Range / Disconnected (Hidden by Default) -->
+<section class="hidden flex-col items-center w-full transition-opacity duration-300" id="state-b">
+<div class="w-full max-w-sm rounded-lg bg-surface-container-lowest p-space-lg shadow-md flex flex-col my-space-sm">
+<!-- Beacon Ripple Status Header -->
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<!-- Simulated Beacon Ripple -->
+<span class="absolute inset-0 rounded-full bg-primary/20 animate-ping"></span>
+<span class="material-symbols-outlined text-primary text-[24px]">podcasts</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Living Room Atelier</h3>
+<span class="font-label-sm uppercase tracking-wider text-outline">Odora Air 01 • Model SA-200</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm">
+          Disconnected
+        </span>
+</div>
+<!-- Ambient Telemetry Status Banner -->
+<div class="rounded-DEFAULT bg-surface-container-low p-space-md mb-space-md flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">history</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Last seen 18 minutes ago</span>
+<span class="font-label-sm text-on-surface-variant">Estimated distance &gt; 18.5 meters away</span>
+</div>
+</div>
+<!-- Troubleshooting Checklist -->
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Reconnection Protocol</span>
+<div class="flex items-center gap-space-sm p-3 rounded-DEFAULT bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">power</span>
+<p class="font-body-sm text-body-sm text-on-surface flex-1">Ensure diffuser is plugged into AC power</p>
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+</div>
+<div class="flex items-center gap-space-sm p-3 rounded-DEFAULT bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">straighten</span>
+<p class="font-body-sm text-body-sm text-on-surface flex-1">Bring phone within 15 meters line-of-sight</p>
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+</div>
+<div class="flex items-center gap-space-sm p-3 rounded-DEFAULT bg-surface-container">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">lightbulb_circle</span>
+<p class="font-body-sm text-body-sm text-on-surface flex-1">Check that base ceramic LED halo is glowing</p>
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+</div>
+</div>
+<!-- Tactile Action Button -->
+<button class="w-full h-14 rounded-full bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-[0.99] transition-all" id="reconnect-btn" onclick="handleReconnectAction()" type="button">
+<span class="material-symbols-outlined text-[22px]" id="reconnect-icon">refresh</span>
+<span id="reconnect-text">Attempt BLE Reconnect</span>
+</button>
+<!-- Cartridge Snapshot preview -->
+<div class="mt-space-md pt-space-md flex items-center justify-between text-on-surface-variant font-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">opacity</span>
+          Cartridge: Hinoki Canopy
+        </span>
+<span class="font-medium text-on-surface">Cached: 74% remaining</span>
+</div>
+</div>
+</section>
+<!-- STATE C: Connecting & Synchronizing (Hidden by Default) -->
+<section class="hidden flex-col items-center w-full transition-opacity duration-300" id="state-c">
+<div class="w-full max-w-sm rounded-lg bg-surface-container-lowest p-space-lg shadow-md flex flex-col items-center text-center my-space-sm">
+<!-- Pulsing Concentric Green Circles Visual -->
+<div class="relative w-44 h-44 flex items-center justify-center my-space-md">
+<!-- Pulse layer 3 -->
+<div class="absolute inset-0 rounded-full bg-secondary-container/20 animate-ping"></div>
+<!-- Pulse layer 2 -->
+<div class="absolute inset-4 rounded-full bg-secondary-container/40 animate-pulse"></div>
+<!-- Pulse layer 1 -->
+<div class="absolute inset-8 rounded-full bg-secondary-container/80 flex items-center justify-center shadow-inner"></div>
+<!-- Central Hardware Node -->
+<div class="relative z-10 w-20 h-20 rounded-full bg-surface-container-lowest shadow-lg flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[32px] animate-spin" style="animation-duration: 4s;">sync</span>
+<span class="font-label-sm text-secondary tracking-widest mt-0.5">BLE 5.2</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container mb-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-sm uppercase tracking-wider">Channel Handshake</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-xs">
+        Synchronizing Atmosphere...
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mb-space-lg">
+        Establishing AES-256 encrypted handshake with Odora Air 01 and querying cartridge piezo sensors.
+      </p>
+<!-- Real-time Synchronizing Telemetry Checklist -->
+<div class="w-full bg-surface-container-low rounded-DEFAULT p-space-md flex flex-col gap-space-sm mb-space-md text-left">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+            Secure Key Agreement
+          </span>
+<span class="text-secondary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">done</span> Verified
+          </span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary">analytics</span>
+            Cartridge Ultrasonic Level
+          </span>
+<span class="text-on-surface-variant font-medium animate-pulse">Syncing...</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary">schedule</span>
+            Circadian Micro-Mist Schedule
+          </span>
+<span class="text-outline">Queued</span>
+</div>
+<!-- Tactile Progress Bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden mt-1">
+<div class="h-full bg-primary-container rounded-full w-2/3 transition-all duration-700"></div>
+</div>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-2 tracking-wide transition-colors" onclick="triggerDemoFeedback('Aborting wireless handshake cleanly.')" type="button">
+        Cancel Pairing Sequence
+      </button>
+</div>
+</section>
+<!-- Architectural Luxury Gallery / Hardware Profile Card -->
+<div class="w-full max-w-sm mx-auto mt-space-md rounded-lg bg-surface-container-low p-space-md shadow-sm flex items-center gap-space-md">
+<div class="relative w-20 h-20 rounded-DEFAULT overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close-up editorial architectural photography of matte ceramic smart aroma diffuser body crafted from pale textured porcelain with micro-machined bronze dispersion slit sitting against Japanese cedar wall." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXlHJkInE08Xi7ATy1vIbqXBwrELN9C9bq0hje0tmpZH8orMy3_3pKWxI_m2Cvdvx5K8Vc3LeU8ig8ztA7wL1NjEsbFdjvjSDY92AXiKVLt2uehCHpxaKlS7ozBbx58jsCqoX7ogcSM8zXGrejwQdoPGypb1c9aolNOb-6in_6UgVgdl3onRy6yuMIsiHQIN-XJB_8jFeqM-mfYzwHNwCi8LLUrGLAcntSa6QN5AclhPjEAjB2hJkX"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm uppercase text-secondary">Active Architecture</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Odora Air 01 • Atelier edition</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Cold-Air Acoustic Atomizer</p>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-on-surface">Sub-22dB Quiet Mark Certified</span>
+</div>
+</div>
+</div>
+<!-- Architectural Sanctuary Footnote -->
+<footer class="mt-space-lg text-center max-w-xs mx-auto pb-space-sm">
+<div class="inline-flex items-center justify-center gap-1 text-outline mb-1">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span class="font-label-sm uppercase tracking-wider">Offline-First Integrity</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+      Odora hardware stores all timer schedules on-device and never relies on cloud servers for basic misting.
+    </p>
+</footer>
+<!-- Floating Feedback Toast Notification -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 max-w-xs w-11/12 py-3 px-4 rounded-full bg-inverse-surface text-inverse-on-surface font-body-sm text-body-sm text-center shadow-2xl pointer-events-none opacity-0 transition-opacity duration-300 z-50 flex items-center justify-center gap-2" id="toast">
+<span class="material-symbols-outlined text-[18px] text-secondary-container">info</span>
+<span id="toast-text">Hardware event</span>
+</div>
+</div>
+<script>
+  function switchState(targetState) {
+    const states = ['state-a', 'state-b', 'state-c'];
+    const tabs = ['tab-state-a', 'tab-state-b', 'tab-state-c'];
+
+    states.forEach((stateId, idx) => {
+      const el = document.getElementById(stateId);
+      const tab = document.getElementById(tabs[idx]);
+      
+      if (stateId === targetState) {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+        
+        tab.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        tab.classList.remove('text-on-surface-variant');
+      } else {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+        
+        tab.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        tab.classList.add('text-on-surface-variant');
+      }
+    });
+  }
+
+  function handleReconnectAction() {
+    const icon = document.getElementById('reconnect-icon');
+    const text = document.getElementById('reconnect-text');
+    const btn = document.getElementById('reconnect-btn');
+    
+    icon.classList.add('animate-spin');
+    text.textContent = 'Probing Transceivers...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      text.textContent = 'Attempt BLE Reconnect';
+      btn.disabled = false;
+      switchState('state-c');
+      triggerDemoFeedback('Discovered Odora Air 01! Synchronizing...');
+    }, 1200);
+  }
+
+  let toastTimeout;
+  function triggerDemoFeedback(msg) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    toastText.textContent = msg;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 2800);
+  }
+</script></main></body></html>

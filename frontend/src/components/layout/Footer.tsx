@@ -1,168 +1,80 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, Truck, Clock, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export const Footer: React.FC = () => {
   const { t, i18n } = useTranslation();
   const language = ((i18n.language || 'ar').split('-')[0]) as 'ar' | 'en';
 
+  const shopLinks = [
+    ['/products?category=diffusers', language === 'ar' ? 'أجهزة التعطير' : 'Diffusers'],
+    ['/products?category=fragrance-oils', language === 'ar' ? 'الزيوت العطرية' : 'Fragrance oils'],
+    ['/products?category=bundles', language === 'ar' ? 'الباقات' : 'Bundles'],
+    ['/fragrances', language === 'ar' ? 'مكتبة الروائح' : 'Fragrance library'],
+  ];
+
+  const companyLinks = [
+    ['/about', language === 'ar' ? 'عن أودورا' : 'About Odora'],
+    ['/technology', language === 'ar' ? 'تقنية الرذاذ البارد' : 'Cold-air technology'],
+    ['/contact', language === 'ar' ? 'تواصل معنا' : 'Contact'],
+    ['/faq', language === 'ar' ? 'الأسئلة الشائعة' : 'Frequently asked questions'],
+  ];
+
   return (
-    <footer className="bg-[#EFEFEA] border-t border-stone-200 text-brand-ink pt-16 pb-12 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Trust Badges Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-14 border-b border-stone-300/70">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-white text-brand-sage flex items-center justify-center shrink-0 shadow-xs border border-stone-200">
-              <Sparkles className="w-5 h-5" />
+    <footer className="bg-brand-olive text-brand-surface">
+      <div className="editorial-container">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8 py-10 border-b border-brand-surface/15">
+          {[
+            [t('footer.trust1Title', 'رذاذ نقي بدون ماء'), t('footer.trust1Desc', 'Cold-air micro-diffusion')],
+            [t('footer.trust2Title', 'توصيل لكافة المدن'), t('footer.trust2Desc', 'مجاني للطلبات فوق 300 د.ل')],
+            [t('footer.trust3Title', 'ضمان شامل لمدة عام'), t('footer.trust3Desc', 'صيانة محلية وقطع غيار')],
+            [t('footer.trust4Title', 'تحكم وجدولة ذكية'), t('footer.trust4Desc', 'تطبيق وبلوتوث مباشر')],
+          ].map(([title, description]) => (
+            <div key={title} className="space-y-1">
+              <p className="text-sm font-medium text-brand-surface">{title}</p>
+              <p className="text-xs leading-relaxed text-brand-surface/65">{description}</p>
             </div>
-            <div>
-              <h4 className="font-bold text-sm text-brand-ink">{t('footer.trust1Title', 'رذاذ نقي بدون ماء')}</h4>
-              <p className="text-xs text-brand-muted font-medium">{t('footer.trust1Desc', 'Cold-Air Micro-Diffusion')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-white text-brand-sage flex items-center justify-center shrink-0 shadow-xs border border-stone-200">
-              <Truck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-brand-ink">{t('footer.trust2Title', 'توصيل لكافة المدن')}</h4>
-              <p className="text-xs text-brand-muted font-medium">{t('footer.trust2Desc', 'مجاني للطلبات فوق 300 د.ل')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-white text-brand-sage flex items-center justify-center shrink-0 shadow-xs border border-stone-200">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-brand-ink">{t('footer.trust3Title', 'ضمان شامل لمدة عام')}</h4>
-              <p className="text-xs text-brand-muted font-medium">{t('footer.trust3Desc', 'صيانة محلية وقطع غيار بليبيا')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-white text-brand-sage flex items-center justify-center shrink-0 shadow-xs border border-stone-200">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-brand-ink">{t('footer.trust4Title', 'تحكم وجدولة ذكية')}</h4>
-              <p className="text-xs text-brand-muted font-medium">{t('footer.trust4Desc', 'تطبيق متطور وبلوتوث مباشر')}</p>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Navigation Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 py-12">
-          
-          {/* Brand Col */}
-          <div className="md:col-span-2 space-y-4">
-            <img src="/odora-logo.png" alt="odora" className="h-7 w-auto object-contain" />
-            <p className="text-sm text-brand-muted leading-relaxed max-w-sm">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 py-16 sm:py-20">
+          <div className="md:col-span-6 lg:col-span-7">
+            <img src="/logo-cream.png" alt="odora" className="h-8 sm:h-10 w-auto object-contain" />
+            <p className="mt-7 max-w-xl text-base sm:text-lg font-light leading-8 text-brand-surface/75">
               {t('footer.brandDesc', 'أجهزة تعطير إلكترونية فاخرة تجمع بين التقنية المبتكرة والتصميم الداخلي الهادئ، لتخلق أجواءً عطرية استثنائية في كل مساحة.')}
             </p>
-            <div className="pt-2">
-              <span className="inline-block text-xs font-semibold tracking-wider text-brand-sage uppercase bg-white border border-stone-200 px-3 py-1 rounded-full shadow-xs">
-                {language === 'ar' ? 'عبير الأجواء · SCENT OF ATMOSPHERE' : 'SCENT OF ATMOSPHERE · ODORA'}
-              </span>
-            </div>
+            <p className="mt-8 text-[10px] tracking-[0.24em] text-brand-pale uppercase">
+              {language === 'ar' ? 'SCENT OF ATMOSPHERE · عبير الأجواء' : 'SCENT OF ATMOSPHERE'}
+            </p>
           </div>
 
-          {/* Col 1: Shop */}
-          <div className="space-y-3 text-sm">
-            <h4 className="font-bold text-brand-ink text-base">{t('footer.shopCol', 'التسوق')}</h4>
-            <ul className="space-y-2.5 text-brand-muted font-medium">
-              <li>
-                <Link to="/products?category=diffusers" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'أجهزة التعطير الذكية' : 'Smart Diffusers'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/products?category=fragrance-oils" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'الزيوت العطرية النقية' : 'Pure Fragrance Oils'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/products?category=bundles" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'الباقات والعروض الخاصة' : 'Gift Sets & Bundles'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/fragrances" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'مكتبة الروائح العطرية' : 'Fragrance Library'}
-                </Link>
-              </li>
+          <div className="md:col-span-3 lg:col-span-2">
+            <h3 className="text-sm font-medium">{t('footer.shopCol', 'التسوق')}</h3>
+            <ul className="mt-5 space-y-3 text-sm text-brand-surface/65">
+              {shopLinks.map(([to, label]) => (
+                <li key={to}><Link to={to} className="transition-colors hover:text-brand-pale">{label}</Link></li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 2: Company */}
-          <div className="space-y-3 text-sm">
-            <h4 className="font-bold text-brand-ink text-base">{t('footer.learnCol', 'التعريف والتقنية')}</h4>
-            <ul className="space-y-2.5 text-brand-muted font-medium">
-              <li>
-                <Link to="/about" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'عن أودورا (Our Story)' : 'About Odora'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/technology" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'تقنية الرذاذ البارد' : 'Cold-Air Diffusion'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'الفروع ومواقعنا في ليبيا' : 'Locations in Libya'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'مبيعات الشركات والجملة' : 'B2B & Hospitality'}
-                </Link>
-              </li>
+          <div className="md:col-span-3">
+            <h3 className="text-sm font-medium">{t('footer.learnCol', 'أودورا')}</h3>
+            <ul className="mt-5 space-y-3 text-sm text-brand-surface/65">
+              {companyLinks.map(([to, label]) => (
+                <li key={to}><Link to={to} className="transition-colors hover:text-brand-pale">{label}</Link></li>
+              ))}
+              <li><Link to="/order-tracking" className="transition-colors hover:text-brand-pale">{language === 'ar' ? 'تتبع الطلب' : 'Track an order'}</Link></li>
             </ul>
-          </div>
-
-          {/* Col 3: Support & Tracking */}
-          <div className="space-y-3 text-sm">
-            <h4 className="font-bold text-brand-ink text-base">{t('footer.supportCol', 'الدعم والخدمة')}</h4>
-            <ul className="space-y-2.5 text-brand-muted font-medium">
-              <li>
-                <Link to="/order-tracking" className="hover:text-brand-sage transition-colors font-semibold text-brand-ink">
-                  {language === 'ar' ? 'تتبع حالة طلبيتي 🚚' : 'Track My Order 🚚'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'الأسئلة الشائعة (FAQ)' : 'Frequently Asked Questions'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'سياسة الضمان والصيانة' : 'Warranty & Service'}
-                </Link>
-              </li>
-              <li>
-                <Link to="/legal" className="hover:text-brand-sage transition-colors">
-                  {language === 'ar' ? 'الشروط والأحكام والخصوصية' : 'Terms & Privacy'}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 mt-6 border-t border-stone-300/70 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-muted gap-4">
-          <p>{t('footer.copyright', `© ${new Date().getFullYear()} أودورا (Odora Fragrance Systems). جميع الحقوق محفوظة.`)}</p>
-          <div className="flex items-center gap-6 font-medium">
-            <Link to="/legal" className="hover:text-brand-ink">{language === 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy'}</Link>
-            <Link to="/legal" className="hover:text-brand-ink">{language === 'ar' ? 'شروط الخدمة' : 'Terms of Service'}</Link>
-            <span className="text-brand-sage font-semibold">{language === 'ar' ? 'صُنع بفخر للمساحات الليبية 🇱🇾' : 'Crafted for Libyan Spaces 🇱🇾'}</span>
           </div>
         </div>
 
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-7 border-t border-brand-surface/15 text-xs text-brand-surface/55">
+          <p>{t('footer.copyright', `© ${new Date().getFullYear()} Odora. جميع الحقوق محفوظة.`)}</p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy" className="hover:text-brand-surface">{language === 'ar' ? 'الخصوصية' : 'Privacy'}</Link>
+            <Link to="/terms" className="hover:text-brand-surface">{language === 'ar' ? 'الشروط' : 'Terms'}</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

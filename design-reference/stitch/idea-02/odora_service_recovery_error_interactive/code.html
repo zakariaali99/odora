@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary": "#ffffff", "on-surface-variant": "#46483f", "primary": "#586244", "surface-bright": "#fdf9f5", "on-secondary-fixed": "#131f01", "on-background": "#1c1c19", "tertiary-fixed": "#dfe4d9", "on-secondary-container": "#59683e", "secondary": "#55633a", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "primary-container": "#919c7a", "surface-tint": "#586244", "on-tertiary": "#ffffff", "surface-container": "#f1ede9", "surface": "#fdf9f5", "on-primary-container": "#2a3319", "on-surface": "#1c1c19", "inverse-on-surface": "#f4f0ec", "secondary-fixed-dim": "#bccd9a", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#3e4b25", "on-primary-fixed": "#161e07", "inverse-primary": "#c0cba6", "primary-fixed": "#dce7c1", "outline": "#76786e", "surface-container-high": "#ebe7e4", "surface-variant": "#e6e2de", "inverse-surface": "#31302e", "tertiary-fixed-dim": "#c3c8be", "error": "#ba1a1a", "outline-variant": "#c6c7bc", "surface-dim": "#ddd9d6", "surface-container-low": "#f7f3ef", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "on-error-container": "#93000a", "on-tertiary-container": "#2c312a", "primary-fixed-dim": "#c0cba6", "secondary-container": "#d5e6b2", "on-secondary": "#ffffff", "tertiary": "#5b6057", "on-primary-fixed-variant": "#404a2e", "tertiary-container": "#94998f", "on-tertiary-fixed": "#181d16", "secondary-fixed": "#d8e9b5" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "2rem", "margin-desktop": "3.5rem" }, fontFamily: { "display-lg-mobile": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-md": ["Outfit"], "display-lg": ["Outfit"], "headline-sm": ["Outfit"], "label-sm": ["Outfit"], "label-lg": ["Outfit"], "headline-lg-mobile": ["Outfit"], "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Outfit"] }, fontSize: { "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0.015em", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "500" }], "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.14em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "400" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "0em", fontWeight: "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    .pulse-ring {
+      animation: subtlePulse 3s ease-in-out infinite;
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">Service Recovery &amp; Error</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Contact Concierge" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" onclick="showGlobalToast('Connecting to Odora Concierge dispatch...', 'call')"><span class="material-symbols-outlined text-[20px]">support_agent</span></button><div class="min-w-[44px] min-h-[44px] flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container" src="https://lh3.googleusercontent.com/aida/AEtjO1XNERJ1G1eppwfNn3L9Q5QRAhJ39G8cnFyaMXAQDv_zZyW-UXdYbWue64UkgwRILQVaI5B5dkzIjf5Y2Kfz1WHPuLvCW_ACXGsP5RqDbtf5Hi42bwWalirRka3rK309XkIxUYJSj7_E_-DOu6HX3tWjUTvsRlABMhAttW97C8o3Hd9a0yfWkkMMzXnAPOHca3oVfwhL5mCGWM4sEBRaAZTXLlfDS3VrdtcTm94NUg5cnhGpiv9Nh4-351ftY6bHRLx9LEAV8N6dag"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Global Floating Toast Notification -->
+<div aria-live="polite" class="fixed top-20 inset-x-0 mx-auto max-w-sm px-4 z-50 pointer-events-none transition-all duration-300 transform -translate-y-12 opacity-0" id="notification-toast">
+<div class="bg-inverse-surface/95 backdrop-blur-md text-inverse-on-surface px-4 py-3 rounded-2xl shadow-xl flex items-center justify-between gap-3 border border-outline-variant/20">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-secondary-fixed flex-shrink-0" id="toast-icon">check_circle</span>
+<p class="font-body-sm text-[13px] leading-tight truncate text-inverse-on-surface" id="toast-message">Cloud Handshake Established</p>
+</div>
+<button class="text-inverse-on-surface/60 hover:text-inverse-on-surface pointer-events-auto p-1 text-[12px]" onclick="hideGlobalToast()">✕</button>
+</div>
+</div>
+<!-- Mode Selection Segment (Interactive preview tabs) -->
+<section class="px-margin pt-2 pb-4">
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-1">
+<button class="px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-primary-container text-on-primary shadow-sm flex items-center gap-1.5 active:scale-95" id="tab-offline" onclick="switchState('offline')">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed" id="tab-dot-offline"></span>
+        No Connection
+      </button>
+<button class="px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 active:scale-95" id="tab-cloud" onclick="switchState('cloud')">
+<span class="w-1.5 h-1.5 rounded-full bg-outline" id="tab-dot-cloud"></span>
+        Cloud Disruption
+      </button>
+<button class="px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 active:scale-95" id="tab-alerts" onclick="switchState('alerts')">
+<span class="w-1.5 h-1.5 rounded-full bg-outline" id="tab-dot-alerts"></span>
+        Inline Alerts
+      </button>
+</div>
+</section>
+<!-- Hero Sanctuary Architecture / Recovery Status -->
+<section class="px-margin pt-2 pb-6">
+<div class="relative bg-surface-container-low rounded-lg p-space-lg flex flex-col items-center text-center overflow-hidden shadow-[0_12px_32px_-8px_rgba(35,40,33,0.06)] transition-all duration-500" id="hero-card">
+<!-- Ambient Diffuser Glow / Offline Pulse Illustration -->
+<div class="relative w-40 h-44 mb-4 flex items-center justify-center">
+<!-- Diffused mist aura rings -->
+<div class="absolute w-36 h-36 rounded-full bg-primary-fixed/30 pulse-ring" id="hero-aura-1"></div>
+<div class="absolute w-28 h-28 rounded-full bg-secondary-container/40 blur-md" id="hero-aura-2"></div>
+<!-- Photographic Matte Diffuser Hardware Representation -->
+<div class="relative z-10 w-24 h-32 rounded-2xl bg-surface-container-highest flex flex-col items-center justify-between p-2 shadow-md overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover rounded-2xl opacity-90 transition-opacity duration-500" data-alt="Minimalist sage green cylindrical electronic diffuser with soft matte texture, gently casting ambient aromatic mist against a warm beige travertine backdrop in quiet luxury studio lighting." id="hero-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJGKvOXbYc-drGA4otN65FMDmPlvZinNBdwCbjsqfhzTK3DdmoehxuuUAWsY-sHS3mdkK3MLgDKJ3GKOE_ngvmtyIJptT2_QIwhGunYau2gNoA76ubtba7kG6w7B0MDA_MuFJTDfMXTCAUHNvDVcqZUsfDtOB_tEtTPubv4FQGtI7bA1gHJ3z_g0j8xnoNdpZo_5BS8p-L1zn9sTpNTOUfxEMM_dxLBEwX0P-gWl8VNM6EaKNms-GD"/>
+<!-- Tactile device brand detail overlay -->
+<div class="relative z-20 w-full flex justify-end">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-surface/80 backdrop-blur-sm text-secondary" id="hero-device-icon">
+<span class="material-symbols-outlined text-[13px]" id="hero-ble-icon">bluetooth</span>
+</span>
+</div>
+<div class="relative z-20 w-full flex justify-center pb-1">
+<span class="font-label-sm text-[9px] uppercase tracking-widest text-on-surface-variant font-medium bg-surface/75 px-2 py-0.5 rounded-full backdrop-blur-sm">Odora</span>
+</div>
+</div>
+<!-- Floating organic connection badge -->
+<div class="absolute -bottom-1 -right-1 z-30 bg-surface rounded-full p-1.5 shadow-sm flex items-center justify-center text-primary transition-transform duration-300" id="hero-badge-icon-box">
+<span class="material-symbols-outlined text-[18px]" id="hero-status-icon">eco</span>
+</div>
+</div>
+<!-- Real-time Diagnostic Telemetry Pill -->
+<div class="inline-flex items-center gap-2 bg-surface px-3.5 py-1.5 rounded-full mb-4 shadow-sm transition-all duration-300" id="telemetry-pill">
+<span class="relative flex h-2 w-2" id="telemetry-dot-wrap">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed-dim opacity-75" id="telemetry-ping"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary" id="telemetry-dot"></span>
+</span>
+<p class="font-label-md text-label-md text-on-surface font-medium truncate" id="telemetry-text">
+          BLE 5.2 Direct: 2 Active · Cloud: Paused
+        </p>
+</div>
+<!-- Sanctuary Headline & Editorial Narrative -->
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2 tracking-tight transition-all duration-300" id="sanctuary-title">
+        Offline Read-Only Sanctuary
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm mb-6 leading-relaxed transition-all duration-300" id="sanctuary-desc">
+        Unable to reach the Odora cloud network. Your local Bluetooth BLE connection remains active, and scheduled circadian misting continues uninterrupted.
+      </p>
+<!-- Ergonomic Action Cluster -->
+<div class="w-full flex flex-col gap-space-xs" id="action-cluster">
+<button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-sm group hover:bg-neutral-800" id="reconnect-btn" onclick="triggerHandshake()">
+<span class="material-symbols-outlined text-[20px] transition-transform duration-500" id="refresh-icon">sync</span>
+<span id="refresh-label">Re-Attempt Cloud Handshake</span>
+</button>
+<button class="w-full h-12 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md flex items-center justify-center gap-1.5 active:scale-[0.98] transition-transform hover:bg-secondary-fixed" id="secondary-btn" onclick="toggleBleLocal()">
+<span class="material-symbols-outlined text-[18px]" id="secondary-btn-icon">sensors</span>
+<span id="secondary-btn-label">Continue to Local BLE Controls</span>
+</button>
+</div>
+<!-- Reset simulation toggle button (visible when reconnected) -->
+<button class="hidden mt-3 text-xs font-label-md text-primary underline underline-offset-4 decoration-outline-variant hover:text-on-surface transition-colors" id="reset-sim-btn" onclick="resetFlow()">
+  ↺ Reset Demo to Offline State
+</button>
+</div>
+</section>
+<!-- Live Chamber Diagnostics Row -->
+<section class="px-margin mb-6" id="chambers-section">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Preserved Chamber State</span>
+<span class="font-label-md text-label-md text-secondary font-medium" id="cache-label">Local Cache Active</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Device 1 Pill Card -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-md flex flex-col justify-between transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between mb-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary" id="device1-icon-wrap">
+<span class="material-symbols-outlined text-[18px]">bed</span>
+</div>
+<span class="font-label-sm text-[10px] px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container">Master Suite</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Hinoki Dusk</p>
+<div class="flex items-center justify-between text-on-surface-variant mt-1">
+<span class="font-body-sm text-body-sm" id="chamber-1-status">Intensity 40%</span>
+<span class="font-label-sm text-[11px] text-primary font-medium">74% Oil</span>
+</div>
+</div>
+</div>
+<!-- Device 2 Pill Card -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-md flex flex-col justify-between transition-all hover:bg-surface-container">
+<div class="flex items-start justify-between mb-2">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary" id="device2-icon-wrap">
+<span class="material-symbols-outlined text-[18px]">weekend</span>
+</div>
+<span class="font-label-sm text-[10px] px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">Atrium</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface">Forest Sage</p>
+<div class="flex items-center justify-between text-on-surface-variant mt-1">
+<span class="font-body-sm text-body-sm" id="chamber-2-status">Resting</span>
+<span class="font-label-sm text-[11px] text-primary font-medium">91% Oil</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Disruption & Recovery Guidelines -->
+<section class="px-margin mb-6" id="recovery-guidelines">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">System Recovery &amp; Architecture</h3>
+<div class="space-y-space-xs">
+<!-- Connectivity Guideline Tile -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-md flex items-start gap-3.5 transition-all hover:bg-surface-container">
+<div class="w-10 h-10 rounded-full bg-surface-container flex-shrink-0 flex items-center justify-center text-primary" id="gateway-icon-box">
+<span class="material-symbols-outlined text-[20px]" id="gateway-icon">wifi_tethering_off</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-lg text-label-lg text-on-surface mb-0.5" id="gateway-title">Wi-Fi &amp; Mesh Gateway</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal" id="gateway-desc">
+            Verify 2.4GHz network access. Diffusers will automatically re-pair once internet handshake establishes.
+          </p>
+</div>
+</div>
+<!-- EEPROM Memory Tile -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-md flex items-start gap-3.5 transition-all hover:bg-surface-container">
+<div class="w-10 h-10 rounded-full bg-surface-container flex-shrink-0 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">memory</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-lg text-label-lg text-on-surface mb-0.5">Internal Diffuser EEPROM</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-normal">
+            Your customized circadian intervals, mist dispersion rates, and night lumens are stored permanently on-chip.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Inline Feedback & State Toast Treatments Showcase -->
+<section class="px-margin mb-6" id="toast-showcase-section">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Feedback &amp; Toast Standards</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider" id="toast-badge-count">3 Variations</span>
+</div>
+<div class="space-y-space-xs" id="toasts-container">
+<!-- 1. Warning Treatment (Tactile Amber/Sage) -->
+<div class="bg-surface-container-high rounded-DEFAULT p-3.5 flex items-center gap-3 transition-all" id="banner-cartridge">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest flex-shrink-0 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Cartridge Low — Chamber at 8%</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kyoto Hinoki oil approaching empty state.</p>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest font-label-sm text-[11px] text-primary whitespace-nowrap active:scale-95 transition-transform hover:bg-surface font-medium shadow-sm" id="btn-reorder" onclick="reorderOil(this)">
+          Reorder
+        </button>
+</div>
+<!-- 2. Success Treatment (Soft Botanical Pill) -->
+<div class="bg-secondary-container rounded-DEFAULT p-3.5 flex items-center gap-3 transition-all" id="banner-mesh">
+<div class="w-8 h-8 rounded-full bg-surface flex-shrink-0 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-secondary-container font-medium">Bluetooth Mesh Synchronized</p>
+<p class="font-body-sm text-body-sm text-on-secondary-container/80">3 dwelling spaces aligned locally.</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-secondary-container/60">Now</span>
+</div>
+<!-- 3. Error Treatment (Interactive retry card) -->
+<div class="bg-error-container/40 rounded-DEFAULT p-3.5 flex items-center gap-3 transition-all duration-300" id="banner-error">
+<div class="w-8 h-8 rounded-full bg-error text-on-error flex-shrink-0 flex items-center justify-center transition-colors duration-300" id="error-badge-icon">
+<span class="material-symbols-outlined text-[16px]" id="error-symbol">priority_high</span>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium transition-colors" id="error-title">Failed Schedule Write (#BLE-408)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate transition-colors" id="error-desc">BLE connection timed out during transfer.</p>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface font-label-sm text-[11px] text-error font-medium whitespace-nowrap active:scale-95 transition-all shadow-sm flex items-center gap-1 hover:bg-surface-container-lowest" id="btn-error-retry" onclick="simulateRetry(this)">
+<span class="material-symbols-outlined text-[13px] hidden animate-spin" id="retry-mini-spinner">progress_activity</span>
+<span id="retry-btn-label">Retry</span>
+</button>
+</div>
+</div>
+</section>
+<!-- White-Glove VIP Support Card -->
+<section class="px-margin mb-2">
+<div class="bg-surface-container-low rounded-lg p-space-md flex items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[22px]">spa</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg text-on-surface">Odora Atelier Concierge</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Priority dispatch &amp; artisan diagnostic service</p>
+</div>
+</div>
+<button aria-label="Call Concierge" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors active:scale-95 flex-shrink-0 shadow-sm" onclick="showGlobalToast('Calling Atelier Concierge (+1 800-ODORA)...', 'call')">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+</div>
+</section>
+</div>
+<script>
+  let currentState = 'offline';
+  let isConnected = false;
+  let isReconnecting = false;
+  let toastTimer = null;
+
+  function showGlobalToast(message, icon = 'check_circle') {
+    const toast = document.getElementById('notification-toast');
+    const toastMsg = document.getElementById('toast-message');
+    const toastIcon = document.getElementById('toast-icon');
+    
+    if (toastTimer) clearTimeout(toastTimer);
+    
+    toastMsg.innerText = message;
+    toastIcon.innerText = icon;
+    toast.classList.remove('-translate-y-12', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    toastTimer = setTimeout(() => {
+      hideGlobalToast();
+    }, 3800);
+  }
+
+  function hideGlobalToast() {
+    const toast = document.getElementById('notification-toast');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+    toast.classList.add('-translate-y-12', 'opacity-0');
+  }
+
+  function switchState(type) {
+    currentState = type;
+    const tabs = ['offline', 'cloud', 'alerts'];
+    tabs.forEach(t => {
+      const btn = document.getElementById('tab-' + t);
+      const dot = document.getElementById('tab-dot-' + t);
+      if (t === type) {
+        btn.className = 'px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-primary-container text-on-primary shadow-sm flex items-center gap-1.5 active:scale-95';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-secondary-fixed';
+      } else {
+        btn.className = 'px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container-high text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 active:scale-95';
+        dot.className = 'w-1.5 h-1.5 rounded-full bg-outline';
+      }
+    });
+
+    const title = document.getElementById('sanctuary-title');
+    const desc = document.getElementById('sanctuary-desc');
+    const telemetryText = document.getElementById('telemetry-text');
+    const telemetryDot = document.getElementById('telemetry-dot');
+    const telemetryPing = document.getElementById('telemetry-ping');
+    const heroCard = document.getElementById('hero-card');
+    const toastSection = document.getElementById('toast-showcase-section');
+
+    if (type === 'offline') {
+      title.innerText = 'Offline Read-Only Sanctuary';
+      desc.innerText = 'Unable to reach the Odora cloud network. Your local Bluetooth BLE connection remains active, and scheduled circadian misting continues uninterrupted.';
+      telemetryText.innerText = 'BLE 5.2 Direct: 2 Active · Cloud: Paused';
+      telemetryDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-secondary';
+      telemetryPing.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-fixed-dim opacity-75';
+      heroCard.classList.remove('ring-2', 'ring-primary-container');
+    } else if (type === 'cloud') {
+      title.innerText = 'Atelier Cloud Disrupted';
+      desc.innerText = 'Odora cloud synchronization is momentarily resting for maintenance (#SVC-503). Your ambiance routines and custom essential oils are safely preserved in hardware memory.';
+      telemetryText.innerText = 'BLE Direct Active · Cloud Handshake Interrupted';
+      telemetryDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-amber-600';
+      telemetryPing.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75';
+      heroCard.classList.remove('ring-2', 'ring-primary-container');
+      showGlobalToast('Notice: Scheduled Atelier cloud server maintenance.', 'info');
+    } else if (type === 'alerts') {
+      title.innerText = 'Local Device Diagnostics';
+      desc.innerText = 'Review live hardware warnings, BLE signal fidelity, and cartridge capacities below. All physical diffuser chambers are currently operating as intended.';
+      telemetryText.innerText = 'Hardware Telemetry Mode · 3 Notices Reported';
+      telemetryDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-primary';
+      telemetryPing.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75';
+      
+      // Smoothly scroll down towards toasts
+      setTimeout(() => {
+        toastSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 150);
+    }
+  }
+
+  function triggerHandshake() {
+    if (isReconnecting) return;
+    isReconnecting = true;
+
+    const icon = document.getElementById('refresh-icon');
+    const label = document.getElementById('refresh-label');
+    const btn = document.getElementById('reconnect-btn');
+    const telemetryText = document.getElementById('telemetry-text');
+    const telemetryDot = document.getElementById('telemetry-dot');
+    const telemetryPing = document.getElementById('telemetry-ping');
+    const title = document.getElementById('sanctuary-title');
+    const desc = document.getElementById('sanctuary-desc');
+    const resetBtn = document.getElementById('reset-sim-btn');
+    const cacheLabel = document.getElementById('cache-label');
+    const gatewayIcon = document.getElementById('gateway-icon');
+    const gatewayTitle = document.getElementById('gateway-title');
+    const gatewayDesc = document.getElementById('gateway-desc');
+
+    // 1. Reconnecting state
+    icon.classList.add('animate-spin');
+    label.innerText = 'Connecting to Odora Cloud...';
+    btn.disabled = true;
+    btn.classList.add('opacity-90');
+
+    telemetryText.innerText = 'BLE 5.2 Direct · Syncing with Cloud...';
+    telemetryDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-amber-500';
+    telemetryPing.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75';
+
+    // 2. Realistic 1.8s timeout
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      icon.innerText = 'done_all';
+      label.innerText = 'Cloud Handshake Established';
+      btn.classList.remove('bg-inverse-surface', 'opacity-90');
+      btn.classList.add('bg-primary', 'text-on-primary');
+
+      // Update Top Status Pill to Green
+      telemetryText.innerText = 'Cloud Synced · BLE 5.2 Active';
+      telemetryDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-emerald-600';
+      telemetryPing.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75';
+
+      // Update Hero Title & Description
+      title.innerText = 'Sanctuary Fully Reconnected';
+      desc.innerText = 'Cloud handshake established. All 3 dwelling zones, circadian mist schedules, and cartridge telemetry are synchronized with your Odora cloud account.';
+
+      // Update Gateway Tile
+      gatewayIcon.innerText = 'wifi';
+      gatewayIcon.classList.remove('text-primary');
+      gatewayIcon.classList.add('text-secondary');
+      gatewayTitle.innerText = 'Wi-Fi & Mesh Gateway · Connected';
+      gatewayDesc.innerText = 'Secured connection via 2.4GHz mesh network. Sub-millisecond local latency preserved.';
+      cacheLabel.innerText = 'Cloud Live Telemetry';
+      cacheLabel.classList.remove('text-secondary');
+      cacheLabel.classList.add('text-emerald-700');
+
+      // Show Global Success Toast
+      showGlobalToast('Cloud Handshake Established: All circadian routines synchronized.', 'cloud_done');
+
+      // Show reset button so user can test the flow repeatedly
+      resetBtn.classList.remove('hidden');
+
+      isConnected = true;
+      isReconnecting = false;
+      btn.disabled = false;
+    }, 1800);
+  }
+
+  function simulateRetry(buttonEl) {
+    const errorBanner = document.getElementById('banner-error');
+    const errorSymbol = document.getElementById('error-symbol');
+    const errorBadge = document.getElementById('error-badge-icon');
+    const errorTitle = document.getElementById('error-title');
+    const errorDesc = document.getElementById('error-desc');
+    const retryLabel = document.getElementById('retry-btn-label');
+    const spinner = document.getElementById('retry-mini-spinner');
+
+    // Spin state
+    spinner.classList.remove('hidden');
+    retryLabel.innerText = 'Syncing...';
+    buttonEl.disabled = true;
+
+    setTimeout(() => {
+      spinner.classList.add('hidden');
+      retryLabel.innerText = 'Done';
+      buttonEl.disabled = false;
+
+      // Transform into Success Green Treatment
+      errorBanner.className = 'bg-secondary-container rounded-DEFAULT p-3.5 flex items-center gap-3 transition-all duration-300';
+      errorBadge.className = 'w-8 h-8 rounded-full bg-surface text-secondary flex-shrink-0 flex items-center justify-center transition-colors';
+      errorSymbol.innerText = 'check_circle';
+      errorTitle.innerText = 'Schedule Synchronized Successfully';
+      errorTitle.className = 'font-label-md text-label-md text-on-secondary-container font-medium';
+      errorDesc.innerText = 'Circadian routine uploaded to Hinoki diffuser via BLE.';
+      errorDesc.className = 'font-body-sm text-body-sm text-on-secondary-container/80';
+      buttonEl.className = 'px-3 py-1.5 rounded-full bg-surface font-label-sm text-[11px] text-secondary font-medium whitespace-nowrap active:scale-95 transition-all shadow-sm';
+      buttonEl.innerText = 'Synchronized';
+      buttonEl.onclick = null;
+
+      showGlobalToast('Schedule Synchronized (#BLE-408 Resolved)', 'check_circle');
+
+      // Also trigger cloud handshake if not yet connected
+      if (!isConnected) {
+        triggerHandshake();
+      }
+    }, 1200);
+  }
+
+  function reorderOil(buttonEl) {
+    const originalText = buttonEl.innerText;
+    buttonEl.innerText = 'Ordering...';
+    buttonEl.disabled = true;
+
+    setTimeout(() => {
+      buttonEl.innerText = 'Reserved';
+      buttonEl.classList.remove('text-primary');
+      buttonEl.classList.add('text-secondary', 'bg-secondary-fixed');
+      showGlobalToast('Cartridge added: Kyoto Hinoki 15ml Reserve', 'shopping_bag');
+
+      setTimeout(() => {
+        buttonEl.innerText = originalText;
+        buttonEl.disabled = false;
+        buttonEl.classList.remove('text-secondary', 'bg-secondary-fixed');
+        buttonEl.classList.add('text-primary');
+      }, 3000);
+    }, 900);
+  }
+
+  function toggleBleLocal() {
+    showGlobalToast('Active local BLE session with 2 chambers.', 'bluetooth_searching');
+    const chamber1 = document.getElementById('chamber-1-status');
+    const chamber2 = document.getElementById('chamber-2-status');
+    if (chamber1.innerText.includes('Pulsing')) {
+      chamber1.innerText = 'Intensity 40%';
+      chamber2.innerText = 'Resting';
+    } else {
+      chamber1.innerText = 'Pulsing Mist (BLE)';
+      chamber2.innerText = 'Ambient Glow (BLE)';
+    }
+  }
+
+  function resetFlow() {
+    isConnected = false;
+    isReconnecting = false;
+
+    // Reset Buttons
+    const btn = document.getElementById('reconnect-btn');
+    const icon = document.getElementById('refresh-icon');
+    const label = document.getElementById('refresh-label');
+    const resetBtn = document.getElementById('reset-sim-btn');
+
+    btn.className = 'w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-sm group hover:bg-neutral-800';
+    icon.className = 'material-symbols-outlined text-[20px] transition-transform duration-500';
+    icon.innerText = 'sync';
+    label.innerText = 'Re-Attempt Cloud Handshake';
+    btn.disabled = false;
+    resetBtn.classList.add('hidden');
+
+    // Reset Gateway
+    const gatewayIcon = document.getElementById('gateway-icon');
+    const gatewayTitle = document.getElementById('gateway-title');
+    const gatewayDesc = document.getElementById('gateway-desc');
+    const cacheLabel = document.getElementById('cache-label');
+
+    gatewayIcon.innerText = 'wifi_tethering_off';
+    gatewayIcon.className = 'material-symbols-outlined text-[20px] text-primary';
+    gatewayTitle.innerText = 'Wi-Fi & Mesh Gateway';
+    gatewayDesc.innerText = 'Verify 2.4GHz network access. Diffusers will automatically re-pair once internet handshake establishes.';
+    cacheLabel.innerText = 'Local Cache Active';
+    cacheLabel.className = 'font-label-md text-label-md text-secondary font-medium';
+
+    // Reset Error Banner
+    const errorBanner = document.getElementById('banner-error');
+    const errorSymbol = document.getElementById('error-symbol');
+    const errorBadge = document.getElementById('error-badge-icon');
+    const errorTitle = document.getElementById('error-title');
+    const errorDesc = document.getElementById('error-desc');
+    const retryBtn = document.getElementById('btn-error-retry');
+
+    errorBanner.className = 'bg-error-container/40 rounded-DEFAULT p-3.5 flex items-center gap-3 transition-all duration-300';
+    errorBadge.className = 'w-8 h-8 rounded-full bg-error text-on-error flex-shrink-0 flex items-center justify-center transition-colors duration-300';
+    errorSymbol.innerText = 'priority_high';
+    errorTitle.innerText = 'Failed Schedule Write (#BLE-408)';
+    errorTitle.className = 'font-label-md text-label-md text-on-surface font-medium transition-colors';
+    errorDesc.innerText = 'BLE connection timed out during transfer.';
+    errorDesc.className = 'font-body-sm text-body-sm text-on-surface-variant truncate transition-colors';
+
+    retryBtn.className = 'px-3 py-1.5 rounded-full bg-surface font-label-sm text-[11px] text-error font-medium whitespace-nowrap active:scale-95 transition-all shadow-sm flex items-center gap-1 hover:bg-surface-container-lowest';
+    retryBtn.innerHTML = '<span class="material-symbols-outlined text-[13px] hidden animate-spin" id="retry-mini-spinner">progress_activity</span><span id="retry-btn-label">Retry</span>';
+    retryBtn.onclick = function() { simulateRetry(this); };
+
+    // Reset Mode
+    switchState('offline');
+    showGlobalToast('Simulator reset: Diffuser returned to Offline State.', 'settings_backup_restore');
+  }
+</script>
+</main></body></html>

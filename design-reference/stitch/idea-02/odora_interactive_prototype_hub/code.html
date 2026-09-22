@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-background": "#1c1c19", "outline": "#76786e", "surface-variant": "#e6e2de", "secondary-fixed": "#d8e9b5", "surface-container": "#f1ede9", "on-tertiary": "#ffffff", "on-primary": "#ffffff", "surface-bright": "#fdf9f5", "on-tertiary-container": "#2c312a", "surface-container-low": "#f7f3ef", "tertiary": "#5b6057", "inverse-on-surface": "#f4f0ec", "surface-tint": "#586244", "on-secondary": "#ffffff", "inverse-surface": "#31302e", "secondary-fixed-dim": "#bccd9a", "surface-container-high": "#ebe7e4", "on-secondary-fixed-variant": "#3e4b25", "on-surface-variant": "#46483f", "on-secondary-fixed": "#131f01", "on-tertiary-fixed-variant": "#434840", "error": "#ba1a1a", "on-primary-fixed-variant": "#404a2e", "surface": "#fdf9f5", "primary-container": "#919c7a", "on-secondary-container": "#59683e", "tertiary-fixed": "#dfe4d9", "tertiary-container": "#94998f", "on-error": "#ffffff", "surface-dim": "#ddd9d6", "on-primary-container": "#2a3319", "on-error-container": "#93000a", "on-primary-fixed": "#161e07", "surface-container-highest": "#e6e2de", "on-surface": "#1c1c19", "tertiary-fixed-dim": "#c3c8be", "primary-fixed": "#dce7c1", "error-container": "#ffdad6", "secondary": "#55633a", "on-tertiary-fixed": "#181d16", "inverse-primary": "#c0cba6", "background": "#fdf9f5", "surface-container-lowest": "#ffffff", "outline-variant": "#c6c7bc", "primary-fixed-dim": "#c0cba6", "primary": "#586244", "secondary-container": "#d5e6b2" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter-desktop": "2rem", "gutter": "1rem", "space-md": "1rem", "gutter-tablet": "1.5rem", "margin-desktop": "3.5rem", "margin": "1.25rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "space-lg": "1.5rem" }, fontFamily: { "label-sm": ["Outfit"], "headline-sm": ["Outfit"], "label-md": ["Outfit"], "display-lg": ["Outfit"], "headline-lg-mobile": ["Outfit"], "display-lg-mobile": ["Outfit"], "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "label-lg": ["Outfit"], "headline-lg": ["Outfit"] }, fontSize: { "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0.015em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400" }] } } } }</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Navigation Navigator" class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container active:scale-95 transition-all"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="flex flex-col"><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Odora Smart</span><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Home</h1></div></div><div class="flex items-center gap-space-xs"><button aria-label="Toggle Mode" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low active:scale-95 transition-all"><span class="material-symbols-outlined text-[20px]">nature</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover ml-1 shadow-[0_2px_8px_rgba(0,0,0,0.06)]" src="https://lh3.googleusercontent.com/aida/AEtjO1VrzmO2rmx8SjNMqY-me4vU9rju68tu7F8UQo6L1xdut5IOZpLPN9v1VR0tnfiLeX-1ZLUEfiSnGC-4qhaFB51SgjFIHhXEPQl-tJ9v6-4LsaIWMCRLMOAyghXor7gB4rspmXqSqnUl8Qgq7smTSUQqosy-_dOeXaNqr5rAn1jmMpaMcLop5YXl8lvf3LN9t13xuprSyRaTonsAPIuN_2m9jV2l1A5_7eon_lAbqxsHprz-j-KtFylOcax8esNQErmveaF8rBrmtg"/></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface select-none pb-24">
+<!-- Interactive Stage Top Hub: Flow Switcher & Live Context -->
+<div class="px-margin pt-2 pb-3 flex flex-col gap-2">
+<!-- Breadcrumb & Mode Status -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary" id="flow-crumb">Core Sanctuary</span>
+<span class="text-outline-variant font-label-sm text-label-sm">/</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-semibold" id="screen-crumb">Living Atelier</span>
+</div>
+<!-- BLE Live Status Chip -->
+<button class="flex items-center gap-1 bg-surface-container-highest px-2.5 py-1 rounded-full text-on-surface active:scale-95 transition-all" id="ble-indicator">
+<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">bluetooth_connected</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-on-surface">5.2 Sync</span>
+</button>
+</div>
+<!-- Horizontal Flow Track Navigation -->
+<div class="overflow-x-auto -mx-margin px-margin flex items-center gap-2 py-1 scroll-smooth">
+<button class="flow-tab-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all bg-on-background text-on-primary shadow-sm" data-flow-btn="sanctuary" onclick="switchFlow('sanctuary')">
+        Sanctuary Core
+      </button>
+<button class="flow-tab-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:text-on-surface" data-flow-btn="hardware" onclick="switchFlow('hardware')">
+        BLE &amp; Hardware
+      </button>
+<button class="flow-tab-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:text-on-surface" data-flow-btn="store" onclick="switchFlow('store')">
+        Atelier Cartridges
+      </button>
+<button class="flow-tab-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:text-on-surface" data-flow-btn="routines" onclick="switchFlow('routines')">
+        Circadian Routines
+      </button>
+<button class="flow-tab-btn whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md transition-all bg-surface-container text-on-surface-variant hover:text-on-surface" data-flow-btn="recovery" onclick="switchFlow('recovery')">
+        Diagnostics &amp; Offline
+      </button>
+</div>
+</div>
+<!-- STAGE VIEW CONTAINER (Screens dynamically swapped here) -->
+<div class="w-full transition-opacity duration-300" id="interactive-stage">
+<!-- ============================================== -->
+<!-- SCREEN 1: SANCTUARY CORE (Home Sanctuary View) -->
+<!-- ============================================== -->
+<div class="screen-view flex flex-col gap-4 px-margin" id="screen-sanctuary">
+<!-- Sculptural Device Showcase Card with Ambient Mist Visualization -->
+<div class="relative w-full rounded-lg bg-surface-container-low p-space-md overflow-hidden shadow-sm">
+<!-- Mist Canvas Ambient Particles -->
+<div class="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-700" id="mist-ambient">
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full bg-secondary-fixed/50 blur-3xl animate-pulse"></div>
+<div class="absolute top-1/3 left-1/3 w-32 h-32 rounded-full bg-primary-fixed/40 blur-2xl"></div>
+</div>
+<div class="relative z-10 flex flex-col gap-4">
+<!-- Room Switcher Pills -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px] text-primary">chair</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface">Atelier Living</span>
+<span class="material-symbols-outlined text-[14px] text-outline">expand_more</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex h-2 w-2 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">Active • 22°C</span>
+</div>
+</div>
+<!-- Vessel Image and Chamber Overlay -->
+<div class="relative flex items-center justify-center py-2">
+<div class="relative w-48 h-60 rounded-2xl overflow-hidden shadow-md bg-surface-container">
+<img alt="Odora Sculptural Vessel" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4kxEiOg4rF64nqlqJeH96fYa-HNYW8C4CzDoY8RmmIF7SWZR8h0oERREWdsQHz8cyF-6UsLlhTwAqdJxjMBawK_V0BN2tgWudpla_YaCilHhALKmlha74jjLS5MYo0mALnZMOCg5FdM1SE4YXP4AbAD4_O7qZCPZScK5n3K_DUwMwl29oRM8uQnTU5_8A8i1SJefLugDrGSU5OfNvkGjfDggY8EySitKyg95cCub6dEyK4rE0ymYUiE25d9IIuHYflg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-high/90 via-transparent to-transparent"></div>
+<!-- Floating Chamber Gauge Capsule -->
+<div class="absolute bottom-3 left-3 right-3 bg-surface/90 backdrop-blur-md px-3 py-2 rounded-full flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4"></path>
+<path class="text-primary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="74, 100" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+<span class="font-label-sm text-label-sm font-semibold tracking-wider text-on-surface">74% Level</span>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Pod A</span>
+</div>
+</div>
+</div>
+<!-- Scent Identity & Sensory Profile -->
+<div class="flex flex-col items-center text-center gap-1">
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-tertiary">Chamber One • Hinoki Series</span>
+<h2 class="font-headline-md text-headline-md tracking-tight text-on-surface">Kyoto Hinoki &amp; Cedar</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Japanese cypress, wet river moss, smoked atlas cedarwood with crushed needles.</p>
+</div>
+<!-- Quick Action Master Bar -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<!-- Mist Burst Button -->
+<button class="h-14 rounded-full bg-on-background text-on-primary flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all" id="burst-action-btn" onclick="triggerMistBurst()">
+<span class="material-symbols-outlined text-[20px]" id="burst-icon">air</span>
+<span class="font-label-lg text-label-lg font-semibold tracking-wide" id="burst-text">Sensory Burst</span>
+</button>
+<!-- Deep Controls Entry -->
+<button class="h-14 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all" onclick="switchFlow('hardware')">
+<span class="material-symbols-outlined text-[20px]">sliders</span>
+<span class="font-label-lg text-label-lg font-semibold tracking-wide">Tune Vessel</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Circadian Rhythm Arc Card -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-3 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">bedtime</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Circadian Arc</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">Phase II: Dusk</span>
+</div>
+<!-- Visual Timeline Curve Bar -->
+<div class="relative w-full h-12 bg-surface-container rounded-full flex items-center px-4 justify-between overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-3/5 bg-primary-container/20 rounded-full"></div>
+<div class="relative z-10 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">wb_sunny</span>
+<span class="font-label-sm text-label-sm text-tertiary">08:00 Wake</span>
+</div>
+<div class="relative z-10 flex items-center gap-1.5 font-semibold text-primary">
+<span class="material-symbols-outlined text-[16px]">wb_twilight</span>
+<span class="font-label-sm text-label-sm">18:30 Dusk</span>
+</div>
+<div class="relative z-10 flex items-center gap-1.5 text-outline">
+<span class="material-symbols-outlined text-[16px]">nightlight</span>
+<span class="font-label-sm text-label-sm">22:30 Rest</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Switching automatically to <strong class="text-on-surface font-medium">Night Sandalwood</strong> at 22:00 for deep alpha-wave relaxation.</p>
+</div>
+<!-- Dual Chambers Quick Carousel -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Chamber 1 Card -->
+<div class="rounded-lg bg-surface-container p-3 flex flex-col gap-2 relative">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-semibold uppercase tracking-wider">Slot 01</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<div class="w-full h-24 rounded-lg overflow-hidden relative">
+<img alt="Hinoki pod" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnxesycU-OT2NkuAOwNpUPoyy2nbDBQiD5j9NwVrKoR8W9ZE3tLSIjYn8eHejYt52IKqYt9t8TGNsYje0_eE0nPlChuEfRcFo-baXZX9nfL6F_4D66tyNaLvsqQU-4PCa9YRTr3_20H0_8Mrrf1czqncwxtq3ZS_Q_EW7QAffW_sYhyjsybJUWi7FgESz64rGlSlHncQK1-eRcZPEkbqceJjbEYr6orAyW_mUIATUYMXDUn8F-Xos3NPNZQ63v07q35w"/>
+</div>
+<span class="font-headline-sm text-headline-sm truncate">Hinoki Cedar</span>
+<span class="font-label-sm text-label-sm text-tertiary">Active • 74% Remaining</span>
+</div>
+<!-- Chamber 2 Card -->
+<div class="rounded-lg bg-surface-container-low p-3 flex flex-col gap-2 relative">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline font-semibold uppercase tracking-wider">Slot 02</span>
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div class="w-full h-24 rounded-lg overflow-hidden relative opacity-70">
+<img alt="White tea pod" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV2urbYbSIe1wqVPDyaGq-nzHUxEGIqRu_uV6hJokhi5jhGRD5OKU7hVHwU56YR744j1ytpHiXbQaPvrn349YzJQlo97-gKSMUfDrZsmJF0FnHNHVK9JiqI8MTDzcOYLr3ZneRJrYnjlRMpFxhX5WN3SHpID_BWfnQrPH7SvolyiMDEO0S0q1AMsZDpJdC3ckCTuNEM6xhVsdGjsrhV5gnbzm34TvjNFvCHGnNT1c2Tyeh4YKznsvFPTOZ4CAikSjrVg"/>
+</div>
+<span class="font-headline-sm text-headline-sm truncate text-on-surface-variant">Alpine Sage</span>
+<span class="font-label-sm text-label-sm text-tertiary">Standby • 42% Remaining</span>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 2: HARDWARE & BLE 5.2 TUNER (Tuner View) -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-hardware">
+<!-- Hardware Telemetry Header -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-4 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Odora Atelier Pure</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Vessel Precision Engine</h2>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-95 transition-all" onclick="rebootVessel()">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+<!-- Live Ultrasonic Mist Intensity Slider Control -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Aerosol Dispersion Rate</span>
+<span class="font-headline-sm text-headline-sm text-primary font-semibold" id="mist-value-label">65%</span>
+</div>
+<div class="relative w-full h-12 bg-surface-container rounded-full flex items-center px-2 cursor-pointer touch-none" id="mist-slider-track">
+<div class="h-8 rounded-full bg-primary-container transition-all" id="mist-slider-fill" style="width: 65%;"></div>
+<div class="absolute h-10 w-10 bg-on-background rounded-full shadow-md flex items-center justify-center text-on-primary transition-all pointer-events-none" id="mist-slider-thumb" style="left: calc(65% - 20px);">
+<span class="material-symbols-outlined text-[18px]">grain</span>
+</div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-tertiary px-1">
+<span>Whisper (15%)</span>
+<span>Balanced (60%)</span>
+<span>High Saturation (100%)</span>
+</div>
+</div>
+<!-- Ambient Warmth Photometry Dial -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Vessel Core Halo (2200K)</span>
+<span class="font-label-md text-label-md text-tertiary" id="halo-val">Warm Candle</span>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<button class="halo-btn py-2.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold" onclick="setHalo('off', this)">OFF</button>
+<button class="halo-btn py-2.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold" onclick="setHalo('candle', this)">Candle</button>
+<button class="halo-btn py-2.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold" onclick="setHalo('amber', this)">Amber</button>
+<button class="halo-btn py-2.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-semibold" onclick="setHalo('dawn', this)">Dawn</button>
+</div>
+</div>
+<!-- Dispersion Fan Patterns -->
+<div class="flex flex-col gap-2 pt-2">
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Airflow Convection Vector</span>
+<div class="grid grid-cols-3 gap-2">
+<button class="convect-btn py-3 px-2 rounded-2xl bg-on-background text-on-primary flex flex-col items-center gap-1 active:scale-95 transition-all" onclick="setConvection('pulse', this)">
+<span class="material-symbols-outlined text-[18px]">waves</span>
+<span class="font-label-sm text-label-sm">Natural Wave</span>
+</button>
+<button class="convect-btn py-3 px-2 rounded-2xl bg-surface-container text-on-surface-variant flex flex-col items-center gap-1 active:scale-95 transition-all" onclick="setConvection('constant', this)">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+<span class="font-label-sm text-label-sm">Continuous</span>
+</button>
+<button class="convect-btn py-3 px-2 rounded-2xl bg-surface-container text-on-surface-variant flex flex-col items-center gap-1 active:scale-95 transition-all" onclick="setConvection('silent', this)">
+<span class="material-symbols-outlined text-[18px]">nights_stay</span>
+<span class="font-label-sm text-label-sm">Zen Low</span>
+</button>
+</div>
+</div>
+<!-- Sleep Auto-Off Pills -->
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Sleep Auto Shut-off</span>
+<div class="flex gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">30m</span>
+<span class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold">60m</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">120m</span>
+</div>
+</div>
+</div>
+<!-- Quick BLE Pairing Hopper Link -->
+<div class="rounded-lg bg-surface-container p-space-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Add Secondary Vessel</span>
+<span class="font-body-sm text-body-sm text-tertiary">Pair guest room or bath unit</span>
+</div>
+</div>
+<button class="px-4 py-2 rounded-full bg-on-background text-on-primary font-label-sm text-label-sm uppercase tracking-wider font-semibold active:scale-95 transition-all" onclick="switchScreen('radar')">
+          Scan
+        </button>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 3: BLE RADAR DISCOVERY (Pairing View)   -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-radar">
+<!-- Radar Dome Canvas Card -->
+<div class="relative w-full rounded-lg bg-surface-container-low p-space-lg flex flex-col items-center justify-center min-h-[340px] overflow-hidden text-center shadow-sm">
+<!-- Radar Animated Ripple Waves -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-32 h-32 rounded-full border border-primary/20 animate-ping opacity-75"></div>
+<div class="w-56 h-56 rounded-full border border-primary/15 animate-pulse"></div>
+<div class="w-80 h-80 rounded-full border border-primary/10"></div>
+<div class="absolute w-44 h-44 rounded-full bg-secondary-fixed/30 blur-2xl"></div>
+</div>
+<!-- Center Scanning Beacon -->
+<div class="relative z-10 w-16 h-16 rounded-full bg-on-background text-on-primary flex items-center justify-center shadow-lg mb-4">
+<span class="material-symbols-outlined text-[28px] animate-spin" style="animation-duration: 4s;">bluetooth_searching</span>
+</div>
+<div class="relative z-10 flex flex-col gap-1 max-w-xs">
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-primary font-semibold">Radar 5.2 Handshake</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Discovering Vessels</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Hold mobile terminal within 30cm of the ceramic top plate until chime sounds.</p>
+</div>
+</div>
+<!-- Discovered Device Tile with Signal Strength -->
+<div class="rounded-lg bg-surface-container p-space-md flex flex-col gap-3 shadow-sm" id="discovered-device-card">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-lowest overflow-hidden flex items-center justify-center p-1">
+<img alt="Discovered vessel" class="w-full h-full object-cover rounded-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGYDqUC_cq_b49D4PHqAbAS8F3iQqCk5sEhPy3OVqeY9d4hIyOe28wc2_fABUHPZYw8qgj8bLeBtNDOzaUKuKjQ8DPOLj9tUVLgkEHTZNlnHb1ZMmjwDqxlBNa-juy0EKk8vm_izqP06iCmZUfK5GeAW99RELh9dXwZcGS8bREhK-VgMgUsuZmdz3y5iIiLOGau4287eeDbt0KX6TkZ4PK7hW6ZL-NWa21dhTycNil0zeNNK24S8SStGPz9hrxgVaCEw"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Odora Vessel - 88B</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Pro</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">RSSI: -38 dBm • High Fidelity</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">signal_cellular_alt</span>
+</div>
+<!-- Pair Vessel Interactive Button -->
+<button class="w-full h-12 rounded-full bg-on-background text-on-primary flex items-center justify-center gap-2 font-label-lg text-label-lg font-semibold active:scale-95 transition-all shadow-sm" id="pair-btn" onclick="executePairingSequence()">
+<span>Pair &amp; Calibrate Vessel</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Nearby Vessels Status Table -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Other Atmospheric Nodes</span>
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">air_purifier_gen</span>
+<span class="font-body-md text-body-md text-on-surface">Bedroom Mini Diffuser</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Paired (Ch 2)</span>
+</div>
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">cloud_off</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Studio Atelier</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Sleeping</span>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 4: ATELIER SCENT STORE (Store Flow)     -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-store">
+<!-- Store Hero Banner -->
+<div class="rounded-lg bg-secondary-container p-space-md flex items-center justify-between text-on-secondary-container">
+<div class="flex flex-col gap-1 max-w-[200px]">
+<span class="font-label-sm text-label-sm uppercase tracking-widest font-semibold text-secondary">Seasonal Harvest</span>
+<h2 class="font-headline-sm text-headline-sm leading-tight">Kyoto Botanical Reserve</h2>
+<span class="font-label-sm text-label-sm opacity-80">Batch 042 • Hand-blended</span>
+</div>
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-sm">
+<img alt="Flacon perfume oil" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq8LfT5exJq-s5E12cAP-vXdNBGGXPjC-MhNxDZvt2jMU5E5P0CYb09L_mwweYZ20NmoRfO3bROs7UUpuxSDOE43Qm2xRcY4UOjBhrUraFyPS4QbUTGElOTlcpkMKo21dD7YvQuxB5ITYwKtlYoEP4kYNt97Y0VL5g0Z93fAyHMQc-rn1MK-sZowWl4WAQs6arI8JgHNVpiszTXrBUgNPqBOjPdAcWu2dAGcgxDVX6aUWXRnAO8_2EOxiUbMCR3E1chA"/>
+</div>
+</div>
+<!-- Filter Capsule Row -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-margin px-margin">
+<button class="px-4 py-1.5 rounded-full bg-on-background text-on-primary font-label-md text-label-md font-semibold whitespace-nowrap">All Blends (12)</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container font-label-md text-label-md text-on-surface whitespace-nowrap">Wood &amp; Forest</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container font-label-md text-label-md text-on-surface whitespace-nowrap">Fresh Botanical</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container font-label-md text-label-md text-on-surface whitespace-nowrap">Amber &amp; Dusk</button>
+</div>
+<!-- Scent Cartridges Grid -->
+<div class="grid grid-cols-2 gap-3">
+<!-- Product 1: Hinoki Dusk -->
+<div class="rounded-lg bg-surface-container-low p-3 flex flex-col gap-2 shadow-sm">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Hinoki pod" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQg5tNtndzc_sS9BBCl8lPB8UQoBNN5yOebN5tnel50NERJzH53Fcgj47VU95nP5DMGCV4C28tZVrDJUKwcst1f-AmGnJVMv0JMeJov8yoFLrTi4p0D2UUVoU2q2oi2WNkzcX2ALIYKvvAqeFiuJaVp0Xya_xVvukDsiTDrkmlQjYkMcH4Ho038mdeWkPGySUd4NnBA5c3UzpvUJ_uYSr8bMj69-BmrgFIM226mxbxm31miMvhTL5_l8zhg52rAzh8hg"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface/90 text-on-surface font-label-sm text-label-sm backdrop-blur-sm">45ml</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Woody • Grounding</span>
+<span class="font-headline-sm text-headline-sm truncate">Hinoki Forest</span>
+<span class="font-body-sm text-body-sm text-tertiary">$38.00</span>
+</div>
+<button class="w-full py-2.5 rounded-full bg-on-background text-on-primary font-label-sm text-label-sm font-semibold active:scale-95 transition-all" onclick="addToBag('Hinoki Forest', 38)">
+            Add to Vessel
+          </button>
+</div>
+<!-- Product 2: Alpine Sage -->
+<div class="rounded-lg bg-surface-container-low p-3 flex flex-col gap-2 shadow-sm">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Alpine sage pod" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDj9T9_bzKQfsg-oWVhcoKfhxUBCARSp4_UByvzNAXLfE8rUNOzzHBbg1MliDpk1G0xIfpznXqVXs0wL9GGA4dSm6oRBVgfnJzzUt7R5FaFg_OOLwr6Q1-3SLAHqQJ4O4AoJeSHJ26HoZOhxfHn3u8_yThkcb_mf9QOGR8R11RHdCoX1qd14Yyz8-6exTdLVtFjkULu7ZeoulpzEFjLXqTflPiVRtjVF3BJhoKH2YK2g29MhSYF6LesQErO6dff1Cz1g"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface/90 text-on-surface font-label-sm text-label-sm backdrop-blur-sm">45ml</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Herbal • Focus</span>
+<span class="font-headline-sm text-headline-sm truncate">Alpine White Sage</span>
+<span class="font-body-sm text-body-sm text-tertiary">$36.00</span>
+</div>
+<button class="w-full py-2.5 rounded-full bg-on-background text-on-primary font-label-sm text-label-sm font-semibold active:scale-95 transition-all" onclick="addToBag('Alpine White Sage', 36)">
+            Add to Vessel
+          </button>
+</div>
+<!-- Product 3: Amber Santal -->
+<div class="rounded-lg bg-surface-container-low p-3 flex flex-col gap-2 shadow-sm">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Amber santal pod" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdkXP9z10mjCAxpRyw4eeT2JOuH8NEIrRRX17VzXIBuRrHpya_A4o2E_JSqlznGxcoXx2tQQLJLGWI5NdIS5xh0OZ9qt6xmZLR0WhasvhQpvf9xIRlh3OCODtoNg2YYCXCjt6HBfMVuY1LbbLZA_KHr25PMlykPVoTswB94KtnbLvyv8gFs8zLhNYXWfjIH5SdIekwPR_BdOhNj6tnfNy7VIls-AMX-CVz3ktaFUQ1dzTtEOy3uzjtVEGlB8KiiA5fXQ"/>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface/90 text-on-surface font-label-sm text-label-sm backdrop-blur-sm">45ml</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Resin • Calming</span>
+<span class="font-headline-sm text-headline-sm truncate">Amber Santal 26</span>
+<span class="font-body-sm text-body-sm text-tertiary">$42.00</span>
+</div>
+<button class="w-full py-2.5 rounded-full bg-on-background text-on-primary font-label-sm text-label-sm font-semibold active:scale-95 transition-all" onclick="addToBag('Amber Santal 26', 42)">
+            Add to Vessel
+          </button>
+</div>
+<!-- Product 4: Botanical Discovery Trio -->
+<div class="rounded-lg bg-surface-container-low p-3 flex flex-col gap-2 shadow-sm">
+<div class="relative w-full h-36 rounded-lg overflow-hidden bg-surface-container flex items-center justify-center">
+<div class="w-full h-full bg-secondary-fixed/50 flex flex-col items-center justify-center p-2 text-center">
+<span class="material-symbols-outlined text-[32px] text-primary">auto_awesome</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase text-on-secondary-fixed">Atelier Trio Set</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Curated Discovery</span>
+<span class="font-headline-sm text-headline-sm truncate">The Trilogy Set</span>
+<span class="font-body-sm text-body-sm text-tertiary">$98.00</span>
+</div>
+<button class="w-full py-2.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold active:scale-95 transition-all" onclick="addToBag('The Trilogy Set', 98)">
+            Explore Trio
+          </button>
+</div>
+</div>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 5: ROUTINES & CIRCADIAN TIMELINES       -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-routines">
+<!-- Active Routine Overview Card -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-3 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Circadian Engine</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Weekly Atmosphere Arc</h2>
+</div>
+<span class="w-3 h-3 rounded-full bg-primary animate-ping"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The diffuser modulates oil intensity and warm halo color automatically to align with your natural melatonin cycle.</p>
+</div>
+<!-- Seven Day Dot Timeline -->
+<div class="rounded-lg bg-surface-container p-space-md flex flex-col gap-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary">Active Days</span>
+<div class="grid grid-cols-7 gap-1.5 text-center">
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-on-background text-on-primary">
+<span class="font-label-sm text-label-sm">M</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-on-background text-on-primary">
+<span class="font-label-sm text-label-sm">T</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-on-background text-on-primary">
+<span class="font-label-sm text-label-sm">W</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-on-background text-on-primary">
+<span class="font-label-sm text-label-sm">T</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-on-background text-on-primary">
+<span class="font-label-sm text-label-sm">F</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-surface-container-high text-on-surface">
+<span class="font-label-sm text-label-sm">S</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+<div class="flex flex-col items-center gap-1.5 p-2 rounded-2xl bg-surface-container-high text-on-surface">
+<span class="font-label-sm text-label-sm">S</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+</div>
+</div>
+<!-- Routine Blocks -->
+<div class="flex flex-col gap-2.5">
+<!-- Morning Dawn Ritual -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">wb_sunny</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Dawn Awakening</span>
+<span class="font-body-sm text-body-sm text-tertiary">07:00 AM • Alpine White Sage • 40% Mist</span>
+</div>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative flex items-center p-1 cursor-pointer">
+<div class="w-4 h-4 bg-on-primary rounded-full absolute right-1"></div>
+</div>
+</div>
+<!-- Evening Sanctuary Ritual -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]">wb_twilight</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Dusk Reset</span>
+<span class="font-body-sm text-body-sm text-tertiary">19:30 PM • Kyoto Hinoki • 65% Mist</span>
+</div>
+</div>
+<div class="w-12 h-6 bg-primary rounded-full relative flex items-center p-1 cursor-pointer">
+<div class="w-4 h-4 bg-on-primary rounded-full absolute right-1"></div>
+</div>
+</div>
+<!-- Deep Sleep Ritual -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">nightlight</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Deep Slumber Pulse</span>
+<span class="font-body-sm text-body-sm text-tertiary">23:00 PM • Amber Santal • Whisper Low</span>
+</div>
+</div>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative flex items-center p-1 cursor-pointer">
+<div class="w-4 h-4 bg-outline rounded-full absolute left-1"></div>
+</div>
+</div>
+</div>
+<!-- Add New Custom Routine CTA -->
+<button class="w-full h-12 rounded-full bg-surface-container text-on-surface flex items-center justify-center gap-2 font-label-md text-label-md font-semibold hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Create Custom Micro-Climate Arc</span>
+</button>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 6: SERVICE RECOVERY & OFFLINE BLE       -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-recovery">
+<!-- Direct BLE Recovery Banner -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-3 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">bluetooth_audio</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Local Telemetry Active</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Offline Direct Control</h2>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Cloud gateway unreachable. Your phone has seamlessly negotiated a direct BLE 5.2 hardware link. Chamber memory and dispersion controls remain completely responsive.
+        </p>
+<!-- Toggle Mode Switch -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-tertiary">Direct BLE vs Cloud Relay</span>
+<div class="flex items-center gap-1 bg-surface-container p-1 rounded-full">
+<button class="px-3 py-1 rounded-full bg-on-background text-on-primary font-label-sm text-label-sm font-semibold" onclick="setSyncMode('ble', this)">Direct BLE</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm" onclick="setSyncMode('cloud', this)">Cloud Wi-Fi</button>
+</div>
+</div>
+</div>
+<!-- Diagnostics Matrix -->
+<div class="rounded-lg bg-surface-container p-space-md flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Hardware Diagnostic</span>
+<button class="flex items-center gap-1 text-primary font-label-sm text-label-sm font-semibold active:scale-95 transition-all" id="retry-handshake-btn" onclick="retryHandshake()">
+<span class="material-symbols-outlined text-[16px]" id="retry-icon">refresh</span>
+<span>Ping Hardware</span>
+</button>
+</div>
+<div class="space-y-2">
+<!-- Transducer Piezo Status -->
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-body-md text-on-surface">Piezoelectric Ceramic (2.4MHz)</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Optimal</span>
+</div>
+<!-- Oil Capillary Flow -->
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-body-md text-on-surface">Capillary Micro-Nozzle Flow</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Unblocked</span>
+</div>
+<!-- Ambient Thermistor -->
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-md text-body-md text-on-surface">Ambient Hall Thermistor</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">22.4°C / 46% RH</span>
+</div>
+<!-- Firmware Build -->
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-body-md text-body-md text-on-surface">Firmware Revision</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">v4.1.2-ble-prod</span>
+</div>
+</div>
+</div>
+<!-- Action Card -->
+<button class="w-full h-14 rounded-full bg-on-background text-on-primary flex items-center justify-center gap-2 font-label-lg text-label-lg font-semibold active:scale-95 transition-all shadow-sm" onclick="runCalibration()">
+<span class="material-symbols-outlined text-[20px]">build_circle</span>
+<span>Run Ultrasonic Self-Clean Cycle</span>
+</button>
+</div>
+<!-- ============================================== -->
+<!-- SCREEN 7: PROFILE & SUBSCRIPTIONS              -->
+<!-- ============================================== -->
+<div class="screen-view hidden flex-col gap-4 px-margin" id="screen-profile">
+<!-- Profile Sanctuary Identity -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex items-center gap-4 shadow-sm">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Member Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VrzmO2rmx8SjNMqY-me4vU9rju68tu7F8UQo6L1xdut5IOZpLPN9v1VR0tnfiLeX-1ZLUEfiSnGC-4qhaFB51SgjFIHhXEPQl-tJ9v6-4LsaIWMCRLMOAyghXor7gB4rspmXqSqnUl8Qgq7smTSUQqosy-_dOeXaNqr5rAn1jmMpaMcLop5YXl8lvf3LN9t13xuprSyRaTonsAPIuN_2m9jV2l1A5_7eon_lAbqxsHprz-j-KtFylOcax8esNQErmveaF8rBrmtg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Atelier Member #0812</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Elena Rostova</h2>
+<span class="font-body-sm text-body-sm text-tertiary">Kyoto Reserve Patron Tier</span>
+</div>
+</div>
+<!-- Cartridge Auto-Refill Card -->
+<div class="rounded-lg bg-surface-container p-space-md flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">autorenew</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Auto-Pod Replenishment</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">When Pod A drops below 15%, a fresh cartridge of <strong class="text-on-surface font-medium">Kyoto Hinoki</strong> ships to your address automatically.</p>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-tertiary">Next Estimated Dispatch: Oct 24</span>
+<button class="px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Modify Blend</button>
+</div>
+</div>
+<!-- Device Fleet Overview -->
+<div class="rounded-lg bg-surface-container-low p-space-md flex flex-col gap-2 shadow-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Registered Sanctuary Vessels (2)</span>
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Living Atelier (Master)</span>
+<span class="font-label-sm text-label-sm text-primary">Connected BLE 5.2</span>
+</div>
+<button class="px-3 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface" onclick="switchFlow('hardware')">Manage</button>
+</div>
+<div class="flex items-center justify-between py-2 border-b-0">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Guest Chamber Unit</span>
+<span class="font-label-sm text-label-sm text-tertiary">Standby Sleep</span>
+</div>
+<button class="px-3 py-1 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">Manage</button>
+</div>
+</div>
+</div>
+</div>
+<!-- FLOATING QUICK HOPPER BOTTOM SHEET TRIGGER -->
+<div class="fixed bottom-24 right-4 z-40">
+<button class="h-12 px-4 rounded-full bg-on-background text-on-primary flex items-center gap-2 shadow-lg active:scale-95 transition-all" onclick="toggleHopperSheet(true)">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Screen Matrix (42)</span>
+</button>
+</div>
+<!-- BAG FLOATING INDICATOR -->
+<div class="hidden fixed bottom-24 left-4 z-40" id="bag-floating-capsule">
+<button class="h-12 px-4 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-2 shadow-lg active:scale-95 transition-all" onclick="switchFlow('store')">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+<span class="font-label-sm text-label-sm font-semibold" id="bag-count">1 Pod Selected</span>
+</button>
+</div>
+<!-- POPUP / MODAL: SCREEN HOPPER ARCHITECTURE DRAWER (All 42 Screen Architecture) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex-col justify-end transition-opacity duration-300" id="hopper-modal">
+<div class="bg-surface rounded-t-xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
+<!-- Sheet Handle & Header -->
+<div class="p-space-md flex flex-col gap-2 bg-surface-container-low">
+<div class="w-12 h-1.5 rounded-full bg-outline-variant mx-auto"></div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Odora Interactive Engine</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">42 Screen Flow Architecture</h3>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface" onclick="toggleHopperSheet(false)">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Matrix Categorized by Domain -->
+<div class="overflow-y-auto p-space-md flex flex-col gap-4">
+<!-- Group 1: Core Sanctuary Views -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">1. Core Sanctuary &amp; Diffuser Control</span>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('sanctuary', 'Living Atelier')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">01 Home Sanctuary</div>
+<div class="font-label-sm text-label-sm text-tertiary">Real-time telemetry &amp; burst</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('hardware', 'Tuner Ble 5.2')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">02 Ultrasonic Tuner</div>
+<div class="font-label-sm text-label-sm text-tertiary">Sliders, halo 2200K, fan</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('sanctuary', 'Chamber Swap')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">03 Dual Chamber Swap</div>
+<div class="font-label-sm text-label-sm text-tertiary">A/B Pod actuation</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('hardware', 'Ambient Halo')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">04 Lighting Lumens</div>
+<div class="font-label-sm text-label-sm text-tertiary">Candle flicker &amp; dusk</div>
+</button>
+</div>
+</div>
+<!-- Group 2: BLE & Hardware Provisioning -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">2. Hardware Pairing &amp; BLE 5.2</span>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('radar', 'Radar Scanning')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">05 Sonar Radar Discovery</div>
+<div class="font-label-sm text-label-sm text-tertiary">Proximity BLE scanning</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('radar', 'Handshake 5.2')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">06 Secure Handshake</div>
+<div class="font-label-sm text-label-sm text-tertiary">Crypto token exchange</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('recovery', 'OTA Firmware')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">07 OTA Firmware Upgrade</div>
+<div class="font-label-sm text-label-sm text-tertiary">Delta partition verify</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('hardware', 'Multi-Room Zoning')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">08 Mesh Zoning Matrix</div>
+<div class="font-label-sm text-label-sm text-tertiary">Synchronized mist nodes</div>
+</button>
+</div>
+</div>
+<!-- Group 3: Atelier Cartridge Store & Checkout -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">3. Atelier Store &amp; Sensory Notes</span>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('store', 'Cartridge Catalog')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">09 Pod Collection</div>
+<div class="font-label-sm text-label-sm text-tertiary">12 botanical extractions</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('store', 'Fragrance Detail')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">10 Olfactory Pyramid</div>
+<div class="font-label-sm text-label-sm text-tertiary">Top, heart, &amp; base notes</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('profile', 'Auto-Ship Sub')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">11 Refill Subscription</div>
+<div class="font-label-sm text-label-sm text-tertiary">Threshold-based delivery</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('store', 'Order Tracking')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">12 Atelier Express Bag</div>
+<div class="font-label-sm text-label-sm text-tertiary">Instant vessel allocation</div>
+</button>
+</div>
+</div>
+<!-- Group 4: Circadian & Diagnostics -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">4. Routines &amp; System Recovery</span>
+<div class="grid grid-cols-2 gap-2">
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('routines', 'Circadian Arc')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">13 Dawn/Dusk Curve</div>
+<div class="font-label-sm text-label-sm text-tertiary">Melatonin rhythm sync</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('recovery', 'Offline BLE Mode')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">14 Zero-Cloud Fallback</div>
+<div class="font-label-sm text-label-sm text-tertiary">Direct physical BLE link</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('recovery', 'Self Cleaning')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">15 Ceramic Flush Cycle</div>
+<div class="font-label-sm text-label-sm text-tertiary">Ultrasonic resonance clean</div>
+</button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high transition-all" onclick="jumpToScreen('profile', 'Member Profile')">
+<div class="font-headline-sm text-headline-sm text-on-surface text-[14px]">16 Member Sanctuary</div>
+<div class="font-label-sm text-label-sm text-tertiary">Device fleet &amp; safety</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TOAST NOTIFICATION CONTAINER -->
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-on-background text-on-primary px-4 py-2 rounded-full shadow-lg font-label-md text-label-md flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300" id="toast-pill">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed" id="toast-icon">check_circle</span>
+<span id="toast-message">Vessel synchronized</span>
+</div>
+</div>
+<script>
+  // Flow and screen states
+  let currentFlow = 'sanctuary';
+  let activeMistPercentage = 65;
+  let bagItems = 0;
+
+  const screens = {
+    sanctuary: document.getElementById('screen-sanctuary'),
+    hardware: document.getElementById('screen-hardware'),
+    radar: document.getElementById('screen-radar'),
+    store: document.getElementById('screen-store'),
+    routines: document.getElementById('screen-routines'),
+    recovery: document.getElementById('screen-recovery'),
+    profile: document.getElementById('screen-profile')
+  };
+
+  const flowNames = {
+    sanctuary: { flow: 'Core Sanctuary', title: 'Living Atelier' },
+    hardware: { flow: 'Hardware BLE', title: 'Ultrasonic Tuner' },
+    radar: { flow: 'Pairing Radar', title: 'Sonar Discovery' },
+    store: { flow: 'Atelier Store', title: 'Botanical Pods' },
+    routines: { flow: 'Circadian Arc', title: 'Weekly Timeline' },
+    recovery: { flow: 'Diagnostics', title: 'Direct BLE Fallback' },
+    profile: { flow: 'Member Profile', title: 'Elena Rostova' }
+  };
+
+  function switchFlow(flowKey) {
+    if (!screens[flowKey]) return;
+    
+    // Hide all screens
+    Object.values(screens).forEach(el => {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    });
+
+    // Show target
+    screens[flowKey].classList.remove('hidden');
+    screens[flowKey].classList.add('flex');
+    currentFlow = flowKey;
+
+    // Update Breadcrumbs
+    const meta = flowNames[flowKey] || { flow: 'Sanctuary', title: flowKey };
+    document.getElementById('flow-crumb').textContent = meta.flow;
+    document.getElementById('screen-crumb').textContent = meta.title;
+
+    // Update tab bar style
+    document.querySelectorAll('.flow-tab-btn').forEach(btn => {
+      if (btn.getAttribute('data-flow-btn') === flowKey) {
+        btn.classList.add('bg-on-background', 'text-on-primary', 'shadow-sm');
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      } else {
+        btn.classList.remove('bg-on-background', 'text-on-primary', 'shadow-sm');
+        btn.classList.add('bg-surface-container', 'text-on-surface-variant');
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchScreen(screenKey) {
+    switchFlow(screenKey);
+  }
+
+  function toggleHopperSheet(show) {
+    const modal = document.getElementById('hopper-modal');
+    if (show) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    } else {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  function jumpToScreen(flowKey, title) {
+    toggleHopperSheet(false);
+    switchFlow(flowKey);
+    if (title) {
+      document.getElementById('screen-crumb').textContent = title;
+    }
+    showToast(`Jumped to ${title || flowKey}`);
+  }
+
+  // Interactive Micro-Interactions
+  function triggerMistBurst() {
+    const btn = document.getElementById('burst-action-btn');
+    const text = document.getElementById('burst-text');
+    const icon = document.getElementById('burst-icon');
+    const ambient = document.getElementById('mist-ambient');
+
+    text.textContent = 'Misting Active...';
+    icon.classList.add('animate-spin');
+    btn.classList.add('bg-primary');
+    ambient.classList.remove('opacity-40');
+    ambient.classList.add('opacity-90');
+
+    showToast('Ultrasonic aerosol pulse initiated (45s)');
+
+    setTimeout(() => {
+      text.textContent = 'Sensory Burst';
+      icon.classList.remove('animate-spin');
+      btn.classList.remove('bg-primary');
+      ambient.classList.add('opacity-40');
+      ambient.classList.remove('opacity-90');
+    }, 3500);
+  }
+
+  function setHalo(mode, btnElement) {
+    document.querySelectorAll('.halo-btn').forEach(b => {
+      b.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+      b.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    btnElement.classList.add('bg-secondary-container', 'text-on-secondary-container');
+    btnElement.classList.remove('bg-surface-container', 'text-on-surface-variant');
+    document.getElementById('halo-val').textContent = mode.toUpperCase() + ' (2200K)';
+    showToast(`Halo Lumens updated: ${mode}`);
+  }
+
+  function setConvection(mode, btnElement) {
+    document.querySelectorAll('.convect-btn').forEach(b => {
+      b.classList.remove('bg-on-background', 'text-on-primary');
+      b.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    btnElement.classList.add('bg-on-background', 'text-on-primary');
+    btnElement.classList.remove('bg-surface-container', 'text-on-surface-variant');
+    showToast(`Fan dispersion set to ${mode}`);
+  }
+
+  function executePairingSequence() {
+    const pairBtn = document.getElementById('pair-btn');
+    pairBtn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Negotiating BLE 5.2 Key...</span>`;
+    pairBtn.classList.add('bg-primary');
+
+    setTimeout(() => {
+      pairBtn.innerHTML = `<span class="material-symbols-outlined text-[18px]">verified</span><span>Vessel Paired & Calibrated</span>`;
+      pairBtn.classList.remove('bg-primary');
+      pairBtn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+      showToast('Odora Vessel 88B paired successfully!');
+      setTimeout(() => switchFlow('sanctuary'), 1200);
+    }, 1800);
+  }
+
+  function addToBag(title, price) {
+    bagItems++;
+    const capsule = document.getElementById('bag-floating-capsule');
+    const countLabel = document.getElementById('bag-count');
+    capsule.classList.remove('hidden');
+    capsule.classList.add('flex');
+    countLabel.textContent = `${bagItems} Pod${bagItems > 1 ? 's' : ''} in Bag ($${price * bagItems})`;
+    showToast(`${title} added to order`);
+  }
+
+  function retryHandshake() {
+    const icon = document.getElementById('retry-icon');
+    icon.classList.add('animate-spin');
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      showToast('Hardware Ping: 12ms latency, BLE link healthy');
+    }, 1200);
+  }
+
+  function runCalibration() {
+    showToast('Starting 30-sec Piezo Flush Cycle...');
+  }
+
+  function rebootVessel() {
+    showToast('Soft-rebooting vessel core...');
+  }
+
+  function setSyncMode(mode, btn) {
+    showToast(`Sync protocol switched to ${mode.toUpperCase()}`);
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast-pill');
+    const msgEl = document.getElementById('toast-message');
+    msgEl.textContent = msg;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2400);
+  }
+
+  // Tactile slider drag simulation for dispersion rate
+  const sliderTrack = document.getElementById('mist-slider-track');
+  const sliderFill = document.getElementById('mist-slider-fill');
+  const sliderThumb = document.getElementById('mist-slider-thumb');
+  const sliderLabel = document.getElementById('mist-value-label');
+
+  if (sliderTrack) {
+    const updateSlider = (clientX) => {
+      const rect = sliderTrack.getBoundingClientRect();
+      let percent = Math.round(((clientX - rect.left) / rect.width) * 100);
+      percent = Math.max(5, Math.min(100, percent));
+      sliderFill.style.width = percent + '%';
+      sliderThumb.style.left = `calc(${percent}% - 20px)`;
+      sliderLabel.textContent = percent + '%';
+      activeMistPercentage = percent;
+    };
+
+    sliderTrack.addEventListener('pointerdown', (e) => {
+      updateSlider(e.clientX);
+      const onPointerMove = (moveEvt) => updateSlider(moveEvt.clientX);
+      const onPointerUp = () => {
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', onPointerUp);
+        showToast(`Dispersion rate adjusted to ${activeMistPercentage}%`);
+      };
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+    });
+  }
+
+  // Intercept App Shell Bottom Nav clicks to route prototype
+  document.addEventListener('DOMContentLoaded', () => {
+    const bottomNav = document.querySelector('nav');
+    if (bottomNav) {
+      const links = bottomNav.querySelectorAll('a[data-path]');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const path = link.getAttribute('data-path');
+          if (path === 'home') switchFlow('sanctuary');
+          else if (path === 'devices') switchFlow('hardware');
+          else if (path === 'store') switchFlow('store');
+          else if (path === 'routines') switchFlow('routines');
+          else if (path === 'profile') switchFlow('profile');
+        });
+      });
+    }
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(35,40,33,0.05)]" data-active-classes="text-on-surface font-semibold"><div class="flex justify-around items-center h-20 px-space-xs"><a aria-current="page" class="flex flex-col items-center justify-center flex-1 h-full gap-1 group text-on-surface font-semibold" data-path="home" href="#"><div class="w-12 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-surface-container-high"><span class="material-symbols-outlined text-[22px]">spa</span></div><span class="font-label-sm text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-1 text-on-surface-variant group" data-path="devices" href="#"><div class="w-12 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-surface-container-high"><span class="material-symbols-outlined text-[22px]">air_purifier_gen</span></div><span class="font-label-sm text-label-sm">Devices</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-1 text-on-surface-variant group" data-path="store" href="#"><div class="w-12 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-surface-container-high"><span class="material-symbols-outlined text-[22px]">local_florist</span></div><span class="font-label-sm text-label-sm">Store</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-1 text-on-surface-variant group" data-path="routines" href="#"><div class="w-12 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-surface-container-high"><span class="material-symbols-outlined text-[22px]">nest_clock_farsight_analog</span></div><span class="font-label-sm text-label-sm">Routines</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-1 text-on-surface-variant group" data-path="profile" href="#"><div class="w-12 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-surface-container-high"><span class="material-symbols-outlined text-[22px]">account_circle</span></div><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

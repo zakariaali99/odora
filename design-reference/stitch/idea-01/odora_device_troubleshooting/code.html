@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-bright": "#fdf9f5", "outline-variant": "#c6c7bc", "on-primary-fixed-variant": "#404a2e", "primary-fixed-dim": "#c0cba6", "tertiary-fixed": "#dfe5d6", "on-primary-container": "#2a3319", "inverse-surface": "#31302e", "primary-fixed": "#dce7c1", "on-tertiary-container": "#2c3228", "on-secondary-fixed-variant": "#3e4b25", "inverse-on-surface": "#f4f0ec", "surface-container-low": "#f7f3ef", "secondary-fixed-dim": "#bccd9a", "on-tertiary-fixed-variant": "#42493e", "on-error-container": "#93000a", "surface-tint": "#586244", "on-tertiary-fixed": "#171d14", "secondary-container": "#d5e6b2", "on-primary": "#ffffff", "on-error": "#ffffff", "primary": "#586244", "on-secondary": "#ffffff", "secondary": "#55633a", "on-tertiary": "#ffffff", "inverse-primary": "#c0cba6", "on-secondary-fixed": "#131f01", "surface-container-high": "#ebe7e4", "tertiary-container": "#949a8d", "error": "#ba1a1a", "tertiary-fixed-dim": "#c2c9ba", "secondary-fixed": "#d8e9b5", "outline": "#76786e", "surface-dim": "#ddd9d6", "surface": "#fdf9f5", "surface-container-highest": "#e6e2de", "surface-container": "#f1ede9", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#161e07", "error-container": "#ffdad6", "on-secondary-container": "#59683e", "tertiary": "#5a6055", "primary-container": "#919c7a", "on-surface-variant": "#46483f", "on-surface": "#1c1c19", "background": "#fdf9f5", "on-background": "#1c1c19", "surface-variant": "#e6e2de" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "gutter": "1.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "margin": "3rem", "gutter-mobile": "1rem", "margin-mobile": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "display-lg-mobile": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "body-xl": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-lg": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "label-md": ["Space Grotesk"], "label-sm": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-sm": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"] }, fontSize: { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(45,51,41,0.03)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><button class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-transform" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back</span></button><img alt="Brand logo. - Primary color: #919c7a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate max-w-[180px]">Device Support &amp; Diagnostics</h1></div><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Content Canvas: Warm Minimalist Spatial Layout -->
+<div class="px-margin-mobile py-space-md flex flex-col gap-space-lg max-w-lg mx-auto w-full">
+<!-- Active Device Pill & Health Indicator -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">airware</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Troubleshooting Target</span>
+<p class="font-headline-sm text-headline-sm text-on-surface truncate">Living Room Diffuser</p>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Odora One · Sage Green</span>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-1.5 bg-secondary-container px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Connected</span>
+</div>
+</div>
+<!-- Automated Hardware Self-Test Card (Live Healing) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Self-Healing Architecture</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Automated Hardware Check</h2>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Execute real-time acoustic telemetry, ultrasonic frequency sweep, and tilt sensor calibration directly over Bluetooth Low Energy.
+      </p>
+<!-- Live Test Output State Container -->
+<div class="hidden flex-col gap-space-xs bg-surface-container-low p-space-md rounded-lg" id="selfTestProgress">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface" id="testStageLabel">Sweeping Ultrasonic Transducer...</span>
+<span class="font-label-sm text-label-sm text-primary font-medium" id="testPercentLabel">32%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300 w-1/3" id="testProgressBar"></div>
+</div>
+</div>
+<div class="hidden flex items-center gap-space-sm bg-secondary-container/40 p-space-md rounded-lg" id="selfTestSuccess">
+<span class="material-symbols-outlined text-secondary text-[22px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-secondary-container">All Systems Optimal</span>
+<span class="font-body-sm text-body-sm text-on-secondary-variant">Vapor pump 108kHz calibrated · Flow rate normal</span>
+</div>
+</div>
+<button class="w-full bg-inverse-surface hover:bg-on-surface active:scale-[0.99] text-inverse-on-surface py-3 px-space-md rounded-full font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all shadow-md" id="btnRunTest" onclick="startHardwareSelfTest()">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Run Live Diagnostic Test</span>
+</button>
+</section>
+<!-- Guided Diagnostic Scenarios -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Step-by-Step Resolution</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Diagnostic Playbooks</h2>
+</div>
+<!-- Accordion 1: Vapor Dispersion -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<button class="w-full p-space-md flex items-center justify-between text-left" onclick="toggleAccordion('acc1')">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">air</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface text-[16px]">No Mist or Weak Vapor Dispersion</p>
+<p class="font-body-sm text-body-sm text-outline">Ultrasonic dry nozzle &amp; reservoir flow</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="acc1-icon">expand_more</span>
+</button>
+<div class="hidden px-space-md pb-space-md flex flex-col gap-space-md" id="acc1-content">
+<div class="space-y-space-sm pt-space-xs">
+<div class="flex gap-space-sm items-start">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">1</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Verify Botanical Oil flacon level. Sensor requires at least <strong>2.0 mL</strong> to initiate the mist cycle without cavitation.</p>
+</div>
+<div class="flex gap-space-sm items-start">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">2</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Twist-off top ceramic shroud. Inspect micro-aperture for dried resin residue; dab gently with damp organic linen.</p>
+</div>
+<div class="flex gap-space-sm items-start">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">3</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Purge the chamber using the automated pulse cycle below:</p>
+</div>
+</div>
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-on-surface py-2.5 px-space-md rounded-lg font-label-md text-label-md flex items-center justify-center gap-space-xs active:scale-[0.98] transition-all" id="purgeBtn" onclick="runUltrasonicPurge()">
+<span class="material-symbols-outlined text-primary text-[18px]">waves</span>
+<span id="purgeBtnText">Clean-Purge 30-Second Ultrasonic Cycle</span>
+</button>
+</div>
+</div>
+<!-- Accordion 2: Cartridge Refill & Replacement Visual Guide -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<button class="w-full p-space-md flex items-center justify-between text-left" onclick="toggleAccordion('acc2')">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">water_bottle</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Refilling &amp; Replacing Cartridge</p>
+<p class="font-body-sm text-body-sm text-outline">Tactile glass flacon lock mechanism</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="acc2-icon">expand_more</span>
+</button>
+<div class="hidden px-space-md pb-space-md flex flex-col gap-space-md" id="acc2-content">
+<div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-container-low">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">sync</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">1. Twist</span>
+<span class="font-body-sm text-[11px] leading-tight text-on-surface-variant mt-0.5">Rotate ceramic cap 45° CCW</span>
+</div>
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-container-low">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">vertical_align_bottom</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">2. Seat Flacon</span>
+<span class="font-body-sm text-[11px] leading-tight text-on-surface-variant mt-0.5">Press 30ml amber bottle to click</span>
+</div>
+<div class="flex flex-col items-center text-center p-2 rounded-lg bg-surface-container-low">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">lock</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">3. Seal</span>
+<span class="font-body-sm text-[11px] leading-tight text-on-surface-variant mt-0.5">Align magnetic dots to seal</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center gap-space-sm">
+<img class="w-14 h-14 rounded object-cover shrink-0" data-alt="Close up editorial shot of hand replacing amber glass essential oil cartridge into a minimalist sage green ceramic diffuser cylinder on travertine stone surface with soft morning light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIhSE-e9c0u_wsqZ0wYNG-_-D_XBpEnoN94QKkvYeWFIjjwjeVVuvp9hhXrka0-Xr2hnbLmICKM6iCCnY9MAk-laVtAffmVT2ep0T0y5bNuW5Fu_-KzsCuAxhNCmJnYHxsmBSLpoGqKtQyUrP4p1p49IwetdW91mw6Lz0XjdpnTtMkQfK2N60gOjOR4Z4cWphbtDMRFc-9vXtOJnS_paU8GLFWzsqFNtIVcldbzxxNV82YG76jXmhaEg"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-primary uppercase">Pure Essence Safety</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] leading-snug">Only utilize authentic 100% natural Odora botanical essences to safeguard internal ceramic resonators.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Accordion 3: BLE Connection & Pairing -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<button class="w-full p-space-md flex items-center justify-between text-left" onclick="toggleAccordion('acc3')">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">bluetooth_searching</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface text-[16px]">Fails to Connect or Lost Pairing</p>
+<p class="font-body-sm text-body-sm text-outline">Bluetooth mesh link &amp; reset flow</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="acc3-icon">expand_more</span>
+</button>
+<div class="hidden px-space-md pb-space-md flex flex-col gap-space-md" id="acc3-content">
+<div class="space-y-space-sm pt-space-xs">
+<div class="flex gap-space-sm items-start">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">1</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Confirm mobile Bluetooth is enabled and you are within 5 meters of the diffuser.</p>
+</div>
+<div class="flex gap-space-sm items-start">
+<span class="w-5 h-5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm flex items-center justify-center shrink-0 mt-0.5">2</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant"><strong>Hard Reset:</strong> Depress the bottom tactile silicone button for 8 seconds until the base ambient ring pulses amber 3 times.</p>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-surface-tint active:scale-[0.98] text-on-primary py-2.5 px-space-md rounded-lg font-label-md text-label-md flex items-center justify-center gap-space-xs transition-all shadow-sm" onclick="triggerBleScan(this)">
+<span class="material-symbols-outlined text-[18px]">bluetooth</span>
+<span>Initiate New BLE Discovery</span>
+</button>
+</div>
+</div>
+<!-- Accordion 4: LED Ambient Ring Error Codes -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<button class="w-full p-space-md flex items-center justify-between text-left" onclick="toggleAccordion('acc4')">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">light_mode</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm text-on-surface text-[16px]">LED Ring Blinking Amber or Red</p>
+<p class="font-body-sm text-body-sm text-outline">Optical ring diagnostic decode</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="acc4-icon">expand_more</span>
+</button>
+<div class="hidden px-space-md pb-space-md flex flex-col gap-space-sm pt-space-xs" id="acc4-content">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<span class="w-3.5 h-3.5 rounded-full bg-on-secondary-container shrink-0 shadow-sm animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Pulsing Amber Light</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[13px]">Cartridge level below 5%. Diffusion disabled to prevent dry ceramic heating.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<span class="w-3.5 h-3.5 rounded-full bg-error shrink-0 shadow-sm"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Solid Red Glow</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[13px]">Internal gyro tilt safety triggered. Place diffuser flat on a horizontal level surface.</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-sm">
+<span class="w-3.5 h-3.5 rounded-full bg-outline shrink-0"></span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Rapid White Flashing</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[13px]">OTA Firmware upgrade in progress. Do not disconnect power cord.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- VIP Atelier Concierge Escalation Panel -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-space-md">
+<img class="w-14 h-14 rounded-full object-cover shrink-0 ring-2 ring-surface-container-highest" data-alt="Refined editorial portrait of Layla R., Master Sommelier and Odora hardware technician, wearing linen apron against clean minimal studio background with architectural diffuse lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR56I2nSuKhppd5ABWBRntQ4w6RXHFEhW6S5TOyLKLSZgRDebrJ8eLRJN9poO9KDIYthL_GgjDlB9SapJyvfT-LCW-V65lJ1KX_W63FTYzpv7Vd3YEx7rO7zOUhWZadRFBDH6I5EGa6EVebDvmTW7T6jEqDdaiGKQlmSXkbbpgWySBWOpt-f11S30nLXJCjRXH2ZNRRdL6fu-kDlC-Ica-nEi--IXsQtA9keoT_uy9gEIpVe-6n3DouA"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary font-medium uppercase">Atelier Specialist Active</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Layla R.</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px]">Master Fragrance Sommelier &amp; Hardware Care</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        If self-diagnostic checks did not remedy your diffuser, your bespoke 2-Year Atelier Warranty provides dedicated priority support and instant doorstep courier exchange.
+      </p>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<!-- Action 1: WhatsApp -->
+<a class="flex items-center justify-between p-space-md bg-surface-container-low hover:bg-surface-container rounded-xl transition-colors" href="https://wa.me/#">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">WhatsApp VIP Concierge</p>
+<p class="font-body-sm text-body-sm text-outline text-[12px]">Instant specialist response under 2 min</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">arrow_forward</span>
+</a>
+<!-- Action 2: Dubai Atelier Direct Line -->
+<a class="flex items-center justify-between p-space-md bg-surface-container-low hover:bg-surface-container rounded-xl transition-colors" href="tel:+971480063672">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Call Dubai Atelier Concierge</p>
+<p class="font-body-sm text-body-sm text-outline text-[12px]">+971 4 800 ODORA (09:00 - 22:00 GST)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">arrow_forward</span>
+</a>
+<!-- Action 3: Warranty Swap Request -->
+<button class="flex items-center justify-between p-space-md bg-surface-container-low hover:bg-surface-container rounded-xl transition-colors text-left w-full" onclick="requestWarrantyReplacement(this)">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">swap_horizontal_circle</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">48-Hour Studio Replacement Unit</p>
+<p class="font-body-sm text-body-sm text-outline text-[12px]">Direct dispatch under 2-Year Atelier Warranty</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Subtle Footer Device Info -->
+<div class="flex items-center justify-center gap-space-xs py-space-sm opacity-60">
+<span class="font-label-sm text-label-sm text-outline">ODORA HW v2.4 · FIRMWARE 1.14.8-SEC · SERIAL: OD-9924-DXB</span>
+</div>
+</div>
+</div>
+<script>
+  function toggleAccordion(id) {
+    const content = document.getElementById(id + '-content');
+    const icon = document.getElementById(id + '-icon');
+    const isHidden = content.classList.contains('hidden');
+    
+    // Close other open diagnostic tabs for neatness
+    ['acc1', 'acc2', 'acc3', 'acc4'].forEach(function(item) {
+      if (item !== id) {
+        const c = document.getElementById(item + '-content');
+        const i = document.getElementById(item + '-icon');
+        if (c) c.classList.add('hidden');
+        if (i) i.classList.remove('rotate-180');
+      }
+    });
+
+    if (isHidden) {
+      content.classList.remove('hidden');
+      icon.classList.add('rotate-180');
+    } else {
+      content.classList.add('hidden');
+      icon.classList.remove('rotate-180');
+    }
+  }
+
+  function startHardwareSelfTest() {
+    const btn = document.getElementById('btnRunTest');
+    const progress = document.getElementById('selfTestProgress');
+    const success = document.getElementById('selfTestSuccess');
+    const label = document.getElementById('testStageLabel');
+    const pct = document.getElementById('testPercentLabel');
+    const bar = document.getElementById('testProgressBar');
+
+    btn.disabled = true;
+    btn.classList.add('opacity-50');
+    success.classList.add('hidden');
+    progress.classList.remove('hidden');
+    progress.classList.add('flex');
+
+    const steps = [
+      { text: "Verifying BLE Mesh & Latency...", p: 25 },
+      { text: "Sweeping 108kHz Ceramic Transducer...", p: 58 },
+      { text: "Sampling Optical Oil Resistor Level...", p: 82 },
+      { text: "Calibrating 6-Axis Gyro Safety Matrix...", p: 100 }
+    ];
+
+    let currentStep = 0;
+    const interval = setInterval(function() {
+      if (currentStep < steps.length) {
+        label.textContent = steps[currentStep].text;
+        pct.textContent = steps[currentStep].p + '%';
+        bar.style.width = steps[currentStep].p + '%';
+        currentStep++;
+      } else {
+        clearInterval(interval);
+        setTimeout(function() {
+          progress.classList.add('hidden');
+          progress.classList.remove('flex');
+          success.classList.remove('hidden');
+          btn.disabled = false;
+          btn.classList.remove('opacity-50');
+        }, 400);
+      }
+    }, 550);
+  }
+
+  function runUltrasonicPurge() {
+    const btn = document.getElementById('purgeBtn');
+    const txt = document.getElementById('purgeBtnText');
+    btn.disabled = true;
+    let count = 30;
+    
+    txt.textContent = 'Purging Chamber (' + count + 's)...';
+    btn.classList.add('bg-secondary-container', 'text-on-secondary-container');
+
+    const timer = setInterval(function() {
+      count--;
+      if (count > 0) {
+        txt.textContent = 'Purging Chamber (' + count + 's)...';
+      } else {
+        clearInterval(timer);
+        txt.textContent = 'Ultrasonic Purge Completed ✓';
+        btn.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+        btn.classList.add('bg-secondary-container/40');
+        setTimeout(function() {
+          txt.textContent = 'Clean-Purge 30-Second Ultrasonic Cycle';
+          btn.disabled = false;
+          btn.classList.remove('bg-secondary-container/40');
+        }, 3000);
+      }
+    }, 1000);
+  }
+
+  function triggerBleScan(btn) {
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Scanning Mesh Network...</span>';
+    
+    setTimeout(function() {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Odora One Paired (RSSI -42dBm)</span>';
+      setTimeout(function() {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 2500);
+    }, 2000);
+  }
+
+  function requestWarrantyReplacement(btn) {
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<div class="flex items-center gap-space-sm p-1"><span class="material-symbols-outlined text-secondary text-[24px]">task_alt</span><div><p class="font-label-md text-label-md text-on-surface">Courier Request Dispatched</p><p class="font-body-sm text-body-sm text-outline text-[12px]">Ticket #ODR-9942 created. Layla will contact via WhatsApp.</p></div></div>';
+  }
+</script></main></body></html>

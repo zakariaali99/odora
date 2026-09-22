@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { SlidersHorizontal, RefreshCcw } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import api from '../../services/api';
 import ProductCard from '../../components/common/ProductCard';
-import { Product, Category } from '../../types';
+import { Category, Product } from '../../types';
 
 export const ShopPage: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -14,22 +14,15 @@ export const ShopPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Filters state
   const currentCategory = searchParams.get('category') || '';
   const currentType = searchParams.get('product_type') || '';
   const currentOrdering = searchParams.get('ordering') || '-is_featured';
   const searchQuery = searchParams.get('search') || '';
 
   useEffect(() => {
-    const fetchCats = async () => {
-      try {
-        const res = await api.getCategories();
-        setCategories(res.data.results || res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchCats();
+    api.getCategories()
+      .then((res) => setCategories(res.data.results || res.data))
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
@@ -38,10 +31,9 @@ export const ShopPage: React.FC = () => {
       try {
         const params: Record<string, string> = {};
         if (currentCategory) params['category__slug'] = currentCategory;
-        if (currentType) params['product_type'] = currentType;
-        if (currentOrdering) params['ordering'] = currentOrdering;
-        if (searchQuery) params['search'] = searchQuery;
-
+        if (currentType) params.product_type = currentType;
+        if (currentOrdering) params.ordering = currentOrdering;
+        if (searchQuery) params.search = searchQuery;
         const res = await api.getProducts(params);
         setProducts(res.data.results || res.data);
       } catch (err) {
@@ -54,122 +46,100 @@ export const ShopPage: React.FC = () => {
   }, [currentCategory, currentType, currentOrdering, searchQuery]);
 
   const handleCategorySelect = (slug: string) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (slug) {
-      newParams.set('category', slug);
-    } else {
-      newParams.delete('category');
-    }
-    setSearchParams(newParams);
+    const next = new URLSearchParams(searchParams);
+    if (slug) next.set('category', slug);
+    else next.delete('category');
+    setSearchParams(next);
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set('ordering', e.target.value);
-    setSearchParams(newParams);
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const next = new URLSearchParams(searchParams);
+    next.set('ordering', event.target.value);
+    setSearchParams(next);
   };
 
   return (
-    <div className="min-h-screen pb-20 bg-brand-cream">
-      {/* Header Banner */}
-      <div className="bg-[#EFEFEA] border-b border-stone-200 py-12 px-4 text-center">
-        <div className="max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-muted font-sans">
-            THE COLLECTION
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-light text-brand-ink">
-            {t('shop.title', 'متجر أودورا')}
-          </h1>
-          <p className="text-sm text-brand-muted font-medium">
-            {t('shop.subtitle', 'أجهزة تعطير ذكية وزيوت فرنسية نقية 100% مستخلصة من غراس')}
-          </p>
+    <div className="min-h-screen bg-brand-canvas pb-24 sm:pb-32">
+      <section className="editorial-container py-14 sm:py-20 lg:py-24">
+        <div className="grid grid-cols-1 items-end gap-10 border-b border-brand-ink/10 pb-12 lg:grid-cols-12 lg:pb-16">
+          <div className="lg:col-span-7">
+            <h1 className="text-5xl font-light tracking-[-0.04em] text-brand-ink sm:text-7xl">
+              {t('shop.title', 'متجر أودورا')}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base font-light leading-8 text-brand-muted sm:text-lg">
+              {t('shop.subtitle', 'أجهزة تعطير ذكية وزيوت فرنسية نقية، مختارة لتنسجم مع المكان وتمنحه هويته العطرية.')}
+            </p>
+          </div>
+          <div className="lg:col-span-5 lg:text-end">
+            <p className="text-sm leading-7 text-brand-muted">
+              {language === 'ar'
+                ? 'ألوان مطفية، رذاذ بارد، وتحكم هادئ في تجربة صُممت للمنازل ومساحات الضيافة.'
+                : 'Matte finishes, cold-air diffusion, and quiet control for homes and hospitality spaces.'}
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        
-        {/* Category Filter Chips Bar */}
-        <div className="flex items-center justify-between flex-wrap gap-4 pb-6 border-b border-stone-200">
-          
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+        <div className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-6 overflow-x-auto pb-2 text-sm scrollbar-none sm:pb-0">
             <button
               onClick={() => handleCategorySelect('')}
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all shrink-0 ${
-                !currentCategory
-                  ? 'bg-brand-ink text-white shadow-xs'
-                  : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
-              }`}
+              className={`shrink-0 border-b pb-1.5 transition-colors ${!currentCategory ? 'border-brand-ink text-brand-ink' : 'border-transparent text-brand-muted hover:text-brand-ink'}`}
             >
               {t('shop.allProducts', 'كافة المنتجات')}
             </button>
-            {categories.map((cat) => (
+            {categories.map((category) => (
               <button
-                key={cat.id}
-                onClick={() => handleCategorySelect(cat.slug)}
-                className={`px-5 py-2 rounded-full text-xs font-bold transition-all shrink-0 ${
-                  currentCategory === cat.slug
-                    ? 'bg-brand-ink text-white shadow-xs'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
-                }`}
+                key={category.id}
+                onClick={() => handleCategorySelect(category.slug)}
+                className={`shrink-0 border-b pb-1.5 transition-colors ${currentCategory === category.slug ? 'border-brand-ink text-brand-ink' : 'border-transparent text-brand-muted hover:text-brand-ink'}`}
               >
-                {language === 'en' ? cat.name || cat.name_ar : cat.name_ar}
+                {language === 'en' ? category.name || category.name_ar : category.name_ar}
               </button>
             ))}
           </div>
 
-          {/* Sort selector */}
-          <div className="flex items-center gap-2 text-xs">
-            <SlidersHorizontal className="w-4 h-4 text-brand-muted" />
-            <span className="text-brand-muted font-medium">{t('shop.sortBy', 'الترتيب حسب:')}</span>
+          <label className="flex shrink-0 items-center gap-3 text-xs text-brand-muted">
+            <span>{t('shop.sortBy', 'الترتيب')}</span>
             <select
               value={currentOrdering}
               onChange={handleSortChange}
-              className="bg-white border border-stone-200 rounded-full px-3 py-1.5 text-xs font-bold text-brand-ink focus:outline-none focus:border-brand-sage shadow-xs"
+              className="rounded-full border border-brand-ink/15 bg-brand-surface px-4 py-2.5 text-xs font-medium text-brand-ink focus:border-brand-olive focus:outline-none"
             >
               <option value="-is_featured">{t('shop.sortFeatured', 'المميزة أولاً')}</option>
-              <option value="price">{t('shop.sortPriceAsc', 'السعر: من الأقل للأعلى')}</option>
-              <option value="-price">{t('shop.sortPriceDesc', 'السعر: من الأعلى للأقل')}</option>
+              <option value="price">{t('shop.sortPriceAsc', 'السعر: من الأقل')}</option>
+              <option value="-price">{t('shop.sortPriceDesc', 'السعر: من الأعلى')}</option>
               <option value="-rating">{t('shop.sortRating', 'الأعلى تقييماً')}</option>
               <option value="-created_at">{language === 'ar' ? 'الأحدث وصولاً' : 'Newest'}</option>
             </select>
-          </div>
-
+          </label>
         </div>
 
-        {/* Product Grid Area */}
         <div className="pt-8">
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <div key={n} className="h-80 rounded-2xl bg-white border border-stone-200 animate-pulse" />
-              ))}
+            <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3, 4, 5, 6].map((item) => <div key={item} className="h-[460px] animate-pulse rounded-[24px] bg-brand-surface" />)}
             </div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {products.map((prod) => (
-                <ProductCard key={prod.id} product={prod} />
-              ))}
+            <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+              {products.map((product) => <ProductCard key={product.id} product={product} />)}
             </div>
           ) : (
-            <div className="py-20 text-center space-y-3 bg-white rounded-2xl border border-stone-200 p-8 max-w-md mx-auto">
-              <p className="text-base text-brand-ink font-bold">{t('shop.emptyProducts', 'لا توجد منتجات مطابقة لهذا التصنيف حالياً.')}</p>
-              <p className="text-xs text-brand-muted font-medium">
-                {language === 'ar' ? 'جرب اختيار تصنيف آخر أو مسح فلاتر البحث.' : 'Try choosing another category or clearing search filters.'}
+            <div className="mx-auto max-w-xl border-y border-brand-ink/10 py-20 text-center">
+              <h2 className="text-2xl font-light text-brand-ink">{t('shop.emptyProducts', 'لا توجد منتجات مطابقة لهذا التصنيف حالياً.')}</h2>
+              <p className="mt-3 text-sm text-brand-muted">
+                {language === 'ar' ? 'اختر مجموعة أخرى أو ابدأ من التشكيلة كاملة.' : 'Choose another collection or return to the complete edit.'}
               </p>
-              <button
-                onClick={() => setSearchParams({})}
-                className="px-5 py-2 rounded-full bg-brand-sage text-white text-xs font-bold hover:bg-brand-olive shadow-xs flex items-center gap-1.5 mx-auto"
-              >
-                <RefreshCcw className="w-3.5 h-3.5" />
-                <span>{language === 'ar' ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}</span>
+              <button onClick={() => setSearchParams({})} className="editorial-button-secondary mx-auto mt-8 gap-2">
+                <RefreshCcw className="h-4 w-4" />
+                {language === 'ar' ? 'عرض المجموعة كاملة' : 'View the full collection'}
               </button>
             </div>
           )}
         </div>
-
-      </div>
+      </section>
     </div>
   );
 };
 
 export default ShopPage;
+

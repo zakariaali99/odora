@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface-variant": "#46483f", "secondary-fixed-dim": "#bccd9a", "on-tertiary-container": "#2c3228", "on-primary-container": "#2a3319", "on-primary": "#ffffff", "primary": "#586244", "tertiary-fixed-dim": "#c2c9ba", "tertiary": "#5a6055", "inverse-on-surface": "#f4f0ec", "primary-fixed": "#dce7c1", "on-secondary-fixed": "#131f01", "surface-container-high": "#ebe7e4", "inverse-surface": "#31302e", "secondary-container": "#d5e6b2", "surface": "#fdf9f5", "on-background": "#1c1c19", "error": "#ba1a1a", "primary-container": "#919c7a", "surface-variant": "#e6e2de", "outline": "#76786e", "on-tertiary": "#ffffff", "surface-container": "#f1ede9", "outline-variant": "#c6c7bc", "secondary": "#55633a", "on-error": "#ffffff", "error-container": "#ffdad6", "on-error-container": "#93000a", "tertiary-container": "#949a8d", "primary-fixed-dim": "#c0cba6", "secondary-fixed": "#d8e9b5", "on-tertiary-fixed": "#171d14", "on-tertiary-fixed-variant": "#42493e", "surface-bright": "#fdf9f5", "on-primary-fixed": "#161e07", "on-secondary-container": "#59683e", "surface-container-lowest": "#ffffff", "on-primary-fixed-variant": "#404a2e", "on-surface": "#1c1c19", "background": "#fdf9f5", "surface-container-low": "#f7f3ef", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#3e4b25", "surface-dim": "#ddd9d6", "inverse-primary": "#c0cba6", "surface-container-highest": "#e6e2de", "tertiary-fixed": "#dfe5d6", "surface-tint": "#586244" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2.5rem", "gutter": "1.5rem", "margin-mobile": "1.25rem", "space-sm": "0.5rem", "gutter-mobile": "1rem", "space-md": "1rem", "space-xs": "0.25rem", "margin": "3rem", "space-lg": "1.5rem" }, "fontFamily": { "display-lg-mobile": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "label-md": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Space Grotesk"], "label-lg": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "body-xl": ["Plus Jakarta Sans"] }, "fontSize": { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }] } } } }</script><style>@layer base { .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 24; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors duration-200" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><div class="flex items-center gap-2 pl-1"><img alt="Brand logo. - Primary color: #919c7a
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface hidden xs:inline-block">Odora</span></div></div><div class="flex-1 text-center px-space-xs truncate"><span class="font-headline-sm text-headline-sm text-on-surface truncate block">Help And Support And Concierge</span></div><div class="flex items-center justify-end w-11 h-11"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-space-xl gap-space-lg">
+<!-- Private Atelier Concierge Card -->
+<section class="w-full bg-surface-container-low rounded-xl p-space-lg shadow-sm relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-44 h-44 rounded-full bg-secondary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">
+        Concierge Online • Dubai Atelier
+      </span>
+</div>
+<div class="space-y-1 mb-space-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Private Atelier Concierge</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        Direct, dedicated guidance for hardware calibration, rare botanical formulation, and architectural sanctuary setups.
+      </p>
+</div>
+<!-- Concierge Specialist Badge -->
+<div class="flex items-center gap-space-sm py-space-sm px-space-md bg-surface-container rounded-lg mb-space-md">
+<div class="relative w-11 h-11 rounded-full overflow-hidden shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close up refined portrait of a luxury fragrance concierge specialist wearing a minimal natural beige linen atelier uniform, soft diffuse studio lighting, warm travertine background, calm serene expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf00szgJ0z5dNuTCi53I16ZrCos0pvYlq0fZPCJXrTAXuCoP4at56kQxFOUOXEW25jEb992z-tTzdmmdzTYYnILyhvmaKY5NnDQs4VkxPu-9ts5_YM4XEx1YRzUZqEUoC119jcV6VNvNhehZsMV9v7Kjq1xE344hotiu-iWDyS2sja-DmOyMVRIafDAoyQE1J3DsCrPxohwpu2wzoMHTqKHviKDaBUECeqNNLe08a2-jwOitN_4juMdw"/>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Master Sommelier Layla R.</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Active now • Average reply &lt; 2 mins</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<!-- Quick CTAs -->
+<div class="flex flex-col gap-space-xs">
+<a class="w-full bg-on-tertiary-container hover:bg-inverse-surface text-inverse-on-surface py-3.5 px-space-md rounded-full flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-[0.99]" href="https://wa.me/971480063672" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" class="w-5 h-5 fill-current text-secondary-fixed" viewbox="0 0 24 24">
+<path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.127-.52-1.833-.759-3.003-2.628-3.094-2.75-.09-.122-.745-.992-.745-1.892 0-.899.467-1.342.634-1.523.167-.181.365-.226.486-.226.122 0 .244.002.35.007.112.005.263-.042.411.314.152.365.517 1.264.562 1.356.046.091.076.198.015.319-.06.121-.091.197-.182.304-.091.106-.192.237-.274.318-.091.091-.186.19-.08.372.106.182.472.779 1.013 1.261.697.621 1.285.813 1.467.904.182.091.289.076.395-.046.106-.121.456-.531.578-.713.121-.182.243-.152.41-.091.167.061 1.065.502 1.248.593.182.091.304.137.35.213.045.076.045.441-.099.846z"></path>
+</svg>
+<span class="font-label-lg text-label-lg font-medium">WhatsApp VIP Concierge</span>
+</a>
+<a class="w-full bg-surface-container-lowest text-on-surface hover:bg-surface-container-high py-3.5 px-space-md rounded-full flex items-center justify-center gap-space-xs transition-colors shadow-sm" href="tel:+971480063672">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+<span class="font-label-lg text-label-lg font-medium">Call Atelier (+971 4 800 ODORA)</span>
+</a>
+</div>
+</section>
+<!-- Hardware & Diffuser Diagnostics -->
+<section class="w-full bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Smart Calibration &amp; Status</h3>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-2.5 py-1 rounded-full font-medium">Synchronized</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+      Live telemetry from your active cold-air diffusers. Micro-nozzle frequency is auto-calibrated to local room humidity.
+    </p>
+<!-- Stat Grid -->
+<div class="grid grid-cols-2 gap-space-sm mb-space-md">
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Ultrasonic Mesh</span>
+<span class="material-symbols-outlined text-primary text-[18px]">graphic_eq</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">&lt;16.4 dB</span>
+<p class="font-body-sm text-body-sm text-secondary font-medium">Optimal Whisper Flow</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Bluetooth Mesh</span>
+<span class="material-symbols-outlined text-primary text-[18px]">hub</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">3 Units</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">-42 dBm (Strong)</p>
+</div>
+</div>
+</div>
+<!-- Diagnostic Action Button -->
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-on-surface py-3 px-space-md rounded-full flex items-center justify-center gap-space-xs transition-all duration-300" id="diagnostic-btn" onclick="runDiagnostic()" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]" id="diagnostic-icon">restart_alt</span>
+<span class="font-label-lg text-label-lg font-medium" id="diagnostic-text">Run Comprehensive Self-Test</span>
+</button>
+</section>
+<!-- Architectural Sanctuary Consultation -->
+<section class="w-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="relative w-full h-40">
+<img class="w-full h-full object-cover" data-alt="Interior view of a minimalist Dubai luxury architectural showroom with natural stone walls, travertine tables displaying matte ceramic fragrance diffusers, sun-drenched warm organic architecture, peaceful desert zen vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-V8SCCMEzYS7LGcsz7DPNoApVRXG-jTLcZPNx_p2-IEFqvyRnu1p9B_g7XzvrWB-_51RmuVOqN1VizTw-0NqX17VHhKd15DZwfHbVqELEMFvZje1xfWF5mHlcvHLFxsRwdOK8SyvEI2IisUwDgPx26c_VwikCq-t4jo2Uk3bwPWPePqjHe1ctxUpbmS7ri3z-Bh6DVt5g1MiFoHsd3p6jXsQezRTn160fzaDu-UQDPD8WQgLfxv2Umw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/40 to-transparent"></div>
+<div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+<span class="font-label-sm text-label-sm bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-full text-on-surface font-medium">In-Person Atelier</span>
+</div>
+</div>
+<div class="p-space-lg pt-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Book Sensory Scent Consultation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md leading-relaxed">
+        Visit our flagship suites in Dubai Design District (D3) or Dubai Hills Estate for customized fragrance layering and spatial diffusion mapping.
+      </p>
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">D3 • Building 07, Suite 304</span>
+</div>
+<button class="font-label-md text-label-md text-primary font-semibold flex items-center gap-0.5 hover:underline" type="button">
+          Reserve Date
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Frequently Asked Questions (Accordion) -->
+<section class="w-full space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Curated Knowledge Base</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">5 Articles</span>
+</div>
+<div class="flex flex-col gap-space-xs" id="faq-container">
+<!-- FAQ 1 (Default open) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all">
+<button class="w-full flex items-center justify-between text-left gap-space-sm" onclick="toggleFaq(this)" type="button">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">How does waterless cold-air misting work?</span>
+<span class="material-symbols-outlined text-primary text-[22px] transition-transform duration-300 transform rotate-180 faq-icon">expand_more</span>
+</button>
+<div class="faq-content mt-space-sm pt-space-sm border-t border-surface-container-high/40 text-on-surface-variant font-body-md text-body-md leading-relaxed">
+          Odora utilizes two-fluid ultrasonic cold-air atomization. High-velocity filtered ambient air fractures pure botanical oils into suspended micro-particles under 1 micron. Because no heat or water is used, delicate organic top-notes remain pure without dilution or thermal degradation.
+        </div>
+</div>
+<!-- FAQ 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all">
+<button class="w-full flex items-center justify-between text-left gap-space-sm" onclick="toggleFaq(this)" type="button">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">How often should I clean the ceramic cartridge?</span>
+<span class="material-symbols-outlined text-primary text-[22px] transition-transform duration-300 faq-icon">expand_more</span>
+</button>
+<div class="faq-content hidden mt-space-sm pt-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+          We recommend a mild isopropyl alcohol flush every 60 days, or whenever swapping between fundamentally opposing olfactory families (e.g., from smoky Oud Birch to fresh Neroli Breeze) to preserve note purity.
+        </div>
+</div>
+<!-- FAQ 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all">
+<button class="w-full flex items-center justify-between text-left gap-space-sm" onclick="toggleFaq(this)" type="button">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">Recommended intensity: Living vs. Bedchamber?</span>
+<span class="material-symbols-outlined text-primary text-[22px] transition-transform duration-300 faq-icon">expand_more</span>
+</button>
+<div class="faq-content hidden mt-space-sm pt-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+          For open-plan spaces (500–1,200 sq ft), select Level 4 or 5 with intermittent 30s bursts. In sleeping suites, Level 1 or 2 paired with the 'Nocturne Fade' mode ensures deep restoration without olfactory fatigue.
+        </div>
+</div>
+<!-- FAQ 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all">
+<button class="w-full flex items-center justify-between text-left gap-space-sm" onclick="toggleFaq(this)" type="button">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">How do I claim my 2-Year Atelier Warranty?</span>
+<span class="material-symbols-outlined text-primary text-[22px] transition-transform duration-300 faq-icon">expand_more</span>
+</button>
+<div class="faq-content hidden mt-space-sm pt-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+          All Odora sculptured diffusers purchased via authorized ateliers are automatically registered via device serial number. In the event of pump failure, our white-glove courier collects the piece from your residence and replaces the cold-core within 48 hours.
+        </div>
+</div>
+<!-- FAQ 5 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all">
+<button class="w-full flex items-center justify-between text-left gap-space-sm" onclick="toggleFaq(this)" type="button">
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold">Can I swap my recurring oil blends?</span>
+<span class="material-symbols-outlined text-primary text-[22px] transition-transform duration-300 faq-icon">expand_more</span>
+</button>
+<div class="faq-content hidden mt-space-sm pt-space-sm text-on-surface-variant font-body-md text-body-md leading-relaxed">
+          Yes. You may modify your seasonal formulation up to 72 hours before dispatch through the Botanical Wardrobe drawer in your profile or by alerting your Concierge via WhatsApp.
+        </div>
+</div>
+</div>
+</section>
+<!-- Dedicated Service Channels & Manuals -->
+<section class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">Documentation &amp; Privileges</h3>
+<div class="flex flex-col gap-space-xs">
+<!-- User Manual Item -->
+<a class="flex items-center justify-between p-space-sm hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">menu_book</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Odora Sculpt User Manual</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PDF • 2.4 MB • English / Arabic</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">download</span>
+</a>
+<!-- Warranty Form Item -->
+<a class="flex items-center justify-between p-space-sm hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Warranty &amp; Replacement Request</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Priority 48-hour dispatch replacement</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">chevron_right</span>
+</a>
+<!-- Scent Profile Matcher -->
+<a class="flex items-center justify-between p-space-sm hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_fix_high</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Botanical Olfactory Diagnosis</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Match oils to architectural airflow</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[20px]">chevron_right</span>
+</a>
+</div>
+</section>
+<!-- Sensory Feedback Module -->
+<section class="w-full bg-surface-container p-space-lg rounded-xl flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center mb-space-xs shadow-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">spa</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-1">Sensory Experience Survey</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md max-w-xs">
+      How naturally does your Odora sanctuary harmonise with your daily rhythm?
+    </p>
+<!-- Interactive Star / Aura Rating -->
+<div class="flex items-center gap-2 mb-space-md" id="rating-container">
+<button aria-label="1 star" class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="setRating(1)" type="button">
+<span class="material-symbols-outlined text-[26px]">star</span>
+</button>
+<button aria-label="2 stars" class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="setRating(2)" type="button">
+<span class="material-symbols-outlined text-[26px]">star</span>
+</button>
+<button aria-label="3 stars" class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="setRating(3)" type="button">
+<span class="material-symbols-outlined text-[26px]">star</span>
+</button>
+<button aria-label="4 stars" class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="setRating(4)" type="button">
+<span class="material-symbols-outlined text-[26px]">star</span>
+</button>
+<button aria-label="5 stars" class="p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="setRating(5)" type="button">
+<span class="material-symbols-outlined text-[26px]">star</span>
+</button>
+</div>
+<button class="font-label-md text-label-md text-primary font-semibold hover:underline" onclick="submitFeedback(this)" type="button">
+      Share Detailed Atelier Impressions
+    </button>
+</section>
+</div>
+<script>
+  function toggleFaq(button) {
+    const parent = button.closest('div');
+    const content = parent.querySelector('.faq-content');
+    const icon = parent.querySelector('.faq-icon');
+    
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      icon.classList.add('rotate-180');
+    } else {
+      content.classList.add('hidden');
+      icon.classList.remove('rotate-180');
+    }
+  }
+
+  function runDiagnostic() {
+    const btn = document.getElementById('diagnostic-btn');
+    const icon = document.getElementById('diagnostic-icon');
+    const text = document.getElementById('diagnostic-text');
+
+    icon.classList.add('animate-spin');
+    text.textContent = 'Analysing 3 Diffuser Cores...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      icon.textContent = 'check_circle';
+      icon.classList.replace('text-primary', 'text-secondary');
+      text.textContent = 'Acoustics & Airflow: 100% Calibrated';
+      btn.classList.add('bg-secondary-container');
+    }, 1800);
+  }
+
+  function setRating(val) {
+    const container = document.getElementById('rating-container');
+    const stars = container.querySelectorAll('button span');
+    stars.forEach((star, index) => {
+      if (index < val) {
+        star.style.fontVariationSettings = "'FILL' 1";
+        star.classList.add('text-secondary');
+      } else {
+        star.style.fontVariationSettings = "'FILL' 0";
+        star.classList.remove('text-secondary');
+      }
+    });
+  }
+
+  function submitFeedback(elem) {
+    elem.textContent = 'Thank you. Your sensory notes are treasured.';
+    elem.classList.add('text-secondary', 'cursor-default');
+    elem.onclick = null;
+  }
+</script></main></body></html>

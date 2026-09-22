@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Odora - Scent Pairings &amp; Discovery Bundles</title>
+<!-- Material Symbols & Typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fdf9f5",
+            "on-background": "#1c1c19",
+            "on-secondary-container": "#59683e",
+            "inverse-primary": "#c0cba6",
+            "surface-container-high": "#ebe7e4",
+            "primary": "#586244",
+            "surface-container-highest": "#e6e2de",
+            "inverse-on-surface": "#f4f0ec",
+            "surface-tint": "#586244",
+            "on-primary-container": "#2a3319",
+            "on-tertiary-fixed": "#171d14",
+            "primary-fixed-dim": "#c0cba6",
+            "secondary-fixed-dim": "#bccd9a",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed": "#161e07",
+            "secondary-fixed": "#d8e9b5",
+            "outline-variant": "#c6c7bc",
+            "error-container": "#ffdad6",
+            "outline": "#76786e",
+            "on-surface": "#1c1c19",
+            "tertiary-container": "#949a8d",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#c2c9ba",
+            "surface-container-low": "#f7f3ef",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#dfe5d6",
+            "on-surface-variant": "#46483f",
+            "primary-container": "#919c7a",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#404a2e",
+            "on-secondary": "#ffffff",
+            "surface-bright": "#fdf9f5",
+            "error": "#ba1a1a",
+            "inverse-surface": "#31302e",
+            "on-tertiary-fixed-variant": "#42493e",
+            "secondary-container": "#d5e6b2",
+            "surface-dim": "#ddd9d6",
+            "on-secondary-fixed": "#131f01",
+            "on-secondary-fixed-variant": "#3e4b25",
+            "on-primary": "#ffffff",
+            "tertiary": "#5a6055",
+            "surface-variant": "#e6e2de",
+            "background": "#fdf9f5",
+            "surface-container": "#f1ede9",
+            "primary-fixed": "#dce7c1",
+            "secondary": "#55633a",
+            "on-tertiary-container": "#2c3228"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Grotesk", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+            "label-sm": ["Space Grotesk", "sans-serif"],
+            "headline-sm": ["Space Grotesk", "sans-serif"],
+            "headline-xl": ["Space Grotesk", "sans-serif"],
+            "display-lg": ["Space Grotesk", "sans-serif"],
+            "label-md": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "body-sm": ["Plus Jakarta Sans", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "body-xl": ["Plus Jakarta Sans", "sans-serif"],
+            "headline-xl-mobile": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Hide scrollbars while allowing touch scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-secondary-container selection:text-on-secondary-fixed">
+<!-- Mobile Container Shell -->
+<main class="w-full max-w-md bg-surface min-h-screen flex flex-col relative pb-36 shadow-2xl border-x border-surface-container">
+<!-- Top Navigation Header -->
+<header class="sticky top-0 z-30 bg-surface/90 backdrop-blur-md px-4 py-3 border-b border-surface-container flex items-center justify-between">
+<button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[22px]">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-label-sm tracking-[0.2em] text-[10px] uppercase text-primary font-bold">Odora Atelier</span>
+<h1 class="font-headline-sm text-base text-on-surface tracking-tight">Scent Pairings</h1>
+</div>
+<button aria-label="View basket" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+</header>
+<!-- Context & Header Section -->
+<section class="px-5 pt-6 pb-2">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm tracking-wider uppercase text-[10px] font-semibold mb-3 border border-outline-variant/30">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Atelier Harmony • Discovery Flights
+      </div>
+<h2 class="font-headline-xl text-3xl text-on-surface tracking-tight leading-tight mb-2">
+        Scent Pairings &amp; Discovery Bundles
+      </h2>
+<p class="font-body-md text-on-surface-variant text-sm leading-relaxed">
+        Curated botanical flacon sets and dual-nozzle harmony accords engineered to synchronize across your sanctuary spaces.
+      </p>
+</section>
+<!-- Interactive Sensory Filter Tabs -->
+<section class="pt-4 pb-2 px-4">
+<div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-xs whitespace-nowrap shadow-sm transition-all">
+          All Curations
+        </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant/40 text-on-surface font-label-md text-xs whitespace-nowrap hover:bg-surface-container transition-all">
+          Harmonic Duos
+        </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant/40 text-on-surface font-label-md text-xs whitespace-nowrap hover:bg-surface-container transition-all">
+          Seasonal Trios
+        </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant/40 text-on-surface font-label-md text-xs whitespace-nowrap hover:bg-surface-container transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">tune</span>
+          Build Your Flight
+        </button>
+</div>
+</section>
+<!-- Featured Hero Discovery Flight (Master Boxed Trio) -->
+<section class="px-4 pt-5 pb-6">
+<div class="rounded-2xl bg-surface-container-lowest border border-surface-container-highest p-5 shadow-sm relative overflow-hidden">
+<!-- Botanical Origin Tag -->
+<div class="flex items-center justify-between gap-2 mb-3">
+<span class="px-2.5 py-1 rounded bg-secondary-container/50 text-on-secondary-container text-[11px] font-label-md font-semibold tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified</span>
+            Grasse Terroir Certified
+          </span>
+<span class="text-xs text-primary font-label-sm font-semibold tracking-wider uppercase">
+            3 × 30ml Flacons
+          </span>
+</div>
+<!-- Hero Image Canvas with Rich Alt Prompt -->
+<div class="relative w-full h-56 rounded-xl overflow-hidden mb-4 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="An ultra-luxury botanical fragrance discovery flight featuring three minimalist amber glass flacons neatly aligned inside a bespoke linen-textured presentation case. Soft morning Mediterranean sunlight filters through sheer drapery, casting delicate shadows across pale travertine and warm raw ecru surfaces. The muted sage green labels on the bottles harmonize seamlessly with the calm, organic light-mode color palette of earthy beige, soft olive, and warm stone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPKnQWurITF7vYC438LbLKDJTOrpQG4pSN1bsLFfljlbxf0s2-fv6yfS1hoD13IasFeBAm2KnUGVNhEcbcFaNzlb2g6oK3_x54JwQ70bP92dzSSpFWIdSC_YB6mHaM-1eSO4vu1LHulmf_Bi-p-A8JKt0cxC03iMdPOnE4ABBpz9ikPrvTNA15XjxQYthNm_pp1BD8RFhh6huZf_UrtyoPT5l0GxOqzjjNFmASymSclyQxut_E-luGTQ"/>
+<div class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/40 shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">sensors</span>
+<span class="text-xs font-label-sm font-medium text-on-surface">Dual-Diffuser Resonance Accord</span>
+</div>
+</div>
+<!-- Title & Scent Mood -->
+<div class="space-y-1 mb-4">
+<h3 class="font-headline-md text-xl text-on-surface font-semibold tracking-tight">The Mediterranean Dawn Flight</h3>
+<p class="font-body-sm text-xs text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary">wb_twilight</span>
+            Morning Cognitive Clarity &amp; Evening Grounding
+          </p>
+</div>
+<!-- Olfactory Accord Pill Grid -->
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 mb-4">
+<p class="text-[11px] font-label-sm uppercase tracking-wider text-outline mb-2">Olfactory Accord Matrix</p>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs font-body-sm">Forest Sage (Herbal)</span>
+<span class="text-outline-variant self-center">•</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs font-body-sm">Calabrian Bergamot (Citrus)</span>
+<span class="text-outline-variant self-center">•</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface text-xs font-body-sm">Smoked Hinoki (Dry Wood)</span>
+</div>
+</div>
+<!-- Included Formulations Breakdown -->
+<div class="space-y-2.5 mb-5 border-t border-surface-container pt-3">
+<p class="text-[11px] font-label-sm uppercase tracking-wider text-outline">Formulations in Set</p>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-xs font-label-md text-primary font-semibold shrink-0">01</span>
+<div class="text-xs">
+<span class="font-semibold text-on-surface">Forest Sage 30ml:</span>
+<span class="text-on-surface-variant ml-1 font-body-sm">Clary sage, highland cedarwood, lavender sprig.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-xs font-label-md text-primary font-semibold shrink-0">02</span>
+<div class="text-xs">
+<span class="font-semibold text-on-surface">Neroli Blossom 30ml:</span>
+<span class="text-on-surface-variant ml-1 font-body-sm">Italian bitter orange flower, spring petrichor, white tea.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-xs font-label-md text-primary font-semibold shrink-0">03</span>
+<div class="text-xs">
+<span class="font-semibold text-on-surface">Sandalwood Drift 30ml:</span>
+<span class="text-on-surface-variant ml-1 font-body-sm">Mysore sandalwood, cured tonka pod, amber crystal resin.</span>
+</div>
+</div>
+</div>
+<!-- Pricing & Action Row -->
+<div class="pt-3 border-t border-surface-container flex items-center justify-between">
+<div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-sm text-lg font-bold text-on-surface">$88</span>
+<span class="text-xs text-outline line-through font-body-sm">$114</span>
+<span class="text-[11px] font-semibold text-primary bg-secondary-container px-1.5 py-0.5 rounded">Save 23%</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">320 AED total flight value</p>
+</div>
+<button class="px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-medium flex items-center gap-1.5 transition-all shadow-sm">
+<span>Add Flight</span>
+<span class="material-symbols-outlined text-sm">north_east</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Harmonic Duos & Dual-Nozzle Blends -->
+<section class="px-4 pb-6">
+<div class="flex items-center justify-between mb-3 px-1">
+<div>
+<h3 class="font-headline-md text-lg text-on-surface">Harmonic Duos</h3>
+<p class="font-body-sm text-xs text-on-surface-variant">Dual-nozzle synchronization for complimentary chambers</p>
+</div>
+<span class="text-xs font-label-sm text-primary font-medium">2 Flights</span>
+</div>
+<div class="space-y-4">
+<!-- Duo Card 1 -->
+<article class="p-4 rounded-xl bg-surface-container-low border border-surface-container-highest transition-all hover:border-outline-variant">
+<div class="flex gap-4">
+<div class="w-20 h-24 rounded-lg bg-surface-container shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A refined studio shot of two complementary glass perfume bottles resting on textured raw stone, flanked by fresh green sage twigs and washed ivory cotton textiles. The composition utilizes clean Scandinavian lighting and warm, serene tones of muted sage green, pale oat, and soft linen white, evoking a serene sanctuary ambiance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQjIwIP5Uz7IUnJfyVY-Crp8jeO_IqfcjoiQz4uq-LW9BRRvJHkpdOkvfEIsYwCNdAtVI07XvGPwa9iztY49rp8KFjuWHuf4d7NzO6G2IkyhCL3pzFy7uRHttxhfVM4oQg2jVGMCH_MKl1iRbOTwBtlst4EMvVFFRauy_sSieST6287EWifpuLt6d0e5eI7zfbkL81QppxaUtfAc4rjTjGJBmzl3bgvgep_OsvN2GuY86-XN8VyhKu8g"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-base text-on-surface font-semibold truncate">Sunlit Solitude</span>
+<span class="text-[11px] font-label-sm font-semibold text-secondary px-1.5 py-0.5 bg-secondary-container rounded">98% Synergy</span>
+</div>
+<p class="text-xs text-primary font-medium mt-0.5">Forest Sage + Cotton Linen</p>
+<div class="flex items-center gap-1.5 text-[11px] text-outline mt-1 font-body-sm">
+<span class="material-symbols-outlined text-xs">meeting_room</span>
+<span>Living Room + Master Suite</span>
+</div>
+<p class="font-body-sm text-xs text-on-surface-variant mt-2 line-clamp-2">
+                Crisp morning herbaceous crispness transitioning into soft laundered musk.
+              </p>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-sm text-sm font-bold text-on-surface">$64</span>
+<span class="text-[11px] text-outline line-through">$75</span>
+<span class="text-[10px] text-on-surface-variant">• 235 AED</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-xs font-medium hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add</span>
+              Quick Add
+            </button>
+</div>
+</article>
+<!-- Duo Card 2 -->
+<article class="p-4 rounded-xl bg-surface-container-low border border-surface-container-highest transition-all hover:border-outline-variant">
+<div class="flex gap-4">
+<div class="w-20 h-24 rounded-lg bg-surface-container shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="An atmospheric luxury photograph of twin dark glass flacons set against charred cypress wood and shimmering drops of raw amber resin. Subdued atmospheric warm side lighting casts subtle glows on the textured botanical surfaces, framed in deep olive green, smoked umber, and warm parchment highlights in a quiet study." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs0-72pd8xE2p6JoYls4ZsM4Fcq8hY08b9XtFwiG9bIqF74JJsGQOXxQsjZcGbgTApgsTaFSarlyRCv3wmQtjph49xUMys5dV42Yvx9YMoleSWwbWXYGucp65VExdhYo511V8Qf84oTLf4x4Vv7yPkPlBQ2qhoMF2m25wotC83d64pI2HjTVFggo8rUUGNbD5ifs6mc9WKC8c9hrOlE9ek_m69QjOVJcyFdSlKJov0rFEKn6mezJ2qng"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-base text-on-surface font-semibold truncate">Midnight Sanctuary</span>
+<span class="text-[11px] font-label-sm font-semibold text-secondary px-1.5 py-0.5 bg-secondary-container rounded">96% Synergy</span>
+</div>
+<p class="text-xs text-primary font-medium mt-0.5">Smoked Cypress + Dark Amber Resin</p>
+<div class="flex items-center gap-1.5 text-[11px] text-outline mt-1 font-body-sm">
+<span class="material-symbols-outlined text-xs">chair</span>
+<span>Atelier / Creative Study</span>
+</div>
+<p class="font-body-sm text-xs text-on-surface-variant mt-2 line-clamp-2">
+                Deep grounding resinous woods with subtle nocturnal incense calm.
+              </p>
+</div>
+</div>
+<div class="mt-3 pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-sm text-sm font-bold text-on-surface">$64</span>
+<span class="text-[11px] text-outline line-through">$75</span>
+<span class="text-[10px] text-on-surface-variant">• 235 AED</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-xs font-medium hover:bg-primary hover:text-on-primary transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">add</span>
+              Quick Add
+            </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Custom Flight Atelier (Interactive 3-Pack Box) -->
+<section class="px-4 pb-6">
+<div class="p-5 rounded-2xl bg-surface-container-low border border-primary/20 relative">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm tracking-wider uppercase text-[10px] text-primary font-bold">Custom Flight Atelier</span>
+<span class="text-xs bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-label-sm font-medium">20% Tier Savings</span>
+</div>
+<h3 class="font-headline-md text-xl text-on-surface mb-1">Assemble Your 3-Piece Flight</h3>
+<p class="font-body-sm text-xs text-on-surface-variant mb-4">Select 3 cold-mist botanicals for custom room orchestration.</p>
+<!-- 3-Slot Interactive Box Visualizer -->
+<div class="grid grid-cols-3 gap-2.5 mb-4">
+<!-- Slot 1: Filled -->
+<div class="p-2.5 rounded-xl bg-surface-container-lowest border border-primary/30 flex flex-col items-center text-center relative shadow-sm">
+<span class="absolute top-1.5 right-1.5 text-primary material-symbols-outlined text-sm">check_circle</span>
+<div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-primary mb-2 mt-1">
+<span class="material-symbols-outlined text-lg">spa</span>
+</div>
+<p class="font-label-sm text-[11px] font-semibold text-on-surface leading-tight">Forest Sage</p>
+<p class="text-[9px] text-outline font-body-sm mt-0.5">30ml Slot 01</p>
+</div>
+<!-- Slot 2: Filled -->
+<div class="p-2.5 rounded-xl bg-surface-container-lowest border border-primary/30 flex flex-col items-center text-center relative shadow-sm">
+<span class="absolute top-1.5 right-1.5 text-primary material-symbols-outlined text-sm">check_circle</span>
+<div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-primary mb-2 mt-1">
+<span class="material-symbols-outlined text-lg">air</span>
+</div>
+<p class="font-label-sm text-[11px] font-semibold text-on-surface leading-tight">Cotton Linen</p>
+<p class="text-[9px] text-outline font-body-sm mt-0.5">30ml Slot 02</p>
+</div>
+<!-- Slot 3: Empty / Active Action -->
+<button class="p-2.5 rounded-xl border-2 border-dashed border-primary/40 bg-surface-container/50 hover:bg-surface-container flex flex-col items-center justify-center text-center transition-all group">
+<div class="w-10 h-10 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center text-primary mb-2 transition-colors">
+<span class="material-symbols-outlined text-lg">add</span>
+</div>
+<p class="font-label-sm text-[11px] font-semibold text-primary leading-tight">Choose 3rd</p>
+<p class="text-[9px] text-outline font-body-sm mt-0.5">e.g. Hinoki / Tea</p>
+</button>
+</div>
+<!-- Box Presentation Selection -->
+<div class="mb-4">
+<label class="text-[11px] font-label-sm uppercase tracking-wider text-outline block mb-2">Presentation Casket</label>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2.5 rounded-lg border border-primary bg-surface-container-lowest flex items-center gap-2 cursor-pointer">
+<span class="w-3.5 h-3.5 rounded-full border-4 border-primary bg-surface-container-lowest"></span>
+<span class="font-label-sm text-xs text-on-surface font-medium">Grasse Raw Linen</span>
+</div>
+<div class="p-2.5 rounded-lg border border-outline-variant/50 bg-surface-container-low flex items-center gap-2 cursor-pointer hover:border-outline">
+<span class="w-3.5 h-3.5 rounded-full border border-outline"></span>
+<span class="font-label-sm text-xs text-on-surface-variant font-medium">Stone Sleeve</span>
+</div>
+</div>
+</div>
+<!-- Dynamic Bundle Checkout Action -->
+<div class="pt-3 border-t border-surface-container-highest flex items-center justify-between">
+<div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline-sm text-base font-bold text-on-surface">$78</span>
+<span class="text-xs text-outline line-through">$98</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">285 AED • 3 × 30ml Custom Box</p>
+</div>
+<button class="px-4 py-2 rounded-xl bg-on-surface text-surface font-label-md text-xs font-semibold hover:bg-on-surface-variant transition-colors">
+            Complete Flight
+          </button>
+</div>
+</div>
+</section>
+<!-- 'The Art of Spatial Layering' Sensory Manifesto Card -->
+<section class="px-4 pb-8">
+<div class="p-5 rounded-2xl bg-secondary text-inverse-on-surface relative overflow-hidden shadow-md">
+<!-- Background subtle accent pattern -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-white/5 blur-xl pointer-events-none"></div>
+<div class="flex items-center gap-2 mb-2 text-primary-fixed">
+<span class="material-symbols-outlined text-lg">grain</span>
+<span class="font-label-sm text-[11px] uppercase tracking-wider font-semibold">Atmospheric Sensory Protocol</span>
+</div>
+<h3 class="font-headline-md text-xl font-medium tracking-tight mb-2 text-surface-lowest">
+          Olfactory Zone Mapping
+        </h3>
+<p class="font-body-sm text-xs leading-relaxed text-inverse-on-surface/90 mb-4">
+          Odora cold-mist diffusion deploys micro-aerosolization engineered to resonate at spatial thresholds. Ambient notes in adjacent rooms marry into harmonic accords rather than creating olfactory fatigue.
+        </p>
+<div class="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 text-xs font-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-primary-fixed">pets</span>
+<span>Pet &amp; Fabric Safe</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-primary-fixed">eco</span>
+<span>100% Pure Botanical</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Bottom Bar / Cart Context -->
+<div class="fixed bottom-0 max-w-md w-full z-40 bg-surface/95 backdrop-blur-md border-t border-surface-container-high px-4 py-3 shadow-[0_-8px_20px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between gap-3">
+<div class="min-w-0 flex-1">
+<p class="text-[10px] font-label-sm text-outline uppercase tracking-wider">Curated Discovery Flight</p>
+<div class="flex items-baseline gap-1.5 truncate">
+<span class="font-headline-sm text-sm font-bold text-on-surface truncate">Mediterranean Dawn</span>
+<span class="text-xs text-primary font-semibold shrink-0">• $88</span>
+</div>
+</div>
+<button class="px-5 py-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-xs font-semibold tracking-wide flex items-center justify-center gap-2 shadow-sm shrink-0 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-base">local_mall</span>
+<span>Add to Sanctuary</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

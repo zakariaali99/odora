@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Odora — Mockup (Dark Premium)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#0E0F0D;
+    --canvas-2:#14161200;
+    --surface:#17190F;
+    --surface-raised:#1C1E17;
+    --line:rgba(232,224,206,.12);
+    --cream:#F4EFE4;
+    --cream-dim:#CFC9BB;
+    --muted:#8E9082;
+    --sage:#AAB88A;
+    --brass:#C8A45C;
+    --brass-bright:#E6CB8E;
+    --radius:20px;
+    --radius-lg:30px;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--canvas);color:var(--cream);
+    font-family:'Tajawal',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .lat{font-family:'Fraunces',serif}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  a{color:inherit;text-decoration:none}
+  .eyebrow{font-family:'Tajawal';font-size:12px;letter-spacing:.32em;color:var(--brass);
+    text-transform:uppercase;font-weight:500}
+  .eyebrow.lat{font-family:'Fraunces';letter-spacing:.3em}
+
+  /* grain + glow */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(60% 50% at 78% 18%, rgba(200,164,92,.10), transparent 60%),
+      radial-gradient(50% 40% at 12% 88%, rgba(170,184,138,.07), transparent 60%);}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;background:rgba(14,15,13,.72);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{font-family:'Fraunces';font-weight:600;font-size:28px;letter-spacing:-.5px;color:var(--cream)}
+  .logo b{color:var(--brass)}
+  .nav-links{display:flex;gap:34px;font-size:15px;color:var(--cream-dim);font-weight:500}
+  .nav-links a{position:relative;padding:6px 0;transition:color .2s}
+  .nav-links a:hover{color:var(--cream)}
+  .nav-right{display:flex;align-items:center;gap:22px}
+  .nav-icon{width:22px;height:22px;stroke:var(--cream-dim);fill:none;stroke-width:1.6;cursor:pointer;transition:stroke .2s}
+  .nav-icon:hover{stroke:var(--brass)}
+  .lang{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;
+    padding:6px 14px;letter-spacing:.05em}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;font-weight:700;
+    font-size:15px;padding:15px 30px;cursor:pointer;border:1px solid transparent;transition:all .25s}
+  .btn-brass{background:linear-gradient(135deg,var(--brass-bright),var(--brass));color:#22190A;
+    box-shadow:0 14px 40px rgba(200,164,92,.28)}
+  .btn-brass:hover{transform:translateY(-2px);box-shadow:0 20px 50px rgba(200,164,92,.4)}
+  .btn-ghost{border-color:rgba(244,239,228,.28);color:var(--cream)}
+  .btn-ghost:hover{border-color:var(--brass);color:var(--brass-bright)}
+  .arrow{font-family:'Fraunces'}
+
+  /* HERO */
+  .hero{position:relative;z-index:1;padding:70px 0 90px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .hero h1{font-family:'Reem Kufi';font-weight:700;font-size:clamp(44px,5.6vw,86px);
+    line-height:1.04;margin:20px 0 0;letter-spacing:-.5px}
+  .hero h1 .accent{color:var(--brass);
+    background:linear-gradient(120deg,var(--brass-bright),var(--brass));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p.lead{color:var(--cream-dim);font-size:19px;line-height:1.9;max-width:460px;margin:26px 0 0;font-weight:300}
+  .hero-cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:38px;margin-top:46px;padding-top:30px;border-top:1px solid var(--line)}
+  .stat .n{font-family:'Fraunces';font-size:30px;color:var(--cream)}
+  .stat .n b{color:var(--brass)}
+  .stat .l{font-size:13px;color:var(--muted);margin-top:4px}
+
+  /* framed hero image */
+  .frame{position:relative;border-radius:var(--radius-lg);overflow:hidden;
+    border:1px solid rgba(200,164,92,.28);
+    box-shadow:0 40px 90px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.03)}
+  .frame::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(14,15,13,.35));pointer-events:none}
+  .frame img{display:block;width:100%;height:100%;object-fit:cover}
+  .hero-frame{aspect-ratio:4/4.4}
+  .badge-float{position:absolute;z-index:3;bottom:22px;right:22px;background:rgba(14,15,13,.72);
+    backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+  .badge-float .t{font-family:'Fraunces';font-size:18px}
+  .badge-float .s{font-size:12px;color:var(--brass);letter-spacing:.05em}
+
+  /* trust marquee */
+  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--surface);position:relative;z-index:1}
+  .trust .wrap{display:flex;justify-content:space-between;gap:24px;padding-top:22px;padding-bottom:22px;flex-wrap:wrap}
+  .trust span{font-size:14px;color:var(--cream-dim);display:flex;align-items:center;gap:10px}
+  .trust span i{color:var(--brass);font-style:normal}
+
+  /* section */
+  section.blk{position:relative;z-index:1;padding:110px 0}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;gap:24px}
+  .head h2{font-family:'Reem Kufi';font-weight:600;font-size:clamp(30px,3.6vw,50px);margin:14px 0 0;line-height:1.12}
+  .head p{color:var(--muted);max-width:440px;margin:12px 0 0;line-height:1.8}
+  .see{color:var(--brass-bright);font-weight:700;border-bottom:1px solid rgba(200,164,92,.4);padding-bottom:4px}
+
+  /* products */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{background:var(--surface-raised);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s}
+  .card:hover{transform:translateY(-6px);border-color:rgba(200,164,92,.4)}
+  .card .ph{aspect-ratio:1/1;overflow:hidden;position:relative;background:#EDE9E1}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .card:hover .ph img{transform:scale(1.05)}
+  .tag{position:absolute;top:14px;right:14px;background:var(--brass);color:#22190A;font-size:12px;
+    font-weight:700;padding:6px 12px;border-radius:999px}
+  .card .body{padding:22px}
+  .card .cat{font-size:12px;letter-spacing:.2em;color:var(--brass);text-transform:uppercase}
+  .card h3{font-family:'Reem Kufi';font-weight:500;font-size:21px;margin:8px 0 0}
+  .card .row{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+  .price{font-family:'Fraunces';font-size:24px}
+  .price s{color:var(--muted);font-size:16px;margin-inline-start:8px}
+  .add{width:44px;height:44px;border-radius:50%;background:var(--cream);color:#14161200;
+    display:grid;place-items:center;font-size:22px;color:#141612;transition:all .25s}
+  .add:hover{background:var(--brass);transform:rotate(90deg)}
+
+  /* colorway line */
+  .line{background:linear-gradient(180deg,var(--surface),var(--canvas));border-block:1px solid var(--line)}
+  .colorways{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .cw{padding:48px 32px;text-align:center;border-inline-start:1px solid var(--line);position:relative}
+  .cw:first-child{border:none}
+  .cw .ph{aspect-ratio:3/4;border-radius:16px;overflow:hidden;margin-bottom:24px;background:#EDE9E1}
+  .cw .ph img{width:100%;height:100%;object-fit:cover}
+  .cw h4{font-family:'Fraunces';font-size:22px;margin:0}
+  .cw span{color:var(--muted);font-size:14px}
+
+  /* editorial split */
+  .edit{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+  .edit .imgside{min-height:520px;background:#EDE9E1}
+  .edit .imgside img{width:100%;height:100%;object-fit:cover}
+  .edit .txtside{background:var(--surface-raised);padding:70px 60px;display:flex;flex-direction:column;justify-content:center}
+  .edit h2{font-family:'Reem Kufi';font-weight:600;font-size:clamp(28px,3.2vw,44px);line-height:1.15;margin:16px 0 0}
+  .edit p{color:var(--cream-dim);line-height:1.9;font-weight:300;margin:22px 0 0;font-size:17px}
+
+  /* testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:var(--surface-raised);border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+  .stars{color:var(--brass);letter-spacing:3px;font-size:15px}
+  .quote p{font-family:'Fraunces';font-style:italic;font-size:19px;line-height:1.6;margin:16px 0 20px;color:var(--cream)}
+  .quote .who{font-size:14px;color:var(--muted)}
+
+  /* footer */
+  footer{background:#0A0B09;border-top:1px solid var(--line);padding:70px 0 34px;position:relative;z-index:1}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+  .footcol h5{font-size:13px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:0 0 18px}
+  .footcol a{display:block;color:var(--cream-dim);font-size:15px;margin-bottom:12px;transition:color .2s}
+  .footcol a:hover{color:var(--brass)}
+  .footcol p{color:var(--muted);line-height:1.8;font-size:15px;font-weight:300}
+  .fbar{display:flex;justify-content:space-between;margin-top:54px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .grid3,.colorways,.quotes,.fgrid{grid-template-columns:1fr}
+    .edit{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .cw{border-inline-start:none;border-top:1px solid var(--line)}
+    .edit .txtside{padding:44px 30px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><nav>
+    <div class="logo">odor<b>a</b><span style="color:var(--brass);font-size:16px;vertical-align:top">®</span></div>
+    <div class="nav-links">
+      <a>المتجر</a><a>مكتبة الروائح</a><a>التقنية</a><a>عن أودورا</a><a>تواصل معنا</a>
+    </div>
+    <div class="nav-right">
+      <span class="lang">EN · ع</span>
+      <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M6 2l1.5 3h9L18 2M4 7h16l-1.5 13a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 7z"/></svg>
+    </div>
+  </nav></div>
+</header>
+
+<!-- HERO -->
+<section class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <span class="eyebrow lat">Scent of Atmosphere</span>
+    <h1>حضورٌ عطريّ<br>يُصنع بعناية،<br><span class="accent">في كل مساحة.</span></h1>
+    <p class="lead">جهاز التعطير الذكي A316 — رذاذ بارد بلا ماء، تحكّم صامت عبر التطبيق، وزيوت نقية من غراس الفرنسية. تقنية دقيقة في قالبٍ يليق بمساحتك.</p>
+    <div class="hero-cta">
+      <a class="btn btn-brass">تسوّق الأجهزة <span class="arrow">←</span></a>
+      <a class="btn btn-ghost">اكتشف الزيوت</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n"><b>25</b> dB</div><div class="l">همسٌ فائق الهدوء</div></div>
+      <div class="stat"><div class="n"><b>900</b> م²</div><div class="l">تغطية متجانسة</div></div>
+      <div class="stat"><div class="n">4.8<b>★</b></div><div class="l">+2,400 تقييم</div></div>
+    </div>
+  </div>
+  <div class="frame hero-frame">
+    <img src="/photos/diffuser_black_office.png" alt="Odora A316">
+    <div class="badge-float"><div class="t">A316</div><div class="s">Matte Collection</div></div>
+  </div>
+</div></div></section>
+
+<!-- TRUST -->
+<div class="trust"><div class="wrap">
+  <span><i>✳</i> رذاذ نقي بدون ماء</span>
+  <span><i>✳</i> ضمان سنة كاملة</span>
+  <span><i>✳</i> توصيل لكل المدن الليبية</span>
+  <span><i>✳</i> دفع عند الاستلام</span>
+</div></div>
+
+<!-- FEATURED -->
+<section class="blk"><div class="wrap">
+  <div class="head">
+    <div>
+      <span class="eyebrow">المجموعة المميزة</span>
+      <h2>قِطعٌ مختارة بعناية</h2>
+    </div>
+    <a class="see">عرض الكل ←</a>
+  </div>
+  <div class="grid3">
+    <div class="card">
+      <div class="ph"><span class="tag">عرض خاص</span><img src="/photos/bundle-signature.png" alt=""></div>
+      <div class="body"><div class="cat">Bundle</div><h3>باقة أودورا المتكاملة</h3>
+        <div class="row"><div class="price">380 د.ل <s>410</s></div><div class="add">＋</div></div></div>
+    </div>
+    <div class="card">
+      <div class="ph"><img src="/photos/diffuser-a316-sage.png" alt=""></div>
+      <div class="body"><div class="cat">Diffuser</div><h3>جهاز A316 — سيج</h3>
+        <div class="row"><div class="price">240 د.ل</div><div class="add">＋</div></div></div>
+    </div>
+    <div class="card">
+      <div class="ph"><img src="/photos/oil-forest-sage.png" alt=""></div>
+      <div class="body"><div class="cat">Fragrance Oil</div><h3>زيت فورست سيج</h3>
+        <div class="row"><div class="price">65 د.ل</div><div class="add">＋</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- COLORWAY LINE -->
+<div class="line"><div class="wrap" style="padding-top:70px;padding-bottom:70px">
+  <div class="head" style="margin-bottom:34px">
+    <div><span class="eyebrow lat">The Line — 03 Finishes</span>
+    <h2>صُمّم لِيُرى، ويُشعَر به</h2></div>
+  </div>
+  <div class="colorways">
+    <div class="cw"><div class="ph"><img src="/photos/diffuser-a316-sage.png"></div><h4 class="lat">Forest Sage</h4><span>سيج مطفّي</span></div>
+    <div class="cw"><div class="ph"><img src="/photos/diffuser-a316-white.png"></div><h4 class="lat">Matte White</h4><span>أبيض حريري</span></div>
+    <div class="cw"><div class="ph"><img src="/photos/diffuser-a316-black.png"></div><h4 class="lat">Matte Black</h4><span>أسود فاخم</span></div>
+  </div>
+</div></div>
+
+<!-- EDITORIAL -->
+<section class="blk"><div class="wrap">
+  <div class="edit">
+    <div class="imgside"><img src="/photos/diffuser_sage_closeup.png" onerror="this.src='/brand_photo_1.png'"></div>
+    <div class="txtside">
+      <span class="eyebrow lat">The Technology</span>
+      <h2>تقنية الرذاذ البارد<br>دون قطرة ماء</h2>
+      <p>يحوّل A316 الزيت النقي إلى جُسيمات نانوية دقيقة تنتشر بالتساوي وتبقى معلّقة في الهواء لساعات — بلا حرارة، بلا ماء، بلا أثر على الأثاث. تحكّم كامل بالكثافة والجدولة من راحة يدك.</p>
+      <div class="hero-cta"><a class="btn btn-ghost">اكتشف قصة التصميم ←</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- TESTIMONIALS -->
+<section class="blk" style="padding-top:0"><div class="wrap">
+  <div class="head"><div><span class="eyebrow">آراء من ليبيا</span><h2>ما يقوله عملاؤنا</h2></div></div>
+  <div class="quotes">
+    <div class="quote"><div class="stars">★★★★★</div><p>"غيّر انطباع الزوّار تمامًا — يلاحظون الرائحة النقية بمجرد الدخول."</p><div class="who">ليلى · استوديو تصميم داخلي، طرابلس</div></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>"تحفة حقيقية، صامت تمامًا، والجدولة الذكية تجعل البيت معطّرًا قبل عودتي."</p><div class="who">عمر · فيلا خاصة، بنغازي</div></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>"نشغّل 6 أجهزة في الصالات والغرف بسهولة تامة من تطبيق واحد."</p><div class="who">سارة · إدارة ضيافة، مصراتة</div></div>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div class="footcol">
+      <div class="logo" style="margin-bottom:16px">odor<b>a</b></div>
+      <p>أجهزة تعطير إلكترونية فاخرة تجمع التقنية المبتكرة والتصميم الهادئ — لتخلق أجواءً عطرية استثنائية في كل مساحة.</p>
+    </div>
+    <div class="footcol"><h5>التسوّق</h5><a>أجهزة التعطير</a><a>الزيوت العطرية</a><a>الباقات</a><a>مكتبة الروائح</a></div>
+    <div class="footcol"><h5>أودورا</h5><a>عن أودورا</a><a>التقنية</a><a>تواصل معنا</a><a>الأسئلة الشائعة</a></div>
+    <div class="footcol"><h5>تابعنا</h5><a>Instagram</a><a>WhatsApp</a><a>Facebook</a><a>تتبّع الطلب</a></div>
+  </div>
+  <div class="fbar"><span>© 2026 أودورا — جميع الحقوق محفوظة</span><span class="lat">Scent of Atmosphere</span></div>
+</div></footer>
+
+</body>
+</html>

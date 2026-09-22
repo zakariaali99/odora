@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary": "#ffffff", "on-surface-variant": "#46483f", "primary": "#586244", "surface-bright": "#fdf9f5", "on-secondary-fixed": "#131f01", "on-background": "#1c1c19", "tertiary-fixed": "#dfe4d9", "on-secondary-container": "#59683e", "secondary": "#55633a", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "primary-container": "#919c7a", "surface-tint": "#586244", "on-tertiary": "#ffffff", "surface-container": "#f1ede9", "surface": "#fdf9f5", "on-primary-container": "#2a3319", "on-surface": "#1c1c19", "inverse-on-surface": "#f4f0ec", "secondary-fixed-dim": "#bccd9a", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#3e4b25", "on-primary-fixed": "#161e07", "inverse-primary": "#c0cba6", "primary-fixed": "#dce7c1", "outline": "#76786e", "surface-container-high": "#ebe7e4", "surface-variant": "#e6e2de", "inverse-surface": "#31302e", "tertiary-fixed-dim": "#c3c8be", "error": "#ba1a1a", "outline-variant": "#c6c7bc", "surface-dim": "#ddd9d6", "surface-container-low": "#f7f3ef", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "on-error-container": "#93000a", "on-tertiary-container": "#2c312a", "primary-fixed-dim": "#c0cba6", "secondary-container": "#d5e6b2", "on-secondary": "#ffffff", "tertiary": "#5b6057", "on-primary-fixed-variant": "#404a2e", "tertiary-container": "#94998f", "on-tertiary-fixed": "#181d16", "secondary-fixed": "#d8e9b5" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "2rem", "margin-desktop": "3.5rem" }, fontFamily: { "display-lg-mobile": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-md": ["Outfit"], "display-lg": ["Outfit"], "headline-sm": ["Outfit"], "label-sm": ["Outfit"], "label-lg": ["Outfit"], "headline-lg-mobile": ["Outfit"], "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Outfit"] }, fontSize: { "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0.015em", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "500" }], "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.14em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "400" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "0em", fontWeight: "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    .hero-fade-enter {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .hero-fade-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">Atelier Status</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Contact Concierge" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">support_agent</span></button><div class="min-w-[44px] min-h-[44px] flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XNERJ1G1eppwfNn3L9Q5QRAhJ39G8cnFyaMXAQDv_zZyW-UXdYbWue64UkgwRILQVaI5B5dkzIjf5Y2Kfz1WHPuLvCW_ACXGsP5RqDbtf5Hi42bwWalirRka3rK309XkIxUYJSj7_E_-DOu6HX3tWjUTvsRlABMhAttW97C8o3Hd9a0yfWkkMMzXnAPOHca3oVfwhL5mCGWM4sEBRaAZTXLlfDS3VrdtcTm94NUg5cnhGpiv9Nh4-351ftY6bHRLx9LEAV8N6dag"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Sanctuary Journey Selector (Scrollable Tab Filter) -->
+<section class="w-full px-margin pt-4 pb-2">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">Zero-State Archetypes</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Interactive Preview
+      </span>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-1 -mx-margin px-margin scrollbar-none snap-x" id="state-tab-bar" role="tablist">
+<button aria-selected="true" class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-inverse-surface text-inverse-on-surface shadow-sm active:scale-95" data-tab="devices" role="tab">
+        No Devices
+      </button>
+<button aria-selected="false" class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95" data-tab="cart" role="tab">
+        Empty Cart
+      </button>
+<button aria-selected="false" class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95" data-tab="orders" role="tab">
+        No Orders
+      </button>
+<button aria-selected="false" class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95" data-tab="notifications" role="tab">
+        Mindful Silence
+      </button>
+<button aria-selected="false" class="tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95" data-tab="wishlist" role="tab">
+        Empty Wishlist
+      </button>
+</div>
+</section>
+<!-- Showcase Canvas: Main Zero State Card -->
+<section class="px-margin pt-3 pb-6">
+<div class="relative bg-surface-container-lowest rounded-lg p-6 shadow-sm overflow-hidden flex flex-col items-center text-center min-h-[470px] justify-between" id="showcase-card">
+<!-- Dynamic Ambient Botanical Vapor Background (SVG animated) -->
+<div class="absolute inset-0 pointer-events-none opacity-40 flex items-center justify-center overflow-hidden">
+<svg class="w-72 h-72 text-secondary-container animate-[spin_28s_linear_infinite]" fill="none" viewbox="0 0 200 200">
+<circle cx="100" cy="100" r="82" stroke="currentColor" stroke-dasharray="6 8" stroke-width="1"></circle>
+<ellipse cx="100" cy="100" rx="90" ry="45" stroke="currentColor" stroke-width="0.75" transform="rotate(25 100 100)"></ellipse>
+<ellipse cx="100" cy="100" rx="90" ry="45" stroke="currentColor" stroke-width="0.75" transform="rotate(-35 100 100)"></ellipse>
+</svg>
+</div>
+<!-- Swappable Animated Container -->
+<div class="w-full flex flex-col items-center hero-fade-active" id="hero-content-wrapper">
+<!-- Live Interactive Visual Hero Illustration Container -->
+<div class="relative z-10 w-full flex flex-col items-center mt-2" id="hero-illustration-slot">
+<!-- Botanical Diffuser Hardware Silhouette (Odora Sage Vessel) -->
+<div class="relative w-44 h-48 flex items-end justify-center">
+<!-- Ambient mist ring -->
+<div class="absolute -top-3 w-12 h-12 rounded-full bg-secondary-container/50 blur-lg animate-pulse"></div>
+<!-- Diffuser Steam Art Line -->
+<svg class="absolute -top-6 w-16 h-16 text-primary-container opacity-80" fill="none" viewbox="0 0 64 64">
+<path d="M32 50 C32 40, 26 34, 28 20 C30 8, 38 6, 32 0" stroke="currentColor" stroke-dasharray="3 3" stroke-linecap="round" stroke-width="2"></path>
+<path d="M38 52 C38 42, 42 38, 40 26 C38 16, 44 12, 42 4" opacity="0.6" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+<!-- Minimalist Ceramic Pod Silhouette based on Odora Vessel -->
+<div class="relative w-28 h-36 bg-surface-container-high rounded-[2rem] flex flex-col items-center justify-between p-3.5 shadow-md">
+<!-- Subtle Top Vent Aperture -->
+<div class="w-4 h-1.5 rounded-full bg-surface-container-highest"></div>
+<!-- Minimal Botanical Emboss -->
+<div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<!-- Odora Sub-brand Micro Stamp -->
+<span class="font-label-sm text-[9px] tracking-[0.25em] text-on-surface-variant/70 uppercase">odora</span>
+</div>
+<!-- Stone Alabaster Pedestal Base -->
+<div class="absolute -bottom-2 w-36 h-4 bg-surface-container rounded-full shadow-inner"></div>
+<!-- Botanical Laurel Accent Spray -->
+<div class="absolute -right-3 bottom-4 text-primary opacity-85 rotate-12">
+<svg fill="none" height="48" viewbox="0 0 34 48" width="34">
+<path d="M17 46V6" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+<path d="M17 38C23 35 29 37 31 32C27 28 20 31 17 38Z" fill="#919c7a" opacity="0.8"></path>
+<path d="M17 28C10 25 5 28 3 23C7 19 14 22 17 28Z" fill="#d5e6b2"></path>
+<path d="M17 18C23 15 28 17 29 12C25 9 19 12 17 18Z" fill="#919c7a" opacity="0.8"></path>
+<path d="M17 9C12 7 8 9 7 5C10 2 15 5 17 9Z" fill="#d5e6b2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Text Block (Title, Copy, State Badge) -->
+<div class="relative z-10 w-full mt-4 px-2" id="hero-text-slot">
+<div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-secondary-container/60 text-on-secondary-container font-label-sm text-label-sm mb-2.5">
+<span class="material-symbols-outlined text-[14px]">sensors_off</span>
+          Cold-Venturi Bluetooth Matrix
+        </div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-normal tracking-tight">
+          Your Atmosphere Awaits Its First Scent Ritual
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2.5 leading-relaxed max-w-xs mx-auto">
+          No Odora Air diffusers are currently paired. Connect your cold-venturi electronic vessel via Bluetooth BLE to begin orchestrating circadian room aromas.
+        </p>
+</div>
+<!-- Action Stack -->
+<div class="relative z-10 w-full mt-6 flex flex-col gap-2.5" id="hero-cta-slot">
+<button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all shadow-md">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+          + Pair New Odora Vessel
+        </button>
+<button class="w-full h-12 rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-[0.98] transition-all">
+          Explore Diffuser Hardware in Store
+          <span class="material-symbols-outlined text-[18px]">north_east</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Editorial Section Divider -->
+<section class="px-margin mb-3">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Atelier Zero-States Gallery</h3>
+<span class="font-label-sm text-label-sm text-tertiary uppercase tracking-wider">Tap to preview</span>
+</div>
+</section>
+<!-- 4 Companion Mini Empty-State Cards (Grid Layout) -->
+<section class="px-margin pb-10 grid grid-cols-1 gap-3.5">
+<!-- Card 1: Empty Sanctuary Bag (Cart) -->
+<div class="group relative bg-surface-container-lowest rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="selectState('cart')">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/40 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">local_mall</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-medium">Cart Architecture</span>
+<span class="material-symbols-outlined text-tertiary text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-headline-sm text-[16px] text-on-surface mt-0.5">Your Sanctuary Bag is Untouched</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+            Select artisan cold-press oil cartridges and cold-venturi vessels to begin your seasonal diffusion.
+          </p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">0 items curated</span>
+<span class="font-label-md text-label-md text-primary font-medium flex items-center gap-1">
+          Discover Fragrance Formulations
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</span>
+</div>
+</div>
+<!-- Card 2: No Active Dispatches (Orders) -->
+<div class="group relative bg-surface-container-lowest rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="selectState('orders')">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed text-tertiary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-medium">Fulfillment Log</span>
+<span class="material-symbols-outlined text-tertiary text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-headline-sm text-[16px] text-on-surface mt-0.5">No Active Dispatches</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+            Past harvest orders and live batch botanical extractions will appear here once authenticated.
+          </p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Archive quiet</span>
+<span class="font-label-md text-label-md text-primary font-medium flex items-center gap-1">
+          Visit Atelier Store
+          <span class="material-symbols-outlined text-[16px]">north_east</span>
+</span>
+</div>
+</div>
+<!-- Card 3: Mindful Silence (Notifications) -->
+<div class="group relative bg-surface-container-lowest rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="selectState('notifications')">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/50 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">notifications_paused</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-medium">Telemetry Signals</span>
+<span class="material-symbols-outlined text-tertiary text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-headline-sm text-[16px] text-on-surface mt-0.5">Mindful Silence</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+            Zero pending alerts. Your diffusers are operating within calibrated silence and reservoir levels are monitored.
+          </p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-lg">
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Harmonized status
+        </span>
+<span class="font-label-md text-label-md text-primary font-medium flex items-center gap-1">
+          Adjust Alert Thresholds
+          <span class="material-symbols-outlined text-[16px]">tune</span>
+</span>
+</div>
+</div>
+<!-- Card 4: Empty Wishlist (Private Collection) -->
+<div class="group relative bg-surface-container-lowest rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between" onclick="selectState('wishlist')">
+<div class="flex items-start gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">bookmark_heart</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-medium">Curated Vault</span>
+<span class="material-symbols-outlined text-tertiary text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</div>
+<h4 class="font-headline-sm text-[16px] text-on-surface mt-0.5">Private Collection is Empty</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+            Bookmark rare seasonal reserve harvests and hand-carved travertine pedestals for later consideration.
+          </p>
+</div>
+</div>
+<div class="mt-3.5 pt-3 flex items-center justify-between bg-surface-container-low -mx-4 -mb-4 px-4 py-2.5 rounded-b-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">0 saved formulations</span>
+<span class="font-label-md text-label-md text-primary font-medium flex items-center gap-1">
+          Browse Scent Library
+          <span class="material-symbols-outlined text-[16px]">menu_book</span>
+</span>
+</div>
+</div>
+</section>
+<!-- Hardware Pairing Ritual Visual Banner (Reinforcing Odora Aesthetic) -->
+<section class="px-margin pb-8">
+<div class="bg-surface-container-high rounded-lg p-4 flex items-center gap-4">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-lowest flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px] text-primary">bluetooth_searching</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-tertiary">Quick Onboarding Tip</span>
+<p class="font-headline-sm text-[15px] text-on-surface leading-snug mt-0.5">Hold vessel cap 3 seconds</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Soft amber LED confirms pairing readiness.</p>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Rich Archetype definitions adhering precisely to Aura Botanical Luxury design system
+  const stateData = {
+    devices: {
+      badge: "Cold-Venturi Bluetooth Matrix",
+      badgeIcon: "sensors_off",
+      badgeClass: "bg-secondary-container/60 text-on-secondary-container",
+      title: "Your Atmosphere Awaits Its First Scent Ritual",
+      desc: "No Odora Air diffusers are currently paired. Connect your cold-venturi electronic vessel via Bluetooth BLE to begin orchestrating circadian room aromas.",
+      primaryCta: "+ Pair New Odora Vessel",
+      primaryIcon: "add_circle",
+      secondaryCta: "Explore Diffuser Hardware in Store",
+      secondaryIcon: "north_east",
+      illustration: `
+        <div class="relative w-44 h-48 flex items-end justify-center">
+          <div class="absolute -top-3 w-12 h-12 rounded-full bg-secondary-container/50 blur-lg animate-pulse"></div>
+          <svg class="absolute -top-6 w-16 h-16 text-primary-container opacity-80" viewBox="0 0 64 64" fill="none">
+            <path d="M32 50 C32 40, 26 34, 28 20 C30 8, 38 6, 32 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" />
+            <path d="M38 52 C38 42, 42 38, 40 26 C38 16, 44 12, 42 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+          </svg>
+          <div class="relative w-28 h-36 bg-surface-container-high rounded-[2rem] flex flex-col items-center justify-between p-3.5 shadow-md">
+            <div class="w-4 h-1.5 rounded-full bg-surface-container-highest"></div>
+            <div class="w-10 h-10 rounded-full bg-secondary-container/40 flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">spa</span>
+            </div>
+            <span class="font-label-sm text-[9px] tracking-[0.25em] text-on-surface-variant/70 uppercase">odora</span>
+          </div>
+          <div class="absolute -bottom-2 w-36 h-4 bg-surface-container rounded-full shadow-inner"></div>
+          <div class="absolute -right-3 bottom-4 text-primary opacity-85 rotate-12">
+            <svg width="34" height="48" viewBox="0 0 34 48" fill="none">
+              <path d="M17 46V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M17 38C23 35 29 37 31 32C27 28 20 31 17 38Z" fill="#919c7a" opacity="0.8"/>
+              <path d="M17 28C10 25 5 28 3 23C7 19 14 22 17 28Z" fill="#d5e6b2"/>
+              <path d="M17 18C23 15 28 17 29 12C25 9 19 12 17 18Z" fill="#919c7a" opacity="0.8"/>
+              <path d="M17 9C12 7 8 9 7 5C10 2 15 5 17 9Z" fill="#d5e6b2"/>
+            </svg>
+          </div>
+        </div>
+      `
+    },
+    cart: {
+      badge: "Sanctuary Reserve Bag",
+      badgeIcon: "local_mall",
+      badgeClass: "bg-secondary-container/70 text-on-secondary-container",
+      title: "Your Sanctuary Bag is Untouched",
+      desc: "No botanical formulations or sculptural vessels have been selected. Discover pure cold-pressed essences harvested for circadian wellbeing.",
+      primaryCta: "Explore Fragrance Formulations",
+      primaryIcon: "spa",
+      secondaryCta: "View Curated Starter Sets",
+      secondaryIcon: "auto_awesome",
+      illustration: `
+        <div class="relative w-44 h-48 flex items-center justify-center">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-36 h-36 rounded-full bg-secondary-container/30 blur-xl"></div>
+          </div>
+          <!-- Botanical Bag / Amber Flacon Silhouette -->
+          <div class="relative w-32 h-40 bg-surface-container rounded-2xl flex flex-col items-center justify-between p-3.5 shadow-md border border-outline-variant/30">
+            <!-- Flacon Cap / Handle -->
+            <div class="w-14 h-9 rounded-t-full border-2 border-primary/50 -mt-7 bg-surface-container-low flex items-center justify-center">
+              <div class="w-3 h-3 rounded-full bg-primary/30"></div>
+            </div>
+            <!-- Glass/Ceramic Vial Motif -->
+            <div class="w-14 h-16 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/40 flex flex-col items-center justify-center p-1.5 shadow-sm">
+              <span class="material-symbols-outlined text-[24px] text-primary" style="font-variation-settings: 'FILL' 1;">science</span>
+              <span class="font-label-sm text-[8px] tracking-widest text-on-surface-variant uppercase mt-1">30ml</span>
+            </div>
+            <span class="font-label-sm text-[9px] tracking-[0.2em] text-tertiary uppercase">EMPTY BASKET</span>
+          </div>
+          <!-- Botanical Sprig -->
+          <div class="absolute -left-2 bottom-3 text-primary opacity-80 -rotate-12 pointer-events-none">
+            <svg width="32" height="42" viewBox="0 0 32 42" fill="none">
+              <path d="M16 40V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M16 32C10 29 6 31 4 26C8 23 14 25 16 32Z" fill="#919c7a"/>
+              <path d="M16 22C22 19 26 21 28 16C24 13 18 15 16 22Z" fill="#d5e6b2"/>
+              <path d="M16 12C11 10 8 12 7 8C10 5 14 7 16 12Z" fill="#919c7a"/>
+            </svg>
+          </div>
+          <div class="absolute -bottom-1.5 w-32 h-3.5 bg-surface-container-high rounded-full shadow-inner"></div>
+        </div>
+      `
+    },
+    orders: {
+      badge: "Artisanal Fulfillment Log",
+      badgeIcon: "inventory_2",
+      badgeClass: "bg-tertiary-fixed text-on-tertiary-container",
+      title: "No Active Dispatches",
+      desc: "Your extraction log is tranquil. Active batch dispatches, tracking numbers, and cold-pressed botanical reserve archives will be curated here.",
+      primaryCta: "Browse Seasonal Harvests",
+      primaryIcon: "storefront",
+      secondaryCta: "Track via Atelier Order #",
+      secondaryIcon: "qr_code_scanner",
+      illustration: `
+        <div class="relative w-44 h-48 flex items-center justify-center">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-32 h-32 rounded-full bg-tertiary-fixed/40 blur-xl"></div>
+          </div>
+          <!-- Wrapped Dispatch Parcel with Wax Stamp -->
+          <div class="relative w-36 h-32 bg-surface-container-high rounded-2xl flex flex-col items-center justify-center p-3 shadow-md border border-outline-variant/40">
+            <!-- Minimal Ribbon Ties -->
+            <div class="absolute inset-x-0 h-0.5 bg-outline-variant/60 top-1/2 -translate-y-1/2"></div>
+            <div class="absolute inset-y-0 w-0.5 bg-outline-variant/60 left-1/2 -translate-x-1/2"></div>
+            <!-- Sealed Botanical Wax Seal -->
+            <div class="relative z-10 w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+            </div>
+            <!-- Batch Stamp -->
+            <div class="absolute bottom-2.5 right-3 font-label-sm text-[8px] tracking-wider text-tertiary uppercase">
+              Batch #00
+            </div>
+          </div>
+          <div class="absolute -bottom-1.5 w-36 h-3 bg-surface-container rounded-full shadow-inner"></div>
+        </div>
+      `
+    },
+    notifications: {
+      badge: "Telemetry & Ambient Signals",
+      badgeIcon: "notifications_paused",
+      badgeClass: "bg-secondary-container/60 text-on-secondary-container",
+      title: "Mindful Sanctuary Silence",
+      desc: "Zero pending alerts or replenishment warnings. Your diffusers are operating in whisper-quiet harmony, and fragrance reservoirs are balanced.",
+      primaryCta: "Inspect Telemetry Status",
+      primaryIcon: "tune",
+      secondaryCta: "Adjust Alert Thresholds",
+      secondaryIcon: "volume_up",
+      illustration: `
+        <div class="relative w-44 h-48 flex items-center justify-center">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-36 h-36 rounded-full bg-secondary-container/40 blur-xl"></div>
+          </div>
+          <!-- Radiant Acoustic Bell Chime with Soundwave Ripples -->
+          <div class="relative flex flex-col items-center justify-center">
+            <!-- Outermost sound wave ripple -->
+            <div class="absolute w-36 h-36 rounded-full border border-primary/15 animate-ping opacity-30"></div>
+            <!-- Second ripple -->
+            <div class="w-28 h-28 rounded-full border border-primary/25 bg-secondary-container/20 flex items-center justify-center">
+              <div class="w-20 h-20 rounded-full bg-surface-container-high flex flex-col items-center justify-center shadow-sm">
+                <span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+                <span class="font-label-sm text-[8px] tracking-widest text-primary uppercase font-bold mt-0.5">0.0 dB</span>
+              </div>
+            </div>
+          </div>
+          <!-- Laurel Sprig under chime -->
+          <div class="absolute -bottom-1 w-28 h-3.5 bg-surface-container rounded-full shadow-inner"></div>
+        </div>
+      `
+    },
+    wishlist: {
+      badge: "Private Sanctuary Vault",
+      badgeIcon: "bookmark_heart",
+      badgeClass: "bg-primary-fixed text-on-primary-fixed",
+      title: "Your Private Collection is Empty",
+      desc: "You have not bookmarked any limited reserve harvests or hand-carved travertine accessories. Save formulations to monitor seasonal restocks.",
+      primaryCta: "Browse Scent Library",
+      primaryIcon: "menu_book",
+      secondaryCta: "Take Olfactory Fragrance Quiz",
+      secondaryIcon: "psychology",
+      illustration: `
+        <div class="relative w-44 h-48 flex items-center justify-center">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-32 h-32 rounded-full bg-primary-fixed/40 blur-xl"></div>
+          </div>
+          <!-- Ribbon Bookmark & Flacon Pedestal -->
+          <div class="relative w-30 h-36 bg-surface-container rounded-2xl flex flex-col items-center justify-between p-3.5 shadow-md border border-outline-variant/30">
+            <!-- Travertine Pedestal Plaque -->
+            <div class="w-12 h-12 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+              <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+            </div>
+            <div class="flex flex-col items-center gap-1.5 w-full my-auto">
+              <div class="w-14 h-1.5 bg-primary/20 rounded-full"></div>
+              <div class="w-9 h-1.5 bg-primary/15 rounded-full"></div>
+            </div>
+            <span class="font-label-sm text-[9px] tracking-widest text-tertiary uppercase">RESERVE ARCHIVE</span>
+          </div>
+          <!-- Hinoki leaf sprig accent -->
+          <div class="absolute -right-2 top-6 text-primary opacity-80 rotate-45 pointer-events-none">
+            <svg width="28" height="36" viewBox="0 0 28 36" fill="none">
+              <path d="M14 34V2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 26C20 23 23 25 25 20C21 17 16 19 14 26Z" fill="#919c7a"/>
+              <path d="M14 16C8 13 5 15 3 10C7 7 12 9 14 16Z" fill="#d5e6b2"/>
+            </svg>
+          </div>
+          <div class="absolute -bottom-1.5 w-32 h-3.5 bg-surface-container-high rounded-full shadow-inner"></div>
+        </div>
+      `
+    }
+  };
+
+  function selectState(stateKey) {
+    const data = stateData[stateKey];
+    if (!data) return;
+
+    // Update Tab UI (Active dark pill vs Inactive sand pill)
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const isSelected = btn.getAttribute('data-tab') === stateKey;
+      btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      if (isSelected) {
+        btn.className = "tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-inverse-surface text-inverse-on-surface shadow-sm active:scale-95";
+      } else {
+        btn.className = "tab-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all whitespace-nowrap bg-surface-container text-on-surface-variant hover:text-on-surface active:scale-95";
+      }
+    });
+
+    const wrapper = document.getElementById('hero-content-wrapper');
+    if (!wrapper) return;
+
+    // Smooth CSS cross-fade transition
+    wrapper.classList.remove('hero-fade-active');
+    wrapper.classList.add('hero-fade-enter');
+
+    setTimeout(() => {
+      // Update Illustration Slot
+      const illusSlot = document.getElementById('hero-illustration-slot');
+      illusSlot.innerHTML = data.illustration;
+
+      // Update Text Slot
+      const textSlot = document.getElementById('hero-text-slot');
+      textSlot.innerHTML = `
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full ${data.badgeClass} font-label-sm text-label-sm mb-2.5">
+          <span class="material-symbols-outlined text-[14px]">${data.badgeIcon}</span>
+          ${data.badge}
+        </div>
+        <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-normal tracking-tight">
+          ${data.title}
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2.5 leading-relaxed max-w-xs mx-auto">
+          ${data.desc}
+        </p>
+      `;
+
+      // Update CTA slot
+      const ctaSlot = document.getElementById('hero-cta-slot');
+      ctaSlot.innerHTML = `
+        <button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 hover:opacity-95 active:scale-[0.98] transition-all shadow-md">
+          <span class="material-symbols-outlined text-[20px]">${data.primaryIcon}</span>
+          ${data.primaryCta}
+        </button>
+        <button class="w-full h-12 rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-[0.98] transition-all">
+          ${data.secondaryCta}
+          <span class="material-symbols-outlined text-[18px]">${data.secondaryIcon}</span>
+        </button>
+      `;
+
+      // Fade back in
+      wrapper.classList.remove('hero-fade-enter');
+      wrapper.classList.add('hero-fade-active');
+    }, 150);
+
+    // Smooth scroll showcase card into view if tab was tapped offscreen
+    document.getElementById('showcase-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Bind tab buttons
+  document.querySelectorAll('.tab-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const tabKey = button.getAttribute('data-tab');
+      selectState(tabKey);
+    });
+  });
+</script></main></body></html>

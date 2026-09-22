@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;min-height:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error": "#ba1a1a", "on-tertiary-container": "#2c312a", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "on-secondary-fixed-variant": "#3e4b25", "surface-variant": "#e6e2de", "on-tertiary": "#ffffff", "on-surface": "#1c1c19", "inverse-primary": "#c0cba6", "outline": "#76786e", "primary-fixed-dim": "#c0cba6", "surface": "#fdf9f5", "surface-tint": "#586244", "tertiary": "#5b6057", "tertiary-fixed-dim": "#c3c8be", "surface-container-low": "#f7f3ef", "tertiary-fixed": "#dfe4d9", "on-primary-fixed": "#161e07", "on-surface-variant": "#46483f", "on-error-container": "#93000a", "surface-container-lowest": "#ffffff", "surface-container-high": "#ebe7e4", "error-container": "#ffdad6", "secondary-fixed-dim": "#bccd9a", "on-secondary": "#ffffff", "on-primary": "#ffffff", "surface-bright": "#fdf9f5", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "on-tertiary-fixed": "#181d16", "surface-dim": "#ddd9d6", "on-secondary-container": "#59683e", "outline-variant": "#c6c7bc", "secondary-container": "#d5e6b2", "primary": "#586244", "primary-container": "#919c7a", "on-primary-container": "#2a3319", "inverse-on-surface": "#f4f0ec", "primary-fixed": "#dce7c1", "inverse-surface": "#31302e", "on-primary-fixed-variant": "#404a2e", "on-secondary-fixed": "#131f01", "tertiary-container": "#94998f", "secondary": "#55633a", "on-background": "#1c1c19" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-md": "1rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "margin-desktop": "3.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "gutter-desktop": "2rem" }, "fontFamily": { "body-sm": ["Plus Jakarta Sans"], "display-lg": ["Outfit"], "label-md": ["Outfit"], "display-lg-mobile": ["Outfit"], "headline-md": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-lg": ["Outfit"], "headline-lg": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-sm": ["Outfit"], "headline-lg-mobile": ["Outfit"], "label-sm": ["Outfit"] }, "fontSize": { "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "400" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0.015em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span></button><h1 class="font-headline-sm text-headline-sm font-medium tracking-tight text-on-surface">Odora — Order Confirmation</h1></div><div class="flex items-center gap-space-xs"><button class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" title="Share"><span class="material-symbols-outlined text-[22px]">share</span></button><a class="relative w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" data-path="odora---cart" href="#" title="Cart"><span class="material-symbols-outlined text-[22px]">shopping_bag</span><span class="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-[10px] font-medium text-on-primary flex items-center justify-center leading-none ring-2 ring-surface">2</span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Top Action Mock Bar (in sync with shell title 'Order Confirmed') -->
+<div class="px-margin pt-space-sm pb-space-xs flex items-center justify-between">
+<button aria-label="Close" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-transform active:scale-95" onclick="window.history.back()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<div class="flex items-center gap-space-xs">
+<button class="h-10 px-space-md rounded-full bg-surface-container flex items-center gap-1.5 text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-high active:scale-95 transition-all" onclick="alert('Digital receipt sent to julian.v@sanctuary.design')" title="View Digital Receipt">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Receipt</span>
+</button>
+</div>
+</div>
+<div class="px-margin flex flex-col gap-space-lg pb-space-xl">
+<!-- Hero Celebration & Ambient Joy -->
+<section class="flex flex-col items-center text-center pt-space-xs">
+<!-- Radiating Pulse Rings & Organic Icon -->
+<div class="relative w-28 h-28 flex items-center justify-center mb-space-md">
+<div class="absolute inset-0 rounded-full bg-secondary-container/40 animate-ping opacity-60"></div>
+<div class="absolute -inset-2 rounded-full bg-surface-container-high/60"></div>
+<div class="relative w-20 h-20 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-[0_16px_32px_-8px_rgba(88,98,68,0.35)]">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<!-- Floating celebratory petal accents -->
+<span class="absolute top-1 right-2 text-secondary text-sm">✦</span>
+<span class="absolute bottom-2 left-1 text-primary-container text-xs">✦</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider mb-space-xs">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Reserved &amp; Confirmed</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-medium text-on-surface tracking-tight mb-2">
+        Your sanctuary is on the way.
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[320px] mb-space-md">
+        Thank you, Julian. We are preparing your curated botanical diffuser package with utmost care.
+      </p>
+<!-- Order Reference Chip with Copy Feedback -->
+<div class="group flex items-center gap-space-sm px-space-md py-space-xs rounded-full bg-surface-container-low text-on-surface-variant cursor-pointer hover:bg-surface-container transition-all active:scale-95" id="order-chip" onclick="copyOrderNumber()">
+<span class="font-label-md text-label-md text-on-surface">Order #OD-89421</span>
+<span class="text-on-surface-variant opacity-40">·</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Today at 19:42</span>
+<span class="material-symbols-outlined text-[16px] text-primary transition-all" id="copy-icon">content_copy</span>
+<span class="hidden text-label-sm font-label-sm text-primary" id="copy-toast">Copied!</span>
+</div>
+</section>
+<!-- Visual Hardware Anchor Hero Card -->
+<div class="relative w-full rounded-lg overflow-hidden bg-surface-container-low shadow-[0_12px_32px_-8px_rgba(35,40,33,0.06)]">
+<div class="w-full h-48 bg-cover bg-center" data-alt="Minimalist architectural still life of the sage green Odora Air electronic diffuser alongside an amber glass botanical oil bottle resting elegantly on raw pale travertine stone under warm natural morning lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBWbNURLibzPJwIw2Dt7KPVLMKJZOeiosNc6Zzq4Y8zdQ-1pVUgbFmbpGNHuGBV2ASjOxSgrLLFA4JbeQv_yyXP_hFS8jq6x_SYwX0DmUI29asGMfsK6qrw2KoUZUSaTbluBG-XSJkI1TYn2at8Q9rD84L-tQRKo6rt5BzyVCBoyHPYMVBqBB3Ks9ysbPNcmKVcIbBa5KCBOHXZjz8htjjrjtKjacVROQ7U5qx6bari3k6jSagPgxcZ')">
+<div class="w-full h-full bg-gradient-to-t from-surface-container-low via-surface-container-low/20 to-transparent flex items-end p-space-md">
+<div class="flex items-center gap-space-sm bg-surface-bright/90 backdrop-blur-md px-space-md py-space-xs rounded-full">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Batch No. OD-SAGE-718</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Delivery Timeline Card -->
+<section class="rounded-lg bg-surface-container-lowest p-space-lg shadow-[0_12px_32px_-8px_rgba(35,40,33,0.05)]">
+<!-- ETA Header -->
+<div class="flex items-start justify-between pb-space-md">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Estimated Arrival</span>
+<h2 class="font-headline-sm text-headline-sm font-medium text-on-surface mt-0.5">
+            Tomorrow, Oct 24
+          </h2>
+<p class="font-body-sm text-body-sm text-primary font-medium">by 4:00 PM</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-secondary-container/50 flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-space-xs px-space-md rounded-DEFAULT bg-surface-container-low mb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">nest_eco_leaf</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Odora Eco-Express</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wide">DXB-984210</span>
+</div>
+<!-- Stepped Progress Tracker -->
+<div class="flex flex-col relative pl-2 pt-1">
+<!-- Connecting Vertical Line -->
+<div class="absolute left-[19px] top-4 bottom-5 w-[2px] bg-surface-container"></div>
+<!-- Step 1: Completed -->
+<div class="relative flex items-start gap-space-md pb-space-lg">
+<div class="relative z-10 w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex-1 -mt-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Order Placed</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">19:42</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Payment confirmed &amp; inventory allocated.</p>
+</div>
+</div>
+<!-- Step 2: Active Pulsating -->
+<div class="relative flex items-start gap-space-md pb-space-lg">
+<div class="relative z-10 w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container ring-4 ring-secondary-container/30">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-ping"></span>
+</div>
+<div class="flex-1 -mt-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold text-secondary">Artisanal Preparation &amp; Scent QC</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-medium">Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cold-pressing botanical oils and performing mist transducer balance checks.</p>
+</div>
+</div>
+<!-- Step 3: Pending -->
+<div class="relative flex items-start gap-space-md pb-space-lg">
+<div class="relative z-10 w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex-1 -mt-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Dispatched via Courier</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pending</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Courier collection scheduled for 08:30 AM.</p>
+</div>
+</div>
+<!-- Step 4: Pending final -->
+<div class="relative flex items-start gap-space-md">
+<div class="relative z-10 w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div class="flex-1 -mt-0.5">
+<div class="flex items-center justify-between">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Delivered to Sanctuary</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Estimated 16:00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Handover at Villa 42, Jumeirah 2, Dubai.</p>
+</div>
+</div>
+</div>
+<!-- Action: Track Courier on Map -->
+<div class="pt-space-md mt-space-md">
+<button class="w-full h-12 rounded-full bg-surface-container-high hover:bg-surface-variant text-on-surface flex items-center justify-center gap-2 font-label-md text-label-md font-medium transition-transform active:scale-[0.98]" onclick="toggleMapModal()">
+<span class="material-symbols-outlined text-[18px]">explore</span>
+<span>View Transit Route &amp; Hub Map</span>
+</button>
+</div>
+</section>
+<!-- Purchased Package Summary (Interactive Accordion) -->
+<section class="rounded-lg bg-surface-container-lowest overflow-hidden shadow-[0_12px_32px_-8px_rgba(35,40,33,0.04)]">
+<div class="p-space-lg cursor-pointer flex items-center justify-between select-none" onclick="togglePackageSummary()">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm font-medium text-on-surface">Curated Package</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">3 items · Tap to inspect details</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-300" id="accordion-chevron">expand_more</span>
+</div>
+<!-- Expandable Content Panel -->
+<div class="px-space-lg pb-space-lg flex flex-col gap-space-md" id="package-details">
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-DEFAULT overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Studio product shot of a minimalist cylindrical electronic aroma diffuser in matte sage green on an ivory pedestal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWi_4a2tScNi6_tEkLWdBSJ0x3XSvfzwAh5dQ4cdE-3uWQe2q-ST3sFN3OEQJBL2sGIJ2M3zE3Ot_RzdDl0avOxR5B7u1DIIbfpasa2Nxfln8Mvr6G5LwKcBcpTP4oIK8ReR2C5SIzMb0r1pAmByXQuN-RrjKC_nNMTU3EBgYvIo0NdDy-eC9xFp301OWIJqzBdnCuEIYA4JIEFkfoTuyBRWWB9jRcXAHfkfPd8HjEL7lH9XU0GsQ5"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Odora Air 01</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Matte Sage Green · Ultrasonic</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-medium">$220.00</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-DEFAULT overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Amber glass apothecary dropper bottle containing Forest Sage fragrance oil labeled Odora on clean alabaster background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5KFFCNsGxwRCpc_7isi35a7SYk765hY-p8ThvuB4an_cDW1jJlk9lVd3IHUPRLO13eeEPO6yBmMK7rcV_mIp0wLC-mJoLtE4E-2sBnVfu2RuEyfdXOHieN-ThqLPgNjM85mdIbvw-ZsW0GInRxeY5IZ4eGk9-y9O43_fxHGjbGwJ3tlRCBETI9Wqo2t_X56ItF38ACs4NTOqp9ikoR00IFD5UYLBUYR0EEdk_zyf8socCUgTpMKZi"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Forest Sage Essence</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">30ml Amber Glass · Qty: 2</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-medium">$64.00</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-DEFAULT bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-DEFAULT overflow-hidden bg-surface-container flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Handcrafted circular raw beige travertine stone stand for fragrance diffuser displayed with soft gentle shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu1zNZqQHPzMkQrEGdvRmCWOV920du8GU3h-xyh5sHBZT2OwmbPmnb-cbh_xnsEaHbDJ6X7BnUQgI3GctA4BQ2Jr4nx0VLz1zNyofTsixl4_KeI_YfSAiJcruiTVBzqbOffvdjfc3CM93iDHlzRNjB-R48pLuOJhC9FggS6z4z7rlnNlUK1SzYqaR-gzMKy25XSmGYd0phCxguNCNmeUK88W2P_PHRpfwP5WatRb68ksKeefazcpFu"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Carved Travertine Stand</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Honed Natural Stone</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-medium">$40.00</span>
+</div>
+</div>
+<!-- Payment & Delivery Breakdown Details -->
+<div class="p-space-md rounded-DEFAULT bg-surface-container-low flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex justify-between">
+<span>Payment Method</span>
+<span class="font-medium text-on-surface">Cash on Delivery</span>
+</div>
+<div class="flex justify-between">
+<span>Destination</span>
+<span class="font-medium text-on-surface text-right">Villa 42, Jumeirah 2, Dubai</span>
+</div>
+<div class="flex justify-between pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface">Total Order Amount</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">$324.00</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Delight Helper Card: Setup Preparation -->
+<div class="p-space-lg rounded-lg bg-secondary-container/40 flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center text-secondary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">tips_and_updates</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-lg text-label-lg text-on-surface">Prepare Diffuser for Pairing</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 mb-space-sm">
+          Familiarize yourself with ambient scheduling and chamber loading while your parcel is in transit.
+        </p>
+<button class="font-label-md text-label-md text-primary font-medium flex items-center gap-1 hover:underline" onclick="alert('Opening quick pairing visual guide...')">
+<span>Read Quick Setup Guide</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Final Sticky-Style Pill Actions -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full h-14 rounded-full bg-inverse-surface text-inverse-on-surface font-label-lg text-label-lg tracking-wide hover:opacity-95 active:scale-[0.99] transition-transform flex items-center justify-center gap-2 shadow-[0_12px_32px_-8px_rgba(35,40,33,0.15)]" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+<span>Enable Arrival Push Alerts</span>
+</button>
+<a class="w-full h-12 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center transition-transform active:scale-[0.99]" href="#">
+<span>Return to Dashboard</span>
+</a>
+</div>
+</div>
+<!-- Interactive Map Route Drawer Modal (hidden by default) -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden items-end justify-center p-space-sm transition-opacity duration-300" id="map-modal">
+<div class="w-full max-w-lg bg-surface-bright rounded-t-xl p-space-lg flex flex-col gap-space-md shadow-2xl">
+<div class="flex items-center justify-between pb-space-xs">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Live Routing</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Transit Hub DXB-04</h3>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface" onclick="toggleMapModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Static Google Maps Pipeline Element -->
+<div class="w-full h-64 bg-cover bg-center rounded-DEFAULT shadow-inner" data-location="Jumeirah 2, Dubai, United Arab Emirates" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdpgNAYgK0gSSHc3Bubd8bGdnUA6FvJGtRdw4uqLEbCih41ieyvMiw_O_9_q9AN_Twd9dgt6UAd6tfNY-WNb_OA1WLsR3Ghl2g4mur-AYdrpMDeADFvyfgvOFu_FCqvauhCDJpUYvTX4jMTCTfe9ORjMyCKvXPYGz-ccLy-Fd-Df98AnjdCBBefmJcRuFISb8aVE-f5CYbj1NqYGWHrulXMDjba5n6F48g5obw-6sZu9_5bSt8Mxwp')"></div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Current facility: Al Quoz Artisanal Lab</span>
+<span class="text-primary font-medium">8.4 km away</span>
+</div>
+<button class="w-full h-12 rounded-full bg-primary text-on-primary font-label-md text-label-md" onclick="toggleMapModal()">
+        Return to Summary
+      </button>
+</div>
+</div>
+<script>
+    function copyOrderNumber() {
+      const orderNumber = 'OD-89421';
+      navigator.clipboard?.writeText(orderNumber);
+      
+      const copyIcon = document.getElementById('copy-icon');
+      const copyToast = document.getElementById('copy-toast');
+      
+      if (copyIcon && copyToast) {
+        copyIcon.classList.add('hidden');
+        copyToast.classList.remove('hidden');
+        
+        setTimeout(() => {
+          copyToast.classList.add('hidden');
+          copyIcon.classList.remove('hidden');
+        }, 2000);
+      }
+    }
+
+    function togglePackageSummary() {
+      const panel = document.getElementById('package-details');
+      const chevron = document.getElementById('accordion-chevron');
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      } else {
+        panel.classList.add('hidden');
+        chevron.style.transform = 'rotate(-90deg)';
+      }
+    }
+
+    function toggleMapModal() {
+      const modal = document.getElementById('map-modal');
+      if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+  </script>
+</div></main></body></html>

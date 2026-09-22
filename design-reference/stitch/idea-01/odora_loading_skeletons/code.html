@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-container": "#59683e", "on-primary": "#ffffff", "surface": "#fdf9f5", "primary-container": "#919c7a", "tertiary-fixed-dim": "#c2c9ba", "inverse-surface": "#31302e", "secondary-fixed-dim": "#bccd9a", "on-background": "#1c1c19", "surface-container-high": "#ebe7e4", "surface-bright": "#fdf9f5", "on-secondary": "#ffffff", "surface-tint": "#586244", "error": "#ba1a1a", "surface-container-highest": "#e6e2de", "on-tertiary": "#ffffff", "on-primary-fixed": "#161e07", "tertiary-fixed": "#dfe5d6", "surface-container": "#f1ede9", "secondary-fixed": "#d8e9b5", "surface-variant": "#e6e2de", "outline": "#76786e", "tertiary": "#5a6055", "on-primary-fixed-variant": "#404a2e", "on-error-container": "#93000a", "on-primary-container": "#2a3319", "primary": "#586244", "on-secondary-fixed": "#131f01", "secondary": "#55633a", "outline-variant": "#c6c7bc", "on-surface-variant": "#46483f", "on-surface": "#1c1c19", "secondary-container": "#d5e6b2", "primary-fixed-dim": "#c0cba6", "error-container": "#ffdad6", "tertiary-container": "#949a8d", "inverse-primary": "#c0cba6", "surface-container-low": "#f7f3ef", "on-tertiary-container": "#2c3228", "on-tertiary-fixed-variant": "#42493e", "on-tertiary-fixed": "#171d14", "surface-dim": "#ddd9d6", "background": "#fdf9f5", "on-error": "#ffffff", "inverse-on-surface": "#f4f0ec", "surface-container-lowest": "#ffffff", "primary-fixed": "#dce7c1", "on-secondary-fixed-variant": "#3e4b25" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "3rem", "margin-mobile": "1.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter-mobile": "1rem" }, fontFamily: { "display-lg-mobile": ["Space Grotesk"], "label-md": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "body-xl": ["Plus Jakarta Sans"], "headline-xl": ["Space Grotesk"], "display-lg": ["Space Grotesk"], "label-lg": ["Space Grotesk"] }, fontSize: { "display-lg-mobile": ["38px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }], "body-xl": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "400" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(45,51,41,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #919c7a - Font: spaceGrotesk - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOUqg6kuNf4y6D_7z5KdYeKdafFQlcCn0UONM3hwlPaXd24mf1_4VTS57jTxoUJohvewuUhUc54ZJJarvID82v2hmLmZmuj8jaDOFbvpNmKd0AkxmeCfdUH-kcSUaaCTz2cssxWtw7LeuTPfxNY7clobluKQ4jkTymGGFpHOn5O7Kn8RAKsSu-DTfkrqmKsK2_g3fkqAiNLwr10eosdzslS_gZOi551MJI3xORVLJeQA8LMtTHq9X1ww46"/><span class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface">Odora</span></div><div class="flex-1 text-center px-space-xs"><h1 class="font-headline-sm text-headline-sm text-on-surface truncate">Loading Skeletons</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full px-margin-mobile pb-12 gap-space-lg select-none">
+<!-- Interactive View Switcher / Tabs -->
+<div class="w-full pt-2">
+<div class="flex items-center justify-between p-1 bg-surface-container-high/60 rounded-full backdrop-blur-md">
+<button class="tab-btn flex-1 py-2 text-center rounded-full font-label-md text-label-md transition-all duration-300 bg-secondary-container text-on-secondary-container shadow-sm font-semibold" id="tab-home" onclick="switchView('home')">
+        Home Dashboard
+      </button>
+<button class="tab-btn flex-1 py-2 text-center rounded-full font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface" id="tab-catalog" onclick="switchView('catalog')">
+        Store Catalog
+      </button>
+<button class="tab-btn flex-1 py-2 text-center rounded-full font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface" id="tab-detail" onclick="switchView('detail')">
+        Product Detail
+      </button>
+</div>
+</div>
+<!-- Live Pulse Status Indicator -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-medium">BLE Mesh Telemetry Loading</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">60 FPS CACHED</span>
+</div>
+<!-- VIEW 1: HOME DASHBOARD SKELETON -->
+<div class="flex flex-col gap-space-lg transition-opacity duration-300" id="view-home">
+<!-- Header Greeting Skeleton -->
+<div class="flex flex-col gap-2">
+<div class="w-28 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="w-3/4 h-8 rounded-xl bg-surface-container-highest animate-pulse"></div>
+<div class="w-1/2 h-4 rounded-lg bg-surface-container-high animate-pulse"></div>
+</div>
+<!-- Ambient Telemetry Metrics Row -->
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="p-3 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+</div>
+<div class="w-12 h-5 rounded-md bg-surface-container-highest animate-pulse mt-1"></div>
+<div class="w-16 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="w-2 h-2 rounded-full bg-primary-fixed"></div>
+</div>
+<div class="w-10 h-5 rounded-md bg-surface-container-highest animate-pulse mt-1"></div>
+<div class="w-14 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-2xl shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed"></div>
+</div>
+<div class="w-14 h-5 rounded-md bg-surface-container-highest animate-pulse mt-1"></div>
+<div class="w-12 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+</div>
+<!-- Hero Active Diffuser Card Skeleton -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-5 shadow-sm flex flex-col gap-5">
+<!-- Top Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-3 h-3 rounded-full bg-primary-container animate-pulse"></div>
+<div class="w-28 h-4 rounded-md bg-surface-container-highest animate-pulse"></div>
+</div>
+<div class="w-16 h-6 rounded-full bg-surface-container-high animate-pulse"></div>
+</div>
+<!-- Diffuser Product Silhouette Image Skeleton -->
+<div class="w-full flex justify-center py-4">
+<div class="relative w-36 h-44 rounded-3xl bg-surface-container flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-surface-bright/70 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+<span class="material-symbols-outlined text-[64px] text-outline-variant/40">air</span>
+</div>
+</div>
+<!-- Progress Tracking Bar & State -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<div class="w-32 h-3.5 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-10 h-3.5 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<!-- Recessed Inset Well Progress Slider -->
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden relative">
+<div class="h-full w-2/3 bg-primary-container rounded-full animate-pulse"></div>
+</div>
+</div>
+<!-- Dual Control Action Buttons -->
+<div class="grid grid-cols-2 gap-space-sm pt-2">
+<div class="h-11 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="h-11 rounded-full bg-inverse-surface/80 flex items-center justify-center">
+<span class="material-symbols-outlined text-inverse-on-surface text-[18px]">power_settings_new</span>
+</div>
+</div>
+</div>
+<!-- Active Living Spaces Skeleton List -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1">
+<div class="w-36 h-4 rounded-md bg-surface-container-highest animate-pulse"></div>
+<div class="w-12 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<!-- Room Card 1 -->
+<div class="p-4 bg-surface-container-lowest rounded-2xl shadow-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-[22px]">living</span>
+</div>
+<div class="flex flex-col gap-1.5 min-w-0">
+<div class="w-28 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-36 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+</div>
+<div class="w-12 h-7 rounded-full bg-secondary-container/60 shrink-0 flex items-center p-1">
+<div class="w-5 h-5 rounded-full bg-surface-bright shadow-sm"></div>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="p-4 bg-surface-container-lowest rounded-2xl shadow-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-[22px]">bed</span>
+</div>
+<div class="flex flex-col gap-1.5 min-w-0">
+<div class="w-24 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-32 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+</div>
+<div class="w-12 h-7 rounded-full bg-surface-container-highest shrink-0 flex items-center p-1">
+<div class="w-5 h-5 rounded-full bg-surface-bright shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Scent Library Recommendation Banner Skeleton -->
+<div class="relative overflow-hidden bg-surface-container-low rounded-3xl p-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="w-28 h-5 rounded-full bg-surface-container-highest animate-pulse"></div>
+<span class="material-symbols-outlined text-outline-variant">auto_awesome</span>
+</div>
+<div class="w-48 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-3/4 h-3 rounded bg-surface-container animate-pulse"></div>
+<div class="flex gap-2 pt-2">
+<div class="w-20 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+<div class="w-24 h-6 rounded-full bg-surface-container-highest animate-pulse"></div>
+</div>
+</div>
+</div>
+<!-- VIEW 2: STORE CATALOG SKELETON (HIDDEN BY DEFAULT) -->
+<div class="hidden flex-col gap-space-lg transition-opacity duration-300" id="view-catalog">
+<!-- Category Pills Skeleton -->
+<div class="flex gap-space-sm overflow-x-auto py-1 no-scrollbar">
+<div class="w-24 h-8 rounded-full bg-secondary-container/80 shrink-0"></div>
+<div class="w-28 h-8 rounded-full bg-surface-container-highest shrink-0 animate-pulse"></div>
+<div class="w-20 h-8 rounded-full bg-surface-container-highest shrink-0 animate-pulse"></div>
+<div class="w-24 h-8 rounded-full bg-surface-container-highest shrink-0 animate-pulse"></div>
+</div>
+<!-- Product Grid Skeleton (2 columns) -->
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl p-3 flex flex-col gap-3 shadow-sm">
+<div class="relative w-full aspect-square rounded-xl bg-surface-container overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-surface-bright/70 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+<span class="material-symbols-outlined text-outline-variant/30 text-[36px]">filter_vintage</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="w-3/4 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-1/2 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="flex justify-between items-center pt-1">
+<div class="w-12 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-6 h-6 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl p-3 flex flex-col gap-3 shadow-sm">
+<div class="relative w-full aspect-square rounded-xl bg-surface-container overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-surface-bright/70 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+<span class="material-symbols-outlined text-outline-variant/30 text-[36px]">spa</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="w-2/3 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-1/2 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="flex justify-between items-center pt-1">
+<div class="w-14 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-6 h-6 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl p-3 flex flex-col gap-3 shadow-sm">
+<div class="relative w-full aspect-square rounded-xl bg-surface-container overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-surface-bright/70 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+<span class="material-symbols-outlined text-outline-variant/30 text-[36px]">wb_sunny</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="w-4/5 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-1/2 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="flex justify-between items-center pt-1">
+<div class="w-12 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-6 h-6 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl p-3 flex flex-col gap-3 shadow-sm">
+<div class="relative w-full aspect-square rounded-xl bg-surface-container overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-surface-bright/70 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+<span class="material-symbols-outlined text-outline-variant/30 text-[36px]">nightlight</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="w-3/4 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-1/2 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="flex justify-between items-center pt-1">
+<div class="w-10 h-4 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="w-6 h-6 rounded-full bg-surface-container-high"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- VIEW 3: PRODUCT DETAIL SKELETON (HIDDEN BY DEFAULT) -->
+<div class="hidden flex-col gap-space-lg transition-opacity duration-300" id="view-detail">
+<!-- Big Gallery Hero -->
+<div class="relative w-full h-64 rounded-3xl bg-surface-container-lowest p-4 flex flex-col justify-between overflow-hidden shadow-sm">
+<div class="flex justify-between items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-high animate-pulse"></div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="flex justify-center items-center py-6">
+<div class="w-32 h-32 rounded-full bg-surface-container animate-pulse flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-outline-variant/40">forest</span>
+</div>
+</div>
+<!-- Dots -->
+<div class="flex justify-center gap-1.5 pb-1">
+<div class="w-6 h-2 rounded-full bg-primary-container"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- Product Info Block -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 flex flex-col gap-4 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="w-24 h-5 rounded-full bg-secondary-container/70"></div>
+<div class="w-16 h-5 rounded-md bg-surface-container-highest animate-pulse"></div>
+</div>
+<div class="w-3/4 h-7 rounded-xl bg-surface-container-highest animate-pulse"></div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="w-full h-3 rounded bg-surface-container-high animate-pulse"></div>
+<div class="w-11/12 h-3 rounded bg-surface-container-high animate-pulse"></div>
+<div class="w-4/5 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<!-- Olfactory Pyramid Notes Skeleton -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="w-32 h-3.5 rounded bg-surface-container-highest animate-pulse"></div>
+<div class="flex gap-2">
+<div class="px-3 py-1.5 rounded-full bg-surface-container flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<div class="w-16 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="px-3 py-1.5 rounded-full bg-surface-container flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed"></div>
+<div class="w-14 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+<div class="px-3 py-1.5 rounded-full bg-surface-container flex items-center gap-1.5">
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed"></div>
+<div class="w-12 h-3 rounded bg-surface-container-high animate-pulse"></div>
+</div>
+</div>
+</div>
+<!-- Purchase CTA -->
+<div class="pt-4 flex gap-3">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline">favorite</span>
+</div>
+<div class="flex-1 h-12 rounded-full bg-inverse-surface flex items-center justify-center gap-2">
+<div class="w-24 h-4 rounded bg-surface-bright/40 animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-Interactions & Architectural Philosophy Card -->
+<div class="bg-surface-container-low rounded-3xl p-5 flex flex-col gap-3">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">graphic_eq</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Odora Tactile Framework</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+      Pre-rendering local BLE 5.3 mesh telemetry to guarantee zero perceived latency during device cold-starts. Shimmer gradients gently breathe using organic linen tones instead of stark digital grays.
+    </p>
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-tertiary tracking-wider uppercase">Diffuser Sync: 82ms</span>
+<button class="flex items-center gap-1 text-primary font-label-md text-label-md hover:underline" onclick="triggerSimulatedLoad()">
+<span>Simulate Load Complete</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function switchView(viewName) {
+    const views = ['home', 'catalog', 'detail'];
+    views.forEach(v => {
+      const el = document.getElementById('view-' + v);
+      const btn = document.getElementById('tab-' + v);
+      if (v === viewName) {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+        btn.className = 'tab-btn flex-1 py-2 text-center rounded-full font-label-md text-label-md transition-all duration-300 bg-secondary-container text-on-secondary-container shadow-sm font-semibold';
+      } else {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+        btn.className = 'tab-btn flex-1 py-2 text-center rounded-full font-label-md text-label-md transition-all duration-300 text-on-surface-variant hover:text-on-surface';
+      }
+    });
+  }
+
+  function triggerSimulatedLoad() {
+    const pulseNodes = document.querySelectorAll('.animate-pulse');
+    pulseNodes.forEach(node => {
+      node.classList.remove('animate-pulse');
+      node.style.transition = 'all 0.5s ease-out';
+      node.style.opacity = '0.9';
+    });
+    setTimeout(() => {
+      pulseNodes.forEach(node => {
+        node.classList.add('animate-pulse');
+      });
+    }, 2500);
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_24px_rgba(45,51,41,0.05)]" data-active-classes="text-primary font-medium"><div class="flex justify-around items-center h-20 px-space-sm"><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[44px] transition-colors text-primary font-medium" data-path="loading-skeletons" href="#"><span class="material-symbols-outlined text-[22px]">air</span><span class="font-label-sm text-label-sm">Diffuser</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="empty-states-suite" href="#"><span class="material-symbols-outlined text-[22px]">spa</span><span class="font-label-sm text-label-sm">Sanctuary</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="curated" href="#"><span class="material-symbols-outlined text-[22px]">filter_vintage</span><span class="font-label-sm text-label-sm">Curated</span></a><a class="flex flex-col items-center justify-center gap-space-xs min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="explore" href="#"><span class="material-symbols-outlined text-[22px]">explore</span><span class="font-label-sm text-label-sm">Explore</span></a></div></nav></body></html>

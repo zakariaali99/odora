@@ -34,23 +34,23 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 transition-all duration-200 shadow-xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-brand-canvas/95 backdrop-blur-md transition-colors duration-300">
+        <div className="editorial-container h-[72px] sm:h-24 flex items-center justify-between border-b border-brand-ink/10">
           
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
             <img
               src="/odora-logo.png"
               alt="odora"
-              className="h-6 sm:h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-6 sm:h-8 w-auto object-contain transition-opacity duration-300 group-hover:opacity-75"
             />
-            <span className="hidden md:inline-block text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-brand-muted font-poppins border-s border-stone-300 ps-3 ms-2">
+            <span className="hidden lg:inline-block text-[9px] tracking-[0.22em] uppercase text-brand-muted font-poppins border-s border-brand-ink/15 ps-4 ms-2">
               {t('common.taglineEn', 'SCENT OF ATMOSPHERE')}
             </span>
           </Link>
 
           {/* Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-[14px] lg:text-[15px] font-medium text-brand-ink">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-9 text-[13px] lg:text-[14px] font-normal text-brand-ink">
             <Link to="/products" className="hover:text-brand-sage transition-colors">
               {t('nav.shop', 'المتجر')}
             </Link>
@@ -69,12 +69,12 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-1.5 sm:gap-3 md:gap-4">
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
             
             {/* Search Trigger */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-1.5 sm:p-2 text-brand-ink hover:text-brand-sage transition-colors rounded-lg"
+              className="p-2 text-brand-ink hover:text-brand-olive transition-colors rounded-full"
               title={t('common.search', 'بحث')}
               aria-label={t('common.search', 'بحث')}
             >
@@ -84,10 +84,10 @@ export const Navbar: React.FC = () => {
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border border-stone-200 bg-stone-50 hover:bg-white hover:border-brand-sage transition-all text-brand-ink shadow-xs"
+              className="flex items-center gap-1.5 px-2 py-2 text-[11px] font-medium text-brand-muted hover:text-brand-ink transition-colors"
               title={language === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'}
             >
-              <Globe className="w-3.5 h-3.5 text-brand-sage shrink-0" />
+              <Globe className="w-4 h-4 shrink-0" />
               <span className="hidden sm:inline">{language === 'ar' ? 'English' : 'عربي'}</span>
               <span className="sm:hidden font-mono uppercase text-[10px]">{language === 'ar' ? 'EN' : 'ع'}</span>
             </button>
@@ -106,7 +106,7 @@ export const Navbar: React.FC = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="p-1.5 sm:p-2 text-brand-ink hover:text-brand-sage transition-colors"
+                  className="p-2 text-brand-ink hover:text-brand-olive transition-colors rounded-full"
                   title={t('nav.login', 'تسجيل الدخول')}
                 >
                   <User className="w-5 h-5" />
@@ -171,12 +171,12 @@ export const Navbar: React.FC = () => {
             {/* Cart Button */}
             <button
               onClick={openCart}
-              className="relative p-1.5 sm:p-2 text-brand-ink hover:text-brand-sage transition-colors"
+              className="relative p-2 text-brand-ink hover:text-brand-olive transition-colors rounded-full"
               aria-label={t('nav.cart', 'سلة المشتريات')}
             >
               <ShoppingBag className="w-5 h-5" />
               {cart.total_items > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-brand-sage text-white text-[10px] sm:text-[11px] font-bold flex items-center justify-center shadow-xs">
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-dark text-brand-surface text-[9px] font-medium flex items-center justify-center">
                   {cart.total_items}
                 </span>
               )}
@@ -195,7 +195,7 @@ export const Navbar: React.FC = () => {
 
         {/* Expandable Search Bar */}
         {searchOpen && (
-          <div className="bg-white border-t border-b border-stone-200 px-4 py-3 animate-in fade-in duration-200">
+          <div className="bg-brand-surface border-b border-brand-ink/10 px-4 py-4 animate-in fade-in duration-200">
             <form onSubmit={handleSearchSubmit} className="max-w-3xl mx-auto flex items-center gap-3">
               <Search className="w-5 h-5 text-brand-muted shrink-0" />
               <input
@@ -208,7 +208,7 @@ export const Navbar: React.FC = () => {
               />
               <button
                 type="submit"
-                className="px-4 py-1.5 rounded-full bg-brand-sage text-white text-xs sm:text-sm font-medium hover:bg-brand-olive transition-colors shrink-0"
+                className="px-5 py-2 rounded-full bg-brand-dark text-brand-surface text-xs sm:text-sm font-medium hover:bg-brand-olive transition-colors shrink-0"
               >
                 {t('common.search', 'بحث')}
               </button>
@@ -225,7 +225,7 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-stone-200 px-5 py-5 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden bg-brand-surface border-b border-brand-ink/10 px-6 py-6 space-y-5 shadow-soft-card animate-in slide-in-from-top-2 duration-200">
             <nav className="space-y-3">
               <Link
                 to="/products"

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-primary": "#ffffff", "on-surface-variant": "#46483f", "primary": "#586244", "surface-bright": "#fdf9f5", "on-secondary-fixed": "#131f01", "on-background": "#1c1c19", "tertiary-fixed": "#dfe4d9", "on-secondary-container": "#59683e", "secondary": "#55633a", "surface-container-highest": "#e6e2de", "background": "#fdf9f5", "primary-container": "#919c7a", "surface-tint": "#586244", "on-tertiary": "#ffffff", "surface-container": "#f1ede9", "surface": "#fdf9f5", "on-primary-container": "#2a3319", "on-surface": "#1c1c19", "inverse-on-surface": "#f4f0ec", "secondary-fixed-dim": "#bccd9a", "surface-container-lowest": "#ffffff", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#3e4b25", "on-primary-fixed": "#161e07", "inverse-primary": "#c0cba6", "primary-fixed": "#dce7c1", "outline": "#76786e", "surface-container-high": "#ebe7e4", "surface-variant": "#e6e2de", "inverse-surface": "#31302e", "tertiary-fixed-dim": "#c3c8be", "error": "#ba1a1a", "outline-variant": "#c6c7bc", "surface-dim": "#ddd9d6", "surface-container-low": "#f7f3ef", "on-tertiary-fixed-variant": "#434840", "on-error": "#ffffff", "on-error-container": "#93000a", "on-tertiary-container": "#2c312a", "primary-fixed-dim": "#c0cba6", "secondary-container": "#d5e6b2", "on-secondary": "#ffffff", "tertiary": "#5b6057", "on-primary-fixed-variant": "#404a2e", "tertiary-container": "#94998f", "on-tertiary-fixed": "#181d16", "secondary-fixed": "#d8e9b5" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter-tablet": "1.5rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "2rem", "margin-desktop": "3.5rem" }, fontFamily: { "display-lg-mobile": ["Outfit"], "body-md": ["Plus Jakarta Sans"], "headline-lg": ["Outfit"], "body-lg": ["Plus Jakarta Sans"], "label-md": ["Outfit"], "display-lg": ["Outfit"], "headline-sm": ["Outfit"], "label-sm": ["Outfit"], "label-lg": ["Outfit"], "headline-lg-mobile": ["Outfit"], "body-sm": ["Plus Jakarta Sans"], "headline-md": ["Outfit"] }, fontSize: { "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.015em", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0.015em", fontWeight: "400" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "500" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "0.01em", fontWeight: "500" }], "label-sm": ["10px", { lineHeight: "14px", letterSpacing: "0.14em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "400" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "0em", fontWeight: "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(35,40,33,0.03)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="min-w-[44px] min-h-[44px] w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors active:scale-95" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">System Maintenance</h1></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Contact Concierge" class="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">support_agent</span></button><div class="min-w-[44px] min-h-[44px] flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XNERJ1G1eppwfNn3L9Q5QRAhJ39G8cnFyaMXAQDv_zZyW-UXdYbWue64UkgwRILQVaI5B5dkzIjf5Y2Kfz1WHPuLvCW_ACXGsP5RqDbtf5Hi42bwWalirRka3rK309XkIxUYJSj7_E_-DOu6HX3tWjUTvsRlABMhAttW97C8o3Hd9a0yfWkkMMzXnAPOHca3oVfwhL5mCGWM4sEBRaAZTXLlfDS3VrdtcTm94NUg5cnhGpiv9Nh4-351ftY6bHRLx9LEAV8N6dag"/></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive View State Controller -->
+<div class="px-margin pt-space-md pb-space-xs">
+<!-- Tactile Mode Segmented Switch -->
+<div class="w-full bg-surface-container p-1 rounded-full flex relative select-none">
+<button aria-pressed="true" class="flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 bg-on-surface text-surface shadow-sm cursor-pointer z-10" id="toggle-firmware" onclick="switchOdoraView('firmware')">
+<span class="material-symbols-outlined text-[16px]">system_update_alt</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">System Protocol</span>
+</button>
+<button aria-pressed="false" class="flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 text-on-surface-variant hover:text-on-surface cursor-pointer z-10" id="toggle-maintenance" onclick="switchOdoraView('maintenance')">
+<span class="material-symbols-outlined text-[16px]">spa</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Atelier Care</span>
+</button>
+</div>
+</div>
+<!-- STATE A: MANDATORY UPDATE / ARCHITECTURE ELEVATION -->
+<div class="flex flex-col px-margin pb-space-xl transition-opacity duration-300" id="view-firmware">
+<!-- Visual Object Canvas (Ceramic Cylinder & Dynamic Scent/Firmware Waveform) -->
+<div class="relative w-full rounded-2xl bg-surface-container-low p-space-lg mt-space-md flex flex-col items-center justify-center overflow-hidden shadow-[0_8px_24px_-4px_rgba(28,28,25,0.04)]">
+<!-- Ambient Glow Behind Device -->
+<div class="absolute w-44 h-44 rounded-full bg-secondary-container/30 blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+<!-- Minimalist Vector Vessel + Firmware Telemetry Halo -->
+<div class="relative z-10 w-44 h-48 flex items-center justify-center py-2">
+<svg class="w-full h-full" fill="none" viewbox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+<!-- Firmware Energy Rings -->
+<circle class="text-primary-container" cx="80" cy="56" opacity="0.65" r="42" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1.2"></circle>
+<circle class="text-secondary-fixed-dim" cx="80" cy="56" opacity="0.45" r="54" stroke="currentColor" stroke-dasharray="6 4" stroke-width="0.8"></circle>
+<!-- Ascending Acoustic / Mist Particles -->
+<circle class="text-primary" cx="80" cy="20" fill="currentColor" opacity="0.7" r="2.5">
+<animate attributename="cy" dur="3.5s" repeatcount="indefinite" values="28;14;28"></animate>
+<animate attributename="opacity" dur="3.5s" repeatcount="indefinite" values="0.3;0.8;0.3"></animate>
+</circle>
+<circle class="text-primary-container" cx="73" cy="24" fill="currentColor" opacity="0.5" r="1.8">
+<animate attributename="cy" dur="4s" repeatcount="indefinite" values="32;18;32"></animate>
+</circle>
+<circle class="text-primary-container" cx="87" cy="23" fill="currentColor" opacity="0.5" r="1.8">
+<animate attributename="cy" dur="3.8s" repeatcount="indefinite" values="30;16;30"></animate>
+</circle>
+<!-- Matte Ceramic Vessel (Sage Green) -->
+<rect fill="#586244" height="96" rx="28" width="68" x="46" y="52"></rect>
+<!-- Subtle Soft Specular Curvature Highlight -->
+<path d="M54 62C54 56.4772 58.4772 52 64 52H68V148H64C58.4772 148 54 143.523 54 138V62Z" fill="#ffffff" fill-opacity="0.12"></path>
+<!-- Top Diffuser Aperture -->
+<ellipse cx="80" cy="53" fill="#2a3319" opacity="0.4" rx="14" ry="3.5"></ellipse>
+<circle cx="80" cy="53" fill="#1c1c19" r="2"></circle>
+<!-- Odora Wordmark Silhouette on Vessel -->
+<text fill="#fdf9f5" font-family="'Outfit', sans-serif" font-size="7.5" font-weight="500" letter-spacing="0.12em" opacity="0.85" text-anchor="middle" x="80" y="112">odora</text>
+<!-- LED State Indicator Pill -->
+<rect fill="#d5e6b2" height="2" rx="1" width="8" x="76" y="132"></rect>
+<!-- Travertine Pedestal Slice -->
+<ellipse cx="80" cy="154" fill="#e6e2de" opacity="0.85" rx="58" ry="7"></ellipse>
+<ellipse cx="80" cy="152" fill="#f1ede9" rx="54" ry="5.5"></ellipse>
+</svg>
+</div>
+<!-- Protocol Badge Pill -->
+<div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-medium">System Protocol v3.0</span>
+</div>
+</div>
+<!-- Editorial Header Block -->
+<div class="mt-space-lg text-center flex flex-col items-center">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-normal tracking-tight">
+        Elevate Your Sanctuary Experience
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-sm font-normal">
+        Firmware 2.5 has completed its operational cycle. To preserve lossless BLE 5.2 mesh synchrony, whisper acoustics, and cryptographic reservoir telemetry, please upgrade your installation.
+      </p>
+</div>
+<!-- Architectural Changelog Section -->
+<div class="mt-space-lg bg-surface-container-low rounded-2xl p-space-md">
+<div class="flex items-center justify-between mb-space-sm px-1">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Architecture Refinements</span>
+<span class="font-label-sm text-label-sm text-primary font-medium tracking-wide">Build 3.0.448</span>
+</div>
+<div class="space-y-2.5">
+<!-- Feature 1 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-lowest rounded-xl">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">bedtime</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-[15px] text-on-surface font-medium leading-snug">Circadian Sunset 2200K Illumination</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Harmonized low-lux ambient glow aligned with natural pineal cycles.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-lowest rounded-xl">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-[15px] text-on-surface font-medium leading-snug">Ultra-Responsive Venturi Mesh</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">50% faster cold-diffusion handshake over BLE 5.2 low-energy signals.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-lowest rounded-xl">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="font-headline-sm text-[15px] text-on-surface font-medium leading-snug">Reserve Harvest Verification</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Encrypted chamber authentication for certified Botanical Reserve oils.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Reassurance Banner -->
+<div class="mt-space-md px-2 py-3 bg-surface-container rounded-xl flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0">nest_eco_leaf</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+        Active vessels will gracefully finalize current diffusion timers before resting for setup.
+      </p>
+</div>
+<!-- Tactile Master Actions -->
+<div class="mt-space-lg flex flex-col gap-2.5">
+<a class="w-full h-14 bg-on-surface text-surface rounded-full flex items-center justify-center gap-2 font-label-lg text-label-lg uppercase tracking-wider shadow-sm active:scale-[0.98] transition-transform" href="#">
+<span>Update Odora App</span>
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+<button class="w-full h-11 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-full flex items-center justify-center font-label-md text-label-md uppercase tracking-wider transition-colors" onclick="switchOdoraView('maintenance')" type="button">
+<span>Inspect Atelier System Status</span>
+</button>
+</div>
+</div>
+<!-- STATE B: SCHEDULED ATELIER MAINTENANCE -->
+<div class="hidden flex flex-col px-margin pb-space-xl transition-opacity duration-300" id="view-maintenance">
+<!-- Visual Status Atmosphere -->
+<div class="relative w-full rounded-2xl bg-surface-container-low p-space-lg mt-space-md flex flex-col items-center justify-center text-center overflow-hidden">
+<!-- Soft Radial Light Diffusion -->
+<div class="absolute w-52 h-52 rounded-full bg-primary-fixed/25 blur-3xl pointer-events-none"></div>
+<!-- Delicate Sand Timer / Olfactory Balance Iconography -->
+<div class="relative z-10 w-20 h-20 rounded-full bg-surface-container flex items-center justify-center text-primary mb-space-sm shadow-sm">
+<span class="material-symbols-outlined text-[36px] animate-pulse">hourglass_top</span>
+</div>
+<!-- Status Live Pill -->
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface font-medium">Care Window In Progress</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-normal mt-space-md tracking-tight">
+        Atelier Calibration
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-2">
+        Our global cloud olfactory database is receiving scheduled seasonal scent curve optimizations.
+      </p>
+<!-- Digital Countdown Module -->
+<div class="mt-space-lg w-full bg-surface-container-lowest p-space-md rounded-xl flex items-center justify-around">
+<div class="flex flex-col items-center">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-light tracking-tight" id="count-hours">01</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Hours</span>
+</div>
+<span class="font-display-lg-mobile text-display-lg-mobile text-outline-variant font-light -mt-4">:</span>
+<div class="flex flex-col items-center">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-light tracking-tight" id="count-minutes">24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Minutes</span>
+</div>
+<span class="font-display-lg-mobile text-display-lg-mobile text-outline-variant font-light -mt-4">:</span>
+<div class="flex flex-col items-center">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-light tracking-tight" id="count-seconds">38</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Seconds</span>
+</div>
+</div>
+</div>
+<!-- Offline Continuity Matrix -->
+<div class="mt-space-lg space-y-3">
+<div class="p-space-md bg-surface-container-low rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">bluetooth</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-[16px] text-on-surface font-medium">Local Bluetooth Autonomous Mode</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Room-level diffusion intensity, touch activation, and circadian schedule cycles operate uninterrupted.</p>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-2xl">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-[16px] text-on-surface font-medium">Maintenance Window Schedule</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">02:00 – 04:00 UTC · Europe & North America Node Clusters</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Curated Fragrance Storytelling Card -->
+<div class="mt-space-md rounded-2xl p-space-md bg-secondary-container/30 flex items-center gap-3.5">
+<div class="w-12 h-14 rounded-lg bg-surface-container-lowest overflow-hidden flex-shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close up artisanal amber bottle of Odora Forest Sage pure fragrance oil with a minimal label sitting peacefully on a light travertine surface with botanical fern shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBso331Z5mV9b9hFz4cVlkL-pbvThP99V2VdKTevoC7JuI8K8DQ9PAOY5NIJRTwBxTYu7q8XCxij4RHJEo-tOz6F55FEtjB3D2yohbEbRf5i1XqQZRvZ8cwGNf8_naH7BlWLmnrl71OfQtlVsfk438OuTZxdQj0Q5tne4fypcJAlocsXKEXypPfRecswJQH_ZkVwtuw0XVuirCyhP-OiUYZCHPoCJVBWTfXa7Lo5MpVuG-koB_V0Z75"/>
+</div>
+<div class="min-w-0 flex-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Reserve Harvest Preview</span>
+<h4 class="font-headline-sm text-[15px] text-on-surface font-medium truncate">Forest Sage & Hinoki Wood</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Arriving with the completion of System Protocol 3.0</p>
+</div>
+</div>
+<!-- Secondary Navigation -->
+<div class="mt-space-lg flex flex-col gap-2.5">
+<button class="w-full h-14 bg-on-surface text-surface rounded-full flex items-center justify-center gap-2 font-label-lg text-label-lg uppercase tracking-wider shadow-sm active:scale-[0.98] transition-transform" onclick="refreshSystemStatus()" type="button">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span id="refresh-label">Check Connection Status</span>
+</button>
+<button class="w-full h-11 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-full flex items-center justify-center font-label-md text-label-md uppercase tracking-wider transition-colors" onclick="switchOdoraView('firmware')" type="button">
+<span>Return to Firmware Protocol</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function switchOdoraView(target) {
+    const viewFirmware = document.getElementById('view-firmware');
+    const viewMaintenance = document.getElementById('view-maintenance');
+    const btnFirmware = document.getElementById('toggle-firmware');
+    const btnMaintenance = document.getElementById('toggle-maintenance');
+
+    if (target === 'firmware') {
+      viewFirmware.classList.remove('hidden');
+      viewMaintenance.classList.add('hidden');
+
+      btnFirmware.className = "flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 bg-on-surface text-surface shadow-sm cursor-pointer z-10";
+      btnFirmware.setAttribute('aria-pressed', 'true');
+
+      btnMaintenance.className = "flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 text-on-surface-variant hover:text-on-surface cursor-pointer z-10";
+      btnMaintenance.setAttribute('aria-pressed', 'false');
+    } else {
+      viewFirmware.classList.add('hidden');
+      viewMaintenance.classList.remove('hidden');
+
+      btnMaintenance.className = "flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 bg-on-surface text-surface shadow-sm cursor-pointer z-10";
+      btnMaintenance.setAttribute('aria-pressed', 'true');
+
+      btnFirmware.className = "flex-1 py-2.5 px-3 rounded-full flex items-center justify-center gap-1.5 transition-all duration-300 text-on-surface-variant hover:text-on-surface cursor-pointer z-10";
+      btnFirmware.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  // Interactive Live Countdown Demonstration
+  let remainingSeconds = 1 * 3600 + 24 * 60 + 38;
+  setInterval(() => {
+    if (remainingSeconds > 0) {
+      remainingSeconds--;
+      const h = Math.floor(remainingSeconds / 3600);
+      const m = Math.floor((remainingSeconds % 3600) / 60);
+      const s = remainingSeconds % 60;
+
+      const elH = document.getElementById('count-hours');
+      const elM = document.getElementById('count-minutes');
+      const elS = document.getElementById('count-seconds');
+
+      if (elH) elH.textContent = String(h).padStart(2, '0');
+      if (elM) elM.textContent = String(m).padStart(2, '0');
+      if (elS) elS.textContent = String(s).padStart(2, '0');
+    }
+  }, 1000);
+
+  function refreshSystemStatus() {
+    const label = document.getElementById('refresh-label');
+    if (label) {
+      label.textContent = "Querying Atelier Cloud...";
+      setTimeout(() => {
+        label.textContent = "Database Optimization Active (84%)";
+        setTimeout(() => {
+          label.textContent = "Check Connection Status";
+        }, 2200);
+      }, 700);
+    }
+  }
+</script></main></body></html>

@@ -77,15 +77,15 @@ export const CheckoutPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen pb-20 pt-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-brand-cream">
-      <div className="border-b border-stone-200 pb-4 mb-8">
-        <h1 className="text-3xl font-light text-brand-ink">{t('checkout.title', 'إتمام الطلب')}</h1>
-        <p className="text-xs text-brand-muted font-medium mt-1">
+    <div className="editorial-container min-h-screen pb-24 pt-12 sm:pb-32 sm:pt-16 bg-brand-canvas">
+      <div className="border-b border-brand-ink/10 pb-8 mb-12">
+        <h1 className="text-4xl sm:text-6xl tracking-[-0.04em] font-light text-brand-ink">{t('checkout.title', 'إتمام الطلب')}</h1>
+        <p className="text-sm text-brand-muted mt-3">
           {language === 'ar' ? 'يرجى إدخال بيانات التوصيل بدقة لتأكيد إرسال الشحنة' : 'Please enter accurate delivery details to ensure prompt fulfillment'}
         </p>
       </div>
 
-      <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         
         {/* Customer & Address Form */}
         <div className="lg:col-span-8 space-y-6">
@@ -98,8 +98,8 @@ export const CheckoutPage: React.FC = () => {
           )}
 
           {/* Contact Details */}
-          <div className="odora-card p-6 bg-white border border-stone-200 shadow-sm space-y-4">
-            <h3 className="font-bold text-base text-brand-ink border-b border-stone-100 pb-3 flex items-center gap-2">
+          <div className="editorial-surface p-6 sm:p-8 space-y-5">
+            <h3 className="font-medium text-lg text-brand-ink border-b border-brand-ink/10 pb-4 flex items-center gap-2">
               <span>{language === 'ar' ? '1. بيانات الاتصال والتواصل' : '1. Contact Details'}</span>
             </h3>
 
@@ -148,8 +148,8 @@ export const CheckoutPage: React.FC = () => {
           </div>
 
           {/* Delivery Address */}
-          <div className="odora-card p-6 bg-white border border-stone-200 shadow-sm space-y-4">
-            <h3 className="font-bold text-base text-brand-ink border-b border-stone-100 pb-3 flex items-center gap-2">
+          <div className="editorial-surface p-6 sm:p-8 space-y-5">
+            <h3 className="font-medium text-lg text-brand-ink border-b border-brand-ink/10 pb-4 flex items-center gap-2">
               <span>{language === 'ar' ? '2. عنوان التوصيل داخل ليبيا' : '2. Shipping Address in Libya'}</span>
             </h3>
 
@@ -218,17 +218,17 @@ export const CheckoutPage: React.FC = () => {
           </div>
 
           {/* Payment Method */}
-          <div className="odora-card p-6 bg-white border border-stone-200 shadow-sm space-y-4">
-            <h3 className="font-bold text-base text-brand-ink border-b border-stone-100 pb-3 flex items-center gap-2">
+          <div className="editorial-surface p-6 sm:p-8 space-y-5">
+            <h3 className="font-medium text-lg text-brand-ink border-b border-brand-ink/10 pb-4 flex items-center gap-2">
               <span>{language === 'ar' ? '3. طريقة الدفع' : '3. Payment Method'}</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label
-                className={`p-4 rounded-2xl border-2 flex items-center gap-4 cursor-pointer transition-all ${
+                className={`p-5 rounded-[20px] border flex items-center gap-4 cursor-pointer transition-all ${
                   formData.payment_method === 'cod'
-                    ? 'border-brand-sage bg-brand-pale/25 text-brand-ink ring-1 ring-brand-sage'
-                    : 'border-stone-200 hover:border-stone-300 bg-white'
+                    ? 'border-brand-olive bg-brand-pale/30 text-brand-ink'
+                    : 'border-brand-ink/10 hover:border-brand-ink/25 bg-brand-surface'
                 }`}
               >
                 <input
@@ -243,16 +243,16 @@ export const CheckoutPage: React.FC = () => {
                   <Banknote className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm text-brand-ink">{t('common.cod', 'الدفع عند الاستلام (COD)')}</div>
+                  <div className="font-medium text-sm text-brand-ink">{t('common.cod', 'الدفع عند الاستلام (COD)')}</div>
                   <div className="text-[11px] text-brand-muted font-medium mt-0.5">{t('checkout.codDesc', 'ادفع نقداً عند استلام ومعاينة طلبك في منزلك أو مقرك.')}</div>
                 </div>
               </label>
 
               <label
-                className={`p-4 rounded-2xl border-2 flex items-center gap-4 cursor-pointer transition-all ${
+                className={`p-5 rounded-[20px] border flex items-center gap-4 cursor-pointer transition-all ${
                   formData.payment_method === 'card'
-                    ? 'border-brand-sage bg-brand-pale/25 text-brand-ink ring-1 ring-brand-sage'
-                    : 'border-stone-200 hover:border-stone-300 bg-white'
+                    ? 'border-brand-olive bg-brand-pale/30 text-brand-ink'
+                    : 'border-brand-ink/10 hover:border-brand-ink/25 bg-brand-surface'
                 }`}
               >
                 <input
@@ -267,7 +267,7 @@ export const CheckoutPage: React.FC = () => {
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm text-brand-ink">{t('common.visaMastercard', 'البطاقات المصرفية')}</div>
+                  <div className="font-medium text-sm text-brand-ink">{t('common.visaMastercard', 'البطاقات المصرفية')}</div>
                   <div className="text-[11px] text-brand-muted font-medium mt-0.5">{language === 'ar' ? 'سداد / تداول / الدفع الإلكتروني الآمن' : 'Local cards / Sadad / Electronic pay'}</div>
                 </div>
               </label>
@@ -277,8 +277,8 @@ export const CheckoutPage: React.FC = () => {
         </div>
 
         {/* Order Summary Sidebar */}
-        <div className="lg:col-span-4 odora-card p-6 bg-white border border-stone-200 shadow-md space-y-4">
-          <h3 className="font-bold text-base text-brand-ink border-b border-stone-100 pb-3">
+        <div className="lg:col-span-4 editorial-surface p-6 sm:p-8 space-y-5 lg:sticky lg:top-32">
+          <h3 className="font-medium text-lg text-brand-ink border-b border-brand-ink/10 pb-4">
             {t('checkout.orderSummary', 'ملخص الفاتورة')} ({cart.total_items} {t('common.unit', 'قطعة')})
           </h3>
 
@@ -318,16 +318,16 @@ export const CheckoutPage: React.FC = () => {
                 )}
               </span>
             </div>
-            <div className="pt-2 border-t border-stone-200 flex justify-between items-baseline font-bold text-base text-brand-ink">
+            <div className="pt-4 border-t border-brand-ink/10 flex justify-between items-baseline font-medium text-base text-brand-ink">
               <span>{t('cart.total', 'المجموع الكلي')}</span>
-              <span className="text-2xl text-brand-sage font-sans">{cart.total} {t('common.currency', 'د.ل')}</span>
+              <span className="text-2xl text-brand-olive font-sans tabular-nums">{cart.total} {t('common.currency', 'د.ل')}</span>
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-4 py-4 rounded-full bg-brand-ink hover:bg-stone-800 text-white font-bold text-sm transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
+            className="editorial-button-primary w-full mt-4 gap-2"
           >
             <span>{loading ? t('checkout.processing', 'جاري تسجيل الطلب...') : t('checkout.placeOrder', 'تأكيد الطلب الآن')}</span>
             {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}

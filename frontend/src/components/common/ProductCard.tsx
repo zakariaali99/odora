@@ -31,14 +31,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const displayImage = product.main_image || getDefaultImage();
 
   return (
-    <div className="odora-card p-5 flex flex-col justify-between group border border-stone-200/60 relative overflow-hidden bg-white">
+    <article className="group relative flex h-full flex-col justify-between">
       {/* Product Image Stage */}
-      <Link to={`/products/${product.slug}`} className="block relative mb-4">
-        <div className="h-56 w-full rounded-xl bg-gradient-to-b from-[#F7F6F3] to-[#EAE7DF]/60 flex items-center justify-center overflow-hidden relative">
+      <Link to={`/products/${product.slug}`} className="block relative mb-5">
+        <div className="h-72 sm:h-80 w-full rounded-[24px] bg-brand-surface flex items-center justify-center overflow-hidden relative shadow-soft-card">
           
           {/* Discount Badge */}
           {product.has_discount && (
-            <span className="absolute top-3 end-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-bold bg-brand-pale text-brand-olive shadow-sm">
+            <span className="absolute top-4 end-4 z-10 px-3 py-1.5 rounded-full text-[10px] font-medium tracking-wide bg-brand-pale text-brand-olive">
               {isRtl ? 'عرض خاص' : 'Special Offer'}
             </span>
           )}
@@ -47,32 +47,32 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img
             src={displayImage}
             alt={isRtl ? product.name_ar : product.name}
-            className="h-44 w-auto object-contain transition-transform duration-500 ease-out group-hover:scale-105"
+            className="h-56 sm:h-64 w-auto max-w-[82%] object-contain drop-shadow-[0_18px_24px_rgba(43,43,38,0.10)] transition-transform duration-500 ease-out group-hover:scale-[1.025]"
             onError={(e: any) => { e.target.src = getDefaultImage(); }}
           />
         </div>
       </Link>
 
       {/* Info Section */}
-      <div>
-        <div className="flex items-center justify-between gap-2 text-xs text-brand-muted mb-1">
+      <div className="px-1">
+        <div className="flex items-center justify-between gap-2 text-[11px] text-brand-muted mb-2">
           <span className="truncate">
             {isRtl ? (product.category?.name_ar || 'أجهزة التعطير') : (product.category?.name || 'Smart Diffusers')}
           </span>
-          <div className="flex items-center gap-1 text-amber-600 font-semibold shrink-0">
-            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+          <div className="flex items-center gap-1 text-brand-olive font-medium shrink-0">
+            <Star className="w-3 h-3 fill-brand-sage text-brand-sage" />
             <span className="font-poppins">{product.rating || '5.0'}</span>
           </div>
         </div>
 
         <Link to={`/products/${product.slug}`}>
-          <h3 className="font-semibold text-base text-brand-ink group-hover:text-brand-sage transition-colors line-clamp-1">
+          <h3 className="font-medium text-lg text-brand-ink group-hover:text-brand-olive transition-colors line-clamp-1">
             {isRtl ? product.name_ar : product.name}
           </h3>
         </Link>
 
         {(product.subtitle_ar || product.description) && (
-          <p className="text-xs text-brand-muted line-clamp-1 mt-0.5">
+          <p className="text-xs text-brand-muted line-clamp-1 mt-1 leading-relaxed">
             {isRtl ? (product.subtitle_ar || product.description_ar) : (product.description || product.subtitle_ar)}
           </p>
         )}
@@ -93,9 +93,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Price & Action Row */}
-      <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+      <div className="mt-5 px-1 flex items-center justify-between">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-lg font-bold text-brand-olive font-poppins">
+          <span className="text-lg font-medium text-brand-ink font-poppins tabular-nums">
             {product.final_price || product.price}
           </span>
           <span className="text-xs text-brand-muted font-medium">{t('common.currency')}</span>
@@ -108,14 +108,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <button
           onClick={handleQuickAdd}
-          className="w-9 h-9 rounded-full bg-brand-sage hover:bg-brand-sage-dark text-white flex items-center justify-center transition-all shadow-sm active:scale-95 group-hover:shadow-md"
+          className="w-10 h-10 rounded-full bg-brand-dark hover:bg-brand-olive text-brand-surface flex items-center justify-center transition-all shadow-btn-dark active:scale-95"
           title={t('common.addToCart')}
           aria-label={t('common.addToCart')}
         >
           <Plus className="w-4 h-4" />
         </button>
       </div>
-    </div>
+    </article>
   );
 };
 
