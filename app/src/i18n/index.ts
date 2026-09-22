@@ -1,8 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { I18nManager } from 'react-native';
+import { I18nManager, Platform, DevSettings } from 'react-native';
+import * as Updates from 'expo-updates';
 import { ar } from './ar';
 import { en } from './en';
+
+export const STORAGE_KEY_LANGUAGE = '@odora_language';
 
 export const resources = {
   ar: { translation: ar },
@@ -28,14 +31,41 @@ i18n
   });
 
 /**
+ * Reloads the app cleanly across Web and Native platforms
+ */
+export const reloadApp = async () => {
+  if (Platform.OS === 'web') {
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    }
+  } else {
+    try {
+      await Updates.reloadAsync();
+    } catch {
+      if (DevSettings && DevSettings.reload) {
+        DevSettings.reload();
+      }
+    }
+  }
+};
+
+/**
  * Change app language and update RTL layout direction
  */
 export const changeAppLanguage = async (lng: 'ar' | 'en') => {
   await i18n.changeLanguage(lng);
   const isRtl = lng === 'ar';
-  if (I18nManager.isRTL !== isRtl) {
-    I18nManager.allowRTL(isRtl);
-    I18nManager.forceRTL(isRtl);
+
+  if (Platform.OS === 'web') {
+    if (typeof document !== 'undefined') {
+      document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+      document.documentElement.setAttribute('lang', lng);
+    }
+  } else {
+    if (I18nManager.isRTL !== isRtl) {
+      I18nManager.allowRTL(isRtl);
+      I18nManager.forceRTL(isRtl);
+    }
   }
 };
 

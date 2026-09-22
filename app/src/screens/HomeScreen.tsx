@@ -58,9 +58,25 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       />
 
       <View style={styles.content}>
-        {/* Language Quick Switcher */}
+        {/* Language Quick Switcher & Dev UI Kit entry */}
         <View style={styles.langRow}>
           <LanguageToggle />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('DevUiKit')}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: colors.accent,
+              paddingHorizontal: 12,
+              paddingVertical: 6,
+              borderRadius: radii.pill,
+            }}
+          >
+            <Text style={{ fontSize: 12, fontWeight: '600', color: colors.text }}>
+              {isRTL ? 'مكتبة الواجهات (UI Kit)' : 'UI Kit (/dev/ui-kit)'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Brand Greeting Section */}

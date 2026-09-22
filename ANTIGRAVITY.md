@@ -24,11 +24,11 @@ This file tells you **what to implement, what to only understand, and how we wor
 |---|---|---|---|
 | **PLAN** | Work to be implemented | `plans/claude plans/` | **Implement**, in order, following each plan |
 | **KNOWLEDGE** | Background to understand only | `KNOWLEDGE-odora-spec.md` | **Understand only. Do NOT implement from it.** |
-| **DESIGN** | Visual source of truth | `design-reference/` + `plans/claude plans/01-design-system.md` | Follow for all UI |
+| **DESIGN** | Visual source of truth | **App:** `plans/claude plans/05-app-design-system.md` + `design-reference/stitch/idea-02/` (reference only). **Web store:** `01-design-system.md` | Follow for all UI |
 | **ELEVATION** | How to finish to premium quality | `plans/claude plans/03-design-elevation.md` | Apply to every screen |
 | **REVIEW** | Results of Claude's reviews | `reviews/` | Read fix-plans referenced here; apply the repairs they point to |
 
-> **Order:** `plans/claude plans/04-build-sequence-store-first.md` sets Store-first. Open fix-plans (`fix-*.md`) after a review points to them.
+> **Order (owner decision 2026-09-22): the WEB STORE is ON HOLD. Build the MOBILE APP now** — `plans/claude plans/07-app-build-plan.md` (with `05-app-design-system.md` and `06-app-screen-specs.md`). Do not touch `frontend/`. Open fix-plans (`fix-*.md`) after a review points to them.
 
 > **Rule:** Only files under `plans/claude plans/` are instructions to build. Everything else is context.
 
@@ -62,7 +62,7 @@ This file tells you **what to implement, what to only understand, and how we wor
 
 ## 3) Build order (summary — full detail in the plan)
 
-> **⚠️ Order (owner decision 2026-09-08): build the WEB STORE first, then the mobile app.** See `plans/claude plans/04-build-sequence-store-first.md`. The milestones below describe the APP (Phase B); do the store (Phase A) first.
+> **⚠️ Order updated 2026-09-22: web store ON HOLD; the mobile app is the current work** — follow `plans/claude plans/07-app-build-plan.md` (Phases 0–5). It replaces the M1–M3 milestones below for design and screens. The device is **Bluetooth-only, no gateway** (no remote control).
 
 
 Green = no device needed → **build these first.** Blue = needs a real unit. Red = gated.
@@ -93,6 +93,6 @@ All PLAN and REVIEW files are in **English** intentionally (lower token cost). K
 
 ## 6) Where to start right now
 1. Read `KNOWLEDGE-odora-spec.md` once for context.
-2. **Start with the WEB STORE — Phase A in `plans/claude plans/04-build-sequence-store-first.md`.** Build every page in its inventory, following `01-design-system.md` and `03-design-elevation.md`.
-3. The mobile app is **Phase B** (second) — `00-implementation-plan.md`. Do not start it until the store is done or the owner says so.
+2. **Build the MOBILE APP — `plans/claude plans/07-app-build-plan.md`, starting at Phase 0.** Follow `05-app-design-system.md` and `06-app-screen-specs.md`. The Stitch exports in `design-reference/stitch/` are visual references only (do not port the HTML, never ship their images).
+3. The web store (`frontend/`) is **on hold** — do not touch it until the owner says so.
 4. If a review left a `fix-*.md` in `plans/claude plans/`, apply it first.

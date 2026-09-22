@@ -1,62 +1,132 @@
-import React, { useEffect } from 'react';
-import { View, ActivityIndicator, StyleSheet, I18nManager } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ActivityIndicator, StyleSheet, I18nManager, Platform, DevSettings } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Updates from 'expo-updates';
 import {
   useFonts,
-  Tajawal_300Light,
-  Tajawal_400Regular,
-  Tajawal_500Medium,
-  Tajawal_700Bold,
-} from '@expo-google-fonts/tajawal';
+  Outfit_300Light,
+  Outfit_400Regular,
+  Outfit_500Medium,
+  Outfit_600SemiBold,
+} from '@expo-google-fonts/outfit';
 import {
-  Poppins_300Light,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_600SemiBold,
-  Poppins_700Bold,
-} from '@expo-google-fonts/poppins';
-import './src/i18n'; // Initialize i18next
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_500Medium,
+  PlusJakartaSans_600SemiBold,
+} from '@expo-google-fonts/plus-jakarta-sans';
+import {
+  IBMPlexSansArabic_300Light,
+  IBMPlexSansArabic_400Regular,
+  IBMPlexSansArabic_500Medium,
+  IBMPlexSansArabic_600SemiBold,
+  IBMPlexSansArabic_700Bold,
+} from '@expo-google-fonts/ibm-plex-sans-arabic';
+import i18n, { STORAGE_KEY_LANGUAGE } from './src/i18n';
 import { RootNavigator } from './src/navigation/RootNavigator';
-import { colors } from './src/theme';
+import { useTheme } from './src/theme';
 import { useAppStore } from './src/store/useAppStore';
+import { LanguageConfirmSheet } from './src/components/LanguageConfirmSheet';
 
 export default function App() {
   const isRTL = useAppStore((s) => s.isRTL);
+  const { colors, isDark } = useTheme();
+  const [isReady, setIsReady] = useState(false);
 
   const [fontsLoaded] = useFonts({
-    Tajawal_300Light,
-    Tajawal_400Regular,
-    Tajawal_500Medium,
-    Tajawal_700Bold,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-    Poppins_700Bold,
+    Outfit_300Light,
+    Outfit_400Regular,
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+    PlusJakartaSans_400Regular,
+    PlusJakartaSans_500Medium,
+    PlusJakartaSans_600SemiBold,
+    IBMPlexSansArabic_300Light,
+    IBMPlexSansArabic_400Regular,
+    IBMPlexSansArabic_500Medium,
+    IBMPlexSansArabic_600SemiBold,
+    IBMPlexSansArabic_700Bold,
+    MaterialSymbolsOutlined: require('./assets/fonts/MaterialSymbolsOutlined.ttf'),
   });
 
   useEffect(() => {
-    // By default, Odora starts in Arabic (RTL)
-    if (isRTL && !I18nManager.isRTL) {
-      I18nManager.allowRTL(true);
-      I18nManager.forceRTL(true);
-    }
-  }, [isRTL]);
+    async function initApp() {
+      try {
+        const storedLang = await AsyncStorage.getItem(STORAGE_KEY_LANGUAGE);
+        const activeLang: 'ar' | 'en' =
+          storedLang === 'en' || storedLang === 'ar' ? storedLang : 'ar';
+        const isRtl = activeLang === 'ar';
 
-  if (!fontsLoaded) {
+        await i18n.changeLanguage(activeLang);
+        useAppStore.setState({ language: activeLang, isRTL: isRtl });
+
+        if (Platform.OS === 'web') {
+          if (typeof document !== 'undefined') {
+            document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+            document.documentElement.setAttribute('lang', activeLang);
+          }
+        } else {
+          // Native layout mirroring check
+          if (I18nManager.isRTL !== isRtl) {
+            I18nManager.allowRTL(isRtl);
+            I18nManager.forceRTL(isRtl);
+            try {
+              await Updates.reloadAsync();
+              return;
+            } catch {
+              if (DevSettings && DevSettings.reload) {
+                DevSettings.reload();
+                return;
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load initial language configuration:', err);
+      } finally {
+        setIsReady(true);
+      }
+    }
+
+    initApp();
+  }, []);
+
+  if (!fontsLoaded || !isReady) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.brandSage} />
+      <View style={[styles.loadingContainer, { backgroundColor: colors.bg }]}>
+        <ActivityIndicator size="large" color={colors.primarySoft} />
       </View>
     );
   }
 
+  const linking = {
+    prefixes: ['odora://', 'http://localhost:8081'],
+    config: {
+      screens: {
+        DevUiKit: 'dev/ui-kit',
+        MainTabs: '',
+        Settings: 'settings',
+      },
+    },
+  };
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <View
+        style={[
+          styles.rootContainer,
+          // Direction property for React Native Web layout mirroring
+          { direction: isRTL ? 'rtl' : 'ltr' } as any,
+        ]}
+      >
+        <StatusBar style={isDark ? 'light' : 'dark'} />
+        <NavigationContainer linking={linking}>
+          <RootNavigator />
+        </NavigationContainer>
+        <LanguageConfirmSheet />
+      </View>
     </SafeAreaProvider>
   );
 }
@@ -64,8 +134,10 @@ export default function App() {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    backgroundColor: colors.canvas,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  rootContainer: {
+    flex: 1,
   },
 });

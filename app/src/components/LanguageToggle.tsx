@@ -4,7 +4,7 @@ import { colors, typography, radii, spacing, shadows } from '../theme';
 import { useAppStore } from '../store/useAppStore';
 
 export const LanguageToggle: React.FC = () => {
-  const { language, setLanguage } = useAppStore();
+  const { language, requestLanguageChange } = useAppStore();
 
   return (
     <View style={styles.container}>
@@ -13,7 +13,7 @@ export const LanguageToggle: React.FC = () => {
           styles.pill,
           language === 'ar' && styles.pillActive,
         ]}
-        onPress={() => setLanguage('ar')}
+        onPress={() => requestLanguageChange('ar')}
         activeOpacity={0.8}
       >
         <Text
@@ -32,7 +32,7 @@ export const LanguageToggle: React.FC = () => {
           styles.pill,
           language === 'en' && styles.pillActive,
         ]}
-        onPress={() => setLanguage('en')}
+        onPress={() => requestLanguageChange('en')}
         activeOpacity={0.8}
       >
         <Text

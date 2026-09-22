@@ -5,6 +5,8 @@
 
 > The Stitch HTML is a **visual reference only**. Do not port HTML/Tailwind. Rebuild with these tokens and components in React Native. All images in the exports are AI-generated placeholders — never ship them.
 
+> ⚠️ **2026-09-22 correction:** sizes in §3 (typography), §4 (shape/spacing/elevation) and §6 (component sizes) were too large. **Use `05b-stitch-measured-spec.md` for all sizes** — it was measured from the real Stitch screens. Colors (§2) and rules here remain valid.
+
 ---
 
 ## 1. Decisions
