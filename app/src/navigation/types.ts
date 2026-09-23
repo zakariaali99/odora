@@ -11,6 +11,9 @@ export type RootStackParamList = {
   Onboarding: undefined;
   MainTabs: NavigatorScreenParams<MainTabsParamList> | undefined;
   DeviceControl: { deviceId?: string } | undefined;
+  DevicePairing: undefined;
+  DeviceSettings: { deviceId?: string; name?: string; room?: string } | undefined;
+  ConnectionStates: { initialTab?: 'disabled' | 'out_of_range' | 'syncing' } | undefined;
   Schedule: undefined;
   Checkout: undefined;
   Settings: undefined;

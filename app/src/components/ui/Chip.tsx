@@ -13,6 +13,7 @@ import { Icon, IconName } from './Icon';
 interface ChipProps {
   label: string;
   active?: boolean;
+  size?: 'sm' | 'md';
   onPress: () => void;
   count?: number;
   icon?: IconName;
@@ -22,12 +23,14 @@ interface ChipProps {
 export const Chip: React.FC<ChipProps> = ({
   label,
   active = false,
+  size = 'md',
   onPress,
   count,
   icon,
   style,
 }) => {
   const { colors, typography, radii, spacing } = useTheme();
+  const height = size === 'sm' ? 32 : 36;
 
   return (
     <TouchableOpacity
@@ -36,12 +39,10 @@ export const Chip: React.FC<ChipProps> = ({
       style={[
         styles.base,
         {
-          height: 36,
+          height,
           borderRadius: radii.pill,
-          backgroundColor: active ? colors.accent : colors.surfaceMuted,
+          backgroundColor: active ? colors.primary : colors.surfaceMuted,
           paddingHorizontal: spacing.md,
-          borderColor: active ? colors.accentStrong : 'transparent',
-          borderWidth: active ? 1 : 0,
         },
         style,
       ]}
@@ -50,7 +51,7 @@ export const Chip: React.FC<ChipProps> = ({
         <Icon
           name={icon}
           size={16}
-          color={active ? colors.text : colors.textMuted}
+          color={active ? colors.onPrimary : colors.text}
           style={{ marginEnd: 6 }}
         />
       )}
@@ -58,7 +59,7 @@ export const Chip: React.FC<ChipProps> = ({
         style={[
           typography.labelMd,
           {
-            color: active ? colors.text : colors.textMuted,
+            color: active ? colors.onPrimary : colors.text,
             fontWeight: active ? '600' : '500',
           },
         ]}

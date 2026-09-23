@@ -4,6 +4,8 @@
 **Inputs:** `05-app-design-system.md`, `06-app-screen-specs.md`, `reviews/stitch-analysis-2026-09-22.md`, references in `design-reference/stitch/idea-02/` and `idea-01/`.
 **Stay inside `/Users/zakaria/projects/antigravity/odora`.**
 
+> ⚠️ **2026-09-22:** Phases 2–5 are now built the way `08-screen-fidelity-rebuild.md` describes (image-to-image against the Stitch screens, batch by batch, with side-by-side proofs). Phases 0–1 below stay as they are.
+
 ---
 
 ## Phase 0 — Stabilize (blocker)
@@ -52,7 +54,7 @@
 ---
 
 ## Rules (errors to avoid)
-- Do not port Stitch HTML/Tailwind. Rebuild in React Native with the tokens.
+- Do not embed Stitch HTML/Tailwind (no WebView, no web CSS). Translate each screen's structure 1:1 into React Native components — see `08-screen-fidelity-rebuild.md` §2.
 - Never ship Stitch images (`lh3.googleusercontent.com`) — use `frontend/public/photos/` assets (copy into the app or load from backend media).
 - Never show a value the device/backend cannot provide. Unknown capability → flag OFF.
 - One tab bar, same four tabs, on every tab screen.

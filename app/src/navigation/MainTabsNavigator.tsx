@@ -2,10 +2,10 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabsParamList } from './types';
 import { HomeScreen } from '../screens/HomeScreen';
-import { DeviceScreen } from '../screens/DeviceScreen';
+import { DevicesScreen } from '../screens/DevicesScreen';
 import { StoreScreen } from '../screens/StoreScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
-import { BottomTabBar, TabKey, DEFAULT_TABS } from '../components/ui/BottomTabBar';
+import { BottomTabBar, TabKey } from '../components/ui/BottomTabBar';
 import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator<MainTabsParamList>();
@@ -59,7 +59,7 @@ export const MainTabsNavigator: React.FC = () => {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Devices" component={DeviceScreen} />
+      <Tab.Screen name="Devices" component={DevicesScreen} />
       <Tab.Screen name="Store" component={StoreScreen} />
       <Tab.Screen name="Account" component={SettingsScreen} />
     </Tab.Navigator>

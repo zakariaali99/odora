@@ -28,9 +28,9 @@ interface BottomTabBarProps {
 }
 
 export const DEFAULT_TABS: TabItem[] = [
-  { key: 'home', label: 'Home', icon: 'home' },
-  { key: 'devices', label: 'Devices', icon: 'air' },
-  { key: 'store', label: 'Store', icon: 'storefront' },
+  { key: 'home', label: 'Home', icon: 'airwave' },
+  { key: 'devices', label: 'Devices', icon: 'devices_other' },
+  { key: 'store', label: 'Store', icon: 'science' },
   { key: 'account', label: 'Account', icon: 'person' },
 ];
 
@@ -40,7 +40,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
   tabs = DEFAULT_TABS,
   style,
 }) => {
-  const { colors, typography, elevation, spacing } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
 
   return (
@@ -48,19 +48,16 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
       style={[
         styles.container,
         {
-          backgroundColor: colors.surface,
-          borderTopColor: colors.border,
-          borderTopWidth: 1,
+          backgroundColor: colors.bgAlt, // #F7F3EF
           paddingBottom: Math.max(insets.bottom, 12),
         },
-        elevation.e2,
         style,
       ]}
     >
       <View style={styles.tabRow}>
         {tabs.map((tab) => {
           const isActive = tab.key === activeTab;
-          const tintColor = isActive ? colors.primary : colors.textSubtle;
+          const tintColor = isActive ? colors.primary : colors.textMuted;
 
           return (
             <TouchableOpacity
@@ -75,22 +72,17 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
                   size={24}
                   color={tintColor}
                 />
-                {isActive && (
-                  <View
-                    style={[
-                      styles.activeDot,
-                      { backgroundColor: colors.primary },
-                    ]}
-                  />
-                )}
               </View>
               <Text
                 style={[
                   typography.labelSm,
                   {
                     color: tintColor,
-                    fontWeight: isActive ? '600' : '400',
-                    marginTop: 4,
+                    fontWeight: isActive ? '600' : '500',
+                    fontSize: 10,
+                    letterSpacing: isRTL ? 0 : 0.8,
+                    textTransform: isRTL ? 'none' : 'uppercase',
+                    marginTop: 2,
                   },
                 ]}
               >
@@ -107,24 +99,31 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: 10,
+    height: 64,
+    justifyContent: 'center',
+    shadowColor: '#232821',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.04,
+    shadowRadius: 12,
+    elevation: 8,
   },
   tabRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
+    height: 64,
   },
   tabButton: {
-    flex: 1,
+    width: 56,
+    height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 4,
   },
   iconWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 28,
+    height: 26,
   },
   activeDot: {
     width: 4,

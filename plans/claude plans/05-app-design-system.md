@@ -3,7 +3,7 @@
 **Status:** Approved direction (owner, 2026-09-22). Supersedes `01-design-system.md` and `03-design-elevation.md` **for the mobile app**.
 **Source:** Stitch exports in `design-reference/stitch/idea-02/` (base) + selected pieces of `design-reference/stitch/idea-01/`. Design docs: `idea-02/aura_botanical_luxury/DESIGN.md` (light) and `idea-02/evening_sanctuary_dark_luxury/DESIGN.md` (dark).
 
-> The Stitch HTML is a **visual reference only**. Do not port HTML/Tailwind. Rebuild with these tokens and components in React Native. All images in the exports are AI-generated placeholders — never ship them.
+> Do not embed the Stitch HTML/Tailwind. Translate each screen's structure 1:1 into React Native (see `08-screen-fidelity-rebuild.md`). All images in the exports are AI-generated placeholders — never ship them.
 
 > ⚠️ **2026-09-22 correction:** sizes in §3 (typography), §4 (shape/spacing/elevation) and §6 (component sizes) were too large. **Use `05b-stitch-measured-spec.md` for all sizes** — it was measured from the real Stitch screens. Colors (§2) and rules here remain valid.
 

@@ -38,10 +38,10 @@ export const Toggle: React.FC<ToggleProps> = ({
     }
   };
 
-  // Interpolate thumb position (mirrored in RTL)
+  // Interpolate thumb position within 48pt track (22pt thumb, 3pt margin)
   const thumbTranslateX = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: isRTL ? [-3, -23] : [3, 23],
+    outputRange: isRTL ? [23, 3] : [3, 23],
   });
 
   const backgroundColor = animatedValue.interpolate({
@@ -71,7 +71,8 @@ export const Toggle: React.FC<ToggleProps> = ({
             borderRadius: radii.pill,
             borderColor: colors.border,
             borderWidth: 1,
-            alignItems: isRTL ? 'flex-end' : 'flex-start',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
           },
         ]}
       >
@@ -93,18 +94,18 @@ export const Toggle: React.FC<ToggleProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 52,
-    height: 32,
+    width: 48,
+    height: 28,
     justifyContent: 'center',
   },
   track: {
-    width: 52,
-    height: 32,
+    width: 48,
+    height: 28,
     justifyContent: 'center',
   },
   thumb: {
-    width: 26,
-    height: 26,
+    width: 22,
+    height: 22,
   },
 });
 

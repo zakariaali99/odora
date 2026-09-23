@@ -10,7 +10,8 @@ import { useTheme } from '../../theme';
 
 interface CardProps {
   children: React.ReactNode;
-  variant?: 'standard' | 'device' | 'compact' | 'flat';
+  variant?: 'standard' | 'hero' | 'device' | 'compact' | 'tile' | 'flat';
+  surface?: 'lowest' | 'low' | 'default';
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
@@ -18,24 +19,35 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   children,
   variant = 'standard',
+  surface = 'default',
   onPress,
   style,
 }) => {
   const { colors, radii, spacing, elevation } = useTheme();
 
-  const isDevice = variant === 'device';
+  const isHero = variant === 'hero' || variant === 'device';
+  const isTile = variant === 'tile';
   const isCompact = variant === 'compact';
   const isFlat = variant === 'flat';
 
-  const cardRadius = isDevice ? radii.deviceCard : radii.lg;
-  const cardPadding = isCompact ? spacing.md : spacing.cardPadding;
+  let cardRadius: number = radii.card; // 32
+  if (isTile) cardRadius = radii.md; // 16
+
+  let cardPadding: number = spacing.cardPadding; // 24
+  if (isCompact) cardPadding = 20;
+  if (isTile) cardPadding = spacing.md; // 16
+
+  let bgColor = colors.surface; // #FFFFFF in light
+  if (surface === 'low') {
+    bgColor = colors.bgAlt; // #F7F3EF / #F4F0EC
+  } else if (surface === 'lowest') {
+    bgColor = colors.surface;
+  }
 
   const containerStyle: ViewStyle = {
-    backgroundColor: colors.surface,
+    backgroundColor: bgColor,
     borderRadius: cardRadius,
     padding: cardPadding,
-    borderColor: colors.border,
-    borderWidth: 1,
   };
 
   if (onPress) {

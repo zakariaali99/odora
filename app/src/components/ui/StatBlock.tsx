@@ -49,16 +49,16 @@ export const StatBlock: React.FC<StatBlockProps> = ({
         >
           {value}
         </Text>
-        {subValue && (
+        {subValue ? (
           <Text
             style={[
               typography.bodySm,
-              { color: colors.textMuted, marginStart: 4 },
+              { color: colors.textMuted, marginStart: 6 },
             ]}
           >
-            {subValue}
+            {' '}{subValue}
           </Text>
-        )}
+        ) : null}
       </View>
 
       {typeof progress === 'number' && (
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   valueRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
+    gap: 6,
   },
   progressTrack: {
     height: 4,

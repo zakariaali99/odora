@@ -28,3 +28,4 @@ export * from './Toast';
 export * from './ConnectionState';
 export * from './Sheet';
 export * from './LatinText';
+export * from './AppBar';

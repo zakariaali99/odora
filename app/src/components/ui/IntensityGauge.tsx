@@ -26,15 +26,19 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
   const { colors, typography, spacing } = useTheme();
   const activeCaption = caption !== undefined ? caption : t('device.optimalScenting', 'Optimal Scenting');
 
-  const size = 240;
-  const strokeWidth = 10;
-  const radius = (size - strokeWidth * 2) / 2;
+  const size = 224;
+  const strokeWidth = 8;
+  const radius = 82;
   const center = size / 2;
-  const circumference = 2 * Math.PI * radius;
+  const circumference = 2 * Math.PI * radius; // ~515.22
+  const arcSpan = 270; // 270 degree arc
+  const arcLength = (arcSpan / 360) * circumference; // ~386.42
+  const gapLength = circumference - arcLength; // ~128.80
 
   const clampedVal = Math.min(Math.max(value, 0), max);
   const progress = clampedVal / max;
-  const strokeDashoffset = circumference * (1 - progress);
+  // Offset moves from arcLength (empty) down to 0 (full 270° arc)
+  const strokeDashoffset = arcLength * (1 - progress);
 
   const handleDecrease = () => {
     if (clampedVal > 0 && !disabled) {
@@ -64,7 +68,7 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
         {/* Ring & Value */}
         <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
           <Svg width={size} height={size} style={styles.svg}>
-            {/* Background Track (20% opacity of primarySoft) */}
+            {/* Background 270° Track Arc (20% opacity of primarySoft) */}
             <Circle
               cx={center}
               cy={center}
@@ -72,34 +76,40 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
               stroke={colors.primarySoft}
               strokeWidth={strokeWidth}
               strokeOpacity={0.2}
-              fill="transparent"
-            />
-            {/* Progress Fill */}
-            <Circle
-              cx={center}
-              cy={center}
-              r={radius}
-              stroke={colors.primarySoft}
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${circumference} ${circumference}`}
-              strokeDashoffset={strokeDashoffset}
+              strokeDasharray={`${arcLength} ${gapLength}`}
+              strokeDashoffset={0}
               strokeLinecap="round"
               fill="transparent"
-              transform={`rotate(-90 ${center} ${center})`}
+              transform={`rotate(135 ${center} ${center})`}
             />
+            {/* Active Progress 270° Fill Arc */}
+            {clampedVal > 0 && (
+              <Circle
+                cx={center}
+                cy={center}
+                r={radius}
+                stroke={colors.primary}
+                strokeWidth={strokeWidth}
+                strokeDasharray={`${arcLength} ${circumference}`}
+                strokeDashoffset={strokeDashoffset}
+                strokeLinecap="round"
+                fill="transparent"
+                transform={`rotate(135 ${center} ${center})`}
+              />
+            )}
           </Svg>
 
           {/* Central Values */}
           <View style={styles.centerContent}>
             <View style={styles.valueRow}>
-              <Text style={[typography.numeric, { color: colors.text }]}>
+              <Text style={{ fontFamily: 'Outfit_300Light', fontSize: 36, lineHeight: 42, fontWeight: '300', color: colors.text }}>
                 {clampedVal}
               </Text>
-              <Text style={[typography.labelMd, { color: colors.textSubtle, marginStart: 2, marginBottom: 8 }]}>
+              <Text style={[typography.labelMd, { color: colors.textSubtle, marginStart: 2, marginBottom: 4 }]}>
                 /{max}
               </Text>
             </View>
-            <Text style={[typography.labelSm, { color: colors.textMuted, marginTop: -4 }]}>
+            <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '500', marginTop: -2 }]}>
               {activeCaption}
             </Text>
           </View>

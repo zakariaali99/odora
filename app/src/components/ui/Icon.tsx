@@ -87,8 +87,8 @@ export const Icon: React.FC<IconProps> = ({
           width: size,
           height: size,
           color: iconColor,
-          transform: shouldMirror ? [{ scaleX: -1 }] : undefined,
         },
+        shouldMirror && { transform: [{ scaleX: -1 }] },
         style,
       ]}
     >

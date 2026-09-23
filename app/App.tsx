@@ -72,15 +72,6 @@ export default function App() {
           if (I18nManager.isRTL !== isRtl) {
             I18nManager.allowRTL(isRtl);
             I18nManager.forceRTL(isRtl);
-            try {
-              await Updates.reloadAsync();
-              return;
-            } catch {
-              if (DevSettings && DevSettings.reload) {
-                DevSettings.reload();
-                return;
-              }
-            }
           }
         }
       } catch (err) {
@@ -139,5 +130,8 @@ const styles = StyleSheet.create({
   },
   rootContainer: {
     flex: 1,
+    width: '100%',
+    maxWidth: Platform.OS === 'web' ? 390 : undefined,
+    alignSelf: 'center',
   },
 });

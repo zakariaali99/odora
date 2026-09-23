@@ -83,7 +83,11 @@ export const Slider: React.FC<SliderProps> = ({
               width: `${clampedVal * 100}%`,
               backgroundColor: colors.primarySoft,
               borderRadius: radii.pill,
-              alignSelf: isRTL ? 'flex-end' : 'flex-start',
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: isRTL ? undefined : 0,
+              right: isRTL ? 0 : undefined,
             },
           ]}
         />
