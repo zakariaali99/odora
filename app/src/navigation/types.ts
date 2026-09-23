@@ -15,7 +15,12 @@ export type RootStackParamList = {
   DeviceSettings: { deviceId?: string; name?: string; room?: string } | undefined;
   ConnectionStates: { initialTab?: 'disabled' | 'out_of_range' | 'syncing' } | undefined;
   Schedule: undefined;
+  Category: { categoryId?: string; title?: string } | undefined;
+  Search: undefined;
+  ProductDetail: { productId?: string } | undefined;
+  Cart: undefined;
   Checkout: undefined;
+  OrderConfirmation: { orderId?: string } | undefined;
   Settings: undefined;
   DevUiKit: undefined;
 };

@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  ActivityIndicator,
+  ScrollView,
+  Animated,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { ShoppingBag, Star, Check, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react-native';
-import { ScreenContainer } from '../components/ScreenContainer';
-import { Header } from '../components/Header';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
-import { colors, typography, spacing, radii, shadows } from '../theme';
-import { useAppStore } from '../store/useAppStore';
-import { useCartStore } from '../store/useCartStore';
-import { api } from '../services/api';
+import { useTheme } from '../theme';
+import { AppBar, Card, Icon } from '../components/ui';
 
 interface StoreScreenProps {
   navigation: any;
@@ -24,410 +18,754 @@ interface StoreScreenProps {
 
 export const StoreScreen: React.FC<StoreScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { language, isRTL } = useAppStore();
-  const { cart, addItem, fetchCart } = useCartStore();
+  const { colors, typography, radii, spacing, isRTL } = useTheme();
 
-  const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [addedMap, setAddedMap] = useState<Record<string, boolean>>({});
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastAnim = useRef(new Animated.Value(0)).current;
 
-  const fontFam =
-    language === 'ar'
-      ? typography.fontFamily.ar
-      : typography.fontFamily.en;
-
-  // Local image asset mapping based on product slug/type
-  const getProductImage = (slug: string, productType: string) => {
-    if (productType === 'diffuser' || slug.includes('diffuser')) {
-      return require('../../assets/images/brand_photo_4.png');
-    }
-    if (slug.includes('cotton')) {
-      return require('../../assets/images/brand_photo_2.png');
-    }
-    if (slug.includes('bundle')) {
-      return require('../../assets/images/brand_photo_1.png');
-    }
-    return require('../../assets/images/brand_photo_3.png');
+  const showToast = (productName: string) => {
+    setToastMessage(isRTL ? `تمت إضافة ${productName} إلى السلة` : `${productName} added to cart`);
+    Animated.sequence([
+      Animated.timing(toastAnim, {
+        toValue: 1,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.delay(2200),
+      Animated.timing(toastAnim, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start(() => setToastMessage(null));
   };
 
-  useEffect(() => {
-    const loadStoreData = async () => {
-      setLoading(true);
-      try {
-        const res = await api.getProducts();
-        const items = res.results || res || [];
-        if (Array.isArray(items) && items.length > 0) {
-          setProducts(items);
-        } else {
-          // Graceful fallback if empty
-          setProducts([
-            {
-              id: 'odora-diffuser-a316',
-              slug: 'odora-diffuser-a316',
-              name_ar: 'جهاز أودورا A316 الذكي',
-              name_en: 'Odora A316 Smart Diffuser',
-              subtitle_ar: 'تذرية هوائية بدون ماء · تغطية 900 م³',
-              subtitle_en: 'Waterless Cold-Air · 900 m³ Coverage',
-              price: '320.00',
-              rating: 4.9,
-              reviews_count: 24,
-              product_type: 'diffuser',
-              colorways: [{ id: '1', name_ar: 'أخضر مريمي', hex_code: '#919C7A' }],
-            },
-            {
-              id: 'forest-sage-fragrance-oil',
-              slug: 'forest-sage-fragrance-oil',
-              name_ar: 'زيت مريمية الغابة النقي',
-              name_en: 'Forest Sage Pure Fragrance',
-              subtitle_ar: 'صنوبر، خزامى، مريمية، أرز · 500 مل',
-              subtitle_en: 'Pine, Lavender, Sage · 500ml',
-              price: '45.00',
-              rating: 5.0,
-              reviews_count: 38,
-              product_type: 'oil',
-            },
-          ]);
-        }
-      } catch (err) {
-        console.warn('Using offline fallback products for StoreScreen', err);
-        setProducts([
-          {
-            id: 'odora-diffuser-a316',
-            slug: 'odora-diffuser-a316',
-            name_ar: 'جهاز أودورا A316 الذكي',
-            name_en: 'Odora A316 Smart Diffuser',
-            subtitle_ar: 'تذرية هوائية بدون ماء · تغطية 900 م³',
-            subtitle_en: 'Waterless Cold-Air · 900 m³ Coverage',
-            price: '320.00',
-            rating: 4.9,
-            product_type: 'diffuser',
-          },
-          {
-            id: 'forest-sage-fragrance-oil',
-            slug: 'forest-sage-fragrance-oil',
-            name_ar: 'زيت مريمية الغابة النقي',
-            name_en: 'Forest Sage Pure Fragrance',
-            subtitle_ar: 'صنوبر، خزامى، مريمية، أرز · 500 مل',
-            subtitle_en: 'Pine, Lavender, Sage · 500ml',
-            price: '45.00',
-            rating: 5.0,
-            product_type: 'oil',
-          },
-        ]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStoreData();
-    fetchCart();
-  }, []);
-
-  const handleAddToCart = async (item: any) => {
-    const defaultColorway = item.colorways?.[0]?.id || null;
-    const success = await addItem(item.id, defaultColorway, 1);
-    
-    // Animate visual check feedback
-    setAddedMap((prev) => ({ ...prev, [item.id]: true }));
-    setTimeout(() => {
-      setAddedMap((prev) => ({ ...prev, [item.id]: false }));
-    }, 2200);
-  };
+  const categories = [
+    { id: 'all', label: isRTL ? 'الكل' : 'All' },
+    { id: 'diffusers', label: isRTL ? 'الموزعات (3)' : 'Diffusers (3)' },
+    { id: 'oils', label: isRTL ? 'زيوت نقية (8)' : 'Pure Oils (8)' },
+    { id: 'bundles', label: isRTL ? 'باقات الملاذ (2)' : 'Sanctuary Bundles (2)' },
+    { id: 'accessories', label: isRTL ? 'إكسسوارات' : 'Accessories' },
+  ];
 
   return (
-    <ScreenContainer>
-      <Header
-        showBack={true}
-        onBack={() => navigation.goBack()}
-        rightAction="none"
+    <View style={[styles.screen, { backgroundColor: colors.bg }]}>
+      {/* 1. App Bar (64pt, Stitch: pulse dot + uppercase title + Cart with badge + Profile avatar) */}
+      <AppBar
+        leading={
+          <View style={styles.appBarLeading}>
+            <View style={[styles.pulseDot, { backgroundColor: colors.primarySoft }]} />
+            <Text
+              style={[
+                typography.headlineSm,
+                {
+                  color: colors.text,
+                  fontSize: 18,
+                  lineHeight: 26,
+                  fontWeight: '500',
+                  textTransform: isRTL ? 'none' : 'uppercase',
+                  marginStart: 8,
+                },
+              ]}
+            >
+              {isRTL ? 'أودورا — المتجر' : 'Odora — Store'}
+            </Text>
+          </View>
+        }
+        actions={[
+          {
+            icon: 'shopping_bag',
+            onPress: () => navigation.navigate('Cart'),
+            label: 'Cart',
+          },
+          {
+            avatar: require('../../assets/photos/avatar.jpg'),
+            onPress: () => navigation.navigate('Account'),
+            label: 'Profile',
+          },
+        ]}
       />
 
-      <View style={styles.content}>
-        {/* Title Section */}
-        <View style={styles.titleSection}>
-          <View style={styles.brandBadge}>
-            <Sparkles size={12} color={colors.brandOlive} />
-            <Text style={[styles.brandBadgeText, { fontFamily: fontFam.bold }]}>
-              {language === 'ar' ? 'متجر أودورا الرسمي' : 'ODORA BOUTIQUE'}
-            </Text>
-          </View>
-          <Text style={[styles.title, { fontFamily: fontFam.medium }]}>
-            {t('store.title')}
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <Animated.View
+          style={[
+            styles.toastContainer,
+            {
+              backgroundColor: colors.ink,
+              opacity: toastAnim,
+              transform: [
+                {
+                  translateY: toastAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-10, 0],
+                  }),
+                },
+              ],
+            },
+          ]}
+        >
+          <Icon name="check_circle" size={18} color={colors.accent} />
+          <Text style={[typography.labelMd, { color: colors.onInk, marginStart: 8, fontWeight: '600' }]}>
+            {toastMessage}
           </Text>
-          <Text style={[styles.subtitle, { fontFamily: fontFam.regular }]}>
-            {t('store.subtitle')}
-          </Text>
-        </View>
+        </Animated.View>
+      )}
 
-        {/* Loading Spinner */}
-        {loading ? (
-          <View style={styles.loadingBox}>
-            <ActivityIndicator size="small" color={colors.brandSage} />
-            <Text style={[styles.loadingText, { fontFamily: fontFam.regular }]}>
-              {language === 'ar' ? 'جاري تحميل الأجهزة والزيوت العطرية...' : 'Loading products...'}
-            </Text>
-          </View>
-        ) : (
-          /* Live Product Cards */
-          products.map((item) => {
-            const isAdded = !!addedMap[item.id];
-            const name = language === 'ar' ? (item.name_ar || item.name) : (item.name_en || item.name_ar || item.name);
-            const subtitle = language === 'ar' ? item.subtitle_ar : (item.subtitle_en || item.subtitle_ar);
-            const price = Number(item.price || item.final_price || 0).toFixed(2);
-            const rating = item.rating || 5.0;
-
-            return (
-              <Card key={item.id} variant="surface" elevation="card" style={styles.productCard}>
-                <View style={styles.imageWrap}>
-                  <Image
-                    source={getProductImage(item.slug || '', item.product_type || '')}
-                    style={styles.productImage}
-                    resizeMode="cover"
-                  />
-                  <View style={styles.ratingBadge}>
-                    <Star size={12} color={colors.warningAmber} fill={colors.warningAmber} />
-                    <Text style={styles.ratingText}>{Number(rating).toFixed(1)}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.cardDetails}>
-                  <Text style={[styles.productName, { fontFamily: fontFam.medium }]}>
-                    {name}
-                  </Text>
-                  {subtitle ? (
-                    <Text style={[styles.productColorway, { fontFamily: fontFam.regular }]}>
-                      {subtitle}
-                    </Text>
-                  ) : null}
-
-                  <View style={styles.priceRow}>
-                    <View style={styles.priceGroup}>
-                      <Text style={[styles.priceValue, { fontFamily: fontFam.bold }]}>
-                        {price}
-                      </Text>
-                      <Text style={[styles.priceCurrency, { fontFamily: fontFam.regular }]}>
-                        {t('store.currency')}
-                      </Text>
-                    </View>
-
-                    <Button
-                      title={isAdded ? (language === 'ar' ? 'تمت الإضافة ✓' : 'Added ✓') : t('store.addToCart')}
-                      onPress={() => handleAddToCart(item)}
-                      variant={isAdded ? 'outline' : 'dark'}
-                      size="sm"
-                      icon={isAdded ? <Check size={14} color={colors.brandSage} /> : <ShoppingBag size={14} color={colors.surface} />}
-                    />
-                  </View>
-                </View>
-              </Card>
-            );
-          })
-        )}
-      </View>
-
-      {/* Floating Bottom Cart Bar when items are present */}
-      {cart.total_items > 0 && (
-        <View style={styles.cartBarContainer}>
+      <ScrollView
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: 110 }]}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* 2. Search & Filter Controls */}
+        <View style={styles.searchSection}>
           <TouchableOpacity
-            style={styles.cartBar}
-            onPress={() => navigation.navigate('Checkout')}
-            activeOpacity={0.9}
+            activeOpacity={0.85}
+            style={[styles.searchPill, { backgroundColor: colors.surface }]}
+            onPress={() => navigation.navigate('Search')}
           >
-            <View style={styles.cartBarLeft}>
-              <View style={styles.cartBadge}>
-                <Text style={styles.cartBadgeText}>{cart.total_items}</Text>
-              </View>
-              <View>
-                <Text style={[styles.cartBarTitle, { fontFamily: fontFam.bold }]}>
-                  {language === 'ar' ? 'سلة التسوق والمتابعة' : 'Shopping Cart'}
-                </Text>
-                <Text style={[styles.cartBarTotal, { fontFamily: fontFam.regular }]}>
-                  {Number(cart.total_price || cart.subtotal || 0).toFixed(2)} {t('store.currency')}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.cartBarRight}>
-              <Text style={[styles.cartCheckoutText, { fontFamily: fontFam.bold }]}>
-                {language === 'ar' ? 'إتمام الطلب' : 'Checkout'}
-              </Text>
-              {isRTL ? (
-                <ArrowLeft size={16} color={colors.surface} />
-              ) : (
-                <ArrowRight size={16} color={colors.surface} />
-              )}
-            </View>
+            <Icon name="search" size={20} color={colors.textMuted} />
+            <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 8, flex: 1, textAlign: isRTL ? 'right' : 'left' }]}>
+              {isRTL ? 'ابحث عن العطور النباتية والموزعات...' : 'Search botanical fragrances, diffusers...'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            style={[styles.filterButton, { backgroundColor: colors.surfaceMuted }]}
+            onPress={() => navigation.navigate('Category')}
+          >
+            <Icon name="tune" size={20} color={colors.text} />
           </TouchableOpacity>
         </View>
-      )}
-    </ScreenContainer>
+
+        {/* 3. Category Pill Carousel */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoryCarousel}
+        >
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            return (
+              <TouchableOpacity
+                key={cat.id}
+                activeOpacity={0.8}
+                style={[
+                  styles.categoryPill,
+                  {
+                    backgroundColor: isActive ? colors.primarySoft : colors.surfaceMuted,
+                  },
+                ]}
+                onPress={() => {
+                  setActiveCategory(cat.id);
+                  if (cat.id === 'diffusers' || cat.id === 'oils') {
+                    navigation.navigate('Category', { categoryId: cat.id });
+                  }
+                }}
+              >
+                <Text
+                  style={[
+                    typography.labelMd,
+                    {
+                      color: isActive ? colors.surface : colors.text,
+                      fontWeight: isActive ? '600' : '500',
+                    },
+                  ]}
+                >
+                  {cat.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+
+        {/* 4. Featured Spotlight: Autumn Harvest Trio */}
+        <View style={styles.spotlightSection}>
+          <Card surface="low" style={styles.spotlightCard}>
+            <View style={styles.spotlightImageWrapper}>
+              <Image
+                source={require('../../assets/photos/bundle-signature.png')}
+                style={styles.spotlightImage}
+                resizeMode="cover"
+              />
+              <View style={[styles.spotlightBadge, { backgroundColor: colors.accent }]}>
+                <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '700' }]}>
+                  {isRTL ? 'مختارات خاصة' : 'LIMITED CURATION'}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.spotlightDetails, { backgroundColor: colors.surface }]}>
+              <View style={styles.spotlightTitleRow}>
+                <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+                  {isRTL ? 'ثلاثية حصاد الخريف' : 'Autumn Harvest Trio'}
+                </Text>
+                <View style={styles.priceRow}>
+                  <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700' }]}>$280</Text>
+                  <Text style={[typography.labelMd, { color: colors.textMuted, textDecorationLine: 'line-through', marginStart: 6 }]}>$340</Text>
+                </View>
+              </View>
+              <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 4, lineHeight: 18 }]}>
+                {isRTL
+                  ? 'انتشار ميكروي بدون ماء لتناغم كامل للمنزل. تشمل 3 ألوان وخلاصة الحصاد المميزة.'
+                  : 'Waterless micro-diffusion for whole home harmony. Includes 3 colorways and signature harvest essence.'}
+              </Text>
+              <View style={styles.spotlightFooter}>
+                <View style={styles.colorSwatches}>
+                  <View style={[styles.swatchDot, { backgroundColor: '#919c7a' }]} />
+                  <View style={[styles.swatchDot, { backgroundColor: '#f4f0ec', marginStart: -6 }]} />
+                  <View style={[styles.swatchDot, { backgroundColor: '#232821', marginStart: -6 }]} />
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.shopBundleBtn, { backgroundColor: colors.ink }]}
+                  onPress={() => navigation.navigate('ProductDetail')}
+                >
+                  <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600' }]}>
+                    {isRTL ? 'شراء الباقة' : 'Shop Bundle'}
+                  </Text>
+                  <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={16} color={colors.onInk} style={{ marginStart: 6 }} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Card>
+        </View>
+
+        {/* 5. Product Catalog Grid: Atmospheric Collection */}
+        <View style={styles.catalogSection}>
+          <View style={styles.catalogHeader}>
+            <View>
+              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+                {isRTL ? 'مجموعة الأجواء' : 'Atmospheric Collection'}
+              </Text>
+              <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                {isRTL ? '5 إبداعات مصممة للمساحات المعمارية' : '5 creations tailored for architectural spaces'}
+              </Text>
+            </View>
+            <Text style={[typography.labelSm, { color: colors.textMuted, fontWeight: '600', textTransform: 'uppercase' }]}>
+              {isRTL ? 'متوفر' : 'IN STOCK'}
+            </Text>
+          </View>
+
+          {/* Item 1: Odora Air 01 Diffuser (Full 2-Column Width Card) */}
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={[styles.featuredHeroCard, { backgroundColor: colors.surface }]}
+            onPress={() => navigation.navigate('ProductDetail')}
+          >
+            <View style={styles.featuredHeroImageWrapper}>
+              <Image
+                source={require('../../assets/photos/diffuser_sage_hero.png')}
+                style={styles.featuredHeroImage}
+                resizeMode="cover"
+              />
+              <View style={[styles.bestsellerBadge, { backgroundColor: colors.primary }]}>
+                <Text style={[typography.labelSm, { color: colors.surface, fontWeight: '700' }]}>
+                  {isRTL ? 'الأكثر طلباً' : 'BEST SELLER'}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.featuredHeroDetails}>
+              <View style={styles.featuredHeroTitleRow}>
+                <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+                  Odora Air 01
+                </Text>
+                <Text style={[typography.labelLg, { color: colors.primary, fontWeight: '700' }]}>
+                  $185
+                </Text>
+              </View>
+              <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                {isRTL ? 'موزع عطري هوائي بارد بدون ماء مع تقنية الرذاذ الصامت.' : 'Cold-air waterless nebulizer with whisper mist technology.'}
+              </Text>
+              <View style={styles.featuredHeroFooter}>
+                <View style={styles.heroSwatches}>
+                  <View style={[styles.swatchDotMd, { backgroundColor: '#919c7a' }]} />
+                  <View style={[styles.swatchDotMd, { backgroundColor: '#ebe7e4', marginStart: 6 }]} />
+                  <View style={[styles.swatchDotMd, { backgroundColor: '#232821', marginStart: 6 }]} />
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.addBtnPill, { backgroundColor: colors.accent }]}
+                  onPress={() => showToast('Odora Air 01')}
+                >
+                  <Icon name="add" size={16} color={colors.primary} />
+                  <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700', marginStart: 4 }]}>
+                    {isRTL ? 'إضافة' : 'Add'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          {/* 2-Column Catalog Grid */}
+          <View style={styles.twoColumnGrid}>
+            {/* Item 2: Forest Sage */}
+            <View style={[styles.gridCard, { backgroundColor: colors.surface }]}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('ProductDetail')}>
+                <View style={styles.gridImageWrapper}>
+                  <Image source={require('../../assets/photos/oil-forest-sage.png')} style={styles.gridImage} resizeMode="cover" />
+                </View>
+                <View style={styles.gridDetails}>
+                  <Text style={[typography.labelLg, { color: colors.text, fontWeight: '600' }]} numberOfLines={1}>
+                    {isRTL ? 'مريمية الغابة' : 'Forest Sage'}
+                  </Text>
+                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
+                    {isRTL ? '30ml زيت نقي' : '30ml Pure Oil'}
+                  </Text>
+                  <Text style={[typography.labelSm, { color: colors.textMuted, marginTop: 2 }]} numberOfLines={1}>
+                    {isRTL ? 'أوكالبتوس · أرز · صنوبر' : 'Eucalyptus · Cedar · Pine'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.gridCardFooter}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700' }]}>$42</Text>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.roundAddBtn, { backgroundColor: colors.surfaceMuted }]}
+                  onPress={() => showToast('Forest Sage')}
+                >
+                  <Icon name="add" size={16} color={colors.text} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Item 3: Cotton Linen */}
+            <View style={[styles.gridCard, { backgroundColor: colors.surface }]}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('ProductDetail')}>
+                <View style={styles.gridImageWrapper}>
+                  <Image source={require('../../assets/photos/oil-cotton-linen.png')} style={styles.gridImage} resizeMode="cover" />
+                </View>
+                <View style={styles.gridDetails}>
+                  <Text style={[typography.labelLg, { color: colors.text, fontWeight: '600' }]} numberOfLines={1}>
+                    {isRTL ? 'كتان قطني' : 'Cotton Linen'}
+                  </Text>
+                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
+                    {isRTL ? '30ml نباتي' : '30ml Botanical'}
+                  </Text>
+                  <Text style={[typography.labelSm, { color: colors.textMuted, marginTop: 2 }]} numberOfLines={1}>
+                    {isRTL ? 'عنبر أبيض · برغموت' : 'White Amber · Bergamot'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.gridCardFooter}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700' }]}>$42</Text>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.roundAddBtn, { backgroundColor: colors.surfaceMuted }]}
+                  onPress={() => showToast('Cotton Linen')}
+                >
+                  <Icon name="add" size={16} color={colors.text} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Item 4: Santal Mist */}
+            <View style={[styles.gridCard, { backgroundColor: colors.surface }]}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('ProductDetail')}>
+                <View style={styles.gridImageWrapper}>
+                  <Image source={require('../../assets/photos/diffuser_sage_livingroom.png')} style={styles.gridImage} resizeMode="cover" />
+                </View>
+                <View style={styles.gridDetails}>
+                  <Text style={[typography.labelLg, { color: colors.text, fontWeight: '600' }]} numberOfLines={1}>
+                    {isRTL ? 'رذاذ الصندل' : 'Santal Mist'}
+                  </Text>
+                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
+                    {isRTL ? '30ml حجرة' : '30ml Chamber'}
+                  </Text>
+                  <Text style={[typography.labelSm, { color: colors.textMuted, marginTop: 2 }]} numberOfLines={1}>
+                    {isRTL ? 'صندل · سوسن · هيل' : 'Sandalwood · Iris · Cardamom'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.gridCardFooter}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700' }]}>$46</Text>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.roundAddBtn, { backgroundColor: colors.surfaceMuted }]}
+                  onPress={() => showToast('Santal Mist')}
+                >
+                  <Icon name="add" size={16} color={colors.text} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Item 5: Stone Pedestal */}
+            <View style={[styles.gridCard, { backgroundColor: colors.surface }]}>
+              <TouchableOpacity activeOpacity={0.9} onPress={() => navigation.navigate('ProductDetail')}>
+                <View style={styles.gridImageWrapper}>
+                  <Image source={require('../../assets/photos/diffuser_black_office.png')} style={styles.gridImage} resizeMode="cover" />
+                  <View style={[styles.newItemBadge, { backgroundColor: colors.surfaceMuted }]}>
+                    <Text style={[typography.labelSm, { color: colors.text, fontWeight: '700', fontSize: 9 }]}>
+                      {isRTL ? 'جديد' : 'NEW'}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.gridDetails}>
+                  <Text style={[typography.labelLg, { color: colors.text, fontWeight: '600' }]} numberOfLines={1}>
+                    {isRTL ? 'قاعدة الحجر' : 'Stone Pedestal'}
+                  </Text>
+                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
+                    {isRTL ? 'قاعدة شحن' : 'Charging Base'}
+                  </Text>
+                  <Text style={[typography.labelSm, { color: colors.textMuted, marginTop: 2 }]} numberOfLines={1}>
+                    {isRTL ? 'ترافرتين مصقول' : 'Honed Travertine'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.gridCardFooter}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700' }]}>$65</Text>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  style={[styles.roundAddBtn, { backgroundColor: colors.surfaceMuted }]}
+                  onPress={() => showToast('Stone Pedestal')}
+                >
+                  <Icon name="add" size={16} color={colors.text} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* 6. Value Propositions & Guarantee Banner */}
+        <View style={styles.guaranteeSection}>
+          <Card surface="low" style={styles.guaranteeCard}>
+            <View style={styles.guaranteeRow}>
+              <View style={[styles.guaranteeIconWrap, { backgroundColor: colors.surface }]}>
+                <Icon name="local_shipping" size={20} color={colors.primary} />
+              </View>
+              <View style={styles.guaranteeTextWrap}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
+                  {isRTL ? 'توصيل سريع مجاني' : 'Complimentary Express Delivery'}
+                </Text>
+                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                  {isRTL ? 'شحن بيئي مخصص لكافة الطلبات فوق $100' : 'Curated ecological shipping on all orders over $100'}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.guaranteeRow}>
+              <View style={[styles.guaranteeIconWrap, { backgroundColor: colors.surface }]}>
+                <Icon name="verified_user" size={20} color={colors.primary} />
+              </View>
+              <View style={styles.guaranteeTextWrap}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
+                  {isRTL ? 'ضمان معماري لمدة عامين' : '2-Year Architectural Warranty'}
+                </Text>
+                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                  {isRTL ? 'تغطية شاملة لتوربينات الهواء البارد الدقيقة' : 'Complete coverage for cold-diffusion micro-turbines'}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.guaranteeRow}>
+              <View style={[styles.guaranteeIconWrap, { backgroundColor: colors.surface }]}>
+                <Icon name="water_drop" size={20} color={colors.primary} />
+              </View>
+              <View style={styles.guaranteeTextWrap}>
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
+                  {isRTL ? 'تقنية الهواء البارد بدون ماء' : 'Waterless Cold-Air Technology'}
+                </Text>
+                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                  {isRTL ? 'بدون أي تخفيف. احتفاظ تام بخصائص الزيوت النباتية' : 'Zero dilution. Pure botanical therapeutic retention'}
+                </Text>
+              </View>
+            </View>
+          </Card>
+        </View>
+
+        {/* 7. Editorial Brand Footer Statement */}
+        <View style={styles.brandFooter}>
+          <Text style={[typography.headlineSm, { color: colors.primary, letterSpacing: 4, fontWeight: '600', textTransform: 'uppercase' }]}>
+            ODORA
+          </Text>
+          <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 2, marginTop: 4, textTransform: 'uppercase' }]}>
+            {isRTL ? 'عطر الأجواء والسكينة' : 'SCENT OF ATMOSPHERE'}
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  content: {
-    paddingHorizontal: spacing.xl,
-    paddingBottom: 110,
+  screen: {
+    flex: 1,
   },
-  titleSection: {
-    marginBottom: spacing.xl,
+  scrollContent: {
+    paddingTop: 8,
   },
-  brandBadge: {
+  appBarLeading: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    backgroundColor: colors.brandPaleGreen,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: radii.pill,
-    alignSelf: 'flex-start',
-    marginBottom: 8,
   },
-  brandBadgeText: {
-    fontSize: 10,
-    color: colors.brandOlive,
-    letterSpacing: 1,
+  pulseDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
-  title: {
-    fontSize: typography.fontSize.title1,
-    color: colors.inkPrimary,
-    marginBottom: spacing.xs,
-  },
-  subtitle: {
-    fontSize: typography.fontSize.bodySm,
-    color: colors.inkMuted,
-    lineHeight: typography.lineHeight.bodySm,
-  },
-  loadingBox: {
-    paddingVertical: 40,
-    alignItems: 'center',
-    gap: 12,
-  },
-  loadingText: {
-    fontSize: typography.fontSize.caption,
-    color: colors.inkMuted,
-  },
-  productCard: {
-    padding: 0,
-    overflow: 'hidden',
-    marginBottom: spacing.xl,
-  },
-  imageWrap: {
-    height: 190,
-    width: '100%',
-    position: 'relative',
-  },
-  productImage: {
-    width: '100%',
-    height: '100%',
-  },
-  ratingBadge: {
+  toastContainer: {
     position: 'absolute',
-    top: spacing.md,
-    left: spacing.md,
+    top: 72,
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    paddingVertical: 3,
-    paddingHorizontal: 8,
-    borderRadius: radii.pill,
-  },
-  ratingText: {
-    fontSize: typography.fontSize.caption,
-    color: colors.inkPrimary,
-    fontWeight: '600',
-  },
-  cardDetails: {
-    padding: spacing.xl,
-  },
-  productName: {
-    fontSize: typography.fontSize.title3,
-    color: colors.inkPrimary,
-    marginBottom: 4,
-  },
-  productColorway: {
-    fontSize: typography.fontSize.caption,
-    color: colors.inkMuted,
-    marginBottom: spacing.lg,
-  },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  priceGroup: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 4,
-  },
-  priceValue: {
-    fontSize: typography.fontSize.title2,
-    color: colors.inkPrimary,
-  },
-  priceCurrency: {
-    fontSize: typography.fontSize.caption,
-    color: colors.inkMuted,
-  },
-  cartBarContainer: {
-    position: 'absolute',
-    bottom: 24,
-    left: 20,
-    right: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 999,
     zIndex: 99,
-  },
-  cartBar: {
-    backgroundColor: colors.brandOlive,
-    borderRadius: radii.xl,
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
     elevation: 8,
   },
-  cartBarLeft: {
+  searchSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    paddingHorizontal: 16,
+    gap: 10,
+    marginTop: 8,
   },
-  cartBadge: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: colors.brandPaleGreen,
+  searchPill: {
+    flex: 1,
+    height: 48,
+    borderRadius: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    shadowColor: '#232821',
+    shadowOpacity: 0.04,
+    shadowRadius: 10,
+    elevation: 2,
+  },
+  filterButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  cartBadgeText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: colors.brandOlive,
+  categoryCarousel: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 8,
   },
-  cartBarTitle: {
-    color: colors.surface,
-    fontSize: 13,
+  categoryPill: {
+    paddingHorizontal: 16,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  cartBarTotal: {
-    color: colors.brandPaleGreen,
-    fontSize: 12,
+  spotlightSection: {
+    paddingHorizontal: 16,
+    marginTop: 4,
   },
-  cartBarRight: {
+  spotlightCard: {
+    borderRadius: 24,
+    overflow: 'hidden',
+    padding: 0,
+  },
+  spotlightImageWrapper: {
+    width: '100%',
+    height: 220,
+    position: 'relative',
+  },
+  spotlightImage: {
+    width: '100%',
+    height: '100%',
+  },
+  spotlightBadge: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 999,
+  },
+  spotlightDetails: {
+    padding: 20,
+  },
+  spotlightTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: radii.pill,
+    justifyContent: 'space-between',
   },
-  cartCheckoutText: {
-    color: colors.surface,
-    fontSize: 12,
+  priceRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  spotlightFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    paddingTop: 12,
+  },
+  colorSwatches: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  swatchDot: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: '#ffffff',
+  },
+  swatchDotMd: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+  },
+  shopBundleBtn: {
+    height: 44,
+    paddingHorizontal: 20,
+    borderRadius: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  catalogSection: {
+    paddingHorizontal: 16,
+    marginTop: 24,
+  },
+  catalogHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginBottom: 14,
+  },
+  featuredHeroCard: {
+    borderRadius: 24,
+    overflow: 'hidden',
+    marginBottom: 14,
+    shadowColor: '#232821',
+    shadowOpacity: 0.04,
+    shadowRadius: 12,
+    elevation: 3,
+  },
+  featuredHeroImageWrapper: {
+    width: '100%',
+    height: 220,
+    position: 'relative',
+  },
+  featuredHeroImage: {
+    width: '100%',
+    height: '100%',
+  },
+  bestsellerBadge: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 999,
+  },
+  featuredHeroDetails: {
+    padding: 18,
+  },
+  featuredHeroTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  featuredHeroFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 14,
+    paddingTop: 10,
+  },
+  heroSwatches: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  addBtnPill: {
+    height: 36,
+    paddingHorizontal: 14,
+    borderRadius: 18,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  twoColumnGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  gridCard: {
+    width: '48%',
+    borderRadius: 20,
+    overflow: 'hidden',
+    padding: 12,
+    justifyContent: 'space-between',
+    shadowColor: '#232821',
+    shadowOpacity: 0.03,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  gridImageWrapper: {
+    width: '100%',
+    aspectRatio: 1,
+    borderRadius: 14,
+    overflow: 'hidden',
+    position: 'relative',
+    backgroundColor: '#ebe7e4',
+  },
+  gridImage: {
+    width: '100%',
+    height: '100%',
+  },
+  newItemBadge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 999,
+  },
+  gridDetails: {
+    marginTop: 8,
+  },
+  gridCardFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    paddingTop: 6,
+  },
+  roundAddBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  guaranteeSection: {
+    paddingHorizontal: 16,
+    marginTop: 24,
+  },
+  guaranteeCard: {
+    borderRadius: 24,
+    padding: 20,
+    gap: 16,
+  },
+  guaranteeRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 14,
+  },
+  guaranteeIconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  guaranteeTextWrap: {
+    flex: 1,
+  },
+  brandFooter: {
+    alignItems: 'center',
+    paddingVertical: 32,
+    opacity: 0.7,
   },
 });
 

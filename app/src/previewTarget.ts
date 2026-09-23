@@ -7,6 +7,13 @@ export interface PreviewConfig {
     | 'Schedule'
     | 'DeviceSettings'
     | 'ConnectionStates'
+    | 'Store'
+    | 'Category'
+    | 'Search'
+    | 'ProductDetail'
+    | 'Cart'
+    | 'Checkout'
+    | 'OrderConfirmation'
     | null;
   lang: 'ar' | 'en' | null;
 }

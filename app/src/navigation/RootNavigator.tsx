@@ -10,7 +10,13 @@ import { DeviceSettingsScreen } from '../screens/DeviceSettingsScreen';
 import { ConnectionStatesScreen } from '../screens/ConnectionStatesScreen';
 import { ScheduleScreen } from '../screens/ScheduleScreen';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
+import { StoreScreen } from '../screens/StoreScreen';
+import { CategoryScreen } from '../screens/CategoryScreen';
+import { SearchScreen } from '../screens/SearchScreen';
+import { ProductDetailScreen } from '../screens/ProductDetailScreen';
+import { CartScreen } from '../screens/CartScreen';
 import { CheckoutScreen } from '../screens/CheckoutScreen';
+import { OrderConfirmationScreen } from '../screens/OrderConfirmationScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { DevUiKitScreen } from '../screens/DevUiKitScreen';
 import { useTheme } from '../theme';
@@ -57,6 +63,27 @@ export const RootNavigator: React.FC = () => {
     if (previewConfig.screen === 'ConnectionStates') {
       return <ConnectionStatesScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
     }
+    if (previewConfig.screen === 'Store') {
+      return <StoreScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'Category') {
+      return <CategoryScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'Search') {
+      return <SearchScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'ProductDetail') {
+      return <ProductDetailScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'Cart') {
+      return <CartScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'Checkout') {
+      return <CheckoutScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
+    if (previewConfig.screen === 'OrderConfirmation') {
+      return <OrderConfirmationScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
+    }
     if (previewConfig.screen === 'Home') {
       return <MainTabsNavigator />;
     }
@@ -79,7 +106,12 @@ export const RootNavigator: React.FC = () => {
       <Stack.Screen name="DeviceSettings" component={DeviceSettingsScreen} />
       <Stack.Screen name="ConnectionStates" component={ConnectionStatesScreen} />
       <Stack.Screen name="Schedule" component={ScheduleScreen} />
+      <Stack.Screen name="Category" component={CategoryScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+      <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
+      <Stack.Screen name="OrderConfirmation" component={OrderConfirmationScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   );

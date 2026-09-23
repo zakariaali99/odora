@@ -8,6 +8,7 @@ export interface ColorTokens {
   bg: string;
   bgAlt: string;
   surface: string;
+  surfaceLow: string;
   surfaceMuted: string;
   surfaceHigh: string;
   text: string;
@@ -33,6 +34,7 @@ export const lightColors: ColorTokens = {
   bg: '#FDF9F5',
   bgAlt: '#F4F0EC',
   surface: '#FFFFFF',
+  surfaceLow: '#F7F3EF',
   surfaceMuted: '#F1EDE9',
   surfaceHigh: '#EBE7E4',
   text: '#1C1C19',
@@ -57,6 +59,7 @@ export const darkColors: ColorTokens = {
   bg: '#111512',
   bgAlt: '#181D19',
   surface: '#181D19',
+  surfaceLow: '#202621',
   surfaceMuted: '#202621',
   surfaceHigh: '#323632',
   text: '#F4F0EC',
