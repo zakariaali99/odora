@@ -10,12 +10,16 @@ import {
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme';
 import { typography } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
 import { Toggle } from '../components/ui/Toggle';
+import { Sheet } from '../components/ui/Sheet';
+import { Button } from '../components/ui/Button';
+import { toArabicNumerals } from '../i18n';
 
 const SAGE_DIFFUSER = require('../../assets/photos/diffuser-a316-sage.png');
 const CLOSEUP_DIFFUSER = require('../../assets/photos/diffuser_sage_closeup.png');
@@ -46,6 +50,8 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   navigation,
   route,
 }) => {
+  const nav = useNavigation<any>();
+  const activeNav = navigation?.navigate ? navigation : nav;
   const { colors, isDark, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
 
@@ -62,6 +68,9 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   const timerOptions = isRTL ? TIMER_OPTIONS_AR : TIMER_OPTIONS_EN;
   const [selectedTimerIndex, setSelectedTimerIndex] = useState(3); // '2h' / '2س'
   const [lowOilGuard, setLowOilGuard] = useState(true);
+
+  // Forget Device Confirm Sheet
+  const [showForgetSheet, setShowForgetSheet] = useState(false);
 
   // Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -86,25 +95,15 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   };
 
   const handleForgetDevice = () => {
-    Alert.alert(
-      isRTL ? 'إلغاء اقتران الجهاز' : 'Forget Device',
-      isRTL
-        ? 'هل أنت متأكد من رغبتك في إلغاء اقتران هذا الجهاز؟ سيتم حذف الجداول الزمنية وإلغاء ربطه بحسابك.'
-        : 'Are you sure you want to forget this device? Scheduled routines will be cleared and it will be unlinked from your account.',
-      [
-        { text: isRTL ? 'إلغاء' : 'Cancel', style: 'cancel' },
-        {
-          text: isRTL ? 'إلغاء الاقتران والحذف' : 'Forget & Remove',
-          style: 'destructive',
-          onPress: () => {
-            showToast(isRTL ? 'تم إلغاء اقتران الجهاز بنجاح' : 'Device forgotten successfully');
-            setTimeout(() => {
-              navigation?.goBack?.();
-            }, 800);
-          },
-        },
-      ]
-    );
+    setShowForgetSheet(true);
+  };
+
+  const handleConfirmForget = () => {
+    setShowForgetSheet(false);
+    showToast(isRTL ? 'تم إلغاء اقتران الجهاز بنجاح' : 'Device forgotten successfully');
+    setTimeout(() => {
+      activeNav.navigate('Devices');
+    }, 400);
   };
 
   return (
@@ -239,7 +238,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
               {isRTL ? 'تخصيص المكان' : 'Spatial Assignment'}
             </Text>
             <Text style={[styles.zoneBadge, { color: colors.primary }]}>
-              {isRTL ? 'المنطقة 01' : 'Zone 01'}
+              {isRTL ? `المنطقة ${toArabicNumerals('01')}` : 'Zone 01'}
             </Text>
           </View>
 
@@ -387,7 +386,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                   </Text>
                   <Text style={[styles.settingSubtitle, { color: colors.textMuted }]}>
                     {isRTL
-                      ? 'إيقاف التفتيت تلقائياً وإرسال تنبيه عند انخفاض مخزون الزيت عن 5%'
+                      ? 'إيقاف التفتيت تلقائياً وإرسال تنبيه عند انخفاض مخزون الزيت عن ٥٪'
                       : 'Prevents dry nebulization and alerts when oil falls below 5%'}
                   </Text>
                 </View>
@@ -475,7 +474,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                 {isRTL ? 'تاريخ الإضافة' : 'Date Added'}
               </Text>
               <Text style={[styles.specValue, { color: colors.text }]}>
-                {isRTL ? '12 سبتمبر 2026' : 'Sep 12, 2026'}
+                {isRTL ? `${toArabicNumerals(12)} سبتمبر ${toArabicNumerals(2026)}` : 'Sep 12, 2026'}
               </Text>
             </View>
             <View style={[styles.divider, { backgroundColor: colors.surfaceMuted }]} />
@@ -515,6 +514,9 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
               onPress={handleForgetDevice}
               style={[styles.forgetBtn, { backgroundColor: colors.error }]}
               activeOpacity={0.85}
+              testID="forget-device-button"
+              accessibilityLabel={isRTL ? 'إلغاء اقتران الجهاز' : 'Forget & Remove Device'}
+              accessibilityRole="button"
             >
               <Icon name="link_off" size={18} color="#FFFFFF" />
               <Text style={styles.forgetBtnText}>
@@ -524,6 +526,44 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
           </View>
         </View>
       </ScrollView>
+
+      {/* Forget Device Confirmation Sheet */}
+      <Sheet
+        visible={showForgetSheet}
+        onClose={() => setShowForgetSheet(false)}
+      >
+        <View style={styles.sheetContent}>
+          <View style={[styles.sheetIconCircle, { backgroundColor: isDark ? 'rgba(186,26,26,0.15)' : '#FEE2E2' }]}>
+            <Icon name="warning" size={32} color={colors.error} />
+          </View>
+
+          <Text style={[typography.headlineSm, styles.sheetTitle, { color: colors.text }]}>
+            {isRTL ? 'إلغاء اقتران الجهاز؟' : 'Forget Device?'}
+          </Text>
+
+          <Text style={[typography.bodyMd, styles.sheetDesc, { color: colors.textMuted }]}>
+            {isRTL
+              ? 'هل أنت متأكد من رغبتك في إلغاء اقتران هذا الجهاز؟ سيتم حذف الجداول الزمنية وإلغاء ربطه بحسابك.'
+              : 'Are you sure you want to forget this device? Scheduled routines will be cleared and it will be unlinked from your account.'}
+          </Text>
+
+          <View style={styles.sheetActions}>
+            <Button
+              title={isRTL ? 'إلغاء الاقتران والحذف' : 'Forget & Remove'}
+              onPress={handleConfirmForget}
+              testID="confirm-forget-button"
+              style={{ width: '100%', marginBottom: 12, backgroundColor: colors.error }}
+              textStyle={{ color: '#FFFFFF', fontWeight: '700' }}
+            />
+            <Button
+              title={isRTL ? 'إلغاء' : 'Cancel'}
+              variant="ghost"
+              onPress={() => setShowForgetSheet(false)}
+              style={{ width: '100%' }}
+            />
+          </View>
+        </View>
+      </Sheet>
     </View>
   );
 };
@@ -926,6 +966,35 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '600',
+  },
+  sheetContent: {
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+    paddingTop: 8,
+  },
+  sheetIconCircle: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  sheetTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  sheetDesc: {
+    fontSize: 14,
+    lineHeight: 22,
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  sheetActions: {
+    width: '100%',
   },
 });
 

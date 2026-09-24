@@ -25,6 +25,8 @@ interface ButtonProps {
   iconPosition?: ButtonIconPosition;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  testID?: string;
+  accessibilityLabel?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -37,6 +39,8 @@ export const Button: React.FC<ButtonProps> = ({
   iconPosition = 'start',
   style,
   textStyle,
+  testID,
+  accessibilityLabel,
 }) => {
   const { colors, typography, radii, spacing } = useTheme();
 
@@ -81,6 +85,9 @@ export const Button: React.FC<ButtonProps> = ({
       activeOpacity={0.88}
       onPress={onPress}
       disabled={isDisabled}
+      testID={testID}
+      accessibilityLabel={accessibilityLabel || title}
+      accessibilityRole="button"
       style={[
         styles.base,
         {

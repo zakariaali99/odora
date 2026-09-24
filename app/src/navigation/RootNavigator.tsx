@@ -44,54 +44,14 @@ export const RootNavigator: React.FC = () => {
     }
   }, []);
 
-  if (__DEV__ && previewConfig.screen) {
-    if (previewConfig.screen === 'Devices') {
-      return <DevicesScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'DeviceControl') {
-      return <DeviceControlScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'DevicePairing') {
-      return <DevicePairingScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Schedule') {
-      return <ScheduleScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'DeviceSettings') {
-      return <DeviceSettingsScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'ConnectionStates') {
-      return <ConnectionStatesScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Store') {
-      return <StoreScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Category') {
-      return <CategoryScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Search') {
-      return <SearchScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'ProductDetail') {
-      return <ProductDetailScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Cart') {
-      return <CartScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Checkout') {
-      return <CheckoutScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'OrderConfirmation') {
-      return <OrderConfirmationScreen navigation={{ goBack: () => {}, navigate: () => {} }} />;
-    }
-    if (previewConfig.screen === 'Home') {
-      return <MainTabsNavigator />;
-    }
-  }
+  const initialRoute: keyof RootStackParamList =
+    previewConfig.screen === 'Home'
+      ? 'MainTabs'
+      : (previewConfig.screen as keyof RootStackParamList) || 'MainTabs';
 
   return (
     <Stack.Navigator
-      initialRouteName="MainTabs"
+      initialRouteName={initialRoute}
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: colors.surface },
@@ -99,6 +59,8 @@ export const RootNavigator: React.FC = () => {
       }}
     >
       <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
+      <Stack.Screen name="Devices" component={DevicesScreen} />
+      <Stack.Screen name="Store" component={StoreScreen} />
       <Stack.Screen name="DevUiKit" component={DevUiKitScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="DeviceControl" component={DeviceControlScreen} />

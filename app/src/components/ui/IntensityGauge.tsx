@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../theme';
+import { toArabicNumerals } from '../../i18n';
 import { IconButton } from './IconButton';
 
 interface IntensityGaugeProps {
@@ -23,7 +24,7 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
   style,
 }) => {
   const { t } = useTranslation();
-  const { colors, typography, spacing } = useTheme();
+  const { colors, typography, spacing, isRTL } = useTheme();
   const activeCaption = caption !== undefined ? caption : t('device.optimalScenting', 'Optimal Scenting');
 
   const size = 224;
@@ -105,27 +106,27 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                 typography.labelSm,
                 {
                   color: colors.textMuted,
-                  textTransform: 'uppercase',
-                  letterSpacing: 1,
+                  textTransform: isRTL ? 'none' : 'uppercase',
+                  letterSpacing: isRTL ? 0 : 1,
                   fontSize: 10,
                   fontWeight: '600',
                   marginBottom: 2,
                 },
               ]}
             >
-              {t('device.intensity', 'INTENSITY')}
+              {isRTL ? 'معدل الانتشار' : t('device.intensity', 'INTENSITY')}
             </Text>
             <View style={styles.valueRow}>
               <Text
                 style={{
-                  fontFamily: 'Outfit_300Light',
+                  fontFamily: isRTL ? 'IBMPlexSansArabic_600SemiBold' : 'Outfit_300Light',
                   fontSize: 42,
                   lineHeight: 46,
-                  fontWeight: '300',
+                  fontWeight: isRTL ? '600' : '300',
                   color: colors.text,
                 }}
               >
-                {clampedVal}
+                {isRTL ? toArabicNumerals(clampedVal) : clampedVal}
               </Text>
               <Text
                 style={[
@@ -138,7 +139,7 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                   },
                 ]}
               >
-                /{max}
+                /{isRTL ? toArabicNumerals(max) : max}
               </Text>
             </View>
             <Text
@@ -146,12 +147,12 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                 typography.labelSm,
                 {
                   color: colors.primary,
-                  fontWeight: '500',
+                  fontWeight: '600',
                   marginTop: 2,
                 },
               ]}
             >
-              {activeCaption}
+              {isRTL ? t('device.level', { level: toArabicNumerals(clampedVal) }) : activeCaption}
             </Text>
           </View>
         </View>

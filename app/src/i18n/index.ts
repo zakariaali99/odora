@@ -15,6 +15,13 @@ export const resources = {
 // Ensure Arabic is the primary & default language
 export const DEFAULT_LANGUAGE = 'ar';
 
+/**
+ * Converts Western digits (0-9) to Eastern Arabic-Indic digits (٠-٩)
+ */
+export const toArabicNumerals = (n: number | string): string => {
+  return String(n).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d, 10)]);
+};
+
 i18n
   .use(initReactI18next)
   .init({

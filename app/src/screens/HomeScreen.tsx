@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon } from '../components/ui';
+import { toArabicNumerals } from '../i18n';
 import { getDeviceController } from '../device/DeviceController';
 import { DeviceState } from '../device/types';
 
@@ -175,6 +176,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           activeOpacity={0.96}
           onPress={() => navigation.navigate('DeviceControl')}
           style={styles.heroCardTouch}
+          testID="home-hero-card"
+          accessibilityLabel="Device Control Hero"
+          accessibilityRole="button"
         >
           <Card
             variant="hero"
@@ -331,7 +335,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   {isRTL ? 'معدل الانتشار' : 'Aroma Dispersion'}
                 </Text>
                 <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
-                  {isPowerOn ? `${intensityLevel * 10}% · Level ${intensityLevel}` : (isRTL ? 'متوقف' : 'Standby · Off')}
+                  {isPowerOn
+                    ? (isRTL
+                        ? `${toArabicNumerals(intensityLevel * 10)}٪ · ${t('device.level', { level: toArabicNumerals(intensityLevel) })}`
+                        : `${intensityLevel * 10}% · ${t('device.level', { level: intensityLevel })}`)
+                    : (isRTL ? 'متوقف' : 'Standby · Off')}
                 </Text>
               </View>
 
@@ -384,10 +392,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                68%
+                {isRTL ? `${toArabicNumerals(68)}٪` : '68%'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {isRTL ? '~18 يوم متبقي' : '~18 days left'}
+                {isRTL ? `~${toArabicNumerals(18)} يوم متبقي` : '~18 days left'}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
@@ -420,7 +428,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                19:00
+                {isRTL ? `${toArabicNumerals(19)}:${toArabicNumerals('00')}` : '19:00'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
                 {isRTL ? 'هدوء المساء' : 'Evening Calm'}
@@ -459,7 +467,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 {isRTL ? 'نبض' : 'Interval'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {isRTL ? '30ث / 60ث' : '30s on · 60s off'}
+                {isRTL ? `${toArabicNumerals(30)}ث / ${toArabicNumerals(60)}ث` : '30s on · 60s off'}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
@@ -482,6 +490,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => navigation.navigate('Devices')}
+              testID="manage-devices-button"
+              accessibilityLabel="Manage Devices"
+              accessibilityRole="button"
             >
               <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
                 {isRTL ? 'إدارة (3)' : 'Manage (3)'}
@@ -499,6 +510,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               activeOpacity={0.88}
               onPress={() => navigation.navigate('DeviceControl')}
               style={[styles.sanctuaryCardTouch]}
+              testID="home-device-card"
+              accessibilityLabel="Device Card Living Room"
+              accessibilityRole="button"
             >
               <Card surface="lowest" style={styles.sanctuaryCard}>
                 <View style={styles.sanctuaryTop}>

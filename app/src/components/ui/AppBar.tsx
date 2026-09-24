@@ -75,6 +75,8 @@ export const AppBar: React.FC<AppBarProps> = ({
               onPress={handleBack}
               style={styles.actionBtn}
               accessibilityLabel="Back"
+              accessibilityRole="button"
+              testID="appbar-back-button"
             >
               <Icon
                 name="arrow_back_ios_new"
@@ -119,6 +121,8 @@ export const AppBar: React.FC<AppBarProps> = ({
               onPress={action.onPress}
               style={styles.actionBtn}
               accessibilityLabel={action.label}
+              accessibilityRole="button"
+              testID={action.icon === 'more_horiz' ? 'device-settings-button' : `appbar-action-${action.icon || idx}`}
             >
               {action.avatar ? (
                 <View

@@ -9,9 +9,11 @@ import {
   Animated,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { useTheme } from '../theme';
+import { toArabicNumerals } from '../i18n';
 import {
   AppBar,
   Card,
@@ -34,6 +36,8 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
   navigation,
   route,
 }) => {
+  const nav = useNavigation<any>();
+  const activeNav = navigation?.navigate ? navigation : nav;
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
@@ -102,13 +106,13 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         actions={[
           {
             icon: 'more_horiz',
-            onPress: () => navigation.navigate('DeviceSettings'),
-            label: 'Settings',
+            onPress: () => activeNav.navigate('DeviceSettings'),
+            label: isRTL ? 'إعدادات الجهاز' : 'Settings',
           },
           {
             avatar: require('../../assets/photos/avatar.jpg'),
-            onPress: () => navigation.navigate('Account'),
-            label: 'Profile',
+            onPress: () => activeNav.navigate('Account'),
+            label: isRTL ? 'الحساب' : 'Profile',
           },
         ]}
       />
@@ -238,6 +242,11 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               </Text>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '500', fontSize: 18, marginTop: 2 }]}>
                 {isRTL ? 'كثافة العطر' : 'Aroma Intensity'}
+              </Text>
+              <Text style={[typography.labelMd, { color: colors.textMuted, fontWeight: '600', marginTop: 2 }]}>
+                {isRTL
+                  ? `${toArabicNumerals(intensity * 10)}٪ · ${t('device.level', { level: toArabicNumerals(intensity) })}`
+                  : `${intensity * 10}% · ${t('device.level', { level: intensity })}`}
               </Text>
             </View>
 
@@ -393,7 +402,10 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           {/* Routine 1: Schedule Shortcut */}
           <TouchableOpacity
             activeOpacity={0.88}
-            onPress={() => navigation.navigate('Schedule')}
+            onPress={() => activeNav.navigate('Schedule')}
+            testID="schedule-row-button"
+            accessibilityLabel="Circadian Schedule"
+            accessibilityRole="button"
           >
             <Card surface="lowest" style={styles.bentoCard}>
               <View style={styles.bentoCardLeft}>

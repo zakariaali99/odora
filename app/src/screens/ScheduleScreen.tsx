@@ -11,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
+import { toArabicNumerals } from '../i18n';
 import { AppBar, Card, Icon, Toggle, Button, SegmentedControl, Slider } from '../components/ui';
 
 interface ScheduleScreenProps {
@@ -211,7 +212,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
               <View style={styles.routineMetaItem}>
                 <Icon name="air" size={15} color={colors.primary} />
                 <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'المستوى 7' : 'Level 7'}
+                  {isRTL ? `المستوى ${toArabicNumerals(7)}` : 'Level 7'}
                 </Text>
               </View>
               <View style={styles.routineMetaItem}>
@@ -252,7 +253,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
               <View style={styles.routineMetaItem}>
                 <Icon name="air" size={15} color={colors.primary} />
                 <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'المستوى 4' : 'Level 4'}
+                  {isRTL ? `المستوى ${toArabicNumerals(4)}` : 'Level 4'}
                 </Text>
               </View>
               <View style={styles.routineMetaItem}>
@@ -293,7 +294,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
               <View style={styles.routineMetaItem}>
                 <Icon name="air" size={15} color={colors.primary} />
                 <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'المستوى 3' : 'Level 3'}
+                  {isRTL ? `المستوى ${toArabicNumerals(3)}` : 'Level 3'}
                 </Text>
               </View>
               <View style={styles.routineMetaItem}>
@@ -396,7 +397,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
                   {isRTL ? 'الكثافة' : 'Mist Intensity'}
                 </Text>
                 <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700' }]}>
-                  Level {newIntensity}
+                  {isRTL ? `المستوى ${toArabicNumerals(newIntensity)}` : `Level ${newIntensity}`}
                 </Text>
               </View>
               <Slider

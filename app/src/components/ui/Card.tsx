@@ -14,6 +14,8 @@ interface CardProps {
   surface?: 'lowest' | 'low' | 'default';
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
+  accessibilityLabel?: string;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -22,6 +24,8 @@ export const Card: React.FC<CardProps> = ({
   surface = 'default',
   onPress,
   style,
+  testID,
+  accessibilityLabel,
 }) => {
   const { colors, radii, spacing, elevation } = useTheme();
 
@@ -55,6 +59,9 @@ export const Card: React.FC<CardProps> = ({
       <TouchableOpacity
         activeOpacity={0.88}
         onPress={onPress}
+        testID={testID}
+        accessibilityLabel={accessibilityLabel}
+        accessibilityRole="button"
         style={[
           styles.base,
           containerStyle,
@@ -69,6 +76,8 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <View
+      testID={testID}
+      accessibilityLabel={accessibilityLabel}
       style={[
         styles.base,
         containerStyle,

@@ -20,13 +20,7 @@ export interface PreviewConfig {
   lang: 'ar' | 'en' | null;
 }
 
-export const previewConfig: PreviewConfig =
-  typeof __DEV__ !== 'undefined' && __DEV__
-    ? {
-        screen: null,
-        lang: null,
-      }
-    : {
-        screen: null,
-        lang: null,
-      };
+export const previewConfig: PreviewConfig = {
+  screen: null,
+  lang: 'ar',
+};

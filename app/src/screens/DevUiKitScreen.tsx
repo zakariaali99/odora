@@ -360,7 +360,7 @@ export const DevUiKitScreen: React.FC = () => {
           />
           <StatBlock
             label={isRTL ? 'الكثافة' : 'Intensity'}
-            value="Level 5"
+            value={isRTL ? 'المستوى ٥' : 'Level 5'}
             icon="tune"
             progress={0.5}
           />

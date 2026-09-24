@@ -534,9 +534,9 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({ navigation, rout
               </Text>
               <View style={styles.densityRow}>
                 {[
-                  { id: 'subtle', title: isRTL ? 'وشاح ناعم' : 'Subtle Veil', range: 'Level 1 - 3' },
-                  { id: 'balanced', title: isRTL ? 'متوازن' : 'Balanced', range: 'Level 4 - 7' },
-                  { id: 'enclosure', title: isRTL ? 'غمر كامل' : 'Enclosure', range: 'Level 8 - 10' },
+                  { id: 'subtle', title: isRTL ? 'وشاح ناعم' : 'Subtle Veil', range: isRTL ? 'المستوى ١ - ٣' : 'Level 1 - 3' },
+                  { id: 'balanced', title: isRTL ? 'متوازن' : 'Balanced', range: isRTL ? 'المستوى ٤ - ٧' : 'Level 4 - 7' },
+                  { id: 'enclosure', title: isRTL ? 'غمر كامل' : 'Enclosure', range: isRTL ? 'المستوى ٨ - ١٠' : 'Level 8 - 10' },
                 ].map((item) => {
                   const isSelected = selectedDensity === item.id;
                   return (

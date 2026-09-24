@@ -11,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
+import { toArabicNumerals } from '../i18n';
 import { AppBar, Card, Icon, Chip, Button } from '../components/ui';
 
 /**
@@ -115,10 +116,13 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                 styles.pairBtn,
                 { backgroundColor: colors.primary },
               ]}
+              testID="pair-device-button"
+              accessibilityLabel="Pair Device"
+              accessibilityRole="button"
             >
               <Icon name="add" size={18} color={colors.onPrimary} />
               <Text style={[typography.labelMd, { color: colors.onPrimary, fontWeight: '600', marginStart: 4 }]}>
-                {isRTL ? 'إقران جهاز' : 'Pair Device'}
+                {isRTL ? '+ إقران جهاز' : '+ Pair Device'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -218,6 +222,8 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
             surface="lowest"
             style={styles.deviceCard}
             onPress={() => navigation.navigate('DeviceControl')}
+            testID="device-card-living-room"
+            accessibilityLabel="Living Room Diffuser"
           >
             <View style={styles.deviceCardTop}>
               {/* Thumbnail Container 80x96 */}
@@ -265,11 +271,11 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   <View style={styles.pillGaugeLeft}>
                     <Icon name="opacity" size={14} color={colors.primary} />
                     <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
-                      {isRTL ? 'الزيت 68%' : 'Oil 68%'}
+                      {isRTL ? `الزيت ${toArabicNumerals(68)}٪` : 'Oil 68%'}
                     </Text>
                   </View>
                   <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                    {isRTL ? 'المستوى 6' : 'Level 6 Mist'}
+                    {isRTL ? `المستوى ${toArabicNumerals(6)}` : 'Level 6 Mist'}
                   </Text>
                 </View>
               </View>
@@ -353,11 +359,11 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   <View style={styles.pillGaugeLeft}>
                     <Icon name="water_drop" size={14} color={colors.primary} />
                     <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
-                      {isRTL ? 'الزيت 92%' : 'Oil 92%'}
+                      {isRTL ? `الزيت ${toArabicNumerals(92)}٪` : 'Oil 92%'}
                     </Text>
                   </View>
                   <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                    {isRTL ? 'المستوى 3' : 'Level 3 Preset'}
+                    {isRTL ? `المستوى ${toArabicNumerals(3)}` : 'Level 3 Preset'}
                   </Text>
                 </View>
               </View>

@@ -10,6 +10,9 @@ export type MainTabsParamList = {
 export type RootStackParamList = {
   Onboarding: undefined;
   MainTabs: NavigatorScreenParams<MainTabsParamList> | undefined;
+  Home: undefined;
+  Devices: undefined;
+  Store: undefined;
   DeviceControl: { deviceId?: string } | undefined;
   DevicePairing: undefined;
   DeviceSettings: { deviceId?: string; name?: string; room?: string } | undefined;
