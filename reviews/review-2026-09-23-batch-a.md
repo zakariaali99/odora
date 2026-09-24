@@ -25,3 +25,18 @@ Previous round's R1–R3 (toggle thumb, slider RTL, StatBlock spacing) are fixed
 
 ## Not checked
 Pairing, Device Settings and Connection States were reviewed only from AG's own (single-viewport) proofs. They will be verified properly once F9 is fixed.
+
+---
+
+## Overlap & clipping audit (2026-09-23, second pass)
+Ran a collision audit in the running app (element hit-testing at 390×844 and full height) plus a visual pass on every Batch A screen.
+
+| # | Severity | Finding |
+|---|---|---|
+| N1 | **Critical** | **Device Settings is almost entirely in English inside the Arabic app** (only the app-bar title is Arabic), and it **reintroduces the invented features we removed**: "LED Halo Ring" + Halo Intensity slider, "Night Mode Dimming (mutes LEDs)", "Acoustic Whisper Dampening <14 dB", "Installed Firmware v2.4.1-rc / Firmware is up to date", "BLE 5.2", "BLE MAC", "mesh cryptographic credentials", plus the "Sanctuary / Atelier / Artisan Vessel" vocabulary. This violates `06 §1.4` and `08 §4`. Rebuild the screen: Arabic first, and only real settings (rename, room, auto-off timer, device info = model + serial + added date, Forget device). |
+| N2 | Medium | **Content is clipped by the bottom tab bar.** On Devices the last device card is cut in half; on Home the "الأجهزة المتصلة" section runs under the bar. Scroll content needs bottom padding = tab-bar height + safe-area inset. |
+| N3 | Medium | **On Device Control the floating status pill covers the mode control** (Continuous / Interval) at real phone height. Add bottom padding equal to pill height + 24. |
+| N4 | Medium | **Home curated card: the image is not mirrored in RTL.** It stays on the right while the Arabic text also starts from the right, so the text runs on top of the bottle. Mirror the card layout (image at the end side in RTL). |
+| N5 | Low | Section-header status dots touch their text with no gap ("●المساحات الخاصة", "●الموزع يعمل"). Add a 6–8pt gap. |
+
+**Method note for AG:** a screen is not finished until it is checked at a real phone height (390×844) with content scrolled to the end — several of these only appear there, not in a full-height capture.

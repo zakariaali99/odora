@@ -9,6 +9,7 @@ import {
   Animated,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { useTheme } from '../theme';
 import {
@@ -35,6 +36,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
 }) => {
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const insets = useSafeAreaInsets();
   const controller = getDeviceController();
 
   const [deviceState, setDeviceState] = useState<DeviceState>(
@@ -93,7 +95,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
-      {/* 1. App Bar (64pt, Back + Title + more_horiz -> Settings) */}
+      {/* 1. App Bar (64pt, Back + Title + more_horiz -> Settings + Avatar) */}
       <AppBar
         showBack
         title={isRTL ? 'التحكم بالجهاز' : 'Device Control'}
@@ -103,11 +105,19 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             onPress: () => navigation.navigate('DeviceSettings'),
             label: 'Settings',
           },
+          {
+            avatar: require('../../assets/photos/avatar.jpg'),
+            onPress: () => navigation.navigate('Account'),
+            label: 'Profile',
+          },
         ]}
       />
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: 120 }]}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: 56 + 24 + insets.bottom + 48 },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         {/* 2. Sub-header Device Status Pill */}
@@ -430,7 +440,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
       </ScrollView>
 
       {/* 7. Floating Status Pill (Fixed 56pt at bottom) */}
-      <View style={styles.floatingPillContainer}>
+      <View style={[styles.floatingPillContainer, { bottom: Math.max(insets.bottom, 16) + 16 }]}>
         <StatusPill
           active={isPowerOn}
           onPress={handleTogglePower}

@@ -43,13 +43,16 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
   const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
 
+  const bottomInset = Math.max(insets.bottom, 0);
+
   return (
     <View
       style={[
         styles.container,
         {
           backgroundColor: colors.bgAlt, // #F7F3EF
-          paddingBottom: Math.max(insets.bottom, 12),
+          height: 64 + bottomInset,
+          paddingBottom: bottomInset,
         },
         style,
       ]}
@@ -99,7 +102,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 64,
+    minHeight: 64,
     justifyContent: 'center',
     shadowColor: '#232821',
     shadowOffset: { width: 0, height: -4 },

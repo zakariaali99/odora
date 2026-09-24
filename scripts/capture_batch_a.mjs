@@ -21,7 +21,9 @@ const SCREENS = [
 ];
 
 function updatePreview(screen, lang) {
-  const content = `export interface PreviewConfig {
+  const content = `declare const __DEV__: boolean;
+
+export interface PreviewConfig {
   screen:
     | 'Home'
     | 'Devices'
@@ -30,14 +32,27 @@ function updatePreview(screen, lang) {
     | 'Schedule'
     | 'DeviceSettings'
     | 'ConnectionStates'
+    | 'Store'
+    | 'Category'
+    | 'Search'
+    | 'ProductDetail'
+    | 'Cart'
+    | 'Checkout'
+    | 'OrderConfirmation'
     | null;
   lang: 'ar' | 'en' | null;
 }
 
-export const previewConfig: PreviewConfig = {
-  screen: ${screen ? `'${screen}'` : 'null'},
-  lang: ${lang ? `'${lang}'` : 'null'},
-};
+export const previewConfig: PreviewConfig =
+  typeof __DEV__ !== 'undefined' && __DEV__
+    ? {
+        screen: ${screen ? `'${screen}'` : 'null'},
+        lang: ${lang ? `'${lang}'` : 'null'},
+      }
+    : {
+        screen: null,
+        lang: null,
+      };
 `;
   fs.writeFileSync(PREVIEW_FILE, content);
 }
@@ -106,9 +121,9 @@ async function runCapture() {
       // Wait until rendered and target screen is active
       let maxScrollH = 844;
       const expectedText = screen.screen_name === 'Home'
-        ? (lang === 'ar' ? 'الرئيسية' : 'HOME')
+        ? (lang === 'ar' ? 'الرئيسية' : 'Home')
         : screen.screen_name === 'Devices'
-        ? (lang === 'ar' ? 'أجهزتي' : 'DEVICES')
+        ? (lang === 'ar' ? 'الموزعات المتصلة' : 'Connected Diffusers')
         : screen.screen_name === 'DeviceControl'
         ? (lang === 'ar' ? 'التحكم بالجهاز' : 'Device Control')
         : screen.screen_name === 'DevicePairing'
@@ -117,7 +132,7 @@ async function runCapture() {
         ? (lang === 'ar' ? 'جدولة الروتين' : 'Schedule Routine')
         : screen.screen_name === 'DeviceSettings'
         ? (lang === 'ar' ? 'إعدادات الجهاز' : 'Device Settings')
-        : (lang === 'ar' ? 'حالات الاتصال بالبلوتوث' : 'System Resonance');
+        : (lang === 'ar' ? 'حالات الاتصال' : 'Connection States');
 
       for (let i = 0; i < 40; i++) {
         const check = await send('Runtime.evaluate', {
@@ -144,7 +159,33 @@ async function runCapture() {
       // Settle time for fonts, images, and animations
       await new Promise(r => setTimeout(r, 1200));
 
-      console.log(`Setting device metrics override: 390 x ${maxScrollH}`);
+      // 1. First capture at phone viewport (390 x 844) scrolled to the very end to verify zero clipping
+      await send('Emulation.setDeviceMetricsOverride', {
+        width: 390,
+        height: 844,
+        deviceScaleFactor: 2,
+        mobile: true
+      });
+      await send('Runtime.evaluate', {
+        expression: `(() => {
+          document.querySelectorAll('*').forEach(el => {
+            if (el.scrollHeight > el.clientHeight) {
+              el.scrollTop = el.scrollHeight;
+            }
+          });
+          window.scrollTo(0, document.body.scrollHeight);
+        })()`
+      });
+      await new Promise(r => setTimeout(r, 600));
+      const scrolledShot = await send('Page.captureScreenshot', { format: 'png' });
+      if (scrolledShot.result?.data) {
+        const scrolledPath = path.join(TARGET_DIR, `scrolled_end_${screen.id}__${lang}.png`);
+        fs.writeFileSync(scrolledPath, Buffer.from(scrolledShot.result.data, 'base64'));
+        console.log(`Saved scrolled-to-end check: ${scrolledPath}`);
+      }
+
+      // 2. Now expand to full scroll height for side-by-side composite
+      console.log(`Setting device metrics override for full height: 390 x ${maxScrollH}`);
       await send('Emulation.setDeviceMetricsOverride', {
         width: 390,
         height: maxScrollH,

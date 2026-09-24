@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon, Chip, Button } from '../components/ui';
 
@@ -29,6 +30,7 @@ interface DevicesScreenProps {
 export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const [selectedFilter, setSelectedFilter] = useState<'active' | 'all'>('active');
   const [searchQuery, setSearchQuery] = useState('');
@@ -81,7 +83,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
       />
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: 112 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: 110 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
         {/* 2. Header & Pair Action */}
@@ -365,7 +367,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
               <View style={styles.deviceCardBottomLeft}>
                 <Icon name="schedule" size={15} color={colors.textSubtle} />
                 <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 6 }]}>
-                  {isRTL ? 'مجدول: 8:00 م نسيم هادئ' : 'Scheduled: 8:00 PM Calm Wind'}
+                  {isRTL ? 'مجدول: 20:00 · نسيم هادئ' : 'Scheduled: 8:00 PM · Calm Wind'}
                 </Text>
               </View>
 
@@ -590,12 +592,13 @@ const styles = StyleSheet.create({
   groupHeaderLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
   },
   groupDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginEnd: 6,
+    marginEnd: 8,
   },
   deviceCard: {
     padding: 16,

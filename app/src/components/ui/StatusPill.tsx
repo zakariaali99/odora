@@ -72,11 +72,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
+    gap: 8,
   },
   dot: {
     width: 8,
     height: 8,
     borderRadius: 4,
+    marginEnd: 8,
   },
 });
 

@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon, Button, Chip } from '../components/ui';
 
@@ -23,6 +24,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
 }) => {
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
   const [selectedRoom, setSelectedRoom] = useState('Living Room');
@@ -102,7 +104,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
       )}
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: 60 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* 2. Header: Bluetooth Discovery */}

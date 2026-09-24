@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon } from '../components/ui';
@@ -23,6 +24,7 @@ interface HomeScreenProps {
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL, motion } = useTheme();
+  const insets = useSafeAreaInsets();
   const controller = getDeviceController();
   const [deviceState, setDeviceState] = useState<DeviceState>(
     controller.getState()
@@ -114,7 +116,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       />
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: 112 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: 110 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
         {/* 2. Top Welcome & Sanctuary Ambience Badge */}
@@ -152,7 +154,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 },
               ]}
             >
-              {isRTL ? 'التالي: 08:00 صباحاً' : 'Next: 08:00 Morning'}
+              {isRTL ? 'التالي: 08:00' : 'Next: 08:00 AM'}
             </Text>
           </View>
 
@@ -255,7 +257,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <View
                 style={[
                   styles.deviceHalo,
-                  { backgroundColor: colors.accent, opacity: 0.35 },
+                  { backgroundColor: colors.accent, opacity: 0.18 },
                 ]}
               />
 
@@ -634,10 +636,34 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           >
             <Card
               surface="low"
-              style={[styles.storeTeaserCard, { shadowColor: '#232821', shadowOpacity: 0.03 }]}
+              style={[
+                styles.storeTeaserCard,
+                {
+                  flexDirection: isRTL ? 'row-reverse' : 'row',
+                  shadowColor: '#232821',
+                  shadowOpacity: 0.03,
+                },
+              ]}
             >
-              <View style={styles.storeTeaserTextContent}>
-                <View style={[styles.curatedPill, { backgroundColor: colors.accent }]}>
+              <View
+                style={[
+                  styles.storeTeaserTextContent,
+                  {
+                    paddingEnd: isRTL ? 0 : 16,
+                    paddingStart: isRTL ? 16 : 0,
+                    alignItems: isRTL ? 'flex-end' : 'flex-start',
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.curatedPill,
+                    {
+                      backgroundColor: colors.accent,
+                      alignSelf: isRTL ? 'flex-end' : 'flex-start',
+                    },
+                  ]}
+                >
                   <Text
                     style={[
                       typography.labelSm,
@@ -657,7 +683,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 <Text
                   style={[
                     typography.headlineSm,
-                    { color: colors.text, fontWeight: '500', fontSize: 18, marginTop: 6 },
+                    {
+                      color: colors.text,
+                      fontWeight: '500',
+                      fontSize: 18,
+                      marginTop: 6,
+                      textAlign: isRTL ? 'right' : 'left',
+                    },
                   ]}
                 >
                   {isRTL ? 'هينوكي مدخن وشاي أبيض' : 'Smoky Hinoki & White Tea'}
@@ -665,22 +697,34 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
                 <Text
                   numberOfLines={2}
-                  style={[typography.bodySm, { color: colors.textMuted, marginTop: 4 }]}
+                  style={[
+                    typography.bodySm,
+                    {
+                      color: colors.textMuted,
+                      marginTop: 4,
+                      textAlign: isRTL ? 'right' : 'left',
+                    },
+                  ]}
                 >
                   {isRTL
                     ? 'زيوت نباتية مقطرة بالبخار ومصممة للحضور الذهني والصفاء العميق.'
                     : 'Artisanal steam-distilled botanicals formulated for mindful presence and deep clarity.'}
                 </Text>
 
-                <View style={styles.exploreLinkRow}>
+                <View
+                  style={[
+                    styles.exploreLinkRow,
+                    { flexDirection: isRTL ? 'row-reverse' : 'row' },
+                  ]}
+                >
                   <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
                     {isRTL ? 'استكشف العطور' : 'Explore Fragrances'}
                   </Text>
                   <Icon
-                    name="arrow_forward"
+                    name={isRTL ? 'arrow_backward' : 'arrow_forward'}
                     size={16}
                     color={colors.primary}
-                    style={{ marginStart: 4 }}
+                    style={{ marginHorizontal: 4 }}
                   />
                 </View>
               </View>
@@ -730,6 +774,7 @@ const styles = StyleSheet.create({
   ambienceBadge: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 999,
@@ -738,7 +783,7 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    marginEnd: 6,
+    marginEnd: 8,
   },
   greetingHeader: {
     marginTop: 4,
@@ -752,10 +797,11 @@ const styles = StyleSheet.create({
   },
   deviceHalo: {
     position: 'absolute',
-    top: 20,
-    width: 220,
-    height: 180,
-    borderRadius: 90,
+    top: 36,
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    alignSelf: 'center',
   },
   cardHeaderRow: {
     flexDirection: 'row',
@@ -776,13 +822,14 @@ const styles = StyleSheet.create({
   statusRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
     marginTop: 4,
   },
   statusDotLive: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginEnd: 6,
+    marginEnd: 8,
   },
   powerBtn: {
     width: 48,
@@ -917,6 +964,7 @@ const styles = StyleSheet.create({
   sanctuaryStatusLine: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 8,
     marginTop: 2,
   },
   sanctuaryFooter: {
@@ -963,6 +1011,7 @@ const styles = StyleSheet.create({
     height: 112,
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 0,
   },
   teaserBottleImage: {
     width: '100%',

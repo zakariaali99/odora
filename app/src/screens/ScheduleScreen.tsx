@@ -9,6 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon, Toggle, Button, SegmentedControl, Slider } from '../components/ui';
 
@@ -19,6 +20,7 @@ interface ScheduleScreenProps {
 export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const [routine1On, setRoutine1On] = useState(true);
   const [routine2On, setRoutine2On] = useState(true);
@@ -64,7 +66,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
       />
 
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: 60 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* 2. Sub-header Device Picker */}
