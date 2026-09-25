@@ -22,3 +22,5 @@ venv/
 *.sqlite3
 backend/venv/
 backend/media/
+__pycache__/
+*.pyc

@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon, Button, Chip } from '../components/ui';
+import { useAppStore, AppDevice, SHARED_ROOMS } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
 
 interface DevicePairingScreenProps {
   navigation: any;
@@ -25,11 +27,30 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
   const { t } = useTranslation();
   const { colors, typography, radii, spacing, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const { addDevice, setSelectedDeviceId, devices } = useAppStore();
 
   const [selectedDevice, setSelectedDevice] = useState<string | null>(null);
-  const [selectedRoom, setSelectedRoom] = useState('Living Room');
-  const [setupSheetVisible, setSetupSheetVisible] = useState(false);
+  const [selectedColorway, setSelectedColorway] = useState<'sage' | 'white' | 'black'>('sage');
+  const [customDeviceName, setCustomDeviceName] = useState('');
+  const [selectedRoom, setSelectedRoom] = useState<string>('living_room');
+  const [setupSheetVisible, setSetupSheetVisible] = useState(Boolean(previewConfig?.sheet));
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (previewConfig?.sheet !== undefined) {
+      setSetupSheetVisible(Boolean(previewConfig.sheet));
+    }
+  }, [previewConfig?.sheet, previewConfig?.timestamp]);
 
   // Radar pulse animation (3s cycle matching Stitch)
   const pulseAnim = useRef(new Animated.Value(0)).current;
@@ -60,42 +81,77 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
     outputRange: [1, 1.03],
   });
 
-  const handleConnect = (deviceName: string) => {
-    setSelectedDevice(deviceName);
+  // Unique non-duplicate default name based on room (Item 6)
+  const getUniqueDeviceName = (roomKey: string): string => {
+    const room = SHARED_ROOMS.find((r) => r.key === roomKey) || SHARED_ROOMS[0];
+    const roomName = isRTL ? room.nameAr : room.nameEn;
+    const baseName = isRTL ? `موزع ${roomName}` : `${roomName} Diffuser`;
+    const existingNames = devices.map((d) => d.name);
+    if (!existingNames.includes(baseName)) {
+      return baseName;
+    }
+    let count = 2;
+    while (existingNames.includes(`${baseName} ${count}`)) {
+      count++;
+    }
+    return `${baseName} ${count}`;
+  };
+
+  const handleConnect = (device: { name: string; colorway: 'sage' | 'white' | 'black'; defaultName?: string }) => {
+    setSelectedDevice(device.name);
+    setSelectedColorway(device.colorway);
+    setCustomDeviceName(getUniqueDeviceName(selectedRoom));
     setSetupSheetVisible(true);
   };
 
   const handleCompleteSetup = () => {
+    const newId = 'diffuser_' + Date.now();
+    const roomObj = SHARED_ROOMS.find((r) => r.key === selectedRoom) || SHARED_ROOMS[0];
+    const roomName = isRTL ? roomObj.nameAr : roomObj.nameEn;
+    const finalName = customDeviceName.trim() || getUniqueDeviceName(selectedRoom);
+
+    // Item 6: Don't claim which oil is loaded
+    const newDevice: AppDevice = {
+      id: newId,
+      name: finalName,
+      roomName: roomName,
+      colorway: selectedColorway,
+      model: 'Odora A316',
+      power: true,
+      intensity: 7,
+      mode: 'interval',
+      oilLevel: 100,
+      oilName: isRTL ? 'لم يتم تحميل زيت' : 'No oil loaded',
+      oilRemainingDays: 30,
+      oilSensor: false,
+      burst: false,
+      isOnline: true,
+      connectionType: 'ble',
+      signalDbm: -52,
+    };
+
+    addDevice(newDevice);
+    setSelectedDeviceId(newId);
+
     setSetupSheetVisible(false);
-    setToastMessage(
-      isRTL
-        ? 'تم الإقران بنجاح! مرحباً بك في أودورا.'
-        : 'Pairing successful! Welcome to Odora.'
-    );
+    setToastMessage(t('pairing.pairingSuccessToast', 'تم الإقران بنجاح! جاري فتح شاشة التحكم...'));
     setTimeout(() => {
       setToastMessage(null);
       navigation.navigate('DeviceControl');
-    }, 1500);
+    }, 1000);
   };
-
-  const rooms = [
-    { key: 'Living Room', label: isRTL ? 'غرفة المعيشة' : 'Living Room' },
-    { key: 'Bedroom', label: isRTL ? 'غرفة النوم' : 'Bedroom' },
-    { key: 'Office', label: isRTL ? 'المكتب' : 'Office' },
-    { key: 'Spa Studio', label: isRTL ? 'استوديو السبا' : 'Spa Studio' },
-  ];
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
       {/* 1. App Bar (Back button + title) */}
       <AppBar
         showBack
-        title={isRTL ? 'إقران موزع جديد' : 'Pair Diffuser'}
+        title={t('pairing.title', 'إقران موزع جديد')}
       />
 
-      {/* Floating Toast Notification */}
+      {/* Floating Toast Notification (Item 12: show below app bar) */}
       {toastMessage && (
-        <View style={[styles.toastContainer, { backgroundColor: colors.ink }]}>
+        <View style={[styles.toastContainer, { top: insets.top + 68, backgroundColor: colors.ink }]}>
           <Icon name="check_circle" size={18} color={colors.accent} />
           <Text style={[typography.bodySm, { color: colors.onInk, marginStart: 8, fontWeight: '600' }]}>
             {toastMessage}
@@ -104,6 +160,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
       )}
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
@@ -123,18 +180,16 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 },
               ]}
             >
-              {isRTL ? 'اكتشاف البلوتوث' : 'Bluetooth Discovery'}
+              {t('pairing.discoveryBadge', 'اكتشاف البلوتوث')}
             </Text>
           </View>
 
           <Text style={[typography.display, { color: colors.text, fontSize: 26, lineHeight: 34, marginTop: 8 }]}>
-            {isRTL ? 'إقران موزع جديد' : 'Pair New Diffuser'}
+            {t('pairing.title', 'إقران موزع جديد')}
           </Text>
 
           <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 4, maxWidth: 300, textAlign: 'center' }]}>
-            {isRTL
-              ? 'ضع موزع أودورا على مقربة ليتم التعرف عليه ومزامنته تلقائياً.'
-              : 'Bring your Odora diffuser within range to automatically detect and synchronize.'}
+            {t('pairing.scanningHint', 'ضع موزع أودورا على مقربة ليتم التعرف عليه ومزامنته تلقائياً.')}
           </Text>
         </View>
 
@@ -197,7 +252,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
             <View style={[styles.scanningBadge, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               <Icon name="sensors" size={16} color={colors.primary} />
               <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
-                {isRTL ? 'جاري المسح' : 'Scanning BLE'}
+                {t('pairing.scanningBle', 'جاري المسح')}
               </Text>
             </View>
           </View>
@@ -206,7 +261,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
           <View style={[styles.searchingPill, { backgroundColor: colors.bgAlt }]}>
             <View style={[styles.pulseDot, { backgroundColor: colors.primary }]} />
             <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6, fontWeight: '500' }]}>
-              {isRTL ? 'جاري البحث عن موزعات أودورا القريبة...' : 'Searching for nearby Odora diffusers...'}
+              {t('pairing.scanning', 'جاري البحث عن موزعات أودورا القريبة...')}
             </Text>
           </View>
         </View>
@@ -215,10 +270,10 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
         <View style={styles.devicesListSection}>
           <View style={styles.devicesHeaderRow}>
             <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500' }]}>
-              {isRTL ? 'الأجهزة المتاحة' : 'Available Devices'}
+              {t('pairing.nearbyTitle', 'الأجهزة المتاحة')}
             </Text>
             <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
-              {isRTL ? '2 تم اكتشافهما' : '2 Detected'}
+              {t('pairing.detectedCount', { count: 2 })}
             </Text>
           </View>
 
@@ -239,7 +294,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                   </Text>
                   <View style={[styles.colorPill, { backgroundColor: colors.accent }]}>
                     <Text style={[typography.labelSm, { color: colors.text, fontSize: 10, fontWeight: '600' }]}>
-                      {isRTL ? 'أخضر حكيم' : 'Sage'}
+                      {t('pairing.diffuserSage', 'أخضر ميرمية')}
                     </Text>
                   </View>
                 </View>
@@ -253,7 +308,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                     •
                   </Text>
                   <Text style={[typography.bodySm, { color: colors.textMuted }]}>
-                    {isRTL ? 'جاهز للإقران' : 'Ready to pair'}
+                    {t('pairing.readyToPair', 'جاهز للإقران')}
                   </Text>
                 </View>
               </View>
@@ -261,11 +316,16 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
 
             <TouchableOpacity
               activeOpacity={0.85}
-              onPress={() => handleConnect('Odora A316 — Sage Green')}
+              onPress={() =>
+                handleConnect({
+                  name: t('pairing.diffuserModelSage', 'أودورا A316 — أخضر ميرمية'),
+                  colorway: 'sage',
+                })
+              }
               style={[styles.connectBtn, { backgroundColor: colors.ink }]}
             >
-              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600' }]}>
-                {isRTL ? 'اتصال' : 'Connect'}
+              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', letterSpacing: 0 }]}>
+                {t('pairing.connect', 'اتصال')}
               </Text>
             </TouchableOpacity>
           </Card>
@@ -282,26 +342,26 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               </View>
               <View style={{ marginStart: 14, flex: 1 }}>
                 <View style={styles.deviceNameRow}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 14 }]}>
+                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 14, letterSpacing: 0 }]}>
                     Odora A316
                   </Text>
                   <View style={[styles.colorPill, { backgroundColor: colors.surfaceMuted }]}>
-                    <Text style={[typography.labelSm, { color: colors.textMuted, fontSize: 10 }]}>
-                      {isRTL ? 'أبيض مطفي' : 'Matte White'}
+                    <Text style={[typography.labelSm, { color: colors.textMuted, fontSize: 10, letterSpacing: 0 }]}>
+                      {t('pairing.diffuserWhite', 'أبيض مطفي')}
                     </Text>
                   </View>
                 </View>
 
                 <View style={styles.signalRow}>
                   <Icon name="signal_cellular_alt" size={14} color={colors.textSubtle} />
-                  <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 2 }]}>
+                  <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 2, letterSpacing: 0 }]}>
                     -65 dBm
                   </Text>
                   <Text style={[typography.bodySm, { color: colors.textSubtle, marginHorizontal: 4 }]}>
                     •
                   </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
-                    {isRTL ? 'جاهز للإقران' : 'Ready to pair'}
+                  <Text style={[typography.bodySm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                    {t('pairing.readyToPair', 'جاهز للإقران')}
                   </Text>
                 </View>
               </View>
@@ -309,17 +369,41 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
 
             <TouchableOpacity
               activeOpacity={0.85}
-              onPress={() => handleConnect('Odora A316 — Matte White')}
+              onPress={() =>
+                handleConnect({
+                  name: t('pairing.diffuserModelWhite', 'أودورا A316 — أبيض مطفي'),
+                  colorway: 'white',
+                  defaultName: t('pairing.officeDiffuser', 'موزع المكتب'),
+                })
+              }
               style={[styles.connectBtn, { backgroundColor: colors.surfaceHigh }]}
             >
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
-                {isRTL ? 'اتصال' : 'Connect'}
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                {t('pairing.connect', 'اتصال')}
               </Text>
             </TouchableOpacity>
           </Card>
         </View>
 
-        {/* 5. Help / Troubleshooting Card */}
+        {/* 5. Bluetooth Diagnostic / Off Link (Flow 2) */}
+        <TouchableOpacity
+          activeOpacity={0.85}
+          onPress={() => navigation.navigate('ConnectionStates', { initialState: 'disabled' })}
+          style={[styles.btOffBanner, { backgroundColor: colors.surfaceMuted }]}
+        >
+          <Icon name="bluetooth_disabled" size={20} color={colors.primary} />
+          <View style={{ flex: 1, marginStart: 10 }}>
+            <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+              {t('pairing.bluetoothTrouble', 'البلوتوث متوقف أو يواجه مشكلة؟')}
+            </Text>
+            <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+              {t('pairing.bluetoothTroubleDesc', 'اضغط هنا لفتح تشخيص الاتصال اللاسلكي وحالات الاتصال.')}
+            </Text>
+          </View>
+          <Icon name="chevron_right" size={18} color={colors.textMuted} />
+        </TouchableOpacity>
+
+        {/* 6. Help / Troubleshooting Card */}
         <View style={styles.helpSection}>
           <Card surface="low" style={styles.helpCard}>
             <View style={styles.helpRow}>
@@ -327,21 +411,19 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 <Icon name="bluetooth_searching" size={18} color={colors.text} />
               </View>
               <View style={{ flex: 1, marginStart: 12 }}>
-                <Text style={[typography.bodySm, { color: colors.textMuted, lineHeight: 18 }]}>
-                  {isRTL
-                    ? 'تأكد من توصيل الموزع بالطاقة الكهربائية وأنه على مسافة لا تزيد عن 5 أمتار. احتفظ بالبلوتوث مفعلاً.'
-                    : 'Ensure your diffuser is connected to power and within 5 meters. Keep phone Bluetooth and location enabled.'}
+                <Text style={[typography.bodySm, { color: colors.textMuted, lineHeight: 18, letterSpacing: 0 }]}>
+                  {t('pairing.troubleshootHint', 'تأكد من توصيل الموزع بالطاقة الكهربائية وأنه على مسافة لا تزيد عن 5 أمتار. احتفظ بالبلوتوث مفعلاً.')}
                 </Text>
                 <View style={styles.helpLinksRow}>
                   <TouchableOpacity activeOpacity={0.7} style={styles.serialLink}>
-                    <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '700' }]}>
-                      {isRTL ? 'إدخال الرقم التسلسلي' : 'Enter Serial Number'}
+                    <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '700', letterSpacing: 0 }]}>
+                      {t('pairing.enterSerial', 'إدخال الرقم التسلسلي')}
                     </Text>
                     <Icon name="arrow_forward" size={13} color={colors.primary} style={{ marginStart: 4 }} />
                   </TouchableOpacity>
                   <TouchableOpacity activeOpacity={0.7}>
-                    <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 16 }]}>
-                      {isRTL ? 'حل المشكلات' : 'Troubleshoot'}
+                    <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 16, letterSpacing: 0 }]}>
+                      {t('pairing.troubleshoot', 'حل المشكلات')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -351,7 +433,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
         </View>
       </ScrollView>
 
-      {/* 6. Setup Bottom Sheet Modal */}
+      {/* 7. Setup Bottom Sheet Modal (Item 3: Name + Room step; Item 15/18: No chamber/prefilled claims) */}
       <Modal
         visible={setupSheetVisible}
         transparent
@@ -376,9 +458,9 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                     },
                   ]}
                 >
-                  {isRTL ? 'تمت مزامنة الجهاز' : 'DEVICE SYNCHRONIZED'}
+                  {t('pairing.deviceSynchronized', 'تمت مزامنة الجهاز')}
                 </Text>
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '500', marginTop: 2 }]}>
+                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '500', marginTop: 2, letterSpacing: 0 }]}>
                   {selectedDevice || 'Odora A316'}
                 </Text>
               </View>
@@ -392,37 +474,59 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               </TouchableOpacity>
             </View>
 
-            {/* Chamber configured info card */}
+            {/* Scent Capsule Information (Item 6: Don't claim which oil is loaded) */}
             <Card surface="low" style={styles.preloadedCard}>
               <View style={styles.preloadedRow}>
                 <View style={[styles.preloadedIconWrap, { backgroundColor: colors.surface }]}>
-                  <Icon name="air" size={24} color={colors.primary} />
+                  <Icon name="spa" size={24} color={colors.primary} />
                 </View>
                 <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
-                    {isRTL ? 'تم ضبط الحجرة الأساسية' : 'Initial Chamber Configured'}
+                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                    {t('pairing.noOilLoaded', 'لم يتم تحميل كبسولة عطرية')}
                   </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                    {isRTL
-                      ? 'تم تعبئة زيت مريمية الغابة (30 مل) مسبقاً.'
-                      : 'Forest Sage Essential Oil (30ml) preloaded.'}
+                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                    {t('pairing.noOilDesc', 'جاهز لإضافة الزيت العطري بعد اكتمال الإقران.')}
                   </Text>
                 </View>
               </View>
             </Card>
 
-            {/* Room Location Selection */}
+            {/* Device Name Input (Item 3: Add name step) */}
+            <View style={styles.nameInputSection}>
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginBottom: 6, letterSpacing: 0 }]}>
+                {t('pairing.deviceName', 'اسم الجهاز')}
+              </Text>
+              <View style={[styles.nameInputField, { backgroundColor: colors.surfaceMuted }]}>
+                <TextInput
+                  style={[
+                    styles.nameInputText,
+                    {
+                      color: colors.text,
+                    },
+                  ]}
+                  value={customDeviceName}
+                  onChangeText={setCustomDeviceName}
+                  placeholder={t('pairing.deviceNamePlaceholder', 'مثال: موزع الصالون')}
+                  placeholderTextColor={colors.textSubtle}
+                />
+              </View>
+            </View>
+
+            {/* Room Location Selection (Item 7: Shared room list) */}
             <View style={styles.roomSelectSection}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginBottom: 8 }]}>
-                {isRTL ? 'تحديد موقع الغرفة' : 'Assign Room Location'}
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginBottom: 8, letterSpacing: 0 }]}>
+                {t('pairing.assignRoom', 'تحديد موقع الغرفة')}
               </Text>
               <View style={styles.roomChipsRow}>
-                {rooms.map((room) => (
+                {SHARED_ROOMS.map((room) => (
                   <Chip
                     key={room.key}
-                    label={room.label}
+                    label={isRTL ? room.nameAr : room.nameEn}
                     active={selectedRoom === room.key}
-                    onPress={() => setSelectedRoom(room.key)}
+                    onPress={() => {
+                      setSelectedRoom(room.key);
+                      setCustomDeviceName(getUniqueDeviceName(room.key));
+                    }}
                     style={{ marginEnd: 8, marginBottom: 8 }}
                   />
                 ))}
@@ -436,8 +540,8 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 onPress={handleCompleteSetup}
                 style={[styles.completeBtn, { backgroundColor: colors.ink }]}
               >
-                <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15 }]}>
-                  {isRTL ? 'إكمال الإعداد' : 'Complete Setup'}
+                <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15, letterSpacing: 0 }]}>
+                  {t('pairing.completeSetup', 'إكمال الإعداد والتشغيل')}
                 </Text>
                 <Icon name="check_circle" size={18} color={colors.onInk} style={{ marginStart: 6 }} />
               </TouchableOpacity>
@@ -447,8 +551,8 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 onPress={() => setSetupSheetVisible(false)}
                 style={styles.cancelLink}
               >
-                <Text style={[typography.labelSm, { color: colors.textMuted }]}>
-                  {isRTL ? 'إلغاء ومتابعة المسح' : 'Cancel & Continue Scanning'}
+                <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                  {t('pairing.cancel', 'إلغاء ومتابعة المسح')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -741,6 +845,26 @@ const styles = StyleSheet.create({
   cancelLink: {
     alignItems: 'center',
     paddingVertical: 6,
+  },
+  btOffBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    borderRadius: 16,
+    marginBottom: 20,
+  },
+  nameInputSection: {
+    marginBottom: 16,
+  },
+  nameInputField: {
+    height: 48,
+    borderRadius: 24,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+  },
+  nameInputText: {
+    fontSize: 15,
+    paddingVertical: 4,
   },
 });
 

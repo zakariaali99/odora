@@ -12,14 +12,16 @@ export const resources = {
   en: { translation: en },
 } as const;
 
-// Ensure Arabic is the primary & default language
-export const DEFAULT_LANGUAGE = 'ar';
+import { previewConfig } from '../previewTarget';
+
+// Ensure Arabic is the primary & default language, or use previewConfig if set
+export const DEFAULT_LANGUAGE = previewConfig?.lang || 'ar';
 
 /**
- * Converts Western digits (0-9) to Eastern Arabic-Indic digits (٠-٩)
+ * Formats numbers as standard Western digits (0-9) per Libyan design norm
  */
 export const toArabicNumerals = (n: number | string): string => {
-  return String(n).replace(/[0-9]/g, (d) => '٠١٢٣٤٥٦٧٨٩'[parseInt(d, 10)]);
+  return String(n);
 };
 
 i18n

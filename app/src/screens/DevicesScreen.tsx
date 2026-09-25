@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,39 +11,49 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
-import { toArabicNumerals } from '../i18n';
-import { AppBar, Card, Icon, Chip, Button } from '../components/ui';
+import { AppBar } from '../components/ui/AppBar';
+import { Icon } from '../components/ui/Icon';
+import { Card } from '../components/ui/Card';
+import { useAppStore } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
 
-/**
- * DevicesScreen — Connected Sanctuaries Management
- *
- * Target: `odora_devices` (layout) + `idea-01/odora_devices_list` (density)
- *
- * SCREEN ARCHITECTURAL NOTE:
- * Stitch's mockup included a "Synchronized Home Flow" card. Per 08 §4, multi-device
- * synchronization is intentionally omitted because the physical diffuser hardware
- * operates via direct BLE (Bluetooth Low Energy) and does not support mesh/cloud-sync.
- */
 interface DevicesScreenProps {
   navigation: any;
 }
 
 export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
 
-  const [selectedFilter, setSelectedFilter] = useState<'active' | 'all'>('active');
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const { devices, setSelectedDeviceId, toggleDevicePower } = useAppStore();
+
+  const [selectedFilter, setSelectedFilter] = useState<'active' | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [devicePowers, setDevicePowers] = useState({
-    living: true,
-    reading: false,
-    bedroom: false,
+
+  const filteredDevices = devices.filter((d) => {
+    const query = searchQuery.trim().toLowerCase();
+    const matchesSearch =
+      !query ||
+      d.name.toLowerCase().includes(query) ||
+      d.roomName.toLowerCase().includes(query) ||
+      d.oilName.toLowerCase().includes(query);
+    if (selectedFilter === 'active') {
+      return matchesSearch && d.power;
+    }
+    return matchesSearch;
   });
 
-  const toggleDevicePower = (id: 'living' | 'reading' | 'bedroom') => {
-    setDevicePowers((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
+  const activeCount = devices.filter((d) => d.power).length;
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
@@ -62,6 +72,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   fontWeight: '500',
                   textTransform: isRTL ? 'none' : 'uppercase',
                   marginStart: 8,
+                  letterSpacing: 0,
                 },
               ]}
             >
@@ -84,6 +95,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
       />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: 110 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
@@ -101,14 +113,14 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   },
                 ]}
               >
-                {isRTL ? 'المنظومة' : 'Ecosystem'}
+                {t('devicesScreen.ecosystem', 'المنظومة')}
               </Text>
-              <Text style={[typography.display, { color: colors.text, fontSize: 26, lineHeight: 34, marginTop: 2 }]}>
-                {isRTL ? 'الموزعات المتصلة' : 'Connected Diffusers'}
+              <Text style={[typography.display, { color: colors.text, fontSize: 26, lineHeight: 34, marginTop: 2, letterSpacing: 0 }]}>
+                {t('devicesScreen.title', 'الموزعات المتصلة')}
               </Text>
             </View>
 
-            {/* Pair Device Button */}
+            {/* Pair Device Button (Item 12: drop + from text) */}
             <TouchableOpacity
               activeOpacity={0.85}
               onPress={() => navigation.navigate('DevicePairing')}
@@ -121,8 +133,8 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
               accessibilityRole="button"
             >
               <Icon name="add" size={18} color={colors.onPrimary} />
-              <Text style={[typography.labelMd, { color: colors.onPrimary, fontWeight: '600', marginStart: 4 }]}>
-                {isRTL ? '+ إقران جهاز' : '+ Pair Device'}
+              <Text style={[typography.labelMd, { color: colors.onPrimary, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+                {t('devicesScreen.pairDevice', 'إقران جهاز')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -137,10 +149,9 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   {
                     color: colors.text,
                     fontFamily: isRTL ? 'IBMPlexSansArabic_400Regular' : 'PlusJakartaSans_400Regular',
-                    textAlign: isRTL ? 'right' : 'left',
                   },
                 ]}
-                placeholder={isRTL ? 'البحث عن الغرف أو العطور...' : 'Search rooms or scents...'}
+                placeholder={t('devicesScreen.searchPlaceholder', 'البحث عن الغرف أو العطور...')}
                 placeholderTextColor={colors.textSubtle}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -149,26 +160,6 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
 
             {/* Segmented Filter Pills */}
             <View style={[styles.segmentedContainer, { backgroundColor: colors.surfaceMuted }]}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => setSelectedFilter('active')}
-                style={[
-                  styles.segmentBtn,
-                  selectedFilter === 'active' && [styles.segmentBtnActive, { backgroundColor: colors.surface }],
-                ]}
-              >
-                <Text
-                  style={[
-                    typography.labelMd,
-                    {
-                      color: selectedFilter === 'active' ? colors.text : colors.textMuted,
-                      fontWeight: selectedFilter === 'active' ? '600' : '500',
-                    },
-                  ]}
-                >
-                  {isRTL ? 'النشطة (3)' : 'Active (3)'}
-                </Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setSelectedFilter('all')}
@@ -183,17 +174,39 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                     {
                       color: selectedFilter === 'all' ? colors.text : colors.textMuted,
                       fontWeight: selectedFilter === 'all' ? '600' : '500',
+                      letterSpacing: 0,
                     },
                   ]}
                 >
-                  {isRTL ? 'كل الغرف' : 'All Rooms'}
+                  {isRTL ? `كل الغرف (${devices.length})` : `All Rooms (${devices.length})`}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => setSelectedFilter('active')}
+                style={[
+                  styles.segmentBtn,
+                  selectedFilter === 'active' && [styles.segmentBtnActive, { backgroundColor: colors.surface }],
+                ]}
+              >
+                <Text
+                  style={[
+                    typography.labelMd,
+                    {
+                      color: selectedFilter === 'active' ? colors.text : colors.textMuted,
+                      fontWeight: selectedFilter === 'active' ? '600' : '500',
+                      letterSpacing: 0,
+                    },
+                  ]}
+                >
+                  {isRTL ? `النشطة (${activeCount})` : `Active (${activeCount})`}
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        {/* 3. Group: Living Area (2 Devices) */}
+        {/* 3. Dynamic Devices Section */}
         <View style={styles.groupSection}>
           <View style={styles.groupHeaderRow}>
             <View style={styles.groupHeaderLeft}>
@@ -209,299 +222,163 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   },
                 ]}
               >
-                {isRTL ? 'منطقة المعيشة' : 'Living Area'}
+                {isRTL ? 'الأجهزة المتصلة' : 'Connected Units'}
               </Text>
             </View>
-            <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-              {isRTL ? 'جهازان' : '2 Devices'}
+            <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
+              {isRTL ? `${filteredDevices.length} أجهزة` : `${filteredDevices.length} Devices`}
             </Text>
           </View>
 
-          {/* Card 1: Living Room Diffuser (Sage Green - Active) */}
-          <Card
-            surface="lowest"
-            style={styles.deviceCard}
-            onPress={() => navigation.navigate('DeviceControl')}
-            testID="device-card-living-room"
-            accessibilityLabel="Living Room Diffuser"
-          >
-            <View style={styles.deviceCardTop}>
-              {/* Thumbnail Container 80x96 */}
-              <View style={[styles.deviceThumbnailContainer, { backgroundColor: colors.bgAlt }]}>
-                <Image
-                  source={require('../../assets/photos/diffuser-a316-sage.png')}
-                  style={styles.deviceThumbnailImage}
-                  resizeMode="contain"
-                />
-                <View style={[styles.liveBadge, { backgroundColor: 'rgba(253,249,245,0.85)' }]}>
-                  <View style={[styles.statusDotLive, { backgroundColor: colors.primary }]} />
-                  <Text style={[typography.labelSm, { color: colors.text, fontSize: 9, fontWeight: '700' }]}>
-                    {isRTL ? 'مباشر' : 'LIVE'}
-                  </Text>
-                </View>
-              </View>
+          {filteredDevices.map((device) => {
+            const isPowerOn = device.power;
+            const thumbSource =
+              device.colorway === 'white'
+                ? require('../../assets/photos/diffuser-a316-white.png')
+                : device.colorway === 'black'
+                ? require('../../assets/photos/diffuser-a316-black.png')
+                : require('../../assets/photos/diffuser-a316-sage.png');
 
-              {/* Device Details */}
-              <View style={styles.deviceDetails}>
-                <View style={styles.deviceMetaHeader}>
-                  <Text
-                    style={[
-                      typography.labelSm,
-                      { color: colors.textSubtle, textTransform: isRTL ? 'none' : 'uppercase' },
-                    ]}
-                  >
-                    Odora A316
-                  </Text>
-                  <View style={styles.telemetryIcons}>
-                    <Icon name="bluetooth" size={15} color={colors.primary} />
-                    <Icon name="signal_cellular_alt" size={15} color={colors.primary} style={{ marginStart: 4 }} />
+            return (
+              <Card
+                key={device.id}
+                surface="lowest"
+                style={styles.deviceCard}
+                onPress={() => {
+                  setSelectedDeviceId(device.id);
+                  navigation.navigate('DeviceControl');
+                }}
+                testID={`device-card-${device.id}`}
+                accessibilityLabel={device.name}
+              >
+                <View style={styles.deviceCardTop}>
+                  <View style={[styles.deviceThumbnailContainer, { backgroundColor: colors.bgAlt }]}>
+                    <Image
+                      source={thumbSource}
+                      style={styles.deviceThumbnailImage}
+                      resizeMode="contain"
+                    />
+                    <View style={[styles.liveBadge, { backgroundColor: 'rgba(253,249,245,0.85)' }]}>
+                      <View
+                        style={[
+                          styles.statusDotLive,
+                          { backgroundColor: isPowerOn ? colors.primary : colors.textSubtle },
+                        ]}
+                      />
+                      <Text
+                        style={[
+                          typography.labelSm,
+                          {
+                            color: isPowerOn ? colors.text : colors.textSubtle,
+                            fontSize: 9,
+                            fontWeight: '700',
+                            letterSpacing: 0,
+                          },
+                        ]}
+                      >
+                        {isPowerOn ? t('common.active') : t('common.idle')}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.deviceDetails}>
+                    <View style={styles.deviceMetaHeader}>
+                      <Text
+                        style={[
+                          typography.labelSm,
+                          { color: colors.textSubtle, textTransform: isRTL ? 'none' : 'uppercase', letterSpacing: 0 },
+                        ]}
+                      >
+                        {device.model}
+                      </Text>
+                      <View style={styles.telemetryIcons}>
+                        <Icon name="bluetooth" size={15} color={colors.primary} />
+                        <Icon name="signal_cellular_alt" size={15} color={colors.primary} style={{ marginStart: 4 }} />
+                      </View>
+                    </View>
+
+                    <Text
+                      style={[
+                        typography.headlineSm,
+                        { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2, letterSpacing: 0 },
+                      ]}
+                    >
+                      {device.name}
+                    </Text>
+
+                    <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                      {device.roomName} • {device.oilName}
+                    </Text>
+
+                    {/* Pill Gauge */}
+                    <View style={[styles.pillGauge, { backgroundColor: colors.bgAlt }]}>
+                      <View style={styles.pillGaugeLeft}>
+                        <Icon name="opacity" size={14} color={colors.primary} />
+                        <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+                          {`${t('home.oil')} ${device.oilLevel}% ${device.oilSensor ? '' : t('home.oilEstimated')}`}
+                        </Text>
+                      </View>
+                      <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
+                        {t('device.level', { level: device.intensity })}
+                      </Text>
+                    </View>
                   </View>
                 </View>
 
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2 }]}>
-                  {isRTL ? 'موزع غرفة المعيشة' : 'Living Room Diffuser'}
-                </Text>
-
-                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                  {isRTL ? 'أخضر حكيم • كتان وقطن' : 'Sage Green • Cotton Linen'}
-                </Text>
-
-                {/* Pill Gauge */}
-                <View style={[styles.pillGauge, { backgroundColor: colors.bgAlt }]}>
-                  <View style={styles.pillGaugeLeft}>
-                    <Icon name="opacity" size={14} color={colors.primary} />
-                    <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
-                      {isRTL ? `الزيت ${toArabicNumerals(68)}٪` : 'Oil 68%'}
+                {/* Inline Tactile Control Bar */}
+                <View style={[styles.deviceCardBottom, { borderTopColor: colors.surfaceMuted }]}>
+                  <View style={styles.deviceCardBottomLeft}>
+                    <View
+                      style={[
+                        styles.activeMistingPill,
+                        { backgroundColor: isPowerOn ? colors.accent : colors.surfaceMuted },
+                      ]}
+                    >
+                      <Icon
+                        name="airwave"
+                        size={13}
+                        color={isPowerOn ? colors.text : colors.textMuted}
+                      />
+                      <Text
+                        style={[
+                          typography.labelSm,
+                          {
+                            color: isPowerOn ? colors.text : colors.textMuted,
+                            fontWeight: '600',
+                            marginStart: 4,
+                            fontSize: 11,
+                            letterSpacing: 0,
+                          },
+                        ]}
+                      >
+                        {isPowerOn ? t('devicesScreen.activeMist') : t('devicesScreen.standby')}
+                      </Text>
+                    </View>
+                    <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 8, letterSpacing: 0 }]}>
+                      {device.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
                     </Text>
                   </View>
-                  <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                    {isRTL ? `المستوى ${toArabicNumerals(6)}` : 'Level 6 Mist'}
-                  </Text>
-                </View>
-              </View>
-            </View>
 
-            {/* Inline Tactile Control Bar */}
-            <View style={[styles.deviceCardBottom, { borderTopColor: colors.surfaceMuted }]}>
-              <View style={styles.deviceCardBottomLeft}>
-                <View style={[styles.activeMistingPill, { backgroundColor: colors.accent }]}>
-                  <Icon name="airwave" size={13} color={colors.text} />
-                  <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4, fontSize: 11 }]}>
-                    {isRTL ? 'انتشار نشط' : 'Active Misting'}
-                  </Text>
-                </View>
-                <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 8 }]}>
-                  {isRTL ? 'وضع هادئ' : 'Quiet Mode'}
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => toggleDevicePower('living')}
-                style={[
-                  styles.cardPowerBtn,
-                  {
-                    backgroundColor: devicePowers.living ? colors.surfaceHigh : colors.surfaceMuted,
-                  },
-                ]}
-              >
-                <Icon
-                  name="power_settings_new"
-                  size={18}
-                  color={devicePowers.living ? colors.primary : colors.textSubtle}
-                />
-              </TouchableOpacity>
-            </View>
-          </Card>
-
-          {/* Card 2: Reading Nook (Matte White - Scheduled) */}
-          <Card
-            surface="lowest"
-            style={styles.deviceCard}
-            onPress={() => navigation.navigate('DeviceControl')}
-          >
-            <View style={styles.deviceCardTop}>
-              <View style={[styles.deviceThumbnailContainer, { backgroundColor: colors.bgAlt }]}>
-                <Image
-                  source={require('../../assets/photos/diffuser-a316-white.png')}
-                  style={styles.deviceThumbnailImage}
-                  resizeMode="contain"
-                />
-                <View style={[styles.liveBadge, { backgroundColor: 'rgba(253,249,245,0.85)' }]}>
-                  <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 9, fontWeight: '600' }]}>
-                    {isRTL ? 'خلال 45د' : 'In 45m'}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.deviceDetails}>
-                <View style={styles.deviceMetaHeader}>
-                  <Text
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => toggleDevicePower(device.id)}
                     style={[
-                      typography.labelSm,
-                      { color: colors.textSubtle, textTransform: isRTL ? 'none' : 'uppercase' },
+                      styles.cardPowerBtn,
+                      {
+                        backgroundColor: isPowerOn ? colors.surfaceHigh : colors.surfaceMuted,
+                      },
                     ]}
                   >
-                    Odora A316
-                  </Text>
-                  <Icon name="bluetooth" size={15} color={colors.primary} />
+                    <Icon
+                      name="power_settings_new"
+                      size={18}
+                      color={isPowerOn ? colors.primary : colors.textSubtle}
+                    />
+                  </TouchableOpacity>
                 </View>
-
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2 }]}>
-                  {isRTL ? 'ركن القراءة' : 'Reading Nook'}
-                </Text>
-
-                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                  {isRTL ? 'أبيض مطفي • مريمية الغابة' : 'Matte White • Forest Sage'}
-                </Text>
-
-                <View style={[styles.pillGauge, { backgroundColor: colors.bgAlt }]}>
-                  <View style={styles.pillGaugeLeft}>
-                    <Icon name="water_drop" size={14} color={colors.primary} />
-                    <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
-                      {isRTL ? `الزيت ${toArabicNumerals(92)}٪` : 'Oil 92%'}
-                    </Text>
-                  </View>
-                  <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                    {isRTL ? `المستوى ${toArabicNumerals(3)}` : 'Level 3 Preset'}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            <View style={[styles.deviceCardBottom, { borderTopColor: colors.surfaceMuted }]}>
-              <View style={styles.deviceCardBottomLeft}>
-                <Icon name="schedule" size={15} color={colors.textSubtle} />
-                <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 6 }]}>
-                  {isRTL ? 'مجدول: 20:00 · نسيم هادئ' : 'Scheduled: 8:00 PM · Calm Wind'}
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => toggleDevicePower('reading')}
-                style={[
-                  styles.cardPowerBtn,
-                  {
-                    backgroundColor: devicePowers.reading ? colors.surfaceHigh : colors.surfaceMuted,
-                  },
-                ]}
-              >
-                <Icon
-                  name="power_settings_new"
-                  size={18}
-                  color={devicePowers.reading ? colors.primary : colors.textSubtle}
-                />
-              </TouchableOpacity>
-            </View>
-          </Card>
-        </View>
-
-        {/* 4. Group: Private Spaces (1 Device) */}
-        <View style={styles.groupSection}>
-          <View style={styles.groupHeaderRow}>
-            <View style={styles.groupHeaderLeft}>
-              <View style={[styles.groupDot, { backgroundColor: colors.primarySoft }]} />
-              <Text
-                style={[
-                  typography.labelSm,
-                  {
-                    color: colors.text,
-                    fontWeight: '700',
-                    textTransform: isRTL ? 'none' : 'uppercase',
-                    letterSpacing: isRTL ? 0 : 1,
-                  },
-                ]}
-              >
-                {isRTL ? 'المساحات الخاصة' : 'Private Spaces'}
-              </Text>
-            </View>
-            <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-              {isRTL ? 'جهاز واحد' : '1 Device'}
-            </Text>
-          </View>
-
-          {/* Card 3: Master Bedroom (Matte Black - Low Oil Warning) */}
-          <Card
-            surface="lowest"
-            style={styles.deviceCard}
-            onPress={() => navigation.navigate('DeviceControl')}
-          >
-            <View style={styles.deviceCardTop}>
-              <View style={[styles.deviceThumbnailContainer, { backgroundColor: colors.bgAlt }]}>
-                <Image
-                  source={require('../../assets/photos/diffuser-a316-black.png')}
-                  style={styles.deviceThumbnailImage}
-                  resizeMode="contain"
-                />
-                <View style={[styles.liveBadge, { backgroundColor: colors.errorSoft }]}>
-                  <Icon name="warning" size={10} color={colors.error} />
-                  <Text style={[typography.labelSm, { color: colors.error, fontSize: 9, fontWeight: '700', marginStart: 2 }]}>
-                    24%
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.deviceDetails}>
-                <View style={styles.deviceMetaHeader}>
-                  <Text
-                    style={[
-                      typography.labelSm,
-                      { color: colors.textSubtle, textTransform: isRTL ? 'none' : 'uppercase' },
-                    ]}
-                  >
-                    Odora A316
-                  </Text>
-                  <Icon name="bluetooth" size={15} color={colors.primary} />
-                </View>
-
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2 }]}>
-                  {isRTL ? 'غرفة النوم الرئيسية' : 'Master Bedroom'}
-                </Text>
-
-                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                  {isRTL ? 'أسود مطفي • أزهار الحمضيات' : 'Matte Black • Citrus Bloom'}
-                </Text>
-
-                <View style={[styles.pillGauge, { backgroundColor: colors.bgAlt }]}>
-                  <View style={styles.pillGaugeLeft}>
-                    <Icon name="warning" size={14} color={colors.error} />
-                    <Text style={[typography.labelSm, { color: colors.error, fontWeight: '600', marginStart: 4 }]}>
-                      {isRTL ? 'الزيت 24%' : 'Oil 24%'}
-                    </Text>
-                  </View>
-                  <Text style={[typography.labelSm, { color: colors.error }]}>
-                    {isRTL ? 'مستوى زيت منخفض' : 'Low Oil'}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            <View style={[styles.deviceCardBottom, { borderTopColor: colors.surfaceMuted }]}>
-              <View style={styles.deviceCardBottomLeft}>
-                <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                  {isRTL ? 'في وضع الاستعداد · اضغط للبدء' : 'Standby · Tap to start'}
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => toggleDevicePower('bedroom')}
-                style={[
-                  styles.cardPowerBtn,
-                  {
-                    backgroundColor: devicePowers.bedroom ? colors.surfaceHigh : colors.surfaceMuted,
-                  },
-                ]}
-              >
-                <Icon
-                  name="power_settings_new"
-                  size={18}
-                  color={devicePowers.bedroom ? colors.primary : colors.textSubtle}
-                />
-              </TouchableOpacity>
-            </View>
-          </Card>
+              </Card>
+            );
+          })}
         </View>
       </ScrollView>
     </View>

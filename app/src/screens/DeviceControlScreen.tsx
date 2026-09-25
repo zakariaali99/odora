@@ -13,7 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { useTheme } from '../theme';
-import { toArabicNumerals } from '../i18n';
 import {
   AppBar,
   Card,
@@ -25,7 +24,14 @@ import {
   StatusPill,
 } from '../components/ui';
 import { getDeviceController } from '../device/DeviceController';
-import { DeviceState } from '../device/types';
+import { useAppStore } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
+
+const DIFFUSER_IMAGES = {
+  sage: require('../../assets/photos/diffuser_control_sage.png'),
+  white: require('../../assets/photos/diffuser-a316-white.png'),
+  black: require('../../assets/photos/diffuser-a316-black.png'),
+};
 
 interface DeviceControlScreenProps {
   navigation: any;
@@ -39,14 +45,53 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
   const nav = useNavigation<any>();
   const activeNav = navigation?.navigate ? navigation : nav;
   const { t } = useTranslation();
-  const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
   const controller = getDeviceController();
+  const scrollRef = useRef<ScrollView>(null);
 
-  const [deviceState, setDeviceState] = useState<DeviceState>(
-    controller.getState()
-  );
-  const [sprayMode, setSprayMode] = useState<'continuous' | 'interval'>('interval');
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const {
+    devices,
+    selectedDeviceId,
+    connectionStatus,
+    toggleDevicePower,
+    setDeviceIntensity,
+    updateDevice,
+  } = useAppStore();
+
+  const activeDevice =
+    devices.find((d) => d.id === selectedDeviceId) ||
+    devices[0] || {
+      id: 'living',
+      name: 'موزع غرفة المعيشة',
+      roomName: 'غرفة المعيشة',
+      colorway: 'sage' as const,
+      model: 'Odora A316',
+      power: true,
+      intensity: 8,
+      mode: 'interval' as const,
+      oilLevel: 68,
+      oilName: 'مريمية الغابة',
+      oilRemainingDays: 18,
+      oilSensor: false,
+      burst: false,
+      isOnline: true,
+      connectionType: 'ble' as const,
+      signalDbm: -58,
+    };
+
+  const isPowerOn = activeDevice.power;
+  const intensity = activeDevice.intensity || 6;
+  const sprayMode = activeDevice.mode;
+
   const [scheduleActive, setScheduleActive] = useState(true);
   const [timerActive, setTimerActive] = useState(true);
 
@@ -70,22 +115,18 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
     ).start();
   }, [mistAnim]);
 
-  useEffect(() => {
-    const unsub = controller.onStateChange((state) => {
-      setDeviceState(state);
-    });
-    return unsub;
-  }, [controller]);
-
-  const isPowerOn = deviceState.power;
-  const intensity = deviceState.intensity || 6;
-
   const handleIntensityChange = (val: number) => {
+    setDeviceIntensity(activeDevice.id, val);
     controller.setIntensity(val);
   };
 
   const handleTogglePower = () => {
-    controller.setPower(!deviceState.power);
+    toggleDevicePower(activeDevice.id);
+    controller.setPower(!activeDevice.power);
+  };
+
+  const handleModeChange = (mode: 'continuous' | 'interval') => {
+    updateDevice(activeDevice.id, { mode });
   };
 
   const mistTranslateY = mistAnim.interpolate({
@@ -99,25 +140,26 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
-      {/* 1. App Bar (64pt, Back + Title + more_horiz -> Settings + Avatar) */}
+      {/* 1. App Bar (64pt, Back + Title leading next to chevron + more_horiz -> Settings + Avatar) */}
       <AppBar
         showBack
-        title={isRTL ? 'التحكم بالجهاز' : 'Device Control'}
+        title={t('deviceControl.title', 'Device Control')}
         actions={[
           {
             icon: 'more_horiz',
             onPress: () => activeNav.navigate('DeviceSettings'),
-            label: isRTL ? 'إعدادات الجهاز' : 'Settings',
+            label: t('deviceSettings.title', 'Settings'),
           },
           {
             avatar: require('../../assets/photos/avatar.jpg'),
             onPress: () => activeNav.navigate('Account'),
-            label: isRTL ? 'الحساب' : 'Profile',
+            label: t('nav.account', 'Profile'),
           },
         ]}
       />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[
           styles.scrollContent,
           { paddingBottom: 56 + 24 + insets.bottom + 48 },
@@ -126,39 +168,81 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
       >
         {/* 2. Sub-header Device Status Pill */}
         <View style={styles.subHeaderSection}>
-          <View style={styles.statusPillLeft}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus })}
+            style={styles.statusPillLeft}
+          >
             <View style={styles.blePingContainer}>
-              <View style={[styles.blePingOuter, { backgroundColor: colors.accent }]} />
-              <View style={[styles.blePingInner, { backgroundColor: colors.primary }]} />
+              <View
+                style={[
+                  styles.blePingOuter,
+                  { backgroundColor: connectionStatus === 'connected' ? colors.accent : colors.surfaceHigh },
+                ]}
+              />
+              <View
+                style={[
+                  styles.blePingInner,
+                  { backgroundColor: connectionStatus === 'connected' ? colors.primary : colors.textSubtle },
+                ]}
+              />
             </View>
             <Text
               style={[
                 typography.labelMd,
-                { color: colors.textMuted, marginStart: 8, fontWeight: '600', fontSize: 11 },
+                { color: colors.textMuted, marginStart: 8, fontWeight: '600', fontSize: 11, letterSpacing: 0 },
               ]}
             >
-              {isRTL ? 'متصل عبر البلوتوث' : 'BLE CONNECTED'}
+              {connectionStatus === 'connected'
+                ? t('device.connectedBle', 'متصل عبر البلوتوث')
+                : t('device.disconnected', 'غير متصل')}
             </Text>
             <Text style={[typography.bodySm, { color: colors.textSubtle, marginHorizontal: 4 }]}>
               ·
             </Text>
-            <Text style={[typography.labelMd, { color: colors.textMuted, fontSize: 12 }]}>
-              {isRTL ? 'غرفة المعيشة' : 'Living Room'}
+            <Text style={[typography.labelMd, { color: colors.textMuted, fontSize: 12, letterSpacing: 0 }]}>
+              {activeDevice.roomName}
             </Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={[styles.activePillBadge, { backgroundColor: colors.bgAlt }]}>
             <Icon name="air" size={14} color={colors.primary} />
             <Text
               style={[
                 typography.labelSm,
-                { color: colors.primary, fontWeight: '700', marginStart: 4, fontSize: 10 },
+                { color: colors.primary, fontWeight: '700', marginStart: 4, fontSize: 10, letterSpacing: 0 },
               ]}
             >
-              {isPowerOn ? (isRTL ? 'نشط' : 'ACTIVE') : (isRTL ? 'استعداد' : 'STANDBY')}
+              {isPowerOn ? t('common.active', 'نشط') : t('common.idle', 'استعداد')}
             </Text>
           </View>
         </View>
+
+        {/* 2b. Inline Connection Diagnostic Banner if not connected (Flow 2) */}
+        {connectionStatus !== 'connected' && (
+          <TouchableOpacity
+            activeOpacity={0.88}
+            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus })}
+            style={[styles.connectionAlertBanner, { backgroundColor: colors.accent }]}
+          >
+            <Icon
+              name={connectionStatus === 'disabled' ? 'bluetooth_disabled' : 'podcasts'}
+              size={20}
+              color={colors.text}
+            />
+            <View style={{ marginStart: 10, flex: 1 }}>
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700', letterSpacing: 0 }]}>
+                {connectionStatus === 'disabled'
+                  ? t('connectionStates.bluetoothOffTitle', 'البلوتوث متوقف على الهاتف')
+                  : t('connectionStates.outOfRangeTitle', 'الموزع خارج النطاق أو غير متصل')}
+              </Text>
+              <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                {t('deviceControl.connectionDiagnostic', 'تشخيص الاتصال اللاسلكي')}
+              </Text>
+            </View>
+            <Icon name="chevron_right" size={18} color={colors.textMuted} />
+          </TouchableOpacity>
+        )}
 
         {/* 3. Hardware Presentation & Mist Canvas */}
         <Card surface="low" style={styles.hardwareCard}>
@@ -192,32 +276,33 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           {/* Device Image (176x208) */}
           <View style={styles.hardwareImageWrapper}>
             <Image
-              source={require('../../assets/photos/diffuser_control_sage.png')}
+              source={DIFFUSER_IMAGES[activeDevice.colorway] || DIFFUSER_IMAGES.sage}
               style={styles.hardwareImage}
-              resizeMode="cover"
+              resizeMode="contain"
             />
           </View>
 
-          {/* Quick Room Atmosphere Meta (Replaces Temp/RH per 08 §4) */}
+          {/* Quick Room Atmosphere Meta with Bidi LTR wrapped technical values */}
           <View style={styles.telemetryRow}>
             <View style={styles.telemetryItem}>
               <Icon name="bluetooth" size={14} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.textMuted, marginStart: 4, fontSize: 11 }]}>
-                {isRTL ? 'متصل' : 'Connected'}
+              <Text style={[typography.labelMd, { color: colors.textMuted, marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
+                {connectionStatus === 'connected' ? t('common.active', 'متصل') : t('connection.disconnectedTitle', 'منفصل')}
               </Text>
             </View>
             <View style={[styles.metaDot, { backgroundColor: colors.border }]} />
             <View style={styles.telemetryItem}>
               <Icon name="signal_cellular_alt" size={14} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.textMuted, marginStart: 4, fontSize: 11 }]}>
-                {isRTL ? 'إشارة قوية (-58 dBm)' : 'Signal Strong (-58 dBm)'}
+              <Text style={[typography.labelMd, { color: colors.textMuted, marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
+                {t('deviceControl.signalStrong', 'إشارة قوية ')}
+                <Text style={{ writingDirection: 'ltr' }}>{'\u202A'}({activeDevice.signalDbm} dBm){'\u202C'}</Text>
               </Text>
             </View>
             <View style={[styles.metaDot, { backgroundColor: colors.border }]} />
             <View style={styles.telemetryItem}>
               <Icon name="eco" size={14} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4, fontSize: 11 }]}>
-                {isRTL ? 'انتشار بارد' : 'Cold Diffusion'}
+              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
+                {t('deviceControl.waterlessColdAir', 'انتشار بارد')}
               </Text>
             </View>
           </View>
@@ -238,39 +323,37 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   },
                 ]}
               >
-                {isRTL ? 'معدل الانتشار' : 'DIFFUSION RATE'}
+                {t('deviceControl.dispersionRate', 'DIFFUSION RATE')}
               </Text>
-              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '500', fontSize: 18, marginTop: 2 }]}>
-                {isRTL ? 'كثافة العطر' : 'Aroma Intensity'}
+              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '500', fontSize: 18, marginTop: 2, letterSpacing: 0 }]}>
+                {t('deviceControl.scentDensity', 'Aroma Intensity')}
               </Text>
-              <Text style={[typography.labelMd, { color: colors.textMuted, fontWeight: '600', marginTop: 2 }]}>
-                {isRTL
-                  ? `${toArabicNumerals(intensity * 10)}٪ · ${t('device.level', { level: toArabicNumerals(intensity) })}`
-                  : `${intensity * 10}% · ${t('device.level', { level: intensity })}`}
+              <Text style={[typography.labelMd, { color: colors.textMuted, fontWeight: '600', marginTop: 2, letterSpacing: 0 }]}>
+                {`${intensity * 10}% · ${t('device.level', { level: intensity })}`}
               </Text>
             </View>
 
             <View style={[styles.modeBadge, { backgroundColor: colors.accent }]}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 11 }]}>
-                {sprayMode === 'interval' ? (isRTL ? 'نمط الفترات' : 'Interval Mode') : (isRTL ? 'نمط مستمر' : 'Continuous Mode')}
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 11, letterSpacing: 0 }]}>
+                {sprayMode === 'interval' ? t('home.interval', 'فترات') : t('home.continuous', 'مستمر')}
               </Text>
             </View>
           </View>
 
-          {/* Circular Gauge (224pt, stroke 8, number 36 light font) */}
+          {/* Circular Gauge (Full Ring 224pt, r 82, stroke 8 with -/+ buttons) */}
           <IntensityGauge
             value={intensity}
             onChange={handleIntensityChange}
             max={10}
-            caption={isRTL ? 'انتشار عطري متوازن' : 'Balanced Floral Dispersion'}
+            caption={t('device.optimalScenting', 'انتشار عطري متوازن')}
           />
 
-          {/* Preset Chips Row */}
+          {/* Preset Chips Row (Boost chip hidden when burst is OFF) */}
           <View style={styles.presetsRow}>
             <PresetChips
               currentValue={intensity}
               onSelect={handleIntensityChange}
-              hasBurstCapability={false}
+              hasBurstCapability={activeDevice.burst}
             />
           </View>
 
@@ -278,32 +361,32 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           <View style={styles.modeSegmentedRow}>
             <SegmentedControl<'continuous' | 'interval'>
               options={[
-                { label: isRTL ? 'مستمر' : 'Continuous', value: 'continuous' },
-                { label: isRTL ? 'فترات' : 'Interval', value: 'interval' },
+                { label: t('home.continuous', 'مستمر'), value: 'continuous' },
+                { label: t('home.interval', 'فترات'), value: 'interval' },
               ]}
               selected={sprayMode}
-              onChange={(val) => setSprayMode(val)}
+              onChange={handleModeChange}
             />
           </View>
 
-          {/* Dial Micro-details Footer per 08 §4 */}
+          {/* Dial Micro-details Footer */}
           <View style={[styles.dialFooterRow, { borderTopColor: colors.surfaceMuted }]}>
             <View style={styles.dialFooterItem}>
               <Icon name="airwave" size={16} color={colors.primary} />
-              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '500', marginStart: 6 }]}>
-                {isPowerOn ? (isRTL ? 'ينتشر الآن · 12 ثانية' : 'Spraying · 12s') : (isRTL ? 'متوقف مؤقتاً' : 'Paused · 48s')}
+              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '500', marginStart: 6, letterSpacing: 0 }]}>
+                {isPowerOn ? t('home.statusActive', 'ينتشر الآن') : t('home.statusStandby', 'في وضع الاستعداد')}
               </Text>
             </View>
             <View style={styles.dialFooterItem}>
               <Icon name="check_circle" size={16} color={colors.primarySoft} />
-              <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6 }]}>
-                {isRTL ? 'هواء بارد بدون ماء' : 'Waterless Cold-Air'}
+              <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6, letterSpacing: 0 }]}>
+                {t('deviceControl.waterlessColdAir', 'هواء بارد بدون ماء')}
               </Text>
             </View>
           </View>
         </Card>
 
-        {/* 5. Cartridge / Fragrance Chamber Status Card */}
+        {/* 5. Oil Status Card (Item 7: % in its own column; Item 15: No "chamber" wording) */}
         <Card surface="lowest" style={styles.cartridgeCard}>
           <View style={styles.cartridgeTopRow}>
             <View style={styles.cartridgeLeft}>
@@ -315,31 +398,21 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 />
               </View>
               <View style={{ marginStart: 12, flex: 1 }}>
-                <Text
-                  style={[
-                    typography.labelSm,
-                    {
-                      color: colors.textSubtle,
-                      fontWeight: '700',
-                      textTransform: isRTL ? 'none' : 'uppercase',
-                      letterSpacing: isRTL ? 0 : 0.8,
-                    },
-                  ]}
-                >
-                  {isRTL ? 'الحجرة النشطة' : 'CHAMBER ACTIVE'}
+                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+                  {activeDevice.oilName}
                 </Text>
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', marginTop: 2 }]}>
-                  {isRTL ? 'مريمية الغابة' : 'Forest Sage'}
-                </Text>
-                <Text numberOfLines={1} style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+                <Text numberOfLines={1} style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
                   {isRTL ? 'أوكالبتوس، صنوبر متوسطي، طحلب بري' : 'Eucalyptus, Mediterranean Pine & Wild Moss'}
                 </Text>
               </View>
             </View>
 
-            <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '600', fontSize: 20 }]}>
-              68%
-            </Text>
+            {/* Percentage in its own column at the end of header row (Item 7) */}
+            <View style={styles.cartridgePercentCol}>
+              <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '700', fontSize: 22, letterSpacing: 0 }]}>
+                {activeDevice.oilLevel}%
+              </Text>
+            </View>
           </View>
 
           {/* Capacity Progress Bar */}
@@ -348,16 +421,18 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               <View
                 style={[
                   styles.cartridgeFill,
-                  { width: '68%', backgroundColor: colors.primary },
+                  { width: `${activeDevice.oilLevel}%`, backgroundColor: colors.primary },
                 ]}
               />
             </View>
             <View style={styles.cartridgeMetaRow}>
-              <Text style={[typography.bodySm, { color: colors.textMuted }]}>
-                {isRTL ? 'حوالي 18 يوم متبقي (تقديري)' : 'Approx. 18 days remaining (Est.)'}
+              <Text style={[typography.bodySm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                {isRTL
+                  ? `حوالي ${activeDevice.oilRemainingDays} يوم متبقي ${activeDevice.oilSensor ? '' : '(تقديري)'}`
+                  : `Approx. ${activeDevice.oilRemainingDays} days remaining ${activeDevice.oilSensor ? '' : '(Est.)'}`}
               </Text>
-              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600' }]}>
-                34 ml / 50 ml
+              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                {Math.round(50 * (activeDevice.oilLevel / 100))} ml / 50 ml
               </Text>
             </View>
           </View>
@@ -370,8 +445,8 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               style={[styles.reorderBtn, { backgroundColor: colors.accent }]}
             >
               <Icon name="shopping_bag" size={18} color={colors.text} />
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6 }]}>
-                {isRTL ? 'إعادة طلب الزيت' : 'Reorder Oil'}
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
+                {t('device.reorderOil', 'إعادة طلب الزيت')}
               </Text>
             </TouchableOpacity>
 
@@ -381,8 +456,8 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               style={[styles.historyBtn, { backgroundColor: colors.surfaceMuted }]}
             >
               <Icon name="history" size={18} color={colors.text} />
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6 }]}>
-                {isRTL ? 'سجل العطور' : 'Scent History'}
+              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
+                {t('home.scentsCollection', 'سجل العطور')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -391,18 +466,18 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         {/* 6. Quick Settings Shortcuts Bento */}
         <View style={styles.bentoSection}>
           <View style={styles.bentoHeader}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500' }]}>
-              {isRTL ? 'أجواء الجهاز' : 'Device Ambience'}
+            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+              {t('devicesScreen.ecosystem', 'أجواء الجهاز')}
             </Text>
-            <Text style={[typography.labelMd, { color: colors.textMuted }]}>
-              {isRTL ? 'أتمتتان نشطتان' : '2 automations active'}
+            <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
+              {t('scheduleScreen.routinesCount', { count: 2, defaultValue: isRTL ? 'أتمتتان نشطتان' : '2 automations active' })}
             </Text>
           </View>
 
-          {/* Routine 1: Schedule Shortcut */}
+          {/* Routine 1: Schedule Shortcut (Item 8: Schedule belongs to device) */}
           <TouchableOpacity
             activeOpacity={0.88}
-            onPress={() => activeNav.navigate('Schedule')}
+            onPress={() => activeNav.navigate('Schedule', { deviceId: activeDevice.id })}
             testID="schedule-row-button"
             accessibilityLabel="Circadian Schedule"
             accessibilityRole="button"
@@ -413,11 +488,11 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   <Icon name="schedule" size={20} color={colors.primary} />
                 </View>
                 <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
-                    {isRTL ? 'الجدول اليومي' : 'Circadian Schedule'}
+                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                    {t('deviceControl.circadianSchedule', 'الجدول اليومي')}
                   </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                    {isRTL ? 'نشط 08:00 – 22:00 · دورة ذكية' : 'Active 08:00 – 22:00 · Smart Cycle'}
+                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                    {t('device.scheduleActive', 'يعمل وفق الجدول المبرمج')}
                   </Text>
                 </View>
               </View>
@@ -428,18 +503,18 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             </Card>
           </TouchableOpacity>
 
-          {/* Routine 2: Auto-off Timer (Replaces Glow per 08 §4) */}
+          {/* Routine 2: Auto-off Timer */}
           <Card surface="lowest" style={[styles.bentoCard, { marginTop: 10 }]}>
             <View style={styles.bentoCardLeft}>
               <View style={[styles.bentoIconWrap, { backgroundColor: colors.bgAlt }]}>
                 <Icon name="timer" size={20} color={colors.primary} />
               </View>
               <View style={{ marginStart: 12, flex: 1 }}>
-                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
-                  {isRTL ? 'مؤقت الإيقاف التلقائي' : 'Auto-off Timer'}
+                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                  {t('deviceSettings.autoOffTimer', 'مؤقت الإيقاف التلقائي')}
                 </Text>
-                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                  {isRTL ? 'ساعتان متبقيتان · إيقاف سلس' : '2 Hours remaining · Gentle fade'}
+                <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                  {timerActive ? (isRTL ? 'ساعتان متبقيتان · إيقاف سلس' : '2 Hours remaining · Gentle fade') : t('deviceSettings.disabled', 'معطّل')}
                 </Text>
               </View>
             </View>
@@ -458,8 +533,8 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           onPress={handleTogglePower}
           label={
             isPowerOn
-              ? (isRTL ? 'الموزع يعمل · اضغط للإيقاف المؤقت' : 'Diffuser active · tap to pause')
-              : (isRTL ? 'الموزع متوقف · اضغط للتشغيل' : 'Diffuser paused · tap to start')
+              ? t('deviceControl.tapToPause', 'الموزع يعمل · اضغط للإيقاف المؤقت')
+              : t('deviceControl.tapToStart', 'الموزع متوقف · اضغط للتشغيل')
           }
         />
       </View>
@@ -589,6 +664,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  connectionAlertBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    borderRadius: 16,
+    marginBottom: 16,
+  },
   cartridgeCard: {
     padding: 20,
     marginBottom: 16,
@@ -597,11 +679,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    gap: 12,
   },
   cartridgeLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+  },
+  cartridgePercentCol: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    paddingTop: 2,
+    minWidth: 50,
   },
   cartridgeThumbWrap: {
     width: 56,

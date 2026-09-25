@@ -37,9 +37,13 @@ import {
   LatinText,
 } from '../components/ui';
 
-export const DevUiKitScreen: React.FC = () => {
+interface DevUiKitScreenProps {
+  navigation?: any;
+}
+
+export const DevUiKitScreen: React.FC<DevUiKitScreenProps> = ({ navigation }) => {
   const { colors, typography, spacing, isDark, radii, elevation } = useTheme();
-  const { isRTL, requestLanguageChange, themeMode, setThemeMode } = useAppStore();
+  const { isRTL, requestLanguageChange, themeMode, setThemeMode, connectionStatus, setConnectionStatus } = useAppStore();
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -139,6 +143,92 @@ export const DevUiKitScreen: React.FC = () => {
         ]}
         showsVerticalScrollIndicator={false}
       >
+        {/* Section: Mock Hardware & Connection Telemetry (Item 2) */}
+        <SectionHeader title={isRTL ? 'محاكاة حالة الاتصال والعتاد (Mock Hardware)' : 'Mock Hardware & Connection States'} />
+        <Card style={styles.sectionCard}>
+          <Text style={[typography.bodySm, { color: colors.textMuted, marginBottom: 12 }]}>
+            {isRTL
+              ? `الحالة الحالية في الذاكرة: ${connectionStatus}`
+              : `Active Store Status: ${connectionStatus}`}
+          </Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => setConnectionStatus('connected')}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                borderRadius: 16,
+                backgroundColor: connectionStatus === 'connected' ? colors.primary : colors.surfaceMuted,
+              }}
+            >
+              <Text style={[typography.labelSm, { color: connectionStatus === 'connected' ? colors.onPrimary : colors.text }]}>
+                Connected
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                setConnectionStatus('disabled');
+                navigation?.navigate('ConnectionStates', { initialState: 'disabled' });
+              }}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                borderRadius: 16,
+                backgroundColor: connectionStatus === 'disabled' ? colors.primary : colors.surfaceMuted,
+              }}
+            >
+              <Text style={[typography.labelSm, { color: connectionStatus === 'disabled' ? colors.onPrimary : colors.text }]}>
+                Disabled (BT Off)
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                setConnectionStatus('out_of_range');
+                navigation?.navigate('ConnectionStates', { initialState: 'out_of_range' });
+              }}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                borderRadius: 16,
+                backgroundColor: connectionStatus === 'out_of_range' ? colors.primary : colors.surfaceMuted,
+              }}
+            >
+              <Text style={[typography.labelSm, { color: connectionStatus === 'out_of_range' ? colors.onPrimary : colors.text }]}>
+                Out of Range
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                setConnectionStatus('syncing');
+                navigation?.navigate('ConnectionStates', { initialState: 'syncing' });
+              }}
+              style={{
+                paddingHorizontal: 12,
+                paddingVertical: 8,
+                borderRadius: 16,
+                backgroundColor: connectionStatus === 'syncing' ? colors.primary : colors.surfaceMuted,
+              }}
+            >
+              <Text style={[typography.labelSm, { color: connectionStatus === 'syncing' ? colors.onPrimary : colors.text }]}>
+                Syncing
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <Button
+            title={isRTL ? 'فتح شاشة حالات الاتصال' : 'Open Connection States Screen'}
+            onPress={() => navigation?.navigate('ConnectionStates', { initialState: connectionStatus })}
+            variant="secondary"
+          />
+        </Card>
+
         {/* Section: Typography Scale */}
         <SectionHeader title={isRTL ? '١. مقياس الخطوط (Typography)' : '1. Typography Scale'} />
         <Card style={styles.sectionCard}>

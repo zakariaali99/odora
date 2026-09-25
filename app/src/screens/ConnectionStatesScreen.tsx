@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Animated,
+  Image,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
@@ -14,6 +15,9 @@ import { typography } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
+import { useAppStore } from '../store/useAppStore';
+import { useTranslation } from 'react-i18next';
+import { previewConfig } from '../previewTarget';
 
 interface ConnectionStatesScreenProps {
   navigation?: any;
@@ -26,33 +30,62 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
   navigation,
   route,
 }) => {
+  const { t } = useTranslation();
   const { colors, isDark, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
+  const { devices, selectedDeviceId, connectionStatus, setConnectionStatus } = useAppStore();
+  const scrollRef = useRef<ScrollView>(null);
 
-  const initialTab: ConnectionStateTab = route?.params?.initialState || 'disabled';
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const activeDevice = devices.find((d) => d.id === selectedDeviceId) || devices[0] || {
+    id: 'default',
+    name: isRTL ? 'موزع أودورا 01' : 'Odora Air 01',
+    roomName: isRTL ? 'غرفة المعيشة' : 'Living Room',
+    oilLevel: 74,
+    oilName: isRTL ? 'كانوبي الهينوكي' : 'Hinoki Canopy',
+    oilSensor: true,
+    power: true,
+    intensity: 8,
+    mode: 'interval' as const,
+    colorway: 'sage' as const,
+    burst: true,
+  };
+
+  const initialTab: ConnectionStateTab =
+    route?.params?.initialState === 'out_of_range'
+      ? 'out_of_range'
+      : route?.params?.initialState === 'syncing'
+      ? 'syncing'
+      : 'disabled';
+
   const [activeTab, setActiveTab] = useState<ConnectionStateTab>(initialTab);
   const [isReconnecting, setIsReconnecting] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Animation pulses
-  const pulseAnim = useRef(new Animated.Value(0)).current;
+  // Sync animation spin
+  const spinAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulseAnim, {
-          toValue: 1,
-          duration: 1500,
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulseAnim, {
-          toValue: 0,
-          duration: 1500,
-          useNativeDriver: true,
-        }),
-      ])
+      Animated.timing(spinAnim, {
+        toValue: 1,
+        duration: 3000,
+        useNativeDriver: true,
+      })
     ).start();
-  }, [pulseAnim]);
+  }, [spinAnim]);
+
+  const spin = spinAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -66,17 +99,29 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
     showToast(isRTL ? 'جاري محاولة إعادة الاتصال...' : 'Attempting to reconnect...');
     setTimeout(() => {
       setIsReconnecting(false);
+      setConnectionStatus('connected');
       showToast(isRTL ? 'تم الاتصال بالجهاز بنجاح' : 'Connected successfully');
-    }, 2000);
+    }, 1800);
+  };
+
+  const handleOpenSettings = () => {
+    showToast(isRTL ? 'فتح إعدادات النظام...' : 'Opening system settings...');
+    Linking.openSettings?.();
+  };
+
+  const handleOfflineMode = () => {
+    showToast(isRTL ? 'تم التبديل إلى وضع عدم الاتصال للقراءة فقط' : 'Switched to offline read-only mode');
+    navigation?.goBack?.();
   };
 
   return (
     <View style={[styles.root, { backgroundColor: colors.surface }]}>
-      {/* 64pt App Bar */}
+      {/* 64pt App Bar with leading title */}
       <AppBar
-        title={isRTL ? 'حالات الاتصال' : 'Connection States'}
+        title={t('connectionStates.title', 'حالات الاتصال')}
         showBack={true}
         onBack={() => navigation?.goBack?.()}
+        centerTitle={false}
         actions={[
           {
             avatar: require('../../assets/photos/avatar.jpg'),
@@ -90,42 +135,45 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
       {toastMessage && (
         <View style={[styles.toastContainer, { backgroundColor: colors.ink }]}>
           <Icon name="info" size={18} color={colors.accent} />
-          <Text style={[styles.toastText, { color: colors.onInk }]}>
+          <Text style={[styles.toastText, { color: colors.onInk, letterSpacing: 0 }]}>
             {toastMessage}
           </Text>
         </View>
       )}
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + 64 },
+          { paddingBottom: insets.bottom + 48 },
         ]}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header Introduction */}
+        {/* Centered Header per Stitch idea-02 */}
         <View style={styles.headerSection}>
           <View style={[styles.telemetryBadge, { backgroundColor: colors.surfaceMuted }]}>
             <Icon name="sensors" size={14} color={colors.primary} />
-            <Text style={[styles.telemetryBadgeText, { color: colors.primary }]}>
-              {isRTL ? 'تشخيص الاتصال اللاسلكي' : 'Wireless Diagnostic'}
+            <Text style={[styles.telemetryBadgeText, { color: colors.primary, letterSpacing: 0 }]}>
+              {t('connectionStates.badge', 'تشخيص الاتصال اللاسلكي')}
             </Text>
           </View>
 
-          <Text style={[styles.screenTitle, { color: colors.text }]}>
-            {isRTL ? 'حالة اتصال الموزع' : 'Diffuser Connection'}
+          <Text style={[styles.screenTitle, { color: colors.text, letterSpacing: 0 }]}>
+            {t('connectionStates.title', 'حالة اتصال الموزع')}
           </Text>
 
-          <Text style={[styles.screenSubtitle, { color: colors.textMuted }]}>
-            {isRTL
-              ? 'مراقبة اتصال البلوتوث وتشخيص الأعطال لموزع أودورا.'
-              : 'Monitor Bluetooth connection status and diagnostic telemetry.'}
+          <Text style={[styles.screenSubtitle, { color: colors.textMuted, letterSpacing: 0 }]}>
+            {t('connectionStates.subtitle', 'تشخيص حالة العتاد ومزامنة البلوتوث اللاسلكي')}
           </Text>
 
-          {/* 3-State Switcher Tabs */}
+          {/* 3-State Switcher Pills per Stitch idea-02 */}
           <View style={[styles.tabBar, { backgroundColor: colors.surfaceMuted }]}>
             <TouchableOpacity
-              onPress={() => setActiveTab('disabled')}
+              activeOpacity={0.8}
+              onPress={() => {
+                setActiveTab('disabled');
+                setConnectionStatus('disabled');
+              }}
               style={[
                 styles.tabBtn,
                 activeTab === 'disabled' && {
@@ -148,15 +196,20 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   {
                     color: activeTab === 'disabled' ? colors.onPrimary : colors.textMuted,
                     fontWeight: activeTab === 'disabled' ? '600' : '400',
+                    letterSpacing: 0,
                   },
                 ]}
               >
-                {isRTL ? 'البلوتوث متوقف' : 'Disabled'}
+                {t('connectionStates.tabDisabled', 'معطل')}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => setActiveTab('out_of_range')}
+              activeOpacity={0.8}
+              onPress={() => {
+                setActiveTab('out_of_range');
+                setConnectionStatus('out_of_range');
+              }}
               style={[
                 styles.tabBtn,
                 activeTab === 'out_of_range' && {
@@ -179,15 +232,20 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   {
                     color: activeTab === 'out_of_range' ? colors.onPrimary : colors.textMuted,
                     fontWeight: activeTab === 'out_of_range' ? '600' : '400',
+                    letterSpacing: 0,
                   },
                 ]}
               >
-                {isRTL ? 'خارج النطاق' : 'Out of Range'}
+                {t('connectionStates.tabOutOfRange', 'خارج النطاق')}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => setActiveTab('syncing')}
+              activeOpacity={0.8}
+              onPress={() => {
+                setActiveTab('syncing');
+                setConnectionStatus('syncing');
+              }}
               style={[
                 styles.tabBtn,
                 activeTab === 'syncing' && {
@@ -210,185 +268,329 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   {
                     color: activeTab === 'syncing' ? colors.onPrimary : colors.textMuted,
                     fontWeight: activeTab === 'syncing' ? '600' : '400',
+                    letterSpacing: 0,
                   },
                 ]}
               >
-                {isRTL ? 'جاري الاتصال' : 'Connecting'}
+                {t('connectionStates.tabSyncing', 'مزامنة')}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* STATE 1: Bluetooth Switched Off */}
+        {/* STATE A: Bluetooth Disabled (Matching Stitch idea-02) */}
         {activeTab === 'disabled' && (
-          <View style={[styles.stateCard, { backgroundColor: colors.bgAlt }]}>
-            <View style={[styles.largeIconCircle, { backgroundColor: colors.surfaceMuted }]}>
-              <Icon name="bluetooth_disabled" size={40} color={colors.textMuted} />
+          <View style={styles.stateAContainer}>
+            {/* Visual Halo & Botanical Device Art */}
+            <View style={styles.deviceArtBox}>
+              <View style={[styles.haloGlowRing, { backgroundColor: colors.accent }]} />
+              <View style={[styles.circularArtBackdrop, { backgroundColor: colors.surfaceHigh }]}>
+                <Image
+                  source={require('../../assets/photos/diffuser_sage_closeup.png')}
+                  style={styles.circularArtImg}
+                  resizeMode="cover"
+                />
+                <View style={styles.circularArtOverlay} />
+                {/* Minimalist Glowing Bluetooth Off Vector Graphic */}
+                <View style={[styles.btCenterNode, { backgroundColor: colors.surface }]}>
+                  <Icon name="bluetooth_disabled" size={40} color={colors.textMuted} />
+                  <View style={[styles.btSlashLine, { backgroundColor: colors.primary }]} />
+                </View>
+                {/* Botanical sprig badge */}
+                <View style={[styles.botanicalBadge, { backgroundColor: colors.accent }]}>
+                  <Icon name="eco" size={16} color={colors.primary} />
+                </View>
+              </View>
             </View>
 
-            <View style={styles.badgeRow}>
+            {/* Context & Description */}
+            <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.textSubtle }]} />
-              <Text style={[styles.badgeText, { color: colors.textMuted }]}>
-                {isRTL ? 'اتصال البلوتوث معطّل' : 'Bluetooth Radio Off'}
+              <Text style={[styles.badgePillText, { color: colors.textMuted, letterSpacing: 0 }]}>
+                {t('connectionStates.radioSilent', 'جهاز الإرسال والاستقبال صامت')}
               </Text>
             </View>
 
-            <Text style={[styles.stateTitle, { color: colors.text }]}>
-              {isRTL ? 'البلوتوث غير مفعّل' : 'Bluetooth is Switched Off'}
+            <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
+              {t('connectionStates.bluetoothOffTitle', 'البلوتوث متوقف')}
             </Text>
 
-            <Text style={[styles.stateDescription, { color: colors.textMuted }]}>
-              {isRTL
-                ? 'يتطلب موزع أودورا اتصال البلوتوث للتواصل المباشر وضبط مستويات التفتيت وقراءة مخزون الزيت. يرجى تفعيل البلوتوث من إعدادات جهازك للمتابعة.'
-                : 'Odora requires Bluetooth to control cold-air micro-diffusion and read cartridge levels. Turn on Bluetooth in your device settings.'}
+            <Text style={[styles.stateBodyText, { color: colors.textMuted, letterSpacing: 0 }]}>
+              {t('connectionStates.bluetoothOffDesc', 'يتطلب أودورا تقنية البلوتوث لإدارة الانتشار الدقيق وقراءة مستوى الزيت. يرجى تفعيل البلوتوث في إعدادات جهازك.')}
             </Text>
 
-            <View style={styles.actionCol}>
+            {/* Buttons per Stitch */}
+            <View style={styles.buttonsColumn}>
               <TouchableOpacity
-                onPress={() => {
-                  Linking.openSettings?.();
-                  showToast(isRTL ? 'جاري فتح إعدادات النظام...' : 'Opening system settings...');
-                }}
-                style={[styles.primaryCtaBtn, { backgroundColor: colors.ink }]}
-                activeOpacity={0.85}
+                activeOpacity={0.88}
+                onPress={handleOpenSettings}
+                style={[styles.primaryBtn, { backgroundColor: colors.ink }]}
               >
-                <Icon name="bluetooth" size={18} color={colors.onInk} />
-                <Text style={[styles.primaryCtaText, { color: colors.onInk }]}>
-                  {isRTL ? 'فتح إعدادات النظام' : 'Open System Settings'}
+                <Icon name="bluetooth" size={20} color={colors.onInk} />
+                <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
+                  {t('connectionStates.openSettings', 'فتح إعدادات النظام')}
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                activeOpacity={0.85}
+                onPress={handleOfflineMode}
+                style={[styles.secondaryBtn, { backgroundColor: colors.surfaceMuted }]}
+              >
+                <Icon name="cloud_off" size={18} color={colors.text} />
+                <Text style={[styles.secondaryBtnText, { color: colors.text, letterSpacing: 0 }]}>
+                  {t('connectionStates.continueOffline', 'المتابعة في وضع عدم الاتصال للقراءة فقط')}
                 </Text>
               </TouchableOpacity>
             </View>
 
-            {/* Offline Tip */}
-            <View style={[styles.tipCard, { backgroundColor: colors.surfaceMuted }]}>
-              <Icon name="wb_twilight" size={18} color={colors.primary} />
-              <View style={styles.tipTextCol}>
-                <Text style={[styles.tipOverline, { color: colors.primary }]}>
-                  {isRTL ? 'التشغيل التلقائي المستقل' : 'Autonomous Schedule'}
+            {/* Autonomous Rhythm Tile */}
+            <View style={[styles.autoRhythmCard, { backgroundColor: colors.surfaceMuted }]}>
+              <View style={[styles.autoRhythmIconBox, { backgroundColor: colors.accent }]}>
+                <Icon name="wb_twilight" size={20} color={colors.primary} />
+              </View>
+              <View style={styles.autoRhythmTextBox}>
+                <Text style={[styles.autoRhythmTitle, { color: colors.primary, letterSpacing: 0 }]}>
+                  {t('connectionStates.autonomousRhythmTitle', 'الإيقاع المستقل')}
                 </Text>
-                <Text style={[styles.tipBody, { color: colors.textMuted }]}>
-                  {isRTL
-                    ? 'سيستمر الموزع في تنفيذ آخر جدول زمني محفوظ بشكل مستقل دون الحاجة لاتصال مستمر.'
-                    : 'Your diffuser will continue its last active routine independently without requiring an active connection.'}
+                <Text style={[styles.autoRhythmBody, { color: colors.textMuted, letterSpacing: 0 }]}>
+                  {t('connectionStates.autonomousRhythmDesc', 'سيواصل الموزع دورته المجدولة الأخيرة بشكل مستقل دون الحاجة لاتصال مستمر.')}
                 </Text>
               </View>
             </View>
           </View>
         )}
 
-        {/* STATE 2: Out of Range / Disconnected */}
+        {/* STATE B: Out of Range / Disconnected (Matching Stitch idea-02) */}
         {activeTab === 'out_of_range' && (
-          <View style={[styles.stateCard, { backgroundColor: colors.bgAlt }]}>
-            <View style={[styles.largeIconCircle, { backgroundColor: isDark ? 'rgba(186,26,26,0.12)' : '#FDF2F2' }]}>
-              <Icon name="portable_wifi_off" size={40} color={colors.error} />
+          <View style={[styles.stateCardBox, { backgroundColor: colors.bgAlt }]}>
+            {/* Header with Beacon Ripple */}
+            <View style={styles.beaconHeaderRow}>
+              <View style={styles.beaconHeaderLeft}>
+                <View style={[styles.beaconIconCircle, { backgroundColor: colors.surfaceMuted }]}>
+                  <Icon name="podcasts" size={24} color={colors.primary} />
+                </View>
+                <View style={{ marginStart: 12 }}>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                    {activeDevice.name}
+                  </Text>
+                  <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
+                    {isRTL ? 'أودورا إير 01 · طراز SA-200' : 'Odora Air 01 • Model SA-200'}
+                  </Text>
+                </View>
+              </View>
+              <View style={[styles.disconnectBadge, { backgroundColor: colors.surfaceHigh }]}>
+                <Text style={[typography.labelSm, { color: colors.textMuted, fontSize: 11, letterSpacing: 0 }]}>
+                  {isRTL ? 'غير متصل' : 'Disconnected'}
+                </Text>
+              </View>
             </View>
 
-            <View style={styles.badgeRow}>
-              <View style={[styles.statusDot, { backgroundColor: colors.error }]} />
-              <Text style={[styles.badgeText, { color: colors.error }]}>
-                {isRTL ? 'انقطع الاتصال بالجهاز' : 'Device Disconnected'}
+            {/* Ambient Telemetry Status Banner */}
+            <View style={[styles.telemetryBanner, { backgroundColor: colors.surfaceMuted }]}>
+              <Icon name="history" size={22} color={colors.primary} />
+              <View style={{ marginStart: 10, flex: 1 }}>
+                <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                  {isRTL ? 'آخر ظهور منذ 18 دقيقة' : 'Last seen 18 minutes ago'}
+                </Text>
+                <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                  {isRTL ? 'المسافة التقديرية أكثر من 18.5 متراً' : 'Estimated distance > 18.5 meters away'}
+                </Text>
+              </View>
+            </View>
+
+            {/* Reconnection Checklist */}
+            <View style={styles.reconnectSection}>
+              <Text style={[styles.reconnectHeaderTitle, { color: colors.text, letterSpacing: 0 }]}>
+                {isRTL ? 'بروتوكول استعادة الاتصال' : 'RECONNECTION PROTOCOL'}
               </Text>
-            </View>
-
-            <Text style={[styles.stateTitle, { color: colors.text }]}>
-              {isRTL ? 'الجهاز خارج نطاق الاتصال' : 'Diffuser Out of Range'}
-            </Text>
-
-            <Text style={[styles.stateDescription, { color: colors.textMuted }]}>
-              {isRTL
-                ? 'تعذر الوصول إلى موزع أودورا في غرفة المعيشة. يرجى التأكد من تشغيل الجهاز والاقتراب منه.'
-                : 'Unable to reach your Odora diffuser in Living Room. Ensure the device is powered on and within range.'}
-            </Text>
-
-            <View style={styles.actionCol}>
-              <TouchableOpacity
-                onPress={handleRetry}
-                disabled={isReconnecting}
-                style={[styles.primaryCtaBtn, { backgroundColor: colors.ink }]}
-                activeOpacity={0.85}
-              >
-                <Icon name="refresh" size={18} color={colors.onInk} />
-                <Text style={[styles.primaryCtaText, { color: colors.onInk }]}>
-                  {isReconnecting
-                    ? (isRTL ? 'جاري البحث...' : 'Searching...')
-                    : (isRTL ? 'إعادة المحاولة' : 'Attempt Reconnect')}
+              <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
+                <Icon name="power" size={20} color={colors.primary} />
+                <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
+                  {isRTL ? 'تأكد من توصيل الموزع بمصدر الطاقة' : 'Ensure diffuser is plugged into AC power'}
                 </Text>
-              </TouchableOpacity>
+                <Icon name="check_circle" size={18} color={colors.primary} />
+              </View>
+              <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
+                <Icon name="straighten" size={20} color={colors.primary} />
+                <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
+                  {isRTL ? 'اقترب من الجهاز لمسافة أقل من 15 متراً' : 'Bring phone within 15 meters line-of-sight'}
+                </Text>
+                <Icon name="radio_button_unchecked" size={18} color={colors.textSubtle} />
+              </View>
+              <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
+                <Icon name="lightbulb" size={20} color={colors.primary} />
+                <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
+                  {isRTL ? 'تأكد من إضاءة مؤشر التشغيل على القاعدة' : 'Check that base ceramic LED is on'}
+                </Text>
+                <Icon name="radio_button_unchecked" size={18} color={colors.textSubtle} />
+              </View>
             </View>
 
-            {/* Troubleshooting Checklist */}
-            <View style={[styles.checklistCard, { backgroundColor: colors.surfaceMuted }]}>
-              <Text style={[styles.checklistTitle, { color: colors.text }]}>
-                {isRTL ? 'إرشادات استعادة الاتصال' : 'Connection Checklist'}
+            {/* Tactile Action Button */}
+            <TouchableOpacity
+              activeOpacity={0.88}
+              onPress={handleRetry}
+              disabled={isReconnecting}
+              style={[styles.primaryBtn, { backgroundColor: colors.ink }]}
+            >
+              <Icon name="refresh" size={20} color={colors.onInk} />
+              <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
+                {isReconnecting
+                  ? (isRTL ? 'جاري إعادة الاتصال...' : 'Attempting BLE Reconnect...')
+                  : (isRTL ? 'محاولة إعادة الاتصال' : 'Attempt BLE Reconnect')}
               </Text>
-              <View style={styles.checkItem}>
-                <Icon name="check_circle" size={16} color={colors.primary} />
-                <Text style={[styles.checkText, { color: colors.textMuted }]}>
-                  {isRTL ? 'تأكد من توصيل الموزع بمصدر الطاقة' : 'Ensure diffuser is plugged into power'}
+            </TouchableOpacity>
+
+            {/* Cartridge Snapshot preview */}
+            <View style={styles.cartridgeSnapshotRow}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <Icon name="opacity" size={16} color={colors.primary} />
+                <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                  {isRTL ? `الزيت: ${activeDevice.oilName}` : `Cartridge: ${activeDevice.oilName}`}
                 </Text>
               </View>
-              <View style={styles.checkItem}>
-                <Icon name="check_circle" size={16} color={colors.primary} />
-                <Text style={[styles.checkText, { color: colors.textMuted }]}>
-                  {isRTL ? 'اقترب من الجهاز لمسافة أقل من 10 أمتار' : 'Move closer within 10 meters'}
-                </Text>
-              </View>
-              <View style={styles.checkItem}>
-                <Icon name="check_circle" size={16} color={colors.primary} />
-                <Text style={[styles.checkText, { color: colors.textMuted }]}>
-                  {isRTL ? 'أعد تشغيل البلوتوث في هاتفك' : 'Toggle Bluetooth off and on in your phone'}
-                </Text>
-              </View>
+              <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                {isRTL ? `المحفوظ: ${activeDevice.oilLevel}% متبقٍ` : `Cached: ${activeDevice.oilLevel}% remaining`}
+              </Text>
             </View>
           </View>
         )}
 
-        {/* STATE 3: Connecting / Syncing */}
+        {/* STATE C: Connecting & Synchronizing (Matching Stitch idea-02) */}
         {activeTab === 'syncing' && (
-          <View style={[styles.stateCard, { backgroundColor: colors.bgAlt }]}>
-            <View style={[styles.largeIconCircle, { backgroundColor: colors.surfaceMuted }]}>
-              <Icon name="sync" size={40} color={colors.primary} />
+          <View style={[styles.stateCardBox, { backgroundColor: colors.bgAlt, alignItems: 'center' }]}>
+            {/* Pulsing Concentric Visual */}
+            <View style={styles.syncVisualBox}>
+              <View style={[styles.syncPulseOuter, { backgroundColor: colors.accent, opacity: 0.3 }]} />
+              <View style={[styles.syncPulseMid, { backgroundColor: colors.accent, opacity: 0.6 }]} />
+              <View style={[styles.syncNodeCenter, { backgroundColor: colors.surface }]}>
+                <Animated.View style={{ transform: [{ rotate: spin }] }}>
+                  <Icon name="sync" size={32} color={colors.primary} />
+                </Animated.View>
+                <Text style={[styles.syncBleText, { color: colors.primary, letterSpacing: 0 }]}>
+                  BLE 5.2
+                </Text>
+              </View>
             </View>
 
-            <View style={styles.badgeRow}>
+            <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.primary }]} />
-              <Text style={[styles.badgeText, { color: colors.primary }]}>
-                {isRTL ? 'المزامنة جارية' : 'Syncing in Progress'}
+              <Text style={[styles.badgePillText, { color: colors.primary, letterSpacing: 0 }]}>
+                {isRTL ? 'مصافحة القناة' : 'CHANNEL HANDSHAKE'}
               </Text>
             </View>
 
-            <Text style={[styles.stateTitle, { color: colors.text }]}>
-              {isRTL ? 'جاري الاتصال بالموزع...' : 'Connecting to Diffuser...'}
+            <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
+              {isRTL ? 'جارٍ مزامنة الأجواء...' : 'Synchronizing Atmosphere...'}
             </Text>
 
-            <Text style={[styles.stateDescription, { color: colors.textMuted }]}>
+            <Text style={[styles.stateBodyText, { color: colors.textMuted, letterSpacing: 0 }]}>
               {isRTL
-                ? 'جاري البحث عن الجهاز وإجراء المزامنة المباشرة عبر البلوتوث.'
-                : 'Searching for your diffuser and establishing direct Bluetooth connection.'}
+                ? 'جارٍ إنشاء اتصال مشفر مع موزع أودورا وقراءة مستشعرات العبوة.'
+                : 'Establishing encrypted handshake with Odora Air 01 and querying cartridge piezo sensors.'}
             </Text>
 
-            {/* Progress Meter Bar */}
-            <View style={[styles.progressTrack, { backgroundColor: colors.surfaceMuted }]}>
-              <View style={[styles.progressFill, { backgroundColor: colors.primary, width: '65%' }]} />
+            {/* Real-time Telemetry Checklist */}
+            <View style={[styles.syncChecklist, { backgroundColor: colors.surfaceMuted }]}>
+              <View style={styles.syncRow}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Icon name="lock" size={18} color={colors.primary} />
+                  <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
+                    {isRTL ? 'الاتفاق على المفتاح الآمن' : 'Secure Key Agreement'}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Icon name="done" size={16} color={colors.primary} />
+                  <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+                    {isRTL ? 'تم التحقق' : 'Verified'}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.syncRow}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Icon name="analytics" size={18} color={colors.primary} />
+                  <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
+                    {isRTL ? 'مستوى الزيت الدقيق' : 'Cartridge Sensor Level'}
+                  </Text>
+                </View>
+                <Text style={[typography.labelSm, { color: colors.textMuted, fontWeight: '600', letterSpacing: 0 }]}>
+                  {isRTL ? 'جارٍ المزامنة...' : 'Syncing...'}
+                </Text>
+              </View>
+
+              <View style={styles.syncRow}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Icon name="schedule" size={18} color={colors.primary} />
+                  <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
+                    {isRTL ? 'جدول الرذاذ الميكروي' : 'Micro-Mist Schedule'}
+                  </Text>
+                </View>
+                <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
+                  {isRTL ? 'في الانتظار' : 'Queued'}
+                </Text>
+              </View>
+
+              {/* Progress Bar */}
+              <View style={[styles.progressTrack, { backgroundColor: colors.surfaceHigh }]}>
+                <View style={[styles.progressFill, { backgroundColor: colors.primary, width: '65%' }]} />
+              </View>
             </View>
 
-            <View style={styles.actionCol}>
-              <TouchableOpacity
-                onPress={() => {
-                  setActiveTab('disabled');
-                  showToast(isRTL ? 'تم إلغاء الاتصال' : 'Connection cancelled');
-                }}
-                style={[styles.secondaryCtaBtn, { backgroundColor: colors.surfaceMuted }]}
-                activeOpacity={0.85}
-              >
-                <Icon name="close" size={18} color={colors.text} />
-                <Text style={[styles.secondaryCtaText, { color: colors.text }]}>
-                  {isRTL ? 'إلغاء' : 'Cancel'}
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                setActiveTab('disabled');
+                setConnectionStatus('disabled');
+              }}
+              style={styles.cancelSyncBtn}
+            >
+              <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
+                {isRTL ? 'إلغاء المزامنة' : 'Cancel Pairing Sequence'}
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
+
+        {/* Shared Hardware Profile Card per Stitch idea-02 */}
+        <View style={[styles.deviceCard, { backgroundColor: colors.surfaceMuted }]}>
+          <Image
+            source={require('../../assets/photos/diffuser-a316-sage.png')}
+            style={styles.deviceCardThumb}
+            resizeMode="cover"
+          />
+          <View style={styles.deviceCardTextCol}>
+            <Text style={[styles.deviceCardOverline, { color: colors.primary, letterSpacing: 0 }]}>
+              {t('connectionStates.activeHardware', 'الجهاز النشط')}
+            </Text>
+            <Text style={[styles.deviceCardTitle, { color: colors.text, letterSpacing: 0 }]} numberOfLines={1}>
+              {activeDevice.name}
+            </Text>
+            <Text style={[styles.deviceCardSubtitle, { color: colors.textMuted, letterSpacing: 0 }]} numberOfLines={1}>
+              {isRTL ? 'موزع رذاذ بارد هادئ' : 'Cold-Air Acoustic Atomizer'}
+            </Text>
+            <View style={styles.deviceCardBadgeRow}>
+              <View style={[styles.greenDot, { backgroundColor: colors.primary }]} />
+              <Text style={[styles.deviceCardBadgeText, { color: colors.text, letterSpacing: 0 }]}>
+                {isRTL ? 'معتمد بهدوء فائق أقل من 22 ديسيبل' : 'Sub-22dB Quiet Mark Certified'}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Footer Note per Stitch idea-02 */}
+        <View style={styles.footerSection}>
+          <View style={styles.footerBadgeRow}>
+            <Icon name="verified_user" size={16} color={colors.textSubtle} />
+            <Text style={[styles.footerBadgeText, { color: colors.textSubtle, letterSpacing: 0 }]}>
+              {t('connectionStates.offlineIntegrityTitle', 'أولوية العمل دون اتصال')}
+            </Text>
+          </View>
+          <Text style={[styles.footerText, { color: colors.textMuted, letterSpacing: 0 }]}>
+            {t('connectionStates.offlineIntegrityDesc', 'يحفظ جهاز أودورا جميع الجداول محلياً على الجهاز ولا يعتمد على خوادم سحابية للتشغيل الأساسي.')}
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -400,7 +602,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 12,
+    paddingTop: 8,
   },
   toastContainer: {
     position: 'absolute',
@@ -424,70 +626,136 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   headerSection: {
-    marginBottom: 20,
+    alignItems: 'center',
+    paddingTop: 12,
+    paddingBottom: 20,
+    textAlign: 'center',
   },
   telemetryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    alignSelf: 'flex-start',
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: radii.full,
-    marginBottom: 10,
+    marginBottom: 8,
   },
   telemetryBadgeText: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '700',
-    letterSpacing: 0.5,
     textTransform: 'uppercase',
   },
   screenTitle: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: '600',
     marginBottom: 4,
+    textAlign: 'center',
   },
   screenSubtitle: {
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 16,
+    fontSize: 13,
+    lineHeight: 18,
+    textAlign: 'center',
+    maxWidth: 290,
   },
   tabBar: {
     flexDirection: 'row',
-    borderRadius: radii.full,
+    width: '100%',
     padding: 4,
-    gap: 4,
+    borderRadius: radii.full,
+    marginTop: 18,
   },
   tabBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
     paddingVertical: 8,
     borderRadius: radii.full,
+    gap: 6,
   },
   tabBtnText: {
     fontSize: 12,
   },
-  stateCard: {
-    borderRadius: 24,
-    padding: 24,
+  stateAContainer: {
     alignItems: 'center',
-    textAlign: 'center',
+    width: '100%',
+    marginTop: 8,
   },
-  largeIconCircle: {
+  deviceArtBox: {
+    width: 200,
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    marginVertical: 12,
+  },
+  haloGlowRing: {
+    position: 'absolute',
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    opacity: 0.35,
+  },
+  circularArtBackdrop: {
+    width: 192,
+    height: 192,
+    borderRadius: 96,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  circularArtImg: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.25,
+  },
+  circularArtOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(0,0,0,0.04)',
+  },
+  btCenterNode: {
     width: 80,
     height: 80,
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
   },
-  badgeRow: {
+  btSlashLine: {
+    position: 'absolute',
+    width: 56,
+    height: 3,
+    borderRadius: 2,
+    transform: [{ rotate: '45deg' }],
+  },
+  botanicalBadge: {
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  badgePill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: radii.full,
     marginBottom: 8,
   },
   statusDot: {
@@ -495,107 +763,282 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
   },
-  badgeText: {
-    fontSize: 12,
+  badgePillText: {
+    fontSize: 10,
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
   },
-  stateTitle: {
-    fontSize: 20,
+  stateTitleText: {
+    fontSize: 22,
     fontWeight: '600',
+    marginBottom: 6,
     textAlign: 'center',
-    marginBottom: 8,
   },
-  stateDescription: {
-    fontSize: 14,
+  stateBodyText: {
+    fontSize: 13,
     lineHeight: 20,
     textAlign: 'center',
-    marginBottom: 20,
     maxWidth: 320,
+    marginBottom: 20,
+    paddingHorizontal: 4,
   },
-  actionCol: {
+  buttonsColumn: {
     width: '100%',
     gap: 10,
     marginBottom: 16,
   },
-  primaryCtaBtn: {
-    width: '100%',
-    height: 48,
-    borderRadius: radii.full,
+  primaryBtn: {
+    height: 52,
+    borderRadius: 26,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  primaryCtaText: {
+  primaryBtnText: {
     fontSize: 14,
     fontWeight: '600',
   },
-  secondaryCtaBtn: {
-    width: '100%',
+  secondaryBtn: {
     height: 48,
-    borderRadius: radii.full,
+    borderRadius: 24,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
   },
-  secondaryCtaText: {
-    fontSize: 14,
+  secondaryBtnText: {
+    fontSize: 13,
     fontWeight: '500',
   },
-  tipCard: {
+  autoRhythmCard: {
     width: '100%',
-    borderRadius: 16,
-    padding: 14,
+    borderRadius: 20,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 12,
   },
-  tipTextCol: {
+  autoRhythmIconBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  autoRhythmTextBox: {
     flex: 1,
   },
-  tipOverline: {
+  autoRhythmTitle: {
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
     marginBottom: 2,
   },
-  tipBody: {
+  autoRhythmBody: {
     fontSize: 12,
-    lineHeight: 16,
+    lineHeight: 18,
   },
-  checklistCard: {
+  stateCardBox: {
     width: '100%',
-    borderRadius: 16,
-    padding: 16,
-    gap: 10,
+    borderRadius: 24,
+    padding: 20,
+    marginTop: 8,
   },
-  checklistTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  checkItem: {
+  beaconHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'space-between',
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0,0.06)',
   },
-  checkText: {
-    fontSize: 12,
+  beaconHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  beaconIconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  disconnectBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: radii.full,
+  },
+  telemetryBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 14,
+    borderRadius: 16,
+    marginVertical: 14,
+  },
+  reconnectSection: {
+    gap: 8,
+    marginBottom: 16,
+  },
+  reconnectHeaderTitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  checklistItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    borderRadius: 14,
+    gap: 10,
+  },
+  checklistText: {
+    flex: 1,
+    fontSize: 13,
+  },
+  cartridgeSnapshotRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 14,
+    paddingTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.06)',
+  },
+  syncVisualBox: {
+    width: 160,
+    height: 160,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    marginVertical: 16,
+  },
+  syncPulseOuter: {
+    position: 'absolute',
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+  },
+  syncPulseMid: {
+    position: 'absolute',
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+  },
+  syncNodeCenter: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  syncBleText: {
+    fontSize: 9,
+    fontWeight: '700',
+    marginTop: 2,
+  },
+  syncChecklist: {
+    width: '100%',
+    borderRadius: 18,
+    padding: 14,
+    gap: 12,
+    marginBottom: 14,
+  },
+  syncRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   progressTrack: {
-    width: '100%',
     height: 6,
     borderRadius: 3,
     overflow: 'hidden',
-    marginBottom: 24,
+    marginTop: 4,
   },
   progressFill: {
     height: '100%',
     borderRadius: 3,
+  },
+  cancelSyncBtn: {
+    paddingVertical: 8,
+  },
+  deviceCard: {
+    width: '100%',
+    borderRadius: 20,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+    marginTop: 16,
+  },
+  deviceCardThumb: {
+    width: 72,
+    height: 72,
+    borderRadius: 14,
+  },
+  deviceCardTextCol: {
+    flex: 1,
+  },
+  deviceCardOverline: {
+    fontSize: 10,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  deviceCardTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    marginTop: 2,
+  },
+  deviceCardSubtitle: {
+    fontSize: 12,
+    marginTop: 1,
+  },
+  deviceCardBadgeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 6,
+  },
+  greenDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  deviceCardBadgeText: {
+    fontSize: 11,
+  },
+  footerSection: {
+    alignItems: 'center',
+    marginTop: 20,
+    paddingBottom: 8,
+    maxWidth: 300,
+    alignSelf: 'center',
+  },
+  footerBadgeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
+  footerBadgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  footerText: {
+    fontSize: 11,
+    lineHeight: 16,
+    textAlign: 'center',
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,34 +13,104 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { toArabicNumerals } from '../i18n';
 import { AppBar, Card, Icon, Toggle, Button, SegmentedControl, Slider } from '../components/ui';
+import { useAppStore, AppRoutine } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
 
 interface ScheduleScreenProps {
   navigation: any;
+  route?: any;
 }
 
-export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) => {
+// Item 11: Routine icons by start time (sunrise / sun / moon) matching Stitch
+const getRoutineIcon = (startTime: string): string => {
+  const hour = parseInt(startTime.split(':')[0], 10);
+  if (isNaN(hour)) return 'wb_twilight';
+  if (hour >= 5 && hour < 12) return 'wb_twilight';
+  if (hour >= 12 && hour < 18) return 'light_mode';
+  return 'bedtime';
+};
+
+// Item 9: Seed routines & calendar: Libyan work week is Sun–Thu
+const formatRoutineDays = (days: string[], isRTL: boolean): string => {
+  if (days.length === 7) return isRTL ? 'يومياً' : 'Daily';
+  const isWorkWeek =
+    days.length === 5 && ['Su', 'M', 'Tu', 'W', 'Th'].every((d) => days.includes(d));
+  if (isWorkWeek) return isRTL ? 'الأحد – الخميس' : 'Sun–Thu';
+  const isWeekend = days.length === 2 && ['F', 'Sa'].every((d) => days.includes(d));
+  if (isWeekend) return isRTL ? 'الجمعة والسبت' : 'Fri–Sat';
+
+  const dayLabelsAr: Record<string, string> = {
+    Su: 'الأحد',
+    M: 'الإثنين',
+    Tu: 'الثلاثاء',
+    W: 'الأربعاء',
+    Th: 'الخميس',
+    F: 'الجمعة',
+    Sa: 'السبت',
+  };
+  const dayLabelsEn: Record<string, string> = {
+    Su: 'Sun',
+    M: 'Mon',
+    Tu: 'Tue',
+    W: 'Wed',
+    Th: 'Thu',
+    F: 'Fri',
+    Sa: 'Sat',
+  };
+  return days.map((d) => (isRTL ? dayLabelsAr[d] : dayLabelsEn[d]) || d).join(isRTL ? '، ' : ', ');
+};
+
+export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, route }) => {
   const { t } = useTranslation();
-  const { colors, typography, radii, spacing, isRTL } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
 
-  const [routine1On, setRoutine1On] = useState(true);
-  const [routine2On, setRoutine2On] = useState(true);
-  const [routine3On, setRoutine3On] = useState(true);
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
 
-  const [newRoutineVisible, setNewRoutineVisible] = useState(false);
+  const { routines, addRoutine, toggleRoutine, devices, selectedDeviceId } = useAppStore();
+
+  // Item 8: Schedule belongs to a device: check route param or selectedDeviceId
+  const routeDeviceId = route?.params?.deviceId;
+  const currentDeviceId = routeDeviceId || selectedDeviceId || 'living';
+  const activeDevice = devices.find((d) => d.id === currentDeviceId) || devices[0];
+
+  const deviceRoutines = routines.filter(
+    (r) => r.deviceId === activeDevice.id || (!r.deviceId && activeDevice.id === 'living')
+  );
+
+  const [newRoutineVisible, setNewRoutineVisible] = useState(Boolean(previewConfig?.sheet));
+
+  useEffect(() => {
+    if (previewConfig?.sheet !== undefined) {
+      setNewRoutineVisible(Boolean(previewConfig.sheet));
+    }
+  }, [previewConfig?.sheet, previewConfig?.timestamp]);
+
   const [routineName, setRoutineName] = useState('');
-  const [selectedDays, setSelectedDays] = useState<string[]>(['M', 'T', 'W', 'T2', 'F']);
+  const [startTime, setStartTime] = useState('08:00');
+  const [endTime, setEndTime] = useState('17:00');
+  const [activeTimeField, setActiveTimeField] = useState<'start' | 'end'>('start');
+  const [allowOvernight, setAllowOvernight] = useState(false);
+  const [selectedDays, setSelectedDays] = useState<string[]>(['Su', 'M', 'Tu', 'W', 'Th']);
   const [newIntensity, setNewIntensity] = useState(5);
   const [newMode, setNewMode] = useState<'continuous' | 'interval'>('interval');
 
+  // Libyan week: Sun, Mon, Tue, Wed, Thu, Fri (weekend), Sat (weekend)
   const days = [
-    { key: 'M', label: isRTL ? 'إ' : 'M' },
-    { key: 'T', label: isRTL ? 'ث' : 'T' },
-    { key: 'W', label: isRTL ? 'ر' : 'W' },
-    { key: 'T2', label: isRTL ? 'خ' : 'T' },
-    { key: 'F', label: isRTL ? 'ج' : 'F' },
-    { key: 'S', label: isRTL ? 'س' : 'S' },
-    { key: 'S2', label: isRTL ? 'ح' : 'S' },
+    { key: 'Su', label: isRTL ? 'ح' : 'Su', isWeekend: false, fullName: isRTL ? 'الأحد' : 'Sun' },
+    { key: 'M', label: isRTL ? 'إ' : 'M', isWeekend: false, fullName: isRTL ? 'الإثنين' : 'Mon' },
+    { key: 'Tu', label: isRTL ? 'ث' : 'Tu', isWeekend: false, fullName: isRTL ? 'الثلاثاء' : 'Tue' },
+    { key: 'W', label: isRTL ? 'ر' : 'W', isWeekend: false, fullName: isRTL ? 'الأربعاء' : 'Wed' },
+    { key: 'Th', label: isRTL ? 'خ' : 'Th', isWeekend: false, fullName: isRTL ? 'الخميس' : 'Thu' },
+    { key: 'F', label: isRTL ? 'ج' : 'F', isWeekend: true, fullName: isRTL ? 'الجمعة' : 'Fri' },
+    { key: 'Sa', label: isRTL ? 'س' : 'Sa', isWeekend: true, fullName: isRTL ? 'السبت' : 'Sat' },
   ];
 
   const toggleDay = (key: string) => {
@@ -51,12 +121,69 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
     }
   };
 
+  // Item 2: Real 24h Time Picker logic
+  const [startHour, startMinute] = startTime.split(':').map((v) => parseInt(v, 10) || 0);
+  const [endHour, endMinute] = endTime.split(':').map((v) => parseInt(v, 10) || 0);
+  const startTotalMinutes = startHour * 60 + startMinute;
+  const endTotalMinutes = endHour * 60 + endMinute;
+  const isOvernight = endTotalMinutes <= startTotalMinutes;
+
+  const handleHourStep = (delta: number) => {
+    if (activeTimeField === 'start') {
+      const nextHour = (startHour + delta + 24) % 24;
+      const formatted = `${String(nextHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`;
+      setStartTime(formatted);
+      if (!allowOvernight && endTotalMinutes <= nextHour * 60 + startMinute) {
+        const nextEndHour = (nextHour + 2) % 24;
+        setEndTime(`${String(nextEndHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}`);
+      }
+    } else {
+      const nextHour = (endHour + delta + 24) % 24;
+      const formatted = `${String(nextHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}`;
+      setEndTime(formatted);
+      if (nextHour * 60 + endMinute <= startTotalMinutes) {
+        setAllowOvernight(true);
+      }
+    }
+  };
+
+  const handleMinuteSelect = (min: number) => {
+    if (activeTimeField === 'start') {
+      setStartTime(`${String(startHour).padStart(2, '0')}:${String(min).padStart(2, '0')}`);
+    } else {
+      setEndTime(`${String(endHour).padStart(2, '0')}:${String(min).padStart(2, '0')}`);
+    }
+  };
+
+  const handleSaveRoutine = () => {
+    const routine: AppRoutine = {
+      id: 'routine_' + Date.now(),
+      deviceId: activeDevice.id,
+      name: routineName.trim() || t('scheduleScreen.customRoutine', 'روتين مخصص'),
+      days: selectedDays.length > 0 ? selectedDays : ['Su', 'M', 'Tu', 'W', 'Th'],
+      startTime: startTime.trim() || '08:00',
+      endTime: endTime.trim() || '17:00',
+      intensity: newIntensity,
+      mode: newMode,
+      enabled: true,
+      isBurst: false,
+      oilName: activeDevice?.oilName || (isRTL ? 'مريمية الغابة' : 'Forest Sage'),
+    };
+    addRoutine(routine);
+    setRoutineName('');
+    setStartTime('08:00');
+    setEndTime('17:00');
+    setNewRoutineVisible(false);
+  };
+
+  const enabledRoutines = deviceRoutines.filter((r) => r.enabled);
+
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
       {/* 1. App Bar (Back + Title + more_horiz) */}
       <AppBar
         showBack
-        title={isRTL ? 'جدولة الروتين' : 'Schedule Routine'}
+        title={t('scheduleScreen.title', 'جدولة الروتين')}
         actions={[
           {
             icon: 'more_horiz',
@@ -67,6 +194,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
       />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 48 }]}
         showsVerticalScrollIndicator={false}
       >
@@ -74,19 +202,17 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
         <View style={styles.subHeaderSection}>
           <TouchableOpacity activeOpacity={0.8} style={[styles.devicePickerPill, { backgroundColor: colors.surfaceMuted }]}>
             <View style={[styles.statusDotLive, { backgroundColor: colors.primary }]} />
-            <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600', fontSize: 12 }]}>
-              {isRTL ? 'موزع غرفة المعيشة (أخضر)' : 'Living Room Diffuser (Sage)'}
+            <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600', fontSize: 12, letterSpacing: 0 }]}>
+              {activeDevice?.name || t('home.livingRoomDiffuser', 'موزع غرفة المعيشة')}
             </Text>
             <Icon name="expand_more" size={16} color={colors.textMuted} style={{ marginStart: 4 }} />
           </TouchableOpacity>
-          <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 8 }]}>
-            {isRTL
-              ? 'أتمتة الأجواء على مدار اليوم بروتين انتشار الهواء البارد المخصص.'
-              : 'Automate your atmosphere throughout the day with cold-air misting routines.'}
+          <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 8, letterSpacing: 0 }]}>
+            {t('scheduleScreen.subtitle', 'أتمتة الأجواء على مدار اليوم بروتين انتشار الهواء البارد المخصص.')}
           </Text>
         </View>
 
-        {/* 3. Weekly Rhythm Card */}
+        {/* 3. Weekly Rhythm Card (Item 19: Built from actual routines; Libyan weekend = Fri & Sat) */}
         <Card surface="low" style={styles.rhythmCard}>
           <View style={styles.rhythmHeader}>
             <View style={styles.rhythmHeaderLeft}>
@@ -103,31 +229,67 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
                   },
                 ]}
               >
-                {isRTL ? 'الإيقاع الأسبوعي' : 'WEEKLY RHYTHM'}
+                {t('scheduleScreen.weeklyRhythm', 'الإيقاع الأسبوعي')}
               </Text>
             </View>
-            <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600' }]}>
-              {isRTL ? '3 روائح مجدولة' : '3 Rituals Active'}
+            <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+              {t('scheduleScreen.routinesCount', { count: enabledRoutines.length })}
             </Text>
           </View>
 
-          {/* 7-Day Timeline Pillars */}
+          {/* 7-Day Timeline Pillars built from active routines */}
           <View style={styles.daysGrid}>
-            {days.map((day, idx) => {
-              const isWeekday = idx < 5;
+            {days.map((day) => {
+              // Active routines matching this day
+              const dayRoutines = enabledRoutines.filter((r) =>
+                r.days.includes(day.key) ||
+                (day.key === 'Su' && r.days.includes('S2')) ||
+                (day.key === 'M' && r.days.includes('M')) ||
+                (day.key === 'Tu' && r.days.includes('T')) ||
+                (day.key === 'W' && r.days.includes('W')) ||
+                (day.key === 'Th' && r.days.includes('T2')) ||
+                (day.key === 'F' && r.days.includes('F')) ||
+                (day.key === 'Sa' && r.days.includes('S'))
+              );
+
               return (
                 <View key={day.key} style={styles.dayCol}>
-                  <Text style={[typography.labelSm, { color: colors.textMuted, marginBottom: 6 }]}>
+                  <Text
+                    style={[
+                      typography.labelSm,
+                      {
+                        color: day.isWeekend ? colors.primary : colors.textMuted,
+                        fontWeight: day.isWeekend ? '700' : '500',
+                        marginBottom: 6,
+                        letterSpacing: 0,
+                      },
+                    ]}
+                  >
                     {day.label}
                   </Text>
                   <View style={[styles.dayPillarTrack, { backgroundColor: colors.surfaceMuted }]}>
-                    {/* Stacked color blocks */}
-                    <View style={[styles.dayBlock, { height: 12, backgroundColor: colors.accent }]} />
-                    {isWeekday && (
-                      <View style={[styles.dayBlock, { height: 16, backgroundColor: colors.primarySoft, marginTop: 2 }]} />
-                    )}
-                    {isWeekday && (
-                      <View style={[styles.dayBlock, { height: 16, backgroundColor: colors.primary, marginTop: 2 }]} />
+                    {/* Render active routine blocks dynamically */}
+                    {dayRoutines.length > 0 ? (
+                      dayRoutines.map((r, rIdx) => {
+                        const blockColor =
+                          rIdx === 0 ? colors.accent : rIdx === 1 ? colors.primarySoft : colors.primary;
+                        const blockHeight = Math.max(8, Math.min(20, Math.round(r.intensity * 2)));
+                        return (
+                          <View
+                            key={r.id}
+                            style={[
+                              styles.dayBlock,
+                              {
+                                height: blockHeight,
+                                backgroundColor: blockColor,
+                                marginTop: rIdx > 0 ? 2 : 0,
+                              },
+                            ]}
+                          />
+                        );
+                      })
+                    ) : (
+                      <View style={[styles.dayBlock, { height: 4, backgroundColor: colors.border }]} />
                     )}
                   </View>
                 </View>
@@ -135,24 +297,24 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
             })}
           </View>
 
-          {/* Legend */}
+          {/* Legend (Item 16: No sanctuary wording) */}
           <View style={styles.legendRow}>
             <View style={styles.legendItem}>
-              <View style={[styles.legendDot, { backgroundColor: colors.primary }]} />
-              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4 }]}>
-                {isRTL ? 'وضوح (صباح)' : 'clarity'}
+              <View style={[styles.legendDot, { backgroundColor: colors.accent }]} />
+              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4, letterSpacing: 0 }]}>
+                {t('scheduleScreen.morning', 'صباح')}
               </Text>
             </View>
             <View style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: colors.primarySoft }]} />
-              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4 }]}>
-                {isRTL ? 'تركيز (ظهيرة)' : 'focus'}
+              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4, letterSpacing: 0 }]}>
+                {t('scheduleScreen.midday', 'ظهيرة')}
               </Text>
             </View>
             <View style={styles.legendItem}>
-              <View style={[styles.legendDot, { backgroundColor: colors.accent }]} />
-              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4 }]}>
-                {isRTL ? 'ملاذ (مساء)' : 'sanctuary'}
+              <View style={[styles.legendDot, { backgroundColor: colors.primary }]} />
+              <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4, letterSpacing: 0 }]}>
+                {t('scheduleScreen.evening', 'مساء')}
               </Text>
             </View>
           </View>
@@ -161,8 +323,8 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
         {/* 4. Active Schedules Section */}
         <View style={styles.schedulesSection}>
           <View style={styles.schedulesHeaderRow}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500' }]}>
-              {isRTL ? 'الجداول النشطة' : 'Active Schedules'}
+            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+              {t('scheduleScreen.activeRoutines', 'الجداول النشطة')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.7}
@@ -170,145 +332,74 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
               style={styles.newRoutineBtn}
             >
               <Icon name="add" size={16} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4 }]}>
-                {isRTL ? 'روتين جديد' : 'New Routine'}
+              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+                {t('scheduleScreen.newRoutine', 'روتين جديد')}
               </Text>
             </TouchableOpacity>
           </View>
 
-          {/* Routine Card 1: Morning Clarity */}
-          <Card surface="lowest" style={styles.routineCard}>
-            <View style={styles.routineTopRow}>
-              <View style={styles.routineTopLeft}>
-                <View style={[styles.routineIconWrap, { backgroundColor: colors.accent }]}>
-                  <Icon name="wb_twilight" size={20} color={colors.text} />
-                </View>
-                <View style={{ marginStart: 12, flex: 1 }}>
-                  <View style={styles.routineTitleRow}>
-                    <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500' }]}>
-                      {isRTL ? 'وضوح الصباح' : 'Morning Clarity'}
-                    </Text>
-                    <View style={[styles.routineBoostBadge, { backgroundColor: colors.accent }]}>
-                      <Text style={[typography.labelSm, { color: colors.text, fontSize: 9, fontWeight: '700' }]}>
-                        {isRTL ? 'تعزيز' : 'BOOST'}
+          {/* Render Dynamic Routines (Item 8: filtered by deviceId; Item 11: icons by start time; Item 9: Sun-Thu) */}
+          {deviceRoutines.map((routine) => {
+            const isBurst = routine.isBurst;
+            return (
+              <Card key={routine.id} surface="lowest" style={styles.routineCard}>
+                <View style={styles.routineTopRow}>
+                  <View style={styles.routineTopLeft}>
+                    <View style={[styles.routineIconWrap, { backgroundColor: colors.bgAlt }]}>
+                      <Icon name={getRoutineIcon(routine.startTime)} size={20} color={colors.primary} />
+                    </View>
+                    <View style={{ marginStart: 12, flex: 1 }}>
+                      <View style={styles.routineTitleRow}>
+                        <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', letterSpacing: 0 }]}>
+                          {routine.name}
+                        </Text>
+                        {/* Item 17: Hide Boost chip when burst is off */}
+                        {isBurst && (
+                          <View style={[styles.routineBoostBadge, { backgroundColor: colors.accent }]}>
+                            <Text style={[typography.labelSm, { color: colors.text, fontSize: 9, fontWeight: '700', letterSpacing: 0 }]}>
+                              {t('scheduleScreen.boostChip', 'تعزيز')}
+                            </Text>
+                          </View>
+                        )}
+                      </View>
+                      <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
+                        {`${routine.startTime} – ${routine.endTime} · ${formatRoutineDays(routine.days, isRTL)}`}
                       </Text>
                     </View>
                   </View>
-                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                    {isRTL ? '07:00 – 09:30 · كل أيام الأسبوع' : '7:00 AM – 9:30 AM · Every Weekday'}
-                  </Text>
+                  <Toggle
+                    value={routine.enabled}
+                    onValueChange={() => toggleRoutine(routine.id)}
+                  />
                 </View>
-              </View>
-              <Toggle value={routine1On} onValueChange={setRoutine1On} />
-            </View>
 
-            <View style={[styles.routineMetaPill, { backgroundColor: colors.bgAlt }]}>
-              <View style={styles.routineMetaItem}>
-                <Icon name="spa" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'مريمية الغابة' : 'Forest Sage'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="air" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? `المستوى ${toArabicNumerals(7)}` : 'Level 7'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="schedule" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'يومي متناغم' : 'Circadian'}
-                </Text>
-              </View>
-            </View>
-          </Card>
-
-          {/* Routine Card 2: Afternoon Focus */}
-          <Card surface="lowest" style={styles.routineCard}>
-            <View style={styles.routineTopRow}>
-              <View style={styles.routineTopLeft}>
-                <View style={[styles.routineIconWrap, { backgroundColor: colors.surfaceMuted }]}>
-                  <Icon name="light_mode" size={20} color={colors.primary} />
+                <View style={[styles.routineMetaPill, { backgroundColor: colors.bgAlt }]}>
+                  <View style={styles.routineMetaItem}>
+                    <Icon name="spa" size={15} color={colors.primary} />
+                    <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12, letterSpacing: 0 }]}>
+                      {routine.oilName}
+                    </Text>
+                  </View>
+                  <View style={styles.routineMetaItem}>
+                    <Icon name="air" size={15} color={colors.primary} />
+                    <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12, letterSpacing: 0 }]}>
+                      {t('device.level', { level: routine.intensity })}
+                    </Text>
+                  </View>
+                  <View style={styles.routineMetaItem}>
+                    <Icon name="airwave" size={15} color={colors.primary} />
+                    <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12, letterSpacing: 0 }]}>
+                      {routine.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
+                    </Text>
+                  </View>
                 </View>
-                <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500' }]}>
-                    {isRTL ? 'تركيز الظهيرة' : 'Afternoon Focus'}
-                  </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                    {isRTL ? '13:00 – 16:30 · الإثنين، الأربعاء، الجمعة' : '1:00 PM – 4:30 PM · Mon, Wed, Fri'}
-                  </Text>
-                </View>
-              </View>
-              <Toggle value={routine2On} onValueChange={setRoutine2On} />
-            </View>
-
-            <View style={[styles.routineMetaPill, { backgroundColor: colors.bgAlt }]}>
-              <View style={styles.routineMetaItem}>
-                <Icon name="spa" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'كتان قطني' : 'Cotton Linen'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="air" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? `المستوى ${toArabicNumerals(4)}` : 'Level 4'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="airwave" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'فترات' : 'Interval'}
-                </Text>
-              </View>
-            </View>
-          </Card>
-
-          {/* Routine Card 3: Evening Sanctuary */}
-          <Card surface="lowest" style={styles.routineCard}>
-            <View style={styles.routineTopRow}>
-              <View style={styles.routineTopLeft}>
-                <View style={[styles.routineIconWrap, { backgroundColor: colors.accent }]}>
-                  <Icon name="bedtime" size={20} color={colors.text} />
-                </View>
-                <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500' }]}>
-                    {isRTL ? 'ملاذ المساء' : 'Evening Sanctuary'}
-                  </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-                    {isRTL ? '19:00 – 22:30 · يومياً' : '7:00 PM – 10:30 PM · Daily'}
-                  </Text>
-                </View>
-              </View>
-              <Toggle value={routine3On} onValueChange={setRoutine3On} />
-            </View>
-
-            <View style={[styles.routineMetaPill, { backgroundColor: colors.bgAlt }]}>
-              <View style={styles.routineMetaItem}>
-                <Icon name="spa" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'صندل أبيض' : 'White Santal'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="air" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? `المستوى ${toArabicNumerals(3)}` : 'Level 3'}
-                </Text>
-              </View>
-              <View style={styles.routineMetaItem}>
-                <Icon name="waves" size={15} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontSize: 12 }]}>
-                  {isRTL ? 'مستمر' : 'Continuous'}
-                </Text>
-              </View>
-            </View>
-          </Card>
+              </Card>
+            );
+          })}
         </View>
       </ScrollView>
 
-      {/* 5. New Routine Bottom Sheet Modal */}
+      {/* 5. New Routine Bottom Sheet Modal (Item 2: Real 24h interactive time picker + Save adds to list) */}
       <Modal
         visible={newRoutineVisible}
         transparent
@@ -317,11 +408,13 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
       >
         <View style={styles.modalOverlay}>
           <View style={[styles.sheetContent, { backgroundColor: colors.surface }]}>
-            <View style={[styles.sheetHandle, { backgroundColor: colors.surfaceMuted }]} />
+            <View style={[styles.sheetHandle, { backgroundColor: colors.surfaceMuted }]}>
+              <View style={[styles.sheetHandle, { backgroundColor: colors.surfaceMuted }]} />
+            </View>
 
             <View style={styles.sheetHeader}>
-              <Text style={[typography.headlineSm, { color: colors.text, fontSize: 19, fontWeight: '500' }]}>
-                {isRTL ? 'إنشاء روتين جديد' : 'Create New Routine'}
+              <Text style={[typography.headlineSm, { color: colors.text, fontSize: 19, fontWeight: '500', letterSpacing: 0 }]}>
+                {t('scheduleScreen.newRoutine', 'إنشاء روتين جديد')}
               </Text>
               <TouchableOpacity
                 activeOpacity={0.7}
@@ -334,8 +427,8 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
 
             {/* Routine Name Input */}
             <View style={styles.inputGroup}>
-              <Text style={[typography.labelMd, { color: colors.textMuted, marginBottom: 6 }]}>
-                {isRTL ? 'اسم الروتين' : 'Routine Name'}
+              <Text style={[typography.labelMd, { color: colors.textMuted, marginBottom: 6, letterSpacing: 0 }]}>
+                {t('scheduleScreen.routineName', 'اسم الروتين')}
               </Text>
               <TextInput
                 style={[
@@ -343,10 +436,9 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
                   {
                     backgroundColor: colors.bgAlt,
                     color: colors.text,
-                    textAlign: isRTL ? 'right' : 'left',
                   },
                 ]}
-                placeholder={isRTL ? 'مثال: تركيز الصباح' : 'e.g. Morning Focus'}
+                placeholder={t('scheduleScreen.routineNamePlaceholder', 'مثال: وضوح الصباح')}
                 placeholderTextColor={colors.textSubtle}
                 value={routineName}
                 onChangeText={setRoutineName}
@@ -355,8 +447,8 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
 
             {/* Weekday Selector */}
             <View style={styles.inputGroup}>
-              <Text style={[typography.labelMd, { color: colors.textMuted, marginBottom: 8 }]}>
-                {isRTL ? 'الأيام النشطة' : 'Active Days'}
+              <Text style={[typography.labelMd, { color: colors.textMuted, marginBottom: 8, letterSpacing: 0 }]}>
+                {t('scheduleScreen.activeDays', 'الأيام النشطة')}
               </Text>
               <View style={styles.daysSelectRow}>
                 {days.map((d) => {
@@ -379,6 +471,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
                           {
                             color: active ? colors.onPrimary : colors.text,
                             fontWeight: active ? '700' : '500',
+                            letterSpacing: 0,
                           },
                         ]}
                       >
@@ -390,14 +483,140 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
               </View>
             </View>
 
+            {/* Item 2: Real 24h Time Picker (Start & End Time cards + 24h Stepper/Pills) */}
+            <View style={styles.inputGroup}>
+              <Text style={[typography.labelMd, { color: colors.textMuted, marginBottom: 6, letterSpacing: 0 }]}>
+                {t('scheduleScreen.timeSelector', 'تحديد الوقت (24 ساعة)')}
+              </Text>
+
+              {/* Two selectable time cards side by side */}
+              <View style={styles.timeCardsRow}>
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  onPress={() => setActiveTimeField('start')}
+                  style={[
+                    styles.timeCard,
+                    {
+                      backgroundColor: colors.bgAlt,
+                      borderColor: activeTimeField === 'start' ? colors.primary : colors.border,
+                      borderWidth: activeTimeField === 'start' ? 2 : 1,
+                    },
+                  ]}
+                >
+                  <Text style={[typography.labelSm, { color: activeTimeField === 'start' ? colors.primary : colors.textMuted, fontWeight: '600' }]}>
+                    {t('scheduleScreen.startTime', 'وقت البدء')}
+                  </Text>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '700', marginTop: 4 }]}>
+                    {startTime}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.85}
+                  onPress={() => setActiveTimeField('end')}
+                  style={[
+                    styles.timeCard,
+                    {
+                      backgroundColor: colors.bgAlt,
+                      borderColor: activeTimeField === 'end' ? colors.primary : colors.border,
+                      borderWidth: activeTimeField === 'end' ? 2 : 1,
+                    },
+                  ]}
+                >
+                  <Text style={[typography.labelSm, { color: activeTimeField === 'end' ? colors.primary : colors.textMuted, fontWeight: '600' }]}>
+                    {t('scheduleScreen.endTime', 'وقت الانتهاء')}
+                  </Text>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '700', marginTop: 4 }]}>
+                    {endTime}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Hour adjustments & minute presets */}
+              <View style={[styles.timePickerControls, { backgroundColor: colors.bgAlt }]}>
+                <View style={styles.stepperRow}>
+                  <Text style={[typography.labelSm, { color: colors.textMuted }]}>
+                    {activeTimeField === 'start' ? t('scheduleScreen.startTime') : t('scheduleScreen.endTime')} ({t('scheduleScreen.hour', 'الساعة')}):
+                  </Text>
+                  <View style={styles.stepperBtns}>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => handleHourStep(-1)}
+                      style={[styles.stepBtn, { backgroundColor: colors.surfaceMuted }]}
+                    >
+                      <Icon name="remove" size={16} color={colors.text} />
+                    </TouchableOpacity>
+                    <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '700', marginHorizontal: 12, minWidth: 28, textAlign: 'center' }]}>
+                      {String(activeTimeField === 'start' ? startHour : endHour).padStart(2, '0')}
+                    </Text>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      onPress={() => handleHourStep(1)}
+                      style={[styles.stepBtn, { backgroundColor: colors.surfaceMuted }]}
+                    >
+                      <Icon name="add" size={16} color={colors.text} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Minute Presets */}
+                <View style={styles.minutePresetsRow}>
+                  <Text style={[typography.labelSm, { color: colors.textMuted }]}>
+                    {t('scheduleScreen.minute', 'الدقيقة')}:
+                  </Text>
+                  <View style={styles.minutePills}>
+                    {[0, 15, 30, 45].map((min) => {
+                      const curMin = activeTimeField === 'start' ? startMinute : endMinute;
+                      const active = curMin === min;
+                      return (
+                        <TouchableOpacity
+                          key={min}
+                          activeOpacity={0.8}
+                          onPress={() => handleMinuteSelect(min)}
+                          style={[
+                            styles.minPill,
+                            {
+                              backgroundColor: active ? colors.primary : colors.surfaceMuted,
+                            },
+                          ]}
+                        >
+                          <Text
+                            style={[
+                              typography.labelSm,
+                              {
+                                color: active ? colors.onPrimary : colors.text,
+                                fontWeight: active ? '700' : '500',
+                              },
+                            ]}
+                          >
+                            :{String(min).padStart(2, '0')}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View>
+                </View>
+
+                {/* Overnight Indicator / Toggle (Item 2: End after start or allow overnight explicitly) */}
+                {isOvernight && (
+                  <View style={[styles.overnightBadge, { backgroundColor: colors.accent }]}>
+                    <Icon name="bedtime" size={15} color={colors.primary} />
+                    <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 6 }]}>
+                      {t('scheduleScreen.overnight', 'يمتد حتى اليوم التالي (+1)')}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </View>
+
             {/* Intensity & Mode */}
             <View style={styles.inputGroup}>
               <View style={styles.intensityHeader}>
-                <Text style={[typography.labelMd, { color: colors.textMuted }]}>
-                  {isRTL ? 'الكثافة' : 'Mist Intensity'}
+                <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
+                  {t('scheduleScreen.intensity', 'الكثافة')}
                 </Text>
-                <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700' }]}>
-                  {isRTL ? `المستوى ${toArabicNumerals(newIntensity)}` : `Level ${newIntensity}`}
+                <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700', letterSpacing: 0 }]}>
+                  {t('device.level', { level: newIntensity })}
                 </Text>
               </View>
               <Slider
@@ -410,22 +629,22 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) =>
             <View style={styles.inputGroup}>
               <SegmentedControl<'continuous' | 'interval'>
                 options={[
-                  { label: isRTL ? 'مستمر' : 'Continuous', value: 'continuous' },
-                  { label: isRTL ? 'فترات' : 'Interval', value: 'interval' },
+                  { label: t('home.continuous', 'مستمر'), value: 'continuous' },
+                  { label: t('home.interval', 'فترات'), value: 'interval' },
                 ]}
                 selected={newMode}
                 onChange={(val) => setNewMode(val)}
               />
             </View>
 
-            {/* Save Button */}
+            {/* Save Button (Item 1: Save routine adds to list) */}
             <TouchableOpacity
               activeOpacity={0.88}
-              onPress={() => setNewRoutineVisible(false)}
+              onPress={handleSaveRoutine}
               style={[styles.saveBtn, { backgroundColor: colors.ink }]}
             >
-              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15 }]}>
-                {isRTL ? 'حفظ الروتين' : 'Save Routine'}
+              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15, letterSpacing: 0 }]}>
+                {t('scheduleScreen.saveRoutine', 'حفظ الروتين')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -611,6 +830,65 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: 16,
     fontSize: 14,
+  },
+  timeCardsRow: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 10,
+  },
+  timeCard: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  timePickerControls: {
+    padding: 12,
+    borderRadius: 16,
+    gap: 10,
+  },
+  stepperRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  stepperBtns: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  stepBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  minutePresetsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  minutePills: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  minPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    minWidth: 40,
+    alignItems: 'center',
+  },
+  overnightBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+    marginTop: 4,
   },
   daysSelectRow: {
     flexDirection: 'row',

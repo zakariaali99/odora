@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../theme';
-import { toArabicNumerals } from '../../i18n';
 import { IconButton } from './IconButton';
 
 interface IntensityGaugeProps {
@@ -24,7 +23,7 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
   style,
 }) => {
   const { t } = useTranslation();
-  const { colors, typography, spacing, isRTL } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const activeCaption = caption !== undefined ? caption : t('device.optimalScenting', 'Optimal Scenting');
 
   const size = 224;
@@ -32,12 +31,10 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
   const radius = 82;
   const center = size / 2; // 112
   const circumference = 2 * Math.PI * radius; // ~515.22
-  const arcSpan = 270; // 270 degree arc
-  const arcLength = (arcSpan / 360) * circumference; // ~386.42
 
   const clampedVal = Math.min(Math.max(value, 0), max);
   const progress = clampedVal / max;
-  const activeArcLength = Math.max(0.001, progress * arcLength);
+  const strokeDashoffset = circumference * (1 - progress);
 
   const handleDecrease = () => {
     if (clampedVal > 0 && !disabled) {
@@ -64,37 +61,33 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
           backgroundColor={colors.surfaceMuted}
         />
 
-        {/* 270° Gauge SVG & Central Values */}
+        {/* Full Ring Gauge SVG & Central Values */}
         <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
           <Svg width={size} height={size} style={styles.svg}>
-            {/* Background 270° Track Arc (Starts at bottom-left 135°, sweeps 270° to bottom-right 45°) */}
+            {/* Background Circle Track (Full 360° Ring) */}
             <Circle
               cx={center}
               cy={center}
               r={radius}
-              stroke={colors.primarySoft}
+              stroke={colors.surfaceMuted}
               strokeWidth={strokeWidth}
-              strokeOpacity={0.25}
-              strokeDasharray={`${arcLength} ${circumference}`}
-              strokeDashoffset={0}
               strokeLinecap="round"
               fill="transparent"
-              transform={`rotate(135 ${center} ${center})`}
             />
 
-            {/* Active Progress 270° Fill Arc (0 to 100% of the 270° arc) */}
+            {/* Active Progress Ring (Level 0..10 = 0..100% of ring, starting from top 12 o'clock) */}
             {clampedVal > 0 && (
               <Circle
                 cx={center}
                 cy={center}
                 r={radius}
                 stroke={colors.primary}
-                strokeWidth={strokeWidth}
-                strokeDasharray={`${activeArcLength} ${circumference}`}
-                strokeDashoffset={0}
+                strokeWidth={9}
+                strokeDasharray={`${circumference} ${circumference}`}
+                strokeDashoffset={strokeDashoffset}
                 strokeLinecap="round"
                 fill="transparent"
-                transform={`rotate(135 ${center} ${center})`}
+                transform={`rotate(-90 ${center} ${center})`}
               />
             )}
           </Svg>
@@ -108,25 +101,27 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                   color: colors.textMuted,
                   textTransform: isRTL ? 'none' : 'uppercase',
                   letterSpacing: isRTL ? 0 : 1,
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: '600',
                   marginBottom: 2,
                 },
               ]}
             >
-              {isRTL ? 'معدل الانتشار' : t('device.intensity', 'INTENSITY')}
+              {t('deviceControl.dispersionRate', 'معدل الانتشار')}
             </Text>
+
+            {/* Numeric Reading with LTR Isolation */}
             <View style={styles.valueRow}>
               <Text
                 style={{
                   fontFamily: isRTL ? 'IBMPlexSansArabic_600SemiBold' : 'Outfit_300Light',
-                  fontSize: 42,
-                  lineHeight: 46,
+                  fontSize: 44,
+                  lineHeight: 48,
                   fontWeight: isRTL ? '600' : '300',
                   color: colors.text,
                 }}
               >
-                {isRTL ? toArabicNumerals(clampedVal) : clampedVal}
+                {clampedVal}
               </Text>
               <Text
                 style={[
@@ -135,13 +130,15 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                     color: colors.textSubtle,
                     marginStart: 2,
                     marginBottom: 6,
-                    fontSize: 14,
+                    fontSize: 15,
+                    writingDirection: 'ltr',
                   },
                 ]}
               >
-                /{isRTL ? toArabicNumerals(max) : max}
+                /10
               </Text>
             </View>
+
             <Text
               style={[
                 typography.labelSm,
@@ -149,10 +146,11 @@ export const IntensityGauge: React.FC<IntensityGaugeProps> = ({
                   color: colors.primary,
                   fontWeight: '600',
                   marginTop: 2,
+                  letterSpacing: 0,
                 },
               ]}
             >
-              {isRTL ? t('device.level', { level: toArabicNumerals(clampedVal) }) : activeCaption}
+              {isRTL ? t('device.level', { level: clampedVal }) : activeCaption}
             </Text>
           </View>
         </View>
@@ -181,19 +179,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 16,
+    gap: 12,
   },
   svg: {
     position: 'absolute',
   },
   centerContent: {
+    position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 140,
   },
   valueRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
+    justifyContent: 'center',
+    direction: 'ltr',
   },
 });
-
-export default IntensityGauge;

@@ -1,25 +1,33 @@
-# Message to Antigravity (Odora) — Batch A: overlap & language audit
+# Message to Antigravity (Odora) — Batch A: RTL regression + remaining items
 
-I ran a collision/clipping audit on the running app plus a visual pass on every Batch A screen. The structure is good, but there are real overlaps and one screen that breaks the rules badly. Full review: `reviews/review-2026-09-23-batch-a.md` (both sections).
+I tested your uncommitted changes on the **native iPhone 17 Pro simulator** in Arabic and tapped through every flow. Review: `reviews/review-2026-09-24-batch-a-native.md` → section "Re-review after AG's fix pass".
 
-## Must fix first (critical)
-1. **Device Settings is almost entirely in English** inside the Arabic app — only the app-bar title is Arabic. And it **reintroduces the invented features we removed**: "LED Halo Ring" + Halo Intensity slider, "Night Mode Dimming (mutes LEDs)", "Acoustic Whisper Dampening <14 dB", "Installed Firmware v2.4.1-rc / Firmware is up to date", "BLE 5.2", "BLE MAC", "mesh cryptographic credentials", and the "Sanctuary / Atelier / Artisan Vessel" wording. This violates `06 §1.4` and `08 §4`. Rebuild it: Arabic first through i18n, and only real settings — rename, room, auto-off timer, device info (model, serial, added date), Forget device. No LED, no acoustics, no firmware, no MAC, no mesh.
+**Verified fixed:** pairing (name + room → new device → its own control screen), full-ring gauge, bidi, Western digits, oil-card collision, "chamber"/"sanctuary"/Boost/"جوليان"/"30ml" removed, Arabic letter-spacing, Device Settings cleanup, Connection States reachable and close to Stitch, routine sheet saves and updates the weekly chart, Sun–Thu default days. Good progress.
 
-## Overlaps and clipping
-2. **Content is clipped by the bottom tab bar:** on Devices the last device card is cut in half; on Home the "الأجهزة المتصلة" section runs under the bar. Add bottom padding = tab-bar height + safe-area inset to every scroll view.
-3. **Device Control: the floating status pill covers the mode control** (Continuous / Interval). Add bottom padding = pill height + 24.
-4. **Home curated card: the image is not mirrored in RTL** — it stays on the right while the Arabic text also starts from the right, so the text sits on top of the bottle. Mirror the card layout.
-5. Section-header status dots touch their text ("●المساحات الخاصة", "●الموزع يعمل") — add a 6–8pt gap.
+## 1. Critical — Arabic is laid out LTR on native (new regression)
+Home and the app bar on every screen are **left-to-right in Arabic**: title on the left, avatar on the right, back arrow on the left, Home greeting/cards/progress bar LTR. Your own `native_batch_a/home_ar_top_comparison.png` shows it.
 
-## Still open from the first Batch A review
-6. Hero product image (Home + Device Control): Stitch fills the card width with a wide landscape image; ours is a small portrait with empty space.
-7. Intensity gauge: must be a 270° arc (224 box, stroke 8); ours is nearly a full ring and level 8 looks ~95%.
-8. Untranslated strings elsewhere: "Oil", "LIVE", "BLE CONNECTED".
-9. Schedule time format: "13:00 PM – 16:30 PM" (24h + AM/PM).
-10. Home hero glow is oversized and clipped; app-bar account action should be a round avatar.
-11. Regenerate all 14 proofs at **390pt wide, full scroll height, both sides** — and additionally check every screen at **390×844 scrolled to the end**, because the clipping bugs only appear there.
-12. Commit Batch A, and guard `app/src/previewTarget.ts` with `__DEV__`.
+**Cause:** `flexDirection: isRTL ? 'row-reverse' : 'row'` (19 places in `AppBar.tsx` and `HomeScreen.tsx`). On native, `I18nManager.forceRTL(true)` already mirrors `row`. Adding `row-reverse` flips it back to LTR. Web does not auto-mirror, which is why it looked right there.
 
-**Before you say a screen is done:** run a self-check that no text/image overlaps another element and nothing is hidden behind the tab bar or a floating button, in **both** Arabic and English.
+**Fix:** use plain `row` everywhere and let `I18nManager` mirror. Use `start`/`end` (not `left`/`right`) for margins, padding, position and textAlign. Web must follow the same rule via `dir="rtl"` on the root. Then grep the whole app for `row-reverse` and `isRTL ? 'right'` and remove every direction ternary. Devices already does this and renders correctly — use it as the model.
 
-Fix 1–12, then stop and report. Do not start Batch B yet.
+**Check:** in Arabic, every app bar has the back chevron on the **right** pointing right, the title next to it, and actions on the left.
+
+## 2. Still open
+2. **Time fields are free text.** Replace the start/end `TextInput`s with a real time picker (24h). End must be after start, or allow overnight explicitly.
+3. **i18n (item 5 not done):** ~257 inline `isRTL ? … : …` strings remain in the 7 Batch A screens. Move them all to `ar.ts` / `en.ts`.
+4. **Low-oil alert "<5%"** still shows with `oilSensor` OFF. Hide it, or reword it as an estimate ("تنبيه عند اقتراب نفاد الزيت (تقديري)"). "٪٥" still uses an Eastern digit.
+5. **Mistranslation:** "Sage" is "أخضر حكيم" ("wise green"). Use **"أخضر ميرمية"** (`ar.ts:203`, Pairing lines 293/317).
+6. **Pairing:** don't claim which oil is loaded. The default name must not duplicate an existing device (use "موزع + room", then add a number if needed).
+7. **One shared room list** for Pairing and Settings. Right now they differ, and a device paired into "المكتب" shows no selected chip in Settings.
+8. **Schedule belongs to a device:** opening Schedule from a device must show that device's routines and name. Right now it always shows "موزع غرفة المعيشة".
+9. **Seed routines:** "5 days" must be **Sun–Thu**, not Mon–Fri.
+10. **Home hero image:** the photo must **fill** the 192×192 square (radius 16, `object-cover`), with nothing behind it — no grey frame, no pale circle, no leaf. Match `odora_home_dashboard`.
+11. **Routine icons:** one icon per routine by start time (sunrise / sun / moon), as in Stitch. Not the same clock for all.
+12. The pairing success toast covers the app-bar title — show it below the app bar. The Devices button reads "+ + إقران جهاز": drop the "+" from the text.
+
+## 3. Process
+- **Commit** Batch A when done and write a short report listing items 1–12 with ✅/❌.
+- Proof = native screenshots in Arabic **and** English, scrolled top and end, each next to its Stitch screen. **Before you send them, look at the Arabic ones yourself:** app bar mirrored, text starting from the right, nothing overlapping.
+
+Fix 1–12, then stop and report. Do not touch Batch B or start Batch C.

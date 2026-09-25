@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { MainTabsNavigator } from './MainTabsNavigator';
+import { HomeScreen } from '../screens/HomeScreen';
 import { DevicesScreen } from '../screens/DevicesScreen';
 import { DeviceControlScreen } from '../screens/DeviceControlScreen';
 import { DevicePairingScreen } from '../screens/DevicePairingScreen';
@@ -29,9 +30,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const RootNavigator: React.FC = () => {
   const { colors } = useTheme();
 
-  useEffect(() => {
-    if (__DEV__ && previewConfig.lang) {
-      const isRtl = previewConfig.lang === 'ar';
+  if (__DEV__ && previewConfig.lang) {
+    const isRtl = previewConfig.lang === 'ar';
+    if (useAppStore.getState().language !== previewConfig.lang) {
       i18n.changeLanguage(previewConfig.lang);
       useAppStore.setState({
         language: previewConfig.lang,
@@ -42,15 +43,16 @@ export const RootNavigator: React.FC = () => {
         document.documentElement.setAttribute('lang', previewConfig.lang);
       }
     }
-  }, []);
+  }
 
   const initialRoute: keyof RootStackParamList =
-    previewConfig.screen === 'Home'
-      ? 'MainTabs'
-      : (previewConfig.screen as keyof RootStackParamList) || 'MainTabs';
+    (previewConfig.screen as keyof RootStackParamList) || 'Home';
+
+  const navigatorKey = `${previewConfig.screen || 'MainTabs'}-${previewConfig.lang || 'ar'}-${previewConfig.sheet ? 'sheet' : 'nosheet'}-${previewConfig.scrollToEnd ? 'end' : 'top'}-${previewConfig.timestamp || 0}`;
 
   return (
     <Stack.Navigator
+      key={navigatorKey}
       initialRouteName={initialRoute}
       screenOptions={{
         headerShown: false,
@@ -59,6 +61,7 @@ export const RootNavigator: React.FC = () => {
       }}
     >
       <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Devices" component={DevicesScreen} />
       <Stack.Screen name="Store" component={StoreScreen} />
       <Stack.Screen name="DevUiKit" component={DevUiKitScreen} />

@@ -29,6 +29,7 @@ import { RootNavigator } from './src/navigation/RootNavigator';
 import { useTheme } from './src/theme';
 import { useAppStore } from './src/store/useAppStore';
 import { LanguageConfirmSheet } from './src/components/LanguageConfirmSheet';
+import { previewConfig } from './src/previewTarget';
 
 export default function App() {
   const isRTL = useAppStore((s) => s.isRTL);
@@ -113,7 +114,10 @@ export default function App() {
         ]}
       >
         <StatusBar style={isDark ? 'light' : 'dark'} />
-        <NavigationContainer linking={linking}>
+        <NavigationContainer
+          key={`${previewConfig.screen || 'Home'}-${previewConfig.lang || 'ar'}-${previewConfig.scrollToEnd ? 'end' : 'top'}`}
+          linking={linking}
+        >
           <RootNavigator />
         </NavigationContainer>
         <LanguageConfirmSheet />
@@ -135,3 +139,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+// reload trigger: 1790232608.8648598

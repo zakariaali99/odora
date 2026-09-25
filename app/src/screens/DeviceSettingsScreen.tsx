@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -19,7 +19,9 @@ import { AppBar } from '../components/ui/AppBar';
 import { Toggle } from '../components/ui/Toggle';
 import { Sheet } from '../components/ui/Sheet';
 import { Button } from '../components/ui/Button';
-import { toArabicNumerals } from '../i18n';
+import { useTranslation } from 'react-i18next';
+import { useAppStore, SHARED_ROOMS } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
 
 const SAGE_DIFFUSER = require('../../assets/photos/diffuser-a316-sage.png');
 const CLOSEUP_DIFFUSER = require('../../assets/photos/diffuser_sage_closeup.png');
@@ -29,20 +31,6 @@ interface DeviceSettingsScreenProps {
   route?: any;
 }
 
-const ROOM_OPTIONS_AR = [
-  'غرفة المعيشة',
-  'غرفة النوم الرئيسية',
-  'المكتب الخاص',
-  'صالة الضيوف',
-];
-
-const ROOM_OPTIONS_EN = [
-  'Living Room',
-  'Master Bedroom',
-  'Private Office',
-  'Guest Salon',
-];
-
 const TIMER_OPTIONS_AR = ['إيقاف', '30د', '1س', '2س', '4س', '8س'];
 const TIMER_OPTIONS_EN = ['Off', '30m', '1h', '2h', '4h', '8h'];
 
@@ -50,19 +38,77 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   navigation,
   route,
 }) => {
+  const { t } = useTranslation();
   const nav = useNavigation<any>();
   const activeNav = navigation?.navigate ? navigation : nav;
   const { colors, isDark, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
+  const scrollRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const { devices, selectedDeviceId, updateDevice, removeDevice } = useAppStore();
+  const activeDevice =
+    devices.find((d) => d.id === selectedDeviceId) ||
+    devices[0] || {
+      id: 'living',
+      name: 'موزع غرفة المعيشة',
+      roomName: 'غرفة المعيشة',
+      colorway: 'sage' as const,
+      model: 'Odora A316',
+      power: true,
+      intensity: 8,
+      mode: 'interval' as const,
+      oilLevel: 68,
+      oilName: 'مريمية الغابة',
+      oilRemainingDays: 18,
+      oilSensor: false,
+      burst: false,
+      isOnline: true,
+      connectionType: 'ble' as const,
+      signalDbm: -58,
+    };
 
   // State
-  const defaultName = isRTL ? 'موزع غرفة المعيشة' : 'Living Room Diffuser';
-  const [deviceName, setDeviceName] = useState(route?.params?.name || defaultName);
+  const [deviceName, setDeviceName] = useState(activeDevice.name);
   const [isRenaming, setIsRenaming] = useState(false);
-  const [tempName, setTempName] = useState(deviceName);
+  const [tempName, setTempName] = useState(activeDevice.name);
 
-  const roomOptions = isRTL ? ROOM_OPTIONS_AR : ROOM_OPTIONS_EN;
-  const [selectedRoom, setSelectedRoom] = useState(roomOptions[0]);
+  // Shared Rooms (Item 7: One shared room list between Pairing and Settings)
+  const roomOptions = SHARED_ROOMS.map((r) => ({
+    key: r.key,
+    name: isRTL ? r.nameAr : r.nameEn,
+  }));
+  const currentMatchingRoom = SHARED_ROOMS.find(
+    (r) =>
+      r.key === activeDevice.roomName ||
+      r.nameAr === activeDevice.roomName ||
+      r.nameEn === activeDevice.roomName
+  );
+  const initialRoomName = currentMatchingRoom
+    ? (isRTL ? currentMatchingRoom.nameAr : currentMatchingRoom.nameEn)
+    : (activeDevice.roomName || (isRTL ? SHARED_ROOMS[0].nameAr : SHARED_ROOMS[0].nameEn));
+  const [selectedRoom, setSelectedRoom] = useState(initialRoomName);
+
+  useEffect(() => {
+    if (activeDevice.roomName) {
+      const match = SHARED_ROOMS.find(
+        (r) =>
+          r.key === activeDevice.roomName ||
+          r.nameAr === activeDevice.roomName ||
+          r.nameEn === activeDevice.roomName
+      );
+      if (match) {
+        setSelectedRoom(isRTL ? match.nameAr : match.nameEn);
+      }
+    }
+  }, [activeDevice.roomName, isRTL]);
 
   // Real Timer & Safety State
   const timerOptions = isRTL ? TIMER_OPTIONS_AR : TIMER_OPTIONS_EN;
@@ -85,6 +131,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   const handleSaveRename = () => {
     if (tempName.trim().length > 0) {
       setDeviceName(tempName.trim());
+      updateDevice(activeDevice.id, { name: tempName.trim() });
       setIsRenaming(false);
       showToast(isRTL ? `تمت إعادة التسمية إلى "${tempName.trim()}"` : `Renamed to "${tempName.trim()}"`);
     }
@@ -100,7 +147,8 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
 
   const handleConfirmForget = () => {
     setShowForgetSheet(false);
-    showToast(isRTL ? 'تم إلغاء اقتران الجهاز بنجاح' : 'Device forgotten successfully');
+    removeDevice(activeDevice.id);
+    showToast(t('deviceSettings.deviceForgottenToast', 'تم إلغاء اقتران الجهاز بنجاح'));
     setTimeout(() => {
       activeNav.navigate('Devices');
     }, 400);
@@ -110,7 +158,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
     <View style={[styles.root, { backgroundColor: colors.surface }]}>
       {/* 64pt App Bar with Back and Round Avatar */}
       <AppBar
-        title={isRTL ? 'إعدادات الجهاز' : 'Device Settings'}
+        title={t('deviceSettings.title', 'إعدادات الجهاز')}
         showBack={true}
         onBack={() => navigation?.goBack?.()}
         actions={[
@@ -133,26 +181,25 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
       )}
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[
           styles.scrollContent,
           { paddingBottom: insets.bottom + 64 },
         ]}
         showsVerticalScrollIndicator={false}
       >
-        {/* 1. HERO DEVICE OVERVIEW */}
+        {/* 1. HERO DEVICE OVERVIEW (Grey circle behind image removed per Item 14) */}
         <View style={[styles.heroCard, { backgroundColor: colors.bgAlt }]}>
-          {/* Subtle Contained Ambient Halo */}
-          <View
-            style={[
-              styles.ambientGlow,
-              { backgroundColor: isDark ? 'rgba(88,98,68,0.18)' : 'rgba(88,98,68,0.12)' },
-            ]}
-          />
-
           {/* Diffuser Hardware Photo Presentation */}
-          <View style={[styles.photoContainer, { backgroundColor: colors.surfaceMuted }]}>
+          <View style={[styles.photoContainer, { backgroundColor: 'transparent', shadowOpacity: 0, elevation: 0 }]}>
             <Image
-              source={SAGE_DIFFUSER}
+              source={
+                activeDevice.colorway === 'white'
+                  ? require('../../assets/photos/diffuser-a316-white.png')
+                  : activeDevice.colorway === 'black'
+                  ? require('../../assets/photos/diffuser-a316-black.png')
+                  : SAGE_DIFFUSER
+              }
               style={styles.diffuserImage}
               resizeMode="contain"
             />
@@ -160,7 +207,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
             <View style={[styles.activePill, { backgroundColor: 'rgba(253, 249, 245, 0.92)' }]}>
               <View style={[styles.activeDot, { backgroundColor: colors.primary }]} />
               <Text style={[styles.activeText, { color: colors.text }]}>
-                {isRTL ? 'نشط' : 'Active'}
+                {t('deviceSettings.active', 'نشط')}
               </Text>
             </View>
           </View>
@@ -190,7 +237,6 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                     styles.renameInput,
                     {
                       color: colors.text,
-                      textAlign: isRTL ? 'right' : 'left',
                     },
                   ]}
                   value={tempName}
@@ -213,7 +259,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
           <View style={styles.ceramicRow}>
             <View style={[styles.colorDot, { backgroundColor: colors.primary }]} />
             <Text style={[styles.ceramicText, { color: colors.textMuted }]}>
-              {isRTL ? 'خزف ميرمية غير لامع' : 'Matte Sage Ceramic'}
+              {t('deviceSettings.matteSage', 'خزف ميرمية غير لامع')}
             </Text>
           </View>
 
@@ -226,19 +272,16 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
           >
             <View style={[styles.telemetryDot, { backgroundColor: colors.primary }]} />
             <Text style={[styles.telemetryText, { color: colors.primary }]}>
-              {isRTL ? 'متصل عبر البلوتوث · الإشارة قوية' : 'Bluetooth Connected · Signal Strong'}
+              {t('deviceSettings.bleConnected', 'متصل عبر البلوتوث · الإشارة قوية')}
             </Text>
           </View>
         </View>
 
-        {/* 2. SPATIAL ASSIGNMENT */}
+        {/* 2. SPATIAL ASSIGNMENT (Item 14: Zone 01 removed; Chevron mirrored) */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderRow}>
             <Text style={[styles.sectionHeaderTitle, { color: colors.textMuted }]}>
-              {isRTL ? 'تخصيص المكان' : 'Spatial Assignment'}
-            </Text>
-            <Text style={[styles.zoneBadge, { color: colors.primary }]}>
-              {isRTL ? `المنطقة ${toArabicNumerals('01')}` : 'Zone 01'}
+              {t('deviceSettings.spatialAssignment', 'تخصيص المكان')}
             </Text>
           </View>
 
@@ -250,7 +293,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                 </View>
                 <View style={styles.sanctuaryTextCol}>
                   <Text style={[styles.sanctuaryCaption, { color: colors.textMuted }]}>
-                    {isRTL ? 'الغرفة الحالية' : 'Current Room'}
+                    {t('deviceSettings.currentRoom', 'الغرفة الحالية')}
                   </Text>
                   <Text style={[styles.sanctuaryTitle, { color: colors.text }]}>
                     {selectedRoom}
@@ -260,26 +303,44 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
 
               <View style={styles.changeActionRow}>
                 <Text style={[styles.changeActionText, { color: colors.textMuted }]}>
-                  {isRTL ? 'تغيير' : 'Change'}
+                  {t('deviceSettings.change', 'تغيير')}
                 </Text>
+                {/* autoMirror: true on chevron_right will mirror it to point left in RTL */}
                 <Icon
-                  name={isRTL ? 'chevron_left' : 'chevron_right'}
+                  name="chevron_right"
                   size={18}
                   color={colors.textMuted}
                 />
               </View>
             </View>
 
-            {/* Room selection pills */}
+            {/* Room selection pills (Item 7: One shared room list between Pairing and Settings) */}
             <View style={styles.roomPillsContainer}>
               {roomOptions.map((room) => {
-                const isSelected = selectedRoom === room;
+                const isSelected =
+                  selectedRoom === room.name ||
+                  selectedRoom === room.key ||
+                  (room.key === 'office' &&
+                    (selectedRoom === 'المكتب' ||
+                      selectedRoom === 'المكتب الخاص' ||
+                      selectedRoom === 'Office' ||
+                      selectedRoom === 'Private Office')) ||
+                  (room.key === 'living_room' &&
+                    (selectedRoom === 'غرفة المعيشة' ||
+                      selectedRoom === 'Living Room')) ||
+                  (room.key === 'master_bedroom' &&
+                    (selectedRoom === 'غرفة النوم الرئيسية' ||
+                      selectedRoom === 'Master Bedroom')) ||
+                  (room.key === 'guest_salon' &&
+                    (selectedRoom === 'صالة الضيوف' ||
+                      selectedRoom === 'Guest Salon'));
                 return (
                   <TouchableOpacity
-                    key={room}
+                    key={room.key}
                     onPress={() => {
-                      setSelectedRoom(room);
-                      showToast(isRTL ? `تم نقل الجهاز إلى ${room}` : `Moved to ${room}`);
+                      setSelectedRoom(room.name);
+                      updateDevice(activeDevice.id, { roomName: room.name });
+                      showToast(t('deviceSettings.roomMovedToast', { room: room.name }));
                     }}
                     style={[
                       styles.roomPill,
@@ -300,7 +361,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                         },
                       ]}
                     >
-                      {room}
+                      {room.name}
                     </Text>
                   </TouchableOpacity>
                 );
@@ -312,7 +373,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
         {/* 3. AUTO-OFF TIMER & SAFETY (Real Settings replacing LED/Acoustics per 06 §1.4 & 08 §4) */}
         <View style={styles.sectionContainer}>
           <Text style={[styles.sectionHeaderTitle, { color: colors.textMuted }]}>
-            {isRTL ? 'مؤقت التشغيل والسلامة' : 'Operating Cadence & Safety'}
+            {t('deviceSettings.autoOffAndSafety', 'مؤقت التشغيل والسلامة')}
           </Text>
 
           <View style={[styles.cardContainer, { backgroundColor: colors.bgAlt }]}>
@@ -322,13 +383,13 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                 <View style={styles.timerTitleWithIcon}>
                   <Icon name="timer" size={18} color={colors.primary} />
                   <Text style={[styles.settingTitle, { color: colors.text }]}>
-                    {isRTL ? 'مؤقت الإيقاف التلقائي' : 'Auto-Off Sleep Timer'}
+                    {t('deviceSettings.autoOffTimer', 'مؤقت الإيقاف التلقائي')}
                   </Text>
                 </View>
                 <Text style={[styles.timerValueText, { color: colors.primary }]}>
-                  {timerOptions[selectedTimerIndex] === (isRTL ? 'إيقاف' : 'Off')
-                    ? (isRTL ? 'معطّل' : 'Disabled')
-                    : (isRTL ? `نشط (${timerOptions[selectedTimerIndex]})` : `${timerOptions[selectedTimerIndex]} active`)}
+                  {selectedTimerIndex === 0
+                    ? t('deviceSettings.disabled', 'معطّل')
+                    : t('deviceSettings.activeTimer', { timer: timerOptions[selectedTimerIndex] })}
                 </Text>
               </View>
 
@@ -374,7 +435,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
               </View>
             </View>
 
-            {/* Low-Oil Guard Toggle */}
+            {/* Low-Oil Guard Toggle (Item 4: Reword as estimate if oilSensor OFF; Western 5% digit) */}
             <View style={styles.settingRow}>
               <View style={styles.settingIconCol}>
                 <View style={[styles.settingIconBg, { backgroundColor: colors.surfaceMuted }]}>
@@ -382,12 +443,14 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                 </View>
                 <View style={styles.settingTextCol}>
                   <Text style={[styles.settingTitle, { color: colors.text }]}>
-                    {isRTL ? 'تنبيه انخفاض مستوى الزيت' : 'Low-Oil Guard'}
+                    {activeDevice.oilSensor
+                      ? t('deviceSettings.lowOilGuard', 'تنبيه انخفاض مستوى الزيت')
+                      : t('deviceSettings.lowOilGuardEstimated', 'تنبيه عند اقتراب نفاد الزيت (تقديري)')}
                   </Text>
                   <Text style={[styles.settingSubtitle, { color: colors.textMuted }]}>
-                    {isRTL
-                      ? 'إيقاف التفتيت تلقائياً وإرسال تنبيه عند انخفاض مخزون الزيت عن ٥٪'
-                      : 'Prevents dry nebulization and alerts when oil falls below 5%'}
+                    {activeDevice.oilSensor
+                      ? t('deviceSettings.lowOilDesc', 'إيقاف التفتيت تلقائياً وإرسال تنبيه عند انخفاض مخزون الزيت عن 5%')
+                      : t('deviceSettings.lowOilDescEstimated', 'إرسال تنبيه تقديري بحسب ساعات التشغيل عند اقتراب نفاد مخزون الزيت دون حساس مباشر')}
                   </Text>
                 </View>
               </View>
@@ -410,15 +473,13 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
         <View style={[styles.craftCard, { backgroundColor: colors.bgAlt }]}>
           <View style={styles.craftTextCol}>
             <Text style={[styles.craftEyebrow, { color: colors.primary }]}>
-              {isRTL ? 'موزع أودورا A316' : 'Odora A316 Diffuser'}
+              {activeDevice.name || 'Odora A316'}
             </Text>
             <Text style={[styles.craftTitle, { color: colors.text }]}>
-              {isRTL ? 'خزف ميرمية مصقول يدوياً' : 'Sculpted Ceramic & Brass'}
+              {t('deviceSettings.deviceCraftTitle', 'خزف ميرمية مصقول يدوياً')}
             </Text>
             <Text style={[styles.craftDesc, { color: colors.textMuted }]}>
-              {isRTL
-                ? 'تقنية تفتيت ميكروي بارد بدون ماء أو حرارة لحفظ كامل الخصائص العطرية للزيوت النقية.'
-                : 'Waterless cold-air micro-diffusion preserving organic botanical extracts without thermal breakdown.'}
+              {t('deviceSettings.deviceCraftDesc', 'تقنية تفتيت ميكروي بارد بدون ماء أو حرارة لحفظ كامل الخصائص العطرية للزيوت النقية.')}
             </Text>
           </View>
           <View style={styles.craftImageWrapper}>
@@ -433,14 +494,14 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
         {/* 5. HARDWARE TECHNICAL SPECIFICATIONS (Real device specs only per 06 §1.4 & 08 §4) */}
         <View style={styles.sectionContainer}>
           <Text style={[styles.sectionHeaderTitle, { color: colors.textMuted }]}>
-            {isRTL ? 'معلومات الجهاز' : 'Device Information'}
+            {t('deviceSettings.deviceInfo', 'معلومات الجهاز')}
           </Text>
 
           <View style={[styles.cardContainer, { backgroundColor: colors.bgAlt, paddingVertical: 4 }]}>
             {/* Spec Row 1: Model */}
             <View style={styles.specRow}>
               <Text style={[styles.specLabel, { color: colors.textMuted }]}>
-                {isRTL ? 'طراز الجهاز' : 'Hardware Model'}
+                {t('deviceSettings.model', 'طراز الجهاز')}
               </Text>
               <Text style={[styles.specValue, { color: colors.text }]}>
                 Odora A316
@@ -451,7 +512,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
             {/* Spec Row 2: Serial Number */}
             <View style={styles.specRow}>
               <Text style={[styles.specLabel, { color: colors.textMuted }]}>
-                {isRTL ? 'الرقم التسلسلي' : 'Serial Number'}
+                {t('deviceSettings.serialNumber', 'الرقم التسلسلي')}
               </Text>
               <View style={styles.serialValueRow}>
                 <Text style={[styles.serialCode, { color: colors.text }]}>
@@ -471,10 +532,10 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
             {/* Spec Row 3: Date Added */}
             <View style={styles.specRow}>
               <Text style={[styles.specLabel, { color: colors.textMuted }]}>
-                {isRTL ? 'تاريخ الإضافة' : 'Date Added'}
+                {t('deviceSettings.dateAdded', 'تاريخ الإضافة')}
               </Text>
               <Text style={[styles.specValue, { color: colors.text }]}>
-                {isRTL ? `${toArabicNumerals(12)} سبتمبر ${toArabicNumerals(2026)}` : 'Sep 12, 2026'}
+                {isRTL ? '12 سبتمبر 2026' : 'Sep 12, 2026'}
               </Text>
             </View>
             <View style={[styles.divider, { backgroundColor: colors.surfaceMuted }]} />
@@ -482,10 +543,10 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
             {/* Spec Row 4: Connection Protocol */}
             <View style={styles.specRow}>
               <Text style={[styles.specLabel, { color: colors.textMuted }]}>
-                {isRTL ? 'نوع الاتصال' : 'Connection'}
+                {t('deviceSettings.connection', 'نوع الاتصال')}
               </Text>
               <Text style={[styles.specValue, { color: colors.text }]}>
-                {isRTL ? 'بلوتوث منخفض الطاقة (BLE)' : 'Bluetooth Low Energy'}
+                {t('deviceSettings.bleProtocol', 'بلوتوث منخفض الطاقة (BLE)')}
               </Text>
             </View>
           </View>
@@ -494,20 +555,18 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
         {/* 6. DANGER ZONE (Forget Device) */}
         <View style={styles.sectionContainer}>
           <Text style={[styles.sectionHeaderTitle, { color: colors.error }]}>
-            {isRTL ? 'إدارة الجهاز' : 'Device Administration'}
+            {t('deviceSettings.dangerZone', 'إدارة الجهاز')}
           </Text>
 
           <View style={[styles.dangerCard, { backgroundColor: isDark ? 'rgba(186,26,26,0.12)' : '#FDF2F2' }]}>
             <View style={styles.dangerHeaderRow}>
               <Icon name="warning" size={20} color={colors.error} />
               <Text style={[styles.dangerTitle, { color: colors.error }]}>
-                {isRTL ? 'إلغاء اقتران الجهاز' : 'Forget Device'}
+                {t('deviceSettings.forgetDevice', 'إلغاء اقتران الجهاز')}
               </Text>
             </View>
             <Text style={[styles.dangerDesc, { color: colors.textMuted }]}>
-              {isRTL
-                ? 'سيؤدي حذف هذا الموزع إلى مسح الجداول الزمنية وإلغاء اقترانه من حسابك. يمكنك إعادة إقرانه في أي وقت.'
-                : 'Removing this diffuser will clear scheduled routines and unbind it from your account. You can pair it again at any time.'}
+              {t('deviceSettings.forgetDesc', 'سيؤدي حذف هذا الموزع إلى مسح الجداول الزمنية وإلغاء اقترانه من حسابك. يمكنك إعادة إقرانه في أي وقت.')}
             </Text>
 
             <TouchableOpacity
@@ -515,12 +574,12 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
               style={[styles.forgetBtn, { backgroundColor: colors.error }]}
               activeOpacity={0.85}
               testID="forget-device-button"
-              accessibilityLabel={isRTL ? 'إلغاء اقتران الجهاز' : 'Forget & Remove Device'}
+              accessibilityLabel={t('deviceSettings.forgetDevice', 'إلغاء اقتران الجهاز')}
               accessibilityRole="button"
             >
               <Icon name="link_off" size={18} color="#FFFFFF" />
               <Text style={styles.forgetBtnText}>
-                {isRTL ? 'إلغاء اقتران الجهاز' : 'Forget & Remove Device'}
+                {t('deviceSettings.forgetDevice', 'إلغاء اقتران الجهاز')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -538,25 +597,23 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
           </View>
 
           <Text style={[typography.headlineSm, styles.sheetTitle, { color: colors.text }]}>
-            {isRTL ? 'إلغاء اقتران الجهاز؟' : 'Forget Device?'}
+            {t('deviceSettings.forgetConfirmTitle', 'إلغاء اقتران الجهاز؟')}
           </Text>
 
           <Text style={[typography.bodyMd, styles.sheetDesc, { color: colors.textMuted }]}>
-            {isRTL
-              ? 'هل أنت متأكد من رغبتك في إلغاء اقتران هذا الجهاز؟ سيتم حذف الجداول الزمنية وإلغاء ربطه بحسابك.'
-              : 'Are you sure you want to forget this device? Scheduled routines will be cleared and it will be unlinked from your account.'}
+            {t('deviceSettings.forgetConfirmDesc', 'هل أنت متأكد من رغبتك في إلغاء اقتران هذا الجهاز؟ سيتم حذف الجداول الزمنية وإلغاء ربطه بحسابك.')}
           </Text>
 
           <View style={styles.sheetActions}>
             <Button
-              title={isRTL ? 'إلغاء الاقتران والحذف' : 'Forget & Remove'}
+              title={t('deviceSettings.confirmForget', 'إلغاء الاقتران والحذف')}
               onPress={handleConfirmForget}
               testID="confirm-forget-button"
               style={{ width: '100%', marginBottom: 12, backgroundColor: colors.error }}
               textStyle={{ color: '#FFFFFF', fontWeight: '700' }}
             />
             <Button
-              title={isRTL ? 'إلغاء' : 'Cancel'}
+              title={t('common.cancel', 'إلغاء')}
               variant="ghost"
               onPress={() => setShowForgetSheet(false)}
               style={{ width: '100%' }}
@@ -649,7 +706,7 @@ const styles = StyleSheet.create({
   activeText: {
     fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.5,
+    letterSpacing: 0,
   },
   nameRow: {
     flexDirection: 'row',
@@ -737,7 +794,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    letterSpacing: 0,
   },
   zoneBadge: {
     fontSize: 12,
@@ -771,7 +828,7 @@ const styles = StyleSheet.create({
   sanctuaryCaption: {
     fontSize: 11,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 0,
   },
   sanctuaryTitle: {
     fontSize: 16,
@@ -882,7 +939,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    letterSpacing: 0,
   },
   craftTitle: {
     fontSize: 15,
@@ -926,7 +983,7 @@ const styles = StyleSheet.create({
   serialCode: {
     fontSize: 13,
     fontWeight: '600',
-    letterSpacing: 0.5,
+    letterSpacing: 0,
   },
   copyBtn: {
     padding: 4,

@@ -7,16 +7,20 @@ import {
   TouchableOpacity,
   ScrollView,
   Animated,
-  Dimensions,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon } from '../components/ui';
-import { toArabicNumerals } from '../i18n';
-import { getDeviceController } from '../device/DeviceController';
-import { DeviceState } from '../device/types';
+import { useAppStore } from '../store/useAppStore';
+import { previewConfig } from '../previewTarget';
+
+const DIFFUSER_IMAGES = {
+  sage: require('../../assets/photos/diffuser-a316-sage.png'),
+  white: require('../../assets/photos/diffuser-a316-white.png'),
+  black: require('../../assets/photos/diffuser-a316-black.png'),
+};
 
 interface HomeScreenProps {
   navigation: any;
@@ -24,12 +28,41 @@ interface HomeScreenProps {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { colors, typography, radii, spacing, isRTL, motion } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
-  const controller = getDeviceController();
-  const [deviceState, setDeviceState] = useState<DeviceState>(
-    controller.getState()
-  );
+  const scrollRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    if (previewConfig.scrollToEnd) {
+      setTimeout(() => {
+        scrollRef.current?.scrollToEnd({ animated: false });
+      }, 150);
+    }
+  }, []);
+
+  const { devices, selectedDeviceId, setSelectedDeviceId, toggleDevicePower, routines } = useAppStore();
+  const nextRoutine = routines?.find((r) => r.enabled) || routines?.[0];
+  const activeDevice = devices.find((d) => d.id === selectedDeviceId) || devices[0] || {
+    id: 'living',
+    name: 'موزع غرفة المعيشة',
+    roomName: 'غرفة المعيشة',
+    colorway: 'sage',
+    model: 'Odora A316',
+    power: true,
+    intensity: 8,
+    mode: 'interval' as const,
+    oilLevel: 68,
+    oilName: 'مريمية الغابة والأرز',
+    oilRemainingDays: 18,
+    oilSensor: false,
+    burst: false,
+    isOnline: true,
+    connectionType: 'ble' as const,
+    signalDbm: -58,
+  };
+
+  const isPowerOn = activeDevice.power;
+  const intensityLevel = activeDevice.intensity || 8;
 
   // Mist floating animation (4.5s cycle matching Stitch)
   const mistAnim = useRef(new Animated.Value(0)).current;
@@ -51,19 +84,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     ).start();
   }, [mistAnim]);
 
-  useEffect(() => {
-    const unsub = controller.onStateChange((state) => {
-      setDeviceState(state);
-    });
-    return unsub;
-  }, [controller]);
-
   const handleTogglePower = () => {
-    controller.setPower(!deviceState.power);
+    toggleDevicePower(activeDevice.id);
   };
-
-  const isPowerOn = deviceState.power;
-  const intensityLevel = deviceState.intensity || 6;
 
   const mistTranslateY = mistAnim.interpolate({
     inputRange: [0, 1],
@@ -92,7 +115,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   color: colors.text,
                   fontSize: 18,
                   lineHeight: 26,
-                  fontWeight: '500',
+                  fontWeight: '600',
                   textTransform: isRTL ? 'none' : 'uppercase',
                   marginStart: 8,
                 },
@@ -117,10 +140,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: 110 + insets.bottom }]}
         showsVerticalScrollIndicator={false}
       >
-        {/* 2. Top Welcome & Sanctuary Ambience Badge */}
+        {/* 2. Top Welcome & Ambience Badge */}
         <View style={styles.welcomeSection}>
           <View style={styles.ambienceBadgeRow}>
             <View
@@ -136,13 +160,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   {
                     color: colors.text,
                     fontWeight: '600',
-                    textTransform: isRTL ? 'none' : 'uppercase',
-                    fontSize: 10,
-                    letterSpacing: isRTL ? 0 : 0.8,
+                    fontSize: 11,
+                    letterSpacing: 0,
                   },
                 ]}
               >
-                {isRTL ? 'الملاذ الحيوي · متوازن' : 'Living Sanctuary · Optimal'}
+                {t('home.ambienceBalanced', 'متوازن')}
               </Text>
             </View>
             <Text
@@ -150,23 +173,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 typography.labelSm,
                 {
                   color: colors.textSubtle,
-                  textTransform: isRTL ? 'none' : 'uppercase',
-                  letterSpacing: isRTL ? 0 : 1.2,
+                  letterSpacing: 0,
                 },
               ]}
             >
-              {isRTL ? 'التالي: 08:00' : 'Next: 08:00 AM'}
+              {t('home.nextSchedulePrefix', 'التالي: 08:00')}
             </Text>
           </View>
 
           <View style={styles.greetingHeader}>
             <Text style={[typography.display, { color: colors.text, fontSize: 26, lineHeight: 34 }]}>
-              {isRTL ? 'مساء الخير، جوليان' : 'Good evening, Julian'}
+              {t('home.greeting')}
             </Text>
             <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
-              {isRTL
-                ? 'الأجواء مهيأة للاسترخاء والهدوء المسائي.'
-                : 'Atmosphere calibrated for restorative evening calm.'}
+              {t('home.subGreeting')}
             </Text>
           </View>
         </View>
@@ -174,7 +194,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         {/* 3. Main Hero Card: Active Device & Misting Status */}
         <TouchableOpacity
           activeOpacity={0.96}
-          onPress={() => navigation.navigate('DeviceControl')}
+          onPress={() => {
+            setSelectedDeviceId(activeDevice.id);
+            navigation.navigate('DeviceControl');
+          }}
           style={styles.heroCardTouch}
           testID="home-hero-card"
           accessibilityLabel="Device Control Hero"
@@ -185,9 +208,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             surface="lowest"
             style={[styles.heroCard, { shadowColor: '#232821', shadowOpacity: 0.06 }]}
           >
-            {/* Top Card Header */}
+            {/* Top Card Header: Text Column (flex 1) + 48pt Power Button with 12pt gap */}
             <View style={styles.cardHeaderRow}>
-              <View style={{ flex: 1 }}>
+              <View style={styles.cardHeaderTextCol}>
                 <View style={styles.eyebrowRow}>
                   <Text
                     style={[
@@ -195,26 +218,31 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       {
                         color: colors.primary,
                         fontWeight: '700',
-                        textTransform: isRTL ? 'none' : 'uppercase',
-                        letterSpacing: isRTL ? 0 : 1,
+                        letterSpacing: 0,
                       },
                     ]}
                   >
-                    {isRTL ? 'الغرفة الرئيسية' : 'Primary Chamber'}
+                    {activeDevice.roomName}
                   </Text>
                   <View style={[styles.eyebrowDot, { backgroundColor: colors.border }]} />
-                  <Text style={[typography.labelSm, { color: colors.textMuted }]}>
-                    {isRTL ? 'نمط مستمر' : 'Continuous Mode'}
+                  <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
+                    {activeDevice.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
                   </Text>
                 </View>
 
                 <Text
                   style={[
                     typography.headlineSm,
-                    { color: colors.text, fontSize: 20, lineHeight: 28, fontWeight: '500', marginTop: 2 },
+                    {
+                      color: colors.text,
+                      fontSize: 20,
+                      lineHeight: 28,
+                      fontWeight: '600',
+                      marginTop: 2,
+                    },
                   ]}
                 >
-                  {isRTL ? 'موزع غرفة المعيشة' : 'Living Room Diffuser'}
+                  {activeDevice.name}
                 </Text>
 
                 <View style={styles.statusRow}>
@@ -225,17 +253,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     ]}
                   />
                   <Text style={[typography.bodySm, { color: colors.text, fontWeight: '500' }]}>
-                    {isPowerOn
-                      ? (isRTL ? 'يعمل الآن' : 'Misting Now')
-                      : (isRTL ? 'في وضع الاستعداد' : 'Standby')}
-                  </Text>
-                  <Text style={[typography.bodySm, { color: colors.textMuted }]}>
-                    {' · '}{isRTL ? 'انتشار ميكروي بارد' : 'Cold Micro-Diffusion'}
+                    {isPowerOn ? t('home.statusActive') : t('home.statusStandby')}
                   </Text>
                 </View>
               </View>
 
-              {/* Master Power Toggle Button */}
+              {/* Master Power Toggle Button (48x48 rounded-full, 0 overlap) */}
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={handleTogglePower}
@@ -243,9 +266,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   styles.powerBtn,
                   {
                     backgroundColor: isPowerOn ? colors.ink : colors.surfaceHigh,
+                    marginStart: 12,
                   },
                 ]}
                 accessibilityLabel="Toggle diffuser power"
+                testID="home-power-toggle"
               >
                 <Icon
                   name="power_settings_new"
@@ -255,54 +280,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            {/* Centerpiece Device Image with Ambient Vapor & Contained Halo */}
+            {/* Centerpiece Device Image: 192x192 Square, Centered, Radius 16 per Stitch (Item 10: fill square, object-cover, nothing behind) */}
             <View style={styles.centerpieceContainer}>
-              {/* Soft Contained Halo directly behind the device presentation */}
-              <View
-                style={[
-                  styles.deviceHalo,
-                  { backgroundColor: colors.accent, opacity: 0.18 },
-                ]}
-              />
 
-              {isPowerOn && (
-                <Animated.View
-                  style={[
-                    styles.vaporContainer,
-                    {
-                      transform: [
-                        { translateY: mistTranslateY },
-                        { scale: mistScale },
-                      ],
-                      opacity: mistOpacity,
-                    },
-                  ]}
-                >
-                  <Svg width={48} height={80} viewBox="0 0 60 100">
-                    <Path
-                      d="M30,90 Q22,70 34,50 T30,10 Q26,30 22,55 T30,90 Z"
-                      fill={colors.primarySoft}
-                      opacity={0.45}
-                    />
-                    <Path
-                      d="M28,95 Q36,75 26,50 T32,15 Q34,40 28,65 T28,95 Z"
-                      fill={colors.primarySoft}
-                      opacity={0.3}
-                    />
-                  </Svg>
-                </Animated.View>
-              )}
 
-              {/* Wide Landscape Product Image (Matches Stitch ≈350x230 crop) */}
-              <View style={[styles.deviceImageContainer, { backgroundColor: colors.bgAlt }]}>
+              {/* 192x192 Square Diffuser Presentation - photo fills the square, no frame behind */}
+              <View style={styles.deviceImageContainer}>
                 <Image
-                  source={require('../../assets/photos/diffuser_sage_hero.png')}
+                  source={DIFFUSER_IMAGES[activeDevice.colorway] || DIFFUSER_IMAGES.sage}
                   style={styles.deviceHeroImage}
                   resizeMode="cover"
                 />
               </View>
 
-              {/* Fragrance Capsule Tag */}
+              {/* Fragrance Capsule Tag (No '30ml' leak, oil name only) */}
               <View
                 style={[
                   styles.capsuleTag,
@@ -310,16 +301,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 ]}
               >
                 <Icon name="spa" size={16} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 4, fontWeight: '500' }]}>
-                  {isRTL ? 'مريمية الغابة والأرز' : 'Forest Sage & Cedar'}
-                </Text>
-                <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 4 }]}>
-                  30ml
+                <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600' }]}>
+                  {activeDevice.oilName}
                 </Text>
               </View>
             </View>
 
-            {/* Quick Slider Preview Bar */}
+            {/* Quick Slider Preview Bar (Standard 0-9 digits) */}
             <View style={styles.dispersionBarSection}>
               <View style={styles.dispersionHeader}>
                 <Text
@@ -327,19 +315,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     typography.labelSm,
                     {
                       color: colors.textMuted,
-                      textTransform: isRTL ? 'none' : 'uppercase',
-                      letterSpacing: isRTL ? 0 : 0.8,
+                      letterSpacing: 0,
                     },
                   ]}
                 >
-                  {isRTL ? 'معدل الانتشار' : 'Aroma Dispersion'}
+                  {t('home.dispersionRate', 'معدل الانتشار')}
                 </Text>
                 <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
                   {isPowerOn
-                    ? (isRTL
-                        ? `${toArabicNumerals(intensityLevel * 10)}٪ · ${t('device.level', { level: toArabicNumerals(intensityLevel) })}`
-                        : `${intensityLevel * 10}% · ${t('device.level', { level: intensityLevel })}`)
-                    : (isRTL ? 'متوقف' : 'Standby · Off')}
+                    ? `${intensityLevel * 10}% · ${t('device.level', { level: intensityLevel })}`
+                    : t('common.off')}
                 </Text>
               </View>
 
@@ -356,23 +341,23 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               </View>
 
               <View style={styles.dispersionLabels}>
-                <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                  {isRTL ? 'خفيف' : 'Subtle Veil'}
+                <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 11 }]}>
+                  {t('presets.gentle', 'خفيف')}
                 </Text>
-                <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                  {isRTL ? 'متوازن' : 'Balanced'}
+                <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 11 }]}>
+                  {t('presets.medium', 'معتدل')}
                 </Text>
-                <Text style={[typography.labelSm, { color: colors.textSubtle }]}>
-                  {isRTL ? 'مكثف' : 'Rich Enclosure'}
+                <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 11 }]}>
+                  {t('presets.intense', 'مكثف')}
                 </Text>
               </View>
             </View>
           </Card>
         </TouchableOpacity>
 
-        {/* 4. Telemetry / Stat Cards Row (3 Grid Cards) */}
+        {/* 4. Quick Context Stats Row (Dynamic values from activeDevice & schedule) */}
         <View style={styles.statCardsRow}>
-          {/* Card 1: Oil Level */}
+          {/* Card 1: Oil Level & Days Remaining */}
           <Card
             variant="compact"
             surface="lowest"
@@ -383,32 +368,35 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Text
                 style={[
                   typography.labelSm,
-                  { color: colors.textMuted, textTransform: isRTL ? 'none' : 'uppercase' },
+                  { color: colors.textMuted, letterSpacing: 0 },
                 ]}
               >
-                {isRTL ? 'الزيت' : 'Oil Level'}
+                {t('home.oil', 'الزيت')}
               </Text>
               <Icon name="opacity" size={16} color={colors.primary} />
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                {isRTL ? `${toArabicNumerals(68)}٪` : '68%'}
+                {activeDevice.oilLevel}%
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {isRTL ? `~${toArabicNumerals(18)} يوم متبقي` : '~18 days left'}
+                {t('home.daysLeft', { count: activeDevice.oilRemainingDays })}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
               <View
                 style={[
                   styles.statProgressFill,
-                  { width: '68%', backgroundColor: colors.primarySoft },
+                  {
+                    width: `${activeDevice.oilLevel}%`,
+                    backgroundColor: colors.primarySoft,
+                  },
                 ]}
               />
             </View>
           </Card>
 
-          {/* Card 2: Next Routine (Replaces Acoustics per 08 §4) */}
+          {/* Card 2: Next Routine */}
           <Card
             variant="compact"
             surface="lowest"
@@ -419,32 +407,35 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Text
                 style={[
                   typography.labelSm,
-                  { color: colors.textMuted, textTransform: isRTL ? 'none' : 'uppercase' },
+                  { color: colors.textMuted, letterSpacing: 0 },
                 ]}
               >
-                {isRTL ? 'الجدول' : 'Routine'}
+                {t('home.schedule', 'الجدول')}
               </Text>
               <Icon name="schedule" size={16} color={colors.primarySoft} />
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                {isRTL ? `${toArabicNumerals(19)}:${toArabicNumerals('00')}` : '19:00'}
+                {nextRoutine ? nextRoutine.startTime : '08:00'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {isRTL ? 'هدوء المساء' : 'Evening Calm'}
+                {nextRoutine ? nextRoutine.name : t('home.nextRoutineDefault', 'هدوء المساء')}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
               <View
                 style={[
                   styles.statProgressFill,
-                  { width: '82%', backgroundColor: colors.primarySoft },
+                  {
+                    width: '82%',
+                    backgroundColor: colors.primarySoft,
+                  },
                 ]}
               />
             </View>
           </Card>
 
-          {/* Card 3: Diffusion Mode (Replaces Circadian per 08 §4) */}
+          {/* Card 3: Diffusion Mode */}
           <Card
             variant="compact"
             surface="lowest"
@@ -455,37 +446,40 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Text
                 style={[
                   typography.labelSm,
-                  { color: colors.textMuted, textTransform: isRTL ? 'none' : 'uppercase' },
+                  { color: colors.textMuted, letterSpacing: 0 },
                 ]}
               >
-                {isRTL ? 'النمط' : 'Mode'}
+                {t('home.mode', 'النمط')}
               </Text>
               <Icon name="airwave" size={16} color={colors.primary} />
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                {isRTL ? 'نبض' : 'Interval'}
+                {activeDevice.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {isRTL ? `${toArabicNumerals(30)}ث / ${toArabicNumerals(60)}ث` : '30s on · 60s off'}
+                {t('home.intervalTiming', '30ث / 60ث')}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
               <View
                 style={[
                   styles.statProgressFill,
-                  { width: '50%', backgroundColor: colors.primarySoft },
+                  {
+                    width: '50%',
+                    backgroundColor: colors.primarySoft,
+                  },
                 ]}
               />
             </View>
           </Card>
         </View>
 
-        {/* 5. Connected Sanctuaries Carousel */}
+        {/* 5. Connected Diffusers Carousel (Dynamic from store, no chamber/sanctuary wording) */}
         <View style={styles.sanctuariesSection}>
           <View style={styles.sanctuariesHeader}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '500' }]}>
-              {isRTL ? 'الأجهزة المتصلة' : 'Connected Sanctuaries'}
+            <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+              {t('home.connectedDiffusers')}
             </Text>
             <TouchableOpacity
               activeOpacity={0.7}
@@ -495,7 +489,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               accessibilityRole="button"
             >
               <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
-                {isRTL ? 'إدارة (3)' : 'Manage (3)'}
+                {t('home.manageCount', { count: devices.length })}
               </Text>
             </TouchableOpacity>
           </View>
@@ -505,144 +499,73 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.sanctuariesCarousel}
           >
-            {/* Device 1: Living Room */}
-            <TouchableOpacity
-              activeOpacity={0.88}
-              onPress={() => navigation.navigate('DeviceControl')}
-              style={[styles.sanctuaryCardTouch]}
-              testID="home-device-card"
-              accessibilityLabel="Device Card Living Room"
-              accessibilityRole="button"
-            >
-              <Card surface="lowest" style={styles.sanctuaryCard}>
-                <View style={styles.sanctuaryTop}>
-                  <View style={[styles.deviceThumbCircle, { backgroundColor: colors.bgAlt }]}>
-                    <Image
-                      source={require('../../assets/photos/diffuser-a316-sage.png')}
-                      style={styles.deviceThumbImage}
-                      resizeMode="contain"
-                    />
+            {devices.map((device, idx) => (
+              <TouchableOpacity
+                key={device.id}
+                activeOpacity={0.88}
+                onPress={() => {
+                  setSelectedDeviceId(device.id);
+                  navigation.navigate('DeviceControl');
+                }}
+                style={styles.sanctuaryCardTouch}
+                testID={idx === 0 ? 'home-device-card' : `home-device-card-${device.id}`}
+                accessibilityLabel={`Device Card ${device.name}`}
+                accessibilityRole="button"
+              >
+                <Card surface="lowest" style={styles.sanctuaryCard}>
+                  <View style={styles.sanctuaryTop}>
+                    <View style={[styles.deviceThumbCircle, { backgroundColor: colors.bgAlt }]}>
+                      <Image
+                        source={DIFFUSER_IMAGES[device.colorway] || DIFFUSER_IMAGES.sage}
+                        style={styles.deviceThumbImage}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <View style={{ flex: 1, marginStart: 12 }}>
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          typography.headlineSm,
+                          {
+                            color: colors.text,
+                            fontSize: 16,
+                            fontWeight: '600',
+                          },
+                        ]}
+                      >
+                        {device.name}
+                      </Text>
+                      <View style={styles.sanctuaryStatusLine}>
+                        <View
+                          style={[
+                            styles.statusDotSmall,
+                            { backgroundColor: device.power ? colors.primary : colors.textSubtle },
+                          ]}
+                        />
+                        <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4 }]}>
+                          {device.power ? t('common.active') : t('common.idle')}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                  <View style={{ flex: 1, marginStart: 12 }}>
-                    <Text
-                      numberOfLines={1}
-                      style={[typography.headlineSm, { color: colors.text, fontSize: 16, fontWeight: '500' }]}
-                    >
-                      {isRTL ? 'غرفة المعيشة' : 'Living Room'}
+
+                  <View style={styles.sanctuaryFooter}>
+                    <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
+                      {device.oilName}
                     </Text>
-                    <View style={styles.sanctuaryStatusLine}>
-                      <View style={[styles.statusDotSmall, { backgroundColor: colors.primary }]} />
-                      <Text style={[typography.labelSm, { color: colors.textMuted, marginStart: 4 }]}>
-                        {isRTL ? 'نشط · أخضر حكيم' : 'Active · Sage Green'}
+                    <View style={[styles.colorBadge, { backgroundColor: colors.surfaceMuted }]}>
+                      <Text style={[typography.labelSm, { color: colors.text, fontSize: 11, fontWeight: '600' }]}>
+                        {device.roomName}
                       </Text>
                     </View>
                   </View>
-                </View>
-
-                <View style={styles.sanctuaryFooter}>
-                  <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
-                    {isRTL ? 'مريمية الغابة' : 'Forest Sage'}
-                  </Text>
-                  <View style={[styles.chamberPill, { backgroundColor: colors.accent }]}>
-                    <Text style={[typography.labelSm, { color: colors.text, fontSize: 10, fontWeight: '600' }]}>
-                      {isRTL ? 'حجرة 1' : 'Chamber 1'}
-                    </Text>
-                  </View>
-                </View>
-              </Card>
-            </TouchableOpacity>
-
-            {/* Device 2: Master Bedroom */}
-            <TouchableOpacity
-              activeOpacity={0.88}
-              onPress={() => navigation.navigate('DeviceControl')}
-              style={styles.sanctuaryCardTouch}
-            >
-              <Card surface="lowest" style={styles.sanctuaryCard}>
-                <View style={styles.sanctuaryTop}>
-                  <View style={[styles.deviceThumbCircle, { backgroundColor: colors.bgAlt }]}>
-                    <Image
-                      source={require('../../assets/photos/diffuser-a316-white.png')}
-                      style={styles.deviceThumbImage}
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <View style={{ flex: 1, marginStart: 12 }}>
-                    <Text
-                      numberOfLines={1}
-                      style={[typography.headlineSm, { color: colors.text, fontSize: 16, fontWeight: '500' }]}
-                    >
-                      {isRTL ? 'غرفة النوم الرئيسية' : 'Master Bedroom'}
-                    </Text>
-                    <View style={styles.sanctuaryStatusLine}>
-                      <View style={[styles.statusDotSmall, { backgroundColor: colors.textSubtle }]} />
-                      <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 4 }]}>
-                        {isRTL ? 'متوقف مؤقتاً · أبيض' : 'Paused · Matte White'}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View style={styles.sanctuaryFooter}>
-                  <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
-                    {isRTL ? 'صندل وسوسن' : 'White Santal & Iris'}
-                  </Text>
-                  <View style={[styles.chamberPill, { backgroundColor: colors.surfaceMuted }]}>
-                    <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 10 }]}>
-                      {isRTL ? 'استراحة' : 'Resting'}
-                    </Text>
-                  </View>
-                </View>
-              </Card>
-            </TouchableOpacity>
-
-            {/* Device 3: Studio Suite */}
-            <TouchableOpacity
-              activeOpacity={0.88}
-              onPress={() => navigation.navigate('DeviceControl')}
-              style={styles.sanctuaryCardTouch}
-            >
-              <Card surface="lowest" style={styles.sanctuaryCard}>
-                <View style={styles.sanctuaryTop}>
-                  <View style={[styles.deviceThumbCircle, { backgroundColor: colors.bgAlt }]}>
-                    <Image
-                      source={require('../../assets/photos/diffuser-a316-black.png')}
-                      style={styles.deviceThumbImage}
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <View style={{ flex: 1, marginStart: 12 }}>
-                    <Text
-                      numberOfLines={1}
-                      style={[typography.headlineSm, { color: colors.text, fontSize: 16, fontWeight: '500' }]}
-                    >
-                      {isRTL ? 'جناح الاستوديو' : 'Studio Suite'}
-                    </Text>
-                    <View style={styles.sanctuaryStatusLine}>
-                      <View style={[styles.statusDotSmall, { backgroundColor: colors.textSubtle }]} />
-                      <Text style={[typography.labelSm, { color: colors.textSubtle, marginStart: 4 }]}>
-                        {isRTL ? 'استعداد · أسود' : 'Standby · Charcoal'}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View style={styles.sanctuaryFooter}>
-                  <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
-                    {isRTL ? 'سرو مدخن' : 'Smoky Cypress'}
-                  </Text>
-                  <View style={[styles.chamberPill, { backgroundColor: colors.surfaceMuted }]}>
-                    <Text style={[typography.labelSm, { color: colors.textSubtle, fontSize: 10 }]}>
-                      {isRTL ? 'مزامنة نوم' : 'Sleep Sync'}
-                    </Text>
-                  </View>
-                </View>
-              </Card>
-            </TouchableOpacity>
+                </Card>
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         </View>
 
-        {/* 6. Autumn Curated Store Teaser Card */}
+        {/* 6. Curated Collection Store Teaser Card */}
         <View style={styles.storeTeaserSection}>
           <TouchableOpacity
             activeOpacity={0.92}
@@ -653,7 +576,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               style={[
                 styles.storeTeaserCard,
                 {
-                  flexDirection: isRTL ? 'row-reverse' : 'row',
                   shadowColor: '#232821',
                   shadowOpacity: 0.03,
                 },
@@ -663,9 +585,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 style={[
                   styles.storeTeaserTextContent,
                   {
-                    paddingEnd: isRTL ? 0 : 16,
-                    paddingStart: isRTL ? 16 : 0,
-                    alignItems: isRTL ? 'flex-end' : 'flex-start',
+                    paddingEnd: 16,
                   },
                 ]}
               >
@@ -674,7 +594,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     styles.curatedPill,
                     {
                       backgroundColor: colors.accent,
-                      alignSelf: isRTL ? 'flex-end' : 'flex-start',
+                      alignSelf: 'flex-start',
                     },
                   ]}
                 >
@@ -685,12 +605,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         color: colors.text,
                         fontWeight: '700',
                         fontSize: 10,
-                        textTransform: isRTL ? 'none' : 'uppercase',
-                        letterSpacing: isRTL ? 0 : 0.8,
+                        letterSpacing: 0,
                       },
                     ]}
                   >
-                    {isRTL ? 'مختارات الخريف' : 'Autumn Curated'}
+                    {t('home.curatedCollection')}
                   </Text>
                 </View>
 
@@ -699,10 +618,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     typography.headlineSm,
                     {
                       color: colors.text,
-                      fontWeight: '500',
+                      fontWeight: '600',
                       fontSize: 18,
                       marginTop: 6,
-                      textAlign: isRTL ? 'right' : 'left',
                     },
                   ]}
                 >
@@ -716,26 +634,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {
                       color: colors.textMuted,
                       marginTop: 4,
-                      textAlign: isRTL ? 'right' : 'left',
                     },
                   ]}
                 >
-                  {isRTL
-                    ? 'زيوت نباتية مقطرة بالبخار ومصممة للحضور الذهني والصفاء العميق.'
-                    : 'Artisanal steam-distilled botanicals formulated for mindful presence and deep clarity.'}
+                  {t('home.curatedDesc')}
                 </Text>
 
-                <View
-                  style={[
-                    styles.exploreLinkRow,
-                    { flexDirection: isRTL ? 'row-reverse' : 'row' },
-                  ]}
-                >
+                <View style={styles.exploreLinkRow}>
                   <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
-                    {isRTL ? 'استكشف العطور' : 'Explore Fragrances'}
+                    {t('home.discoverNow')}
                   </Text>
                   <Icon
-                    name={isRTL ? 'arrow_backward' : 'arrow_forward'}
+                    name="arrow_forward"
                     size={16}
                     color={colors.primary}
                     style={{ marginHorizontal: 4 }}
@@ -743,7 +653,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 </View>
               </View>
 
-              {/* Real Bottle Image Placement */}
+              {/* Real Bottle Image */}
               <View style={styles.teaserImageContainer}>
                 <Image
                   source={require('../../assets/photos/oil-cotton-linen.png')}
@@ -772,24 +682,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pulseDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
   welcomeSection: {
     marginBottom: 16,
   },
   ambienceBadgeRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 8,
   },
   ambienceBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 999,
   },
@@ -797,7 +706,7 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    marginEnd: 8,
+    marginEnd: 6,
   },
   greetingHeader: {
     marginTop: 4,
@@ -806,44 +715,40 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heroCard: {
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  deviceHalo: {
-    position: 'absolute',
-    top: 36,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    alignSelf: 'center',
+    padding: 16,
+    borderRadius: 24,
   },
   cardHeaderRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     zIndex: 10,
+    marginBottom: 8,
+  },
+  cardHeaderTextCol: {
+    flex: 1,
   },
   eyebrowRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    marginBottom: 2,
   },
   eyebrowDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    marginHorizontal: 6,
   },
   statusRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
     marginTop: 4,
   },
   statusDotLive: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginEnd: 8,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    marginEnd: 6,
   },
   powerBtn: {
     width: 48,
@@ -851,22 +756,29 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 0,
   },
   centerpieceContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 16,
+    marginVertical: 12,
     position: 'relative',
+  },
+  deviceHalo: {
+    position: 'absolute',
+    width: 220,
+    height: 220,
+    borderRadius: 110,
   },
   vaporContainer: {
     position: 'absolute',
-    top: 0,
+    top: -24,
     zIndex: 15,
   },
   deviceImageContainer: {
-    width: '100%',
-    height: 230,
-    borderRadius: 20,
+    width: 192,
+    height: 192,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
@@ -874,6 +786,7 @@ const styles = StyleSheet.create({
   deviceHeroImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 16,
   },
   capsuleTag: {
     flexDirection: 'row',
@@ -923,11 +836,11 @@ const styles = StyleSheet.create({
   },
   statTopRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   statValueBlock: {
-    marginVertical: 6,
+    marginVertical: 4,
   },
   statProgressTrack: {
     width: '100%',
@@ -944,93 +857,85 @@ const styles = StyleSheet.create({
   },
   sanctuariesHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 12,
   },
   sanctuariesCarousel: {
-    gap: 16,
+    paddingEnd: 8,
   },
   sanctuaryCardTouch: {
-    width: 256,
+    width: 220,
+    marginEnd: 12,
   },
   sanctuaryCard: {
-    padding: 16,
-    height: 130,
-    justifyContent: 'space-between',
+    padding: 14,
+    borderRadius: 20,
   },
   sanctuaryTop: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 12,
   },
   deviceThumbCircle: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
   },
   deviceThumbImage: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
   },
   sanctuaryStatusLine: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
     marginTop: 2,
   },
   sanctuaryFooter: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(35,40,33,0.06)',
+    alignItems: 'center',
     paddingTop: 8,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(0,0,0,0.06)',
   },
-  chamberPill: {
+  colorBadge: {
     paddingHorizontal: 8,
     paddingVertical: 2,
-    borderRadius: 999,
+    borderRadius: 8,
   },
   storeTeaserSection: {
     marginBottom: 16,
   },
   storeTeaserCard: {
-    padding: 20,
-    flexDirection: 'row',
+    padding: 16,
+    borderRadius: 24,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    overflow: 'hidden',
   },
   storeTeaserTextContent: {
     flex: 1,
-    paddingEnd: 12,
-    zIndex: 10,
   },
   curatedPill: {
     paddingHorizontal: 10,
-    paddingVertical: 2,
+    paddingVertical: 3,
     borderRadius: 999,
-    alignSelf: 'flex-start',
   },
   exploreLinkRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 12,
+    marginTop: 10,
   },
   teaserImageContainer: {
-    width: 88,
-    height: 112,
+    width: 90,
+    height: 110,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
   },
   teaserBottleImage: {
     width: '100%',
     height: '100%',
   },
 });
-
-export default HomeScreen;

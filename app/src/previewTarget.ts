@@ -1,5 +1,3 @@
-declare const __DEV__: boolean;
-
 export interface PreviewConfig {
   screen:
     | 'Home'
@@ -9,18 +7,17 @@ export interface PreviewConfig {
     | 'Schedule'
     | 'DeviceSettings'
     | 'ConnectionStates'
-    | 'Store'
-    | 'Category'
-    | 'Search'
-    | 'ProductDetail'
-    | 'Cart'
-    | 'Checkout'
-    | 'OrderConfirmation'
     | null;
   lang: 'ar' | 'en' | null;
+  scrollToEnd?: boolean;
+  sheet?: boolean;
+  timestamp?: number;
 }
 
 export const previewConfig: PreviewConfig = {
-  screen: null,
+  screen: 'Home',
   lang: 'ar',
+  scrollToEnd: false,
+  sheet: false,
+  timestamp: 1790306324447,
 };

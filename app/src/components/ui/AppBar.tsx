@@ -30,6 +30,7 @@ interface AppBarProps {
   leading?: React.ReactNode;
   children?: React.ReactNode;
   transparent?: boolean;
+  centerTitle?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -41,6 +42,7 @@ export const AppBar: React.FC<AppBarProps> = ({
   leading,
   children,
   transparent = false,
+  centerTitle = false,
   style,
 }) => {
   const insets = useSafeAreaInsets();
@@ -67,8 +69,13 @@ export const AppBar: React.FC<AppBarProps> = ({
       ]}
     >
       <View style={styles.bar}>
-        {/* Leading / Back Button */}
-        <View style={styles.leading}>
+        {/* Start Group: Back / Leading + Title */}
+        <View
+          style={[
+            styles.startGroup,
+            centerTitle && styles.startGroupCentered,
+          ]}
+        >
           {showBack ? (
             <TouchableOpacity
               activeOpacity={0.7}
@@ -79,18 +86,16 @@ export const AppBar: React.FC<AppBarProps> = ({
               testID="appbar-back-button"
             >
               <Icon
-                name="arrow_back_ios_new"
-                size={20}
+                name="chevron_left"
+                size={24}
                 color={colors.text}
+                autoMirror={true}
               />
             </TouchableOpacity>
           ) : (
             leading
           )}
-        </View>
 
-        {/* Title */}
-        <View style={styles.titleContainer}>
           {children ? (
             children
           ) : title ? (
@@ -102,8 +107,8 @@ export const AppBar: React.FC<AppBarProps> = ({
                   color: colors.text,
                   fontSize: 18,
                   lineHeight: 26,
-                  fontWeight: '500',
-                  textAlign: 'center',
+                  fontWeight: '600',
+                  marginStart: showBack || leading ? 8 : 0,
                 },
               ]}
             >
@@ -180,17 +185,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  leading: {
-    minWidth: 44,
+  startGroup: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  titleContainer: {
-    flex: 1,
-    alignItems: 'center',
+  startGroupCentered: {
     justifyContent: 'center',
-    paddingHorizontal: 8,
   },
   trailing: {
     minWidth: 44,

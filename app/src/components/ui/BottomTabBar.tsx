@@ -40,7 +40,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
   tabs = DEFAULT_TABS,
   style,
 }) => {
-  const { colors, typography, isRTL } = useTheme();
+  const { colors, typography, isRTL, isDark } = useTheme();
   const insets = useSafeAreaInsets();
 
   const bottomInset = Math.max(insets.bottom, 0);
@@ -50,7 +50,9 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
       style={[
         styles.container,
         {
-          backgroundColor: colors.bgAlt, // #F7F3EF
+          backgroundColor: isDark ? 'rgba(28, 25, 23, 0.94)' : 'rgba(253, 249, 245, 0.94)',
+          borderTopWidth: StyleSheet.hairlineWidth,
+          borderTopColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(35, 40, 33, 0.08)',
           height: 64 + bottomInset,
           paddingBottom: bottomInset,
         },
