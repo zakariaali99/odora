@@ -1,233 +1,173 @@
-# Message to Antigravity (Odora) — Batch A: close-out (commit 7b7677b → next)
+# Message to Antigravity (Odora) — Batch A: last pass (F1–F10)
 
-I tested `7b7677b` on the **native iPhone 17 Pro simulator** in Arabic and tapped through every flow. Full review: `reviews/review-2026-09-24-batch-a-native.md` → section "Re-review of commit 7b7677b".
+I tested `dc34369` on the **native iPhone 17 Pro** (Arabic), tapped every flow, and read your English proofs in `reviews/qa-app-2026-09-25/`. Review: `reviews/review-2026-09-24-batch-a-native.md` → "Re-review of commits 7a8f4af + dc34369".
 
-**Verified fixed — do not touch these:** native RTL on rows and app bar (0 `row-reverse`), Home hero photo filling the 192 square, the time picker (hour ± and :00/:15/:30/:45), estimate wording on the low-oil alert, "أخضر ميرمية", `SHARED_ROOMS`, Schedule filtered by `deviceId`, Sun–Thu routines, per-routine icons, pairing "لم يتم تحميل زيت".
+**Verified — don't touch:** the tab bar on all 4 tab roots; Forget device → Devices tab (with the bar); greeting from the right; curated card composition in Arabic; carousel names; Connection States uses the real device; the 3-step checklist; "سجل العطور" / "أجواء الجهاز"; 0 inline strings; 0 `textAlign: isRTL`; tab-bar tokens. Good work — this is close.
 
-Do the items **in this order**. Each item has: the file and line, what is there now, what to change it to, and how I will check it. Do not change anything that is not listed.
+Your report says "no overlap", but your own English proofs (`home_en_end_native.png`, `device_control_en_end_native.png`) show a **red error toast** and **text running under an image**. Look at every proof before you write ✅.
 
----
-
-## 1. CRITICAL — The tab bar is gone from the whole app
-
-**Why:** `app/src/navigation/RootNavigator.tsx` line 48–49:
-```ts
-const initialRoute: keyof RootStackParamList =
-  (previewConfig.screen as keyof RootStackParamList) || 'Home';
-```
-With `screen: null` the app starts on the bare stack screen `Home` (line 64), which has no tab bar. In `9c29830` the fallback was `'MainTabs'`. On top of that, `app/src/previewTarget.ts` was committed with `screen: 'Home'`.
-
-**Do exactly this:**
-
-1a. `app/src/previewTarget.ts` — commit it with:
-```ts
-export const previewConfig: PreviewConfig = {
-  screen: null,
-  lang: null,
-  scrollToEnd: false,
-  sheet: false,
-};
-```
-Also: `lang: null`. Right now `lang: 'ar'` forces Arabic in every dev build and overrides the user's language choice. Remove the `timestamp` field from the type and from `RootNavigator` line 51 (the navigator key).
-
-1b. `RootNavigator.tsx` — replace lines 48–49 with:
-```ts
-const TAB_ROUTES = ['Home', 'Devices', 'Store', 'Account'] as const;
-type TabRoute = (typeof TAB_ROUTES)[number];
-
-const previewScreen = __DEV__ ? previewConfig.screen : null;
-const isTabPreview = !!previewScreen && (TAB_ROUTES as readonly string[]).includes(previewScreen);
-
-const initialRoute: keyof RootStackParamList =
-  !previewScreen || isTabPreview ? 'MainTabs' : (previewScreen as keyof RootStackParamList);
-```
-and give MainTabs the preview tab:
-```tsx
-<Stack.Screen
-  name="MainTabs"
-  component={MainTabsNavigator}
-  initialParams={isTabPreview ? { screen: previewScreen as TabRoute } : undefined}
-/>
-```
-Also wrap the whole language block at lines 33–46 in `if (__DEV__ && previewConfig.lang)` (already there) — with `lang: null` it will not run.
-
-1c. **Delete the duplicate stack screens.** Remove these lines from `RootNavigator.tsx`:
-```tsx
-<Stack.Screen name="Home" component={HomeScreen} />
-<Stack.Screen name="Devices" component={DevicesScreen} />
-<Stack.Screen name="Store" component={StoreScreen} />
-```
-and their imports, plus `Home`, `Devices` and `Store` from `RootStackParamList` in `app/src/navigation/types.ts` (lines 13–15). Tabs must be the only way to reach them.
-
-1d. **Fix every navigation from a pushed screen to a tab.** In React Navigation 7 you must name the nested navigator. Change each of these exactly:
-
-| File:line | Now | Change to |
-|---|---|---|
-| `OrderConfirmationScreen.tsx:46` and `:424` | `navigation.navigate('Home')` | `navigation.navigate('MainTabs', { screen: 'Home' })` |
-| `DeviceSettingsScreen.tsx:153` | `activeNav.navigate('Devices')` | `activeNav.navigate('MainTabs', { screen: 'Devices' })` |
-| `DeviceControlScreen.tsx:155` | `activeNav.navigate('Account')` | `activeNav.navigate('MainTabs', { screen: 'Account' })` |
-| `DeviceControlScreen.tsx:444` | `navigation.navigate('Store')` | `navigation.navigate('MainTabs', { screen: 'Store' })` |
-| `SearchScreen.tsx:83` | `navigation.navigate('Account')` | `navigation.navigate('MainTabs', { screen: 'Account' })` |
-| `CategoryScreen.tsx:151` | `navigation.navigate('Account')` | `navigation.navigate('MainTabs', { screen: 'Account' })` |
-| `CategoryScreen.tsx:439` | `navigation.navigate('Store')` | `navigation.navigate('MainTabs', { screen: 'Store' })` |
-
-Leave the calls inside the tab screens themselves (`HomeScreen.tsx` 131/136/486/572, `DevicesScreen.tsx:91`, `StoreScreen.tsx:84`) — they are siblings inside the tab navigator and work as they are.
-
-1e. `App.tsx:118` — the `NavigationContainer` `key` uses `previewConfig.screen || 'Home'`. Remove that `key` prop entirely. It remounts the whole app and is not needed.
-
-1f. Run `npx tsc --noEmit`. Any leftover `navigate('Home' | 'Devices' | 'Store')` from a stack screen will now show as a type error — fix each one with the `MainTabs` form above.
-
-**Check (I will do this):** cold-launch the app → Home **with the 4-tab bar** at the bottom (الرئيسية at the right in Arabic). Tap each of the 4 tabs → the bar stays. From Device Settings → Forget device → I land on the Devices **tab**, with the bar. From Device Control → avatar → Account tab, with the bar.
+Do the items in order. Change only what is listed.
 
 ---
 
-## 2. CRITICAL — Home curated card: the image dropped under the text
+## F1. Red error in dev: "Cannot update a component (`LanguageConfirmSheet`) while rendering a different component"
 
-**Why:** `HomeScreen.tsx` style `storeTeaserCard` (around line 930) has no `flexDirection`, so `Card` stacks its children in a column.
+**Cause:** `app/src/navigation/RootNavigator.tsx` lines 30–43 call `i18n.changeLanguage(...)` and `useAppStore.setState(...)` **inside render**.
 
-**Target (Stitch `odora_home_dashboard`, the "Autumn Curated" card):** card `rounded 24`, `surfaceMuted`/`surface-container-low` background, padding 24, `overflow: hidden`, min height 176. Text column max **70%** width at the start. Image **128×144** pinned to the **end-bottom corner**, offset `bottom: -8`, `end: -4`, only its top-start corner rounded 16, `resizeMode: 'cover'`.
+**Do:**
+1. **Delete** lines 30–43 from `RootNavigator.tsx` (the whole `if (__DEV__ && previewConfig.lang) { … }` block). Remove the `Platform`, `i18n` and `useAppStore` imports if they become unused.
+2. In `app/App.tsx`, inside `initApp()`, replace:
+   ```ts
+   const activeLang: 'ar' | 'en' =
+     storedLang === 'en' || storedLang === 'ar' ? storedLang : 'ar';
+   ```
+   with:
+   ```ts
+   const previewLang = __DEV__ ? previewConfig.lang : null;
+   const activeLang: 'ar' | 'en' =
+     previewLang ?? (storedLang === 'en' || storedLang === 'ar' ? storedLang : 'ar');
+   ```
+   (`previewConfig` is already imported in `App.tsx`.)
+3. In the same function, in the native branch: after `I18nManager.forceRTL(isRtl)`, if `I18nManager.isRTL !== isRtl`, call `await Updates.reloadAsync()`. The direction only applies after a reload — use the same `expo-updates` import that the language switch already uses.
 
-**Do exactly this:**
+**Check:** set `previewConfig.lang = 'en'` → cold launch → English, LTR, **no red toast**. Set `'ar'` → Arabic, RTL, no toast. Commit with `lang: null`.
+
+---
+
+## F2. English Home curated card: the text runs under the bottle
+
+**Cause:** the image is `position: 'absolute'` (128 wide, `end: -4`), but the text column is `maxWidth: '70%'`. That is wider than the free space on a 390pt screen.
+
+**Maths:** card inner width = 350 − 2×24 = 302. The image covers the last 124pt of the card, so the free text width is 302 − 124 + 24 − 12 (gap) = **190pt**.
+
+**Do:** `HomeScreen.tsx` style `storeTeaserTextContent` (line ~940):
 ```ts
-storeTeaserCard: {
-  padding: 24,
-  borderRadius: 24,
-  overflow: 'hidden',
-  minHeight: 176,
-},
 storeTeaserTextContent: {
-  maxWidth: '70%',
+  width: '100%',
+  paddingEnd: 112,
   zIndex: 1,
 },
-teaserImageContainer: {
-  position: 'absolute',
-  bottom: -8,
-  end: -4,
-  width: 128,
-  height: 144,
-  borderTopStartRadius: 16,
-  overflow: 'hidden',
-},
-teaserBottleImage: { width: '100%', height: '100%' },
 ```
-- Change `resizeMode="contain"` to `resizeMode="cover"` on the teaser `Image`.
-- Remove `paddingEnd: 16` from the inline style on `storeTeaserTextContent` (around line 585).
-- Use `end`, never `right`, so it mirrors in Arabic by itself.
-- The title `'هينوكي مدخن وشاي أبيض' / 'Smoky Hinoki & White Tea'` (around line 625) moves to i18n: `home.curatedTitle`.
+(Remove `maxWidth: '70%'`.) Keep `numberOfLines={2}` on the description, and add `numberOfLines={2}` on the title.
 
-**Check:** Arabic — text at the right, bottle photo at the bottom-left corner, cropped by the card edge. English — the mirror of that. Nothing overlaps the text.
+**Check:** English and Arabic — no letter of the pill, title, description or link touches the bottle photo. There must be at least 12pt of space.
 
 ---
 
-## 3. Arabic text that starts from the left
+## F3. English carousel card footer: oil name touches the room chip, chip cut ("LIVING ROO")
 
-**Symptoms:** Home "مساء الخير" and the line under it (`HomeScreen.tsx:184–191`) are left-aligned. The routine-name field placeholder in the New-routine sheet (`ScheduleScreen.tsx:433–445`) is left-aligned.
+**File:** `HomeScreen.tsx` lines 574–583 and styles `sanctuaryFooter` / `colorBadge` (~918–930).
 
-**Cause and rule:** React Native swaps `left`/`right` in RTL (`I18nManager.doLeftAndRightSwapInRTL` is `true` by default). So `textAlign: 'left'` already means **start**, and `isRTL ? 'right' : 'left'` flips back to the wrong side — the same double-flip we had with `row-reverse`.
+**Do:**
+- The oil-name `Text`: add `numberOfLines={1}` and style `{ flex: 1, marginEnd: 8 }`.
+- The `colorBadge` `View`: add `flexShrink: 0`.
+- The room text inside the chip: `numberOfLines={1}`, no uppercase and letterSpacing 0 (use the `labelSm` token as-is, without `textTransform`).
 
-**Do exactly this:**
-- 3a. Replace **all 11** `textAlign: isRTL ? 'right' : 'left'` in the app with `textAlign: 'left'`. Find them with:
-  ```
-  grep -rn "textAlign: isRTL" app/src
-  ```
-  They include `SearchScreen.tsx:98`, `StoreScreen.tsx:128`, `components/ui/Banner.tsx:83` and `components/ui/ListRow.tsx:69, 82`.
-- 3b. Home greeting: add `textAlign: 'left'` to both `Text`s at lines 185 and 188.
-- 3c. `TextInput` does **not** auto-align. On the routine-name input (`ScheduleScreen.tsx:433`), and on every `TextInput` in `components/ui/Input.tsx`, add:
-  ```ts
-  textAlign: I18nManager.isRTL ? 'right' : 'left',
-  writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-  ```
-  (Here the explicit `I18nManager.isRTL` is correct, because TextInput is not swapped.)
-
-**Check:** Arabic — the greeting starts at the right edge, aligned with the "التالي: 08:00" row. The routine-name placeholder "مثال: وضوح الصباح" starts at the right. English — both at the left.
+**Check:** English — "Forest Sage & Ce…" truncates with an ellipsis, the chip shows "Living Room" in full, there is a gap between them, and nothing is cut at the card edge.
 
 ---
 
-## 4. Connection States: remove the invented device and sensor wording
+## F4. Arabic "اكتشف التشكيلة" arrow points the wrong way
 
-**File:** `app/src/screens/ConnectionStatesScreen.tsx`
+**Cause:** `HomeScreen.tsx:665` has `name={isRTL ? "arrow_back" : "arrow_forward"}`. Material Symbols **already mirrors** directional icons in RTL — at `7b7677b` the plain `arrow_forward` rendered ← in Arabic. Your ternary flips it back to →. It is the same double-flip as `row-reverse`.
 
-| Line | Now | Change to |
+**Do:** line 665 → `name="arrow_forward"`. Then grep the app for `isRTL ? "arrow_` / `isRTL ? 'arrow_` / `isRTL ? 'chevron_` and make every one a single LTR name:
+```
+grep -rn "isRTL ? ['\"]\(arrow\|chevron\)" app/src
+```
+**Rule:** icon names are always the LTR name; the font mirrors them.
+
+**Check:** Arabic — the link arrow points ←. English — →. The app-bar back chevron stays correct (it already uses `chevron_left`).
+
+---
+
+## F5. Remove the acoustic / "quiet" claims (06 §1.4)
+
+| File | Line | Key | Action |
+|---|---|---|---|
+| `i18n/ar.ts` | 102 | `quietDiffuser` "موزع رذاذ بارد هادئ" | delete |
+| `i18n/ar.ts` | 103, 387 | `quietMark` "معتمد بهدوء فائق أقل من 22 ديسيبل" | delete both |
+| `i18n/en.ts` | 101 | `quietDiffuser` "Cold-Air Acoustic Atomizer" | delete |
+| `i18n/en.ts` | 102 (and any duplicate) | `quietMark` "Sub-22dB Quiet Mark Certified" | delete |
+
+In `ConnectionStatesScreen.tsx` (~598–611, the device card):
+- Subtitle → `` `Odora A316 · ${getLocalizedRoomName(activeDevice.roomName, isRTL)}` ``
+- Badge row → new key `connection.lastSettings`: "آخر إعداد محفوظ: المستوى {{level}} · {{mode}}" / "Last saved: Level {{level}} · {{mode}}". `level = activeDevice.intensity`; `mode` = `t('deviceControl.continuous')` or `t('deviceControl.interval')`.
+
+**Check:** `grep -rn "22\|dB\|ديسيبل\|Acoustic\|Quiet" app/src/i18n app/src/screens/ConnectionStatesScreen.tsx` returns nothing related to sound. The card shows name, "Odora A316 · room" and the last saved level and mode.
+
+---
+
+## F6. Connection States hero and background
+
+**File:** `ConnectionStatesScreen.tsx` lines ~302–321.
+1. Move the `botanicalBadge` `View` (lines ~317–319) **out of** `circularArtBackdrop`. Make it the last child of `deviceArtBox`, positioned `bottom: 8, end: 8` relative to the box, so the circle's `overflow: hidden` no longer cuts it.
+2. Delete the manual slash `<View style={[styles.btSlashLine, …]} />` (line ~315) and its style. The `bluetooth_disabled` icon already has a slash.
+3. Background: lines 85 and 135 `backgroundColor: colors.surface` → `colors.bg`. And in `RootNavigator.tsx:62`, `contentStyle: { backgroundColor: colors.surface }` → `colors.bg`, so no pushed screen shows a white body under the cream app bar.
+
+**Check:** the leaf badge is a full circle at the bottom-start of the hero, the Bluetooth icon has one slash, and the whole screen is cream (the same as the app bar).
+
+---
+
+## F7. "Circadian" wording (English)
+
+| `en.ts` line | Now | Change to |
 |---|---|---|
-| 47–59 | A fallback fake device ("موزع أودورا 01" / "Odora Air 01", "كانوبي الهينوكي" / "Hinoki Canopy", `oilSensor: true`, `burst: true`) | No fallback. If `devices` is empty, render `EmptyState`: title `connection.noDevicesTitle` = "لا توجد أجهزة مقترنة" / "No paired devices", button `connection.pairCta` = "إقران جهاز" / "Pair a device" → `navigation.navigate('DevicePairing')`. |
-| ~378 | `'أودورا إير 01 · طراز SA-200'` / `'Odora Air 01 • Model SA-200'` | `` `Odora A316 · ${activeDevice.roomName}` `` (the model name stays Latin in both languages) |
-| ~490 | "جارٍ إنشاء اتصال مشفر مع موزع أودورا وقراءة مستشعرات العبوة." / "Establishing encrypted handshake with Odora Air 01 and querying cartridge piezo sensors." | `connection.syncingBody` = "جارٍ الاتصال بـ {{name}} ومزامنة الإعدادات والجدول." / "Connecting to {{name}} and syncing settings and schedule." |
-| ~495–530 sync checklist | "الاتفاق على المفتاح الآمن / Secure Key Agreement", "مستوى الزيت الدقيق", … | Exactly 3 rows: ① "تم العثور على الجهاز" / "Device found" ② "تم الاتصال" / "Connected" ③ "مزامنة الإعدادات والجدول" / "Syncing settings & schedule". Add a 4th row "قراءة مستوى الزيت" / "Reading oil level" **only when `activeDevice.oilSensor === true`**. |
+| 178 | `circadianSchedule: 'Circadian Schedule'` | `'Daily schedule'` (rename the key to `dailySchedule` in both files and at every use) |
+| 306 | `'Automate cold-air diffusion across your daily circadian rhythms.'` | `'Automate your diffuser throughout the day.'` |
+| 354 | `'Your diffuser will continue its last active circadian cycle independently.'` | `'Your diffuser keeps running its saved schedule on its own.'` |
 
-Also search the file for "Atelier", "Air 01", "SA-200", "Hinoki", "piezo", "Resonance" and "Telemetry". After this item, none of them may remain.
+Arabic for 306: "أتمتة الموزع على مدار اليوم."
 
-**Check:** Device Control → tap the connection line → Connection States shows the **same** device name and room as the Device Control I came from. Pair a new device into "المكتب", open its Connection States → it shows that name and "Odora A316 · المكتب".
-
----
-
-## 5. Copy drift in Device Control (wrong keys reused)
-
-`DeviceControlScreen.tsx:460` uses `home.scentsCollection` (= "مجموعة العطور الفاخرة" / "Luxury Fragrance Collection"). This button is **scent history**. Line 470 uses `devicesScreen.ecosystem` (= "المنظومة").
-
-**Do exactly this:**
-- Add to `ar.ts` / `en.ts`, under a new `deviceControl` block:
-  ```ts
-  scentHistory: 'سجل العطور',   // en: 'Scent history'
-  ambienceTitle: 'أجواء الجهاز', // en: 'Device ambience'
-  ```
-- Line 460 → `t('deviceControl.scentHistory')`. Line 470 → `t('deviceControl.ambienceTitle')`.
-- Leave `devicesScreen.ecosystem` as it is — it is correct on the Devices screen.
-- Rule from now on: one key per meaning. Never reuse a key from another screen because the text happens to fit.
-
-**Check:** Device Control, scrolled down → the buttons read "طلب زيت جديد" and "سجل العطور", and the section title reads "أجواء الجهاز".
+**Check:** `grep -rni "circadian" app/src` → 0.
 
 ---
 
-## 6. i18n — move the remaining inline strings
+## F8. Arabic oil pill shows "%68" (bidi)
 
-85 inline `isRTL ? '…' : '…'` strings remain in Batch A:
-
-| File | Count |
-|---|---|
-| ConnectionStatesScreen | 30 |
-| ScheduleScreen | 14 |
-| DeviceSettingsScreen | 12 |
-| DevicePairingScreen | 11 |
-| DevicesScreen | 11 |
-| DeviceControlScreen | 5 |
-| HomeScreen | 2 |
-
-**Rule:** every user-visible string goes through `t('<screen>.<key>')`, with the Arabic in `ar.ts` and the English in `en.ts`. Key blocks: `home`, `devicesScreen`, `deviceControl`, `pairing`, `scheduleScreen`, `deviceSettings`, `connection`. `isRTL` may only remain for things that are **not** text and **not** layout direction (for example, choosing a directional icon). Count them with:
+**File:** `DevicesScreen.tsx:320`:
+```ts
+{`${t('home.oil')} ${device.oilLevel}% ${device.oilSensor ? '' : t('home.oilEstimated')}`}
 ```
-grep -c "isRTL ? '" app/src/screens/<File>.tsx
+**Do:** add an i18n key and wrap the number in an LTR isolate:
+```ts
+// ar.ts: oilPill: 'الزيت {{percent}}',   en.ts: oilPill: 'Oil {{percent}}'
+const pct = `\u2066${device.oilLevel}%\u2069`;
+t('devicesScreen.oilPill', { percent: pct }) + (device.oilSensor ? '' : ` ${t('home.oilEstimated')}`)
 ```
+Apply the same `\u2066…\u2069` wrapping to **every** percentage and "ml" value in Arabic strings: Home stat tile, Device Control oil card ("34 ml / 50 ml"), Settings.
 
-**Seed data:** `app/src/store/useAppStore.ts` lines 95, 113, 131 (device names) and 153, 166, 179 (routine names) are hard-coded Arabic, so English mode shows Arabic names. Store them as i18n keys (`seed.deviceLiving`, `seed.deviceReading`, `seed.deviceBedroom`, `seed.routineMorning`, `seed.routineAfternoon`, `seed.routineEvening`). Resolve them with `t()` at render time **only while the user hasn't renamed them**. A user-typed name is stored and shown as typed.
-
-**Check:** the grep count above = 0 for all 7 Batch A screens. Switch to English → no Arabic anywhere on the 7 screens, including device and routine names.
-
----
-
-## 7. Small fixes
-
-- 7a. **Home carousel peek card shows no name.** The second card (ركن القراءة) shows its image and "خامل" but no title. Cards are `width: 220` (`HomeScreen.tsx:868`). Find out why the name `Text` (line ~525, `numberOfLines={1}`, `flex: 1`) renders empty on the second card in RTL. Likely: the horizontal `ScrollView` in RTL is laying the second card out from the wrong side. Fix it, then confirm the title shows on **every** card, including the partly visible one.
-- 7b. **Missing space** before the signal value: `DeviceControlScreen.tsx:298` renders "إشارة قوية(-58 dBm)". Put a normal space before `{'‪'}` so it reads "إشارة قوية (-58 dBm)".
-- 7c. **Tab bar colours** (`components/ui/BottomTabBar.tsx:53, 55`) are hard-coded rgba, and the dark value `rgba(28,25,23)` isn't even our dark `bg` (`#111512`). Change to:
-  ```ts
-  backgroundColor: withAlpha(colors.bg, 0.94),
-  borderTopColor: colors.border,
-  ```
-  Add a small `withAlpha(hex, a)` helper in `app/src/theme/colors.ts` if one doesn't exist.
-
-**Check:** 7a — scroll the Home devices carousel; every card shows name + status + oil + room. 7b — visually. 7c — `grep -n "rgba" app/src/components/ui/BottomTabBar.tsx` returns nothing, and the bar looks the same in light, with the correct dark colour in dark.
+**Check:** Arabic — "الزيت 68% (تقديري)" with the % after the number, on all three device cards.
 
 ---
 
-## 8. Report, proof, commit
+## F9. Forget-device sheet title renders in a fallback font
 
-1. Write `reviews/report-2026-09-25-batch-a-closeout.md`, with a table of items 1a–7c, each ✅ or ❌, plus one line saying what you changed.
-2. Native simulator screenshots into `reviews/qa-app-2026-09-25/`, for Home, Devices, Device Control, Pairing, Schedule (plus the New-routine sheet), Device Settings and Connection States:
-   - Arabic and English;
-   - top and scrolled to the end;
-   - **the tab bar must be visible** on Home and Devices, and on the Store and Account tabs too;
-   - each next to its Stitch screen, same width.
-3. **Before you send the proofs, look at every Arabic screenshot yourself and confirm:** app bar mirrored (back chevron on the right), text starting at the right, nothing overlapping, the tab bar present on tab screens. If any screenshot fails, fix it first.
-4. `npx tsc --noEmit` = 0.
-5. Commit with the message `fix(batch-a): restore tab bar, curated card, RTL text alignment, i18n close-out`.
+**File:** `DeviceSettingsScreen.tsx`, style `sheetTitle` (line ~1041) sets `fontWeight: '700'` on top of the Arabic font family. iOS then substitutes a system font (spaced letters, different shape).
 
-Then **stop**. After this, Batch A goes to the owner for review. Do not start Batch C, and do not touch Batch B (Store screens) until I review it.
+**Do:** remove `fontWeight` from `sheetTitle` and use the family token instead: `fontFamily: isRTL ? fontFamilies.arabic.bold : fontFamilies.latin.displaySemiBold` (both exported from `theme/typography.ts`).
+
+**Rule:** never set `fontWeight` on text that uses a custom font family — pick the weight through the family token. Grep the 7 Batch A screens for `fontWeight:` on Arabic text and apply the same fix wherever the glyphs change.
+
+**Check:** the sheet title "إلغاء اقتران الجهاز؟" uses the same font as the rest of the app, with no spaced letters.
+
+---
+
+## F10. One Arabic word for "Interval"
+
+`ar.ts` uses two different words for the same mode: `home.interval: 'نبض'` (line 129) and `deviceControl.interval: 'فترات'` (lines 176 and 324). The Home stat tile says "نبض" while Device Control says "فترات".
+
+**Do:** use **"فترات"** everywhere — change line 129 to `'فترات'`. Also check `intervalTiming` (line 137, "30ث / 60ث") reads as "30ث تشغيل · 60ث إيقاف" / "30s on · 60s off", so the numbers make sense.
+
+**Check:** Home mode tile, Devices cards, Device Control segmented control and the Schedule chips all say "فترات" / "Interval".
+
+
+---
+
+## Report, proof, commit
+1. Add a section "F1–F10" to `reviews/report-2026-09-25-batch-a-closeout.md`: ✅/❌ per item, plus one line on what changed.
+2. Re-capture only the affected screens, native, **Arabic and English**: Home (top + end), Devices (top), Device Control (end), Connection States (top + end), and the Forget-device sheet (Arabic). **Open each PNG and check it:** no red toast, no text under images, no cut chips, arrows pointing the right way.
+3. `npx tsc --noEmit` = 0. Commit `previewTarget.ts` with `screen: null, lang: null`.
+4. Commit message: `fix(batch-a): dev render warning, EN overlaps, icon mirroring, remove acoustic claims`.
+
+Then stop. Batch A goes to the owner after this. Don't touch Batch B, and don't start Batch C.

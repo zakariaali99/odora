@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { Platform } from 'react-native';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { MainTabsNavigator } from './MainTabsNavigator';
@@ -19,28 +18,11 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 import { DevUiKitScreen } from '../screens/DevUiKitScreen';
 import { useTheme } from '../theme';
 import { previewConfig } from '../previewTarget';
-import i18n from '../i18n';
-import { useAppStore } from '../store/useAppStore';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator: React.FC = () => {
   const { colors } = useTheme();
-
-  if (__DEV__ && previewConfig.lang) {
-    const isRtl = previewConfig.lang === 'ar';
-    if (useAppStore.getState().language !== previewConfig.lang) {
-      i18n.changeLanguage(previewConfig.lang);
-      useAppStore.setState({
-        language: previewConfig.lang,
-        isRTL: isRtl,
-      });
-      if (Platform.OS === 'web' && typeof document !== 'undefined') {
-        document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
-        document.documentElement.setAttribute('lang', previewConfig.lang);
-      }
-    }
-  }
 
   const TAB_ROUTES = ['Home', 'Devices', 'Store', 'Account'] as const;
   type TabRoute = (typeof TAB_ROUTES)[number];
@@ -59,7 +41,7 @@ export const RootNavigator: React.FC = () => {
       initialRouteName={initialRoute}
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: colors.surface },
+        contentStyle: { backgroundColor: colors.bg },
         animation: 'slide_from_right',
       }}
     >

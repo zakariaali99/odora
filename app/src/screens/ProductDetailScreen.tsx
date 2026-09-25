@@ -74,7 +74,7 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ naviga
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} color={colors.text} />
+              <Icon name="arrow_back" size={20} color={colors.text} />
             </TouchableOpacity>
             <Text
               numberOfLines={1}
@@ -519,7 +519,7 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ naviga
                   <Text style={[typography.labelLg, { color: colors.onInk, fontWeight: '700' }]}>
                     ${basePrice * quantity}.00
                   </Text>
-                  <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={18} color={colors.onInk} style={{ marginStart: 4 }} />
+                  <Icon name="arrow_forward" size={18} color={colors.onInk} style={{ marginStart: 4 }} />
                 </View>
               </>
             )}

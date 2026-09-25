@@ -12,7 +12,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme';
-import { typography } from '../theme/typography';
+import { typography, fontFamilies } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
@@ -116,7 +116,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
   const [lowOilGuard, setLowOilGuard] = useState(true);
 
   // Forget Device Confirm Sheet
-  const [showForgetSheet, setShowForgetSheet] = useState(false);
+  const [showForgetSheet, setShowForgetSheet] = useState(!!previewConfig.sheet);
 
   // Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -596,7 +596,16 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
             <Icon name="warning" size={32} color={colors.error} />
           </View>
 
-          <Text style={[typography.headlineSm, styles.sheetTitle, { color: colors.text }]}>
+          <Text
+            style={[
+              typography.headlineSm,
+              styles.sheetTitle,
+              {
+                color: colors.text,
+                fontFamily: isRTL ? fontFamilies.arabic.bold : fontFamilies.latin.displaySemiBold,
+              },
+            ]}
+          >
             {t('deviceSettings.forgetConfirmTitle', 'إلغاء اقتران الجهاز؟')}
           </Text>
 
@@ -1040,7 +1049,6 @@ const styles = StyleSheet.create({
   },
   sheetTitle: {
     fontSize: 20,
-    fontWeight: '700',
     textAlign: 'center',
     marginBottom: 8,
   },

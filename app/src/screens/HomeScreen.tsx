@@ -343,7 +343,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 </Text>
                 <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
                   {isPowerOn
-                    ? `${intensityLevel * 10}% · ${t('device.level', { level: intensityLevel })}`
+                    ? `\u2066${intensityLevel * 10}%\u2069 · ${t('device.level', { level: intensityLevel })}`
                     : t('common.off')}
                 </Text>
               </View>
@@ -397,7 +397,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             </View>
             <View style={styles.statValueBlock}>
               <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
-                {activeDevice.oilLevel}%
+                {`\u2066${activeDevice.oilLevel}%\u2069`}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
                 {t('home.daysLeft', { count: activeDevice.oilRemainingDays })}
@@ -572,11 +572,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   </View>
 
                   <View style={styles.sanctuaryFooter}>
-                    <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
+                    <Text
+                      numberOfLines={1}
+                      style={[typography.bodySm, { color: colors.textSubtle, flex: 1, marginEnd: 8 }]}
+                    >
                       {getLocalizedOilName(device.oilName, isRTL)}
                     </Text>
                     <View style={[styles.colorBadge, { backgroundColor: colors.surfaceMuted }]}>
-                      <Text style={[typography.labelSm, { color: colors.text, fontSize: 11, fontWeight: '600' }]}>
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          typography.labelSm,
+                          { color: colors.text, fontSize: 11, fontWeight: '600', letterSpacing: 0 },
+                        ]}
+                      >
                         {getLocalizedRoomName(device.roomName, isRTL)}
                       </Text>
                     </View>
@@ -629,6 +638,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 </View>
 
                 <Text
+                  numberOfLines={2}
                   style={[
                     typography.headlineSm,
                     {
@@ -662,7 +672,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {t('home.discoverNow')}
                   </Text>
                   <Icon
-                    name={isRTL ? "arrow_back" : "arrow_forward"}
+                    name="arrow_forward"
                     size={16}
                     color={colors.primary}
                     style={{ marginHorizontal: 4 }}
@@ -927,6 +937,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 8,
+    flexShrink: 0,
   },
   storeTeaserSection: {
     marginBottom: 16,
@@ -938,7 +949,8 @@ const styles = StyleSheet.create({
     minHeight: 176,
   },
   storeTeaserTextContent: {
-    maxWidth: '70%',
+    width: '100%',
+    paddingEnd: 112,
     zIndex: 1,
   },
   curatedPill: {

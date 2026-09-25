@@ -31,7 +31,7 @@
 
 ## 2. Verification Proofs & QA Evidence
 
-All 68 screenshot artifacts (native simulator captures and side-by-side Stitch comparisons) are stored in:
+All screenshot artifacts (native simulator captures and side-by-side Stitch comparisons) are stored in:
 `reviews/qa-app-2026-09-25/`
 
 ### Visual Inspection Findings:
@@ -53,6 +53,31 @@ All 68 screenshot artifacts (native simulator captures and side-by-side Stitch c
 
 ---
 
-## 3. Code Quality & Compilation
+## 3. Last Pass Resolution (Items F1–F10)
+
+| Item | Title | Status | What Changed |
+|---|---|:---:|---|
+| **F1** | Red error in dev ("Cannot update LanguageConfirmSheet while rendering RootNavigator") | ✅ | Removed render-time language change block in `RootNavigator.tsx` lines 30–43; moved initial language and RTL setup into `initApp()` in `App.tsx` with `previewLang` support. |
+| **F2** | English Home curated card: text running under bottle | ✅ | Replaced `maxWidth: '70%'` with `width: '100%'`, `paddingEnd: 112`, `zIndex: 1`, and added `numberOfLines={2}` to title in `HomeScreen.tsx`. |
+| **F3** | English carousel card footer: oil name touches room chip / chip cut | ✅ | Added `numberOfLines={1}` and `{ flex: 1, marginEnd: 8 }` to oil name, `flexShrink: 0` to `colorBadge`, and set room chip letterSpacing to 0 with no uppercase in `HomeScreen.tsx`. |
+| **F4** | Arabic "اكتشف التشكيلة" arrow points the wrong way | ✅ | Replaced `isRTL ? "arrow_back" : "arrow_forward"` with `name="arrow_forward"` and purged all directional icon ternaries (`grep -rn "isRTL ? ['\"](arrow\|chevron)" app/src` = 0) so Material Symbols font auto-mirrors them in RTL. |
+| **F5** | Remove acoustic / "quiet" claims (06 §1.4) | ✅ | Deleted `quietDiffuser`, `quietMark`, and `quietMode` from `ar.ts` and `en.ts`; updated Connection States device card to `Odora A316 · ${room}` and added `connection.lastSettings` ("آخر إعداد محفوظ: المستوى {{level}} · {{mode}}"). |
+| **F6** | Connection States hero and background | ✅ | Moved `botanicalBadge` outside `circularArtBackdrop` to bottom/end of `deviceArtBox`, deleted manual `btSlashLine` overlay, and set background to `colors.bg`. |
+| **F7** | "Circadian" wording removal | ✅ | Renamed `circadianSchedule` to `dailySchedule` in `ar.ts`, `en.ts`, and screens; replaced all circadian phrases (`grep -rni "circadian" app/src` = 0). |
+| **F8** | Arabic oil pill shows "%68" (bidi isolate) | ✅ | Added `devicesScreen.oilPill` and wrapped all percentage and volume values in unicode LTR isolate `\u2066…\u2069` across `DevicesScreen`, `HomeScreen`, `DeviceControlScreen`, and `ar.ts`. |
+| **F9** | Forget-device sheet title renders in a fallback font | ✅ | Removed `fontWeight: '700'` from `sheetTitle` in `DeviceSettingsScreen.tsx` and applied font family token `fontFamily: isRTL ? fontFamilies.arabic.bold : fontFamilies.latin.displaySemiBold`. |
+| **F10** | One Arabic word for "Interval" | ✅ | Unified Arabic interval mode term to `'فترات'` across `ar.ts` (`home.interval: 'فترات'`), and updated `intervalTiming` to `'30ث تشغيل · 60ث إيقاف'`. |
+
+### Visual Proof Re-verification:
+- **Home (EN Top & End):** `home_en_top_native.png`, `home_en_end_native.png` — No red toast error; Curated Card text terminates with >12pt spacing before bottle image; Carousel oil name truncates with ellipsis; room chip "LIVING ROOM" is fully displayed without clipping; "Discover Collection ->" arrow points right.
+- **Home (AR Top & End):** `home_ar_top_native.png`, `home_ar_end_native.png` — Greeting aligned on the right; "فترات" mode tile displayed; "الزيت 68%"; "اكتشف التشكيلة <-" arrow points left; tab bar present.
+- **Devices (AR & EN Top):** `devices_ar_top_native.png`, `devices_en_top_native.png` — Oil pill displays "الزيت 68% (تقديري)" with percent following Western numerals in Arabic; "OIL 68% (EST.)" in English; tab bar present.
+- **Device Control (AR & EN End):** `device_control_ar_end_native.png`, `device_control_en_end_native.png` — "Daily schedule / Running on schedule"; "34 ml / 50 ml"; segmented control with "Continuous / Interval" and "مستمر / فترات".
+- **Connection States (AR & EN Top & End):** `connection_states_ar_top_native.png`, `connection_states_ar_end_native.png`, `connection_states_en_top_native.png`, `connection_states_en_end_native.png` — Leaf badge unclipped at hero bottom-end; Bluetooth disabled icon has exactly 1 slash; cream background matches app bar; device card displays "Odora A316 · غرفة المعيشة" and "آخر إعداد محفوظ: المستوى 8 · فترات".
+- **Forget-device Sheet (AR):** `device_settings_ar_sheet_native.png` — Title "إلغاء اقتران الجهاز؟" renders in IBM Plex Sans Arabic Bold with proper ligature rendering and no fallback spacing.
+
+---
+
+## 4. Code Quality & Compilation
 - `npx tsc --noEmit` exited with code `0`.
-- All unit files validated for clean syntax and strict types.
+- `previewTarget.ts` committed with `screen: null, lang: null, scrollToEnd: false, sheet: false`.

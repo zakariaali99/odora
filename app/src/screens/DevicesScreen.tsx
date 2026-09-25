@@ -317,7 +317,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                       <View style={styles.pillGaugeLeft}>
                         <Icon name="opacity" size={14} color={colors.primary} />
                         <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
-                          {`${t('home.oil')} ${device.oilLevel}% ${device.oilSensor ? '' : t('home.oilEstimated')}`}
+                          {t('devicesScreen.oilPill', { percent: `\u2066${device.oilLevel}%\u2069` }) + (device.oilSensor ? '' : ` ${t('home.oilEstimated')}`)}
                         </Text>
                       </View>
                       <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>

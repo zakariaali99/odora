@@ -38,7 +38,7 @@ export const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ navigation }) =>
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} color={colors.text} />
+              <Icon name="arrow_back" size={20} color={colors.text} />
             </TouchableOpacity>
             <Text
               numberOfLines={1}
@@ -323,7 +323,7 @@ export const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ navigation }) =>
                     {isRTL ? 'محفظة إلكترونية (سداد / تداول)' : 'Digital Wallet'}
                   </Text>
                 </View>
-                <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={18} color={colors.textMuted} />
+                <Icon name="arrow_forward" size={18} color={colors.textMuted} />
               </TouchableOpacity>
             </View>
           </View>

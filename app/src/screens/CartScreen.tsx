@@ -80,7 +80,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} color={colors.text} />
+              <Icon name="arrow_back" size={20} color={colors.text} />
             </TouchableOpacity>
             <Text
               numberOfLines={1}
@@ -336,7 +336,7 @@ export const CartScreen: React.FC<CartScreenProps> = ({ navigation }) => {
             <Text style={[typography.labelLg, { color: colors.onInk, fontWeight: '700', marginHorizontal: 6 }]}>
               {isRTL ? 'إتمام الطلب' : 'Checkout'}
             </Text>
-            <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={16} color={colors.onInk} />
+            <Icon name="arrow_forward" size={16} color={colors.onInk} />
           </TouchableOpacity>
         </View>
       </View>

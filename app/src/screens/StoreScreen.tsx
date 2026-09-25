@@ -223,7 +223,7 @@ export const StoreScreen: React.FC<StoreScreenProps> = ({ navigation }) => {
                   <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600' }]}>
                     {isRTL ? 'شراء الباقة' : 'Shop Bundle'}
                   </Text>
-                  <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={16} color={colors.onInk} style={{ marginStart: 6 }} />
+                  <Icon name="arrow_forward" size={16} color={colors.onInk} style={{ marginStart: 6 }} />
                 </TouchableOpacity>
               </View>
             </View>

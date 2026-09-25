@@ -400,7 +400,7 @@ export const OrderConfirmationScreen: React.FC<OrderConfirmationScreenProps> = (
                 <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700' }]}>
                   {isRTL ? 'قراءة دليل الإعداد السريع' : 'Read Quick Setup Guide'}
                 </Text>
-                <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={14} color={colors.primary} style={{ marginStart: 4 }} />
+                <Icon name="arrow_forward" size={14} color={colors.primary} style={{ marginStart: 4 }} />
               </TouchableOpacity>
             </View>
           </View>

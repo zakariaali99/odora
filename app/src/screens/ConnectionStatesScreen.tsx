@@ -82,7 +82,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
 
   if (devices.length === 0) {
     return (
-      <View style={[styles.root, { backgroundColor: colors.surface }]}>
+      <View style={[styles.root, { backgroundColor: colors.bg }]}>
         <AppBar
           title={t('connection.title')}
           showBack={true}
@@ -132,7 +132,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
   };
 
   return (
-    <View style={[styles.root, { backgroundColor: colors.surface }]}>
+    <View style={[styles.root, { backgroundColor: colors.bg }]}>
       {/* 64pt App Bar with leading title */}
       <AppBar
         title={t('connection.title')}
@@ -311,12 +311,11 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 {/* Minimalist Glowing Bluetooth Off Vector Graphic */}
                 <View style={[styles.btCenterNode, { backgroundColor: colors.surface }]}>
                   <Icon name="bluetooth_disabled" size={40} color={colors.textMuted} />
-                  <View style={[styles.btSlashLine, { backgroundColor: colors.primary }]} />
                 </View>
-                {/* Botanical sprig badge */}
-                <View style={[styles.botanicalBadge, { backgroundColor: colors.accent }]}>
-                  <Icon name="eco" size={16} color={colors.primary} />
-                </View>
+              </View>
+              {/* Botanical sprig badge */}
+              <View style={[styles.botanicalBadge, { backgroundColor: colors.accent }]}>
+                <Icon name="eco" size={16} color={colors.primary} />
               </View>
             </View>
 
@@ -600,12 +599,15 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               {getLocalizedDeviceName(activeDevice.name, isRTL)}
             </Text>
             <Text style={[styles.deviceCardSubtitle, { color: colors.textMuted, letterSpacing: 0 }]} numberOfLines={1}>
-              {t('connection.quietDiffuser')}
+              {`Odora A316 · ${getLocalizedRoomName(activeDevice.roomName, isRTL)}`}
             </Text>
             <View style={styles.deviceCardBadgeRow}>
               <View style={[styles.greenDot, { backgroundColor: colors.primary }]} />
               <Text style={[styles.deviceCardBadgeText, { color: colors.text, letterSpacing: 0 }]}>
-                {t('connection.quietMark')}
+                {t('connection.lastSettings', {
+                  level: activeDevice.intensity,
+                  mode: activeDevice.mode === 'interval' ? t('deviceControl.interval') : t('deviceControl.continuous'),
+                })}
               </Text>
             </View>
           </View>
@@ -760,12 +762,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 4,
-  },
-  btSlashLine: {
-    position: 'absolute',
-    width: 2,
-    height: 48,
-    transform: [{ rotate: '45deg' }],
   },
   botanicalBadge: {
     position: 'absolute',

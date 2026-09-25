@@ -44,7 +44,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} color={colors.text} />
+              <Icon name="arrow_back" size={20} color={colors.text} />
             </TouchableOpacity>
             <View style={styles.titleColumn}>
               <Text
@@ -298,8 +298,8 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
               },
               {
                 icon: 'wb_twilight',
-                title: isRTL ? 'حمضيات وفيتيفر فجر اليوم' : 'Citrus & Vetiver Circadian Dawn',
-                sub: isRTL ? 'مزامنة إيقاع الفجر اليومي' : 'Sunrise circadian rhythm sync',
+                title: isRTL ? 'حمضيات وفيتيفر فجر اليوم' : 'Citrus & Vetiver Dawn',
+                sub: isRTL ? 'مزامنة إيقاع الفجر اليومي' : 'Sunrise rhythm sync',
                 iconColor: colors.primary,
                 iconBg: colors.accent,
               },
@@ -326,7 +326,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
                     </Text>
                   </View>
                 </View>
-                <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={18} color={colors.textMuted} />
+                <Icon name="arrow_forward" size={18} color={colors.textMuted} />
               </TouchableOpacity>
             ))}
           </View>
@@ -500,7 +500,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
               <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600' }]}>
                 {isRTL ? 'تصفح كافة التوليفات' : 'Browse All Blends'}
               </Text>
-              <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={16} color={colors.onInk} style={{ marginStart: 6 }} />
+              <Icon name="arrow_forward" size={16} color={colors.onInk} style={{ marginStart: 6 }} />
             </TouchableOpacity>
           </Card>
         </View>

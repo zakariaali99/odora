@@ -96,3 +96,25 @@ Committed. `tsc` exit 0. **No report written** (asked for ✅/❌ per item).
 | O4 | Copy drift: "سجل العطور" became "مجموعة العطور الفاخرة" (wrong meaning — it's scent history); "أجواء الجهاز" became "المنظومة". |
 | O5 | The Home carousel peek card shows no device name. There is also a missing space in "إشارة قوية(-58 dBm)". |
 | O6 | The tab bar uses hard-coded rgba colours instead of tokens. |
+
+---
+
+## Re-review of commits `7a8f4af` + `dc34369` (2026-09-25, native iPhone 17 Pro)
+Report: `reviews/report-2026-09-25-batch-a-closeout.md` (all ✅). `tsc` exit 0. Proofs: `reviews/qa-app-2026-09-25/`.
+
+**Verified on native (Arabic):** tab bar back on all tab roots · Forget device → Devices tab with bar and the device removed · greeting starts from the right · curated card side by side, image bleeding bottom-start · carousel names visible · Connection States uses the real device, 3-step checklist, invented model names gone · "سجل العطور" / "أجواء الجهاز" · 0 inline `isRTL ? '…'` strings in the 7 screens · 0 `textAlign: isRTL` · tab-bar colours from tokens.
+
+**Found (the report says "no overlap" — AG's own English proofs show these):**
+| # | Finding |
+|---|---|
+| F1 | A red LogBox error on AG's English proofs: "Cannot update a component (`LanguageConfirmSheet`) while rendering a different component". Cause: `RootNavigator.tsx` lines 30–43 call `useAppStore.setState` and `i18n.changeLanguage` **during render**. |
+| F2 | EN Home curated card: the title and description run **under the bottle image** (`maxWidth: '70%'` is too wide once the image is absolute). |
+| F3 | EN Home carousel card footer: the oil name touches the room chip, and the chip is cut at the card edge ("LIVING ROO"). |
+| F4 | AR Home "اكتشف التشكيلة" arrow points → (wrong). `HomeScreen.tsx:665` uses `isRTL ? 'arrow_back' : 'arrow_forward'`, but Material Symbols already mirrors `arrow_forward` in RTL (at 7b7677b the plain `arrow_forward` rendered ← correctly) → a double flip. |
+| F5 | Connection States still has the acoustic claim "معتمد بهدوء فائق أقل من 22 ديسيبل" / "Sub-22dB Quiet Mark Certified" and "Cold-Air Acoustic Atomizer" (`ar.ts` 102, 103, 387; `en.ts` 101, 102). Banned in 06 §1.4. |
+| F6 | Connection States hero: the leaf badge is clipped by the circle (`botanicalBadge` sits inside the `overflow: hidden` backdrop); the Bluetooth icon has a second manual slash (`btSlashLine`) → looks like an X. The body background is `surface` (white) instead of `bg` (cream). |
+| F7 | "Circadian" wording in English: `en.ts` 178, 306, 354. |
+| F8 | Devices oil pill shows "%68" in Arabic (bidi): `DevicesScreen.tsx:320` builds the string by concatenation. |
+| F9 | Forget-device sheet title "إلغاء اقتران الجهاز؟" renders in a fallback font with spaced letters: `DeviceSettingsScreen.tsx` `sheetTitle` sets `fontWeight: '700'` over the Arabic family. |
+
+**Verdict:** very close. After F1–F9, Batch A goes to the owner.

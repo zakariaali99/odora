@@ -112,7 +112,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({ navigation, rout
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Icon name={isRTL ? 'arrow_forward' : 'arrow_back'} size={20} color={colors.text} />
+              <Icon name="arrow_back" size={20} color={colors.text} />
             </TouchableOpacity>
             <View style={styles.titleColumn}>
               <Text
@@ -441,7 +441,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({ navigation, rout
               <Text style={[typography.labelMd, { color: colors.surface, fontWeight: '600' }]}>
                 {isRTL ? 'تهيئة خطة الملاذ' : 'Configure Sanctuary Plan'}
               </Text>
-              <Icon name={isRTL ? 'arrow_back' : 'arrow_forward'} size={16} color={colors.surface} style={{ marginStart: 6 }} />
+              <Icon name="arrow_forward" size={16} color={colors.surface} style={{ marginStart: 6 }} />
             </TouchableOpacity>
           </Card>
         </View>

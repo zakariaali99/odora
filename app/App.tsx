@@ -56,8 +56,9 @@ export default function App() {
     async function initApp() {
       try {
         const storedLang = await AsyncStorage.getItem(STORAGE_KEY_LANGUAGE);
+        const previewLang = __DEV__ ? previewConfig.lang : null;
         const activeLang: 'ar' | 'en' =
-          storedLang === 'en' || storedLang === 'ar' ? storedLang : 'ar';
+          previewLang ?? (storedLang === 'en' || storedLang === 'ar' ? storedLang : 'ar');
         const isRtl = activeLang === 'ar';
 
         await i18n.changeLanguage(activeLang);
@@ -73,6 +74,14 @@ export default function App() {
           if (I18nManager.isRTL !== isRtl) {
             I18nManager.allowRTL(isRtl);
             I18nManager.forceRTL(isRtl);
+            try {
+              await Promise.race([
+                Updates.reloadAsync(),
+                new Promise((resolve) => setTimeout(resolve, 500)),
+              ]);
+            } catch (err) {
+              // expo-updates is disabled in dev mode; native cold launch applies RTL
+            }
           }
         }
       } catch (err) {

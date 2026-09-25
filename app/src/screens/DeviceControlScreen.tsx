@@ -330,7 +330,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 {t('deviceControl.scentDensity', 'Aroma Intensity')}
               </Text>
               <Text style={[typography.labelMd, { color: colors.textMuted, fontWeight: '600', marginTop: 2, letterSpacing: 0 }]}>
-                {`${intensity * 10}% · ${t('device.level', { level: intensity })}`}
+                {`\u2066${intensity * 10}%\u2069 · ${t('device.level', { level: intensity })}`}
               </Text>
             </View>
 
@@ -411,7 +411,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             {/* Percentage in its own column at the end of header row (Item 7) */}
             <View style={styles.cartridgePercentCol}>
               <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '700', fontSize: 22, letterSpacing: 0 }]}>
-                {activeDevice.oilLevel}%
+                {`\u2066${activeDevice.oilLevel}%\u2069`}
               </Text>
             </View>
           </View>
@@ -437,7 +437,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 })}
               </Text>
               <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
-                {Math.round(50 * (activeDevice.oilLevel / 100))} ml / 50 ml
+                {`\u2066${Math.round(50 * (activeDevice.oilLevel / 100))} ml / 50 ml\u2069`}
               </Text>
             </View>
           </View>
@@ -484,7 +484,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             activeOpacity={0.88}
             onPress={() => activeNav.navigate('Schedule', { deviceId: activeDevice.id })}
             testID="schedule-row-button"
-            accessibilityLabel="Circadian Schedule"
+            accessibilityLabel="Daily Schedule"
             accessibilityRole="button"
           >
             <Card surface="lowest" style={styles.bentoCard}>
@@ -494,7 +494,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 </View>
                 <View style={{ marginStart: 12, flex: 1 }}>
                   <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
-                    {t('deviceControl.circadianSchedule', 'الجدول اليومي')}
+                    {t('deviceControl.dailySchedule', 'الجدول اليومي')}
                   </Text>
                   <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
                     {t('device.scheduleActive', 'يعمل وفق الجدول المبرمج')}
