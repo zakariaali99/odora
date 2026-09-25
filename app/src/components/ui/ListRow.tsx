@@ -66,7 +66,7 @@ export const ListRow: React.FC<ListRowProps> = ({
             {
               color: titleColor,
               fontWeight: '500',
-              textAlign: isRTL ? 'right' : 'left',
+              textAlign: 'left',
             },
           ]}
         >
@@ -79,7 +79,7 @@ export const ListRow: React.FC<ListRowProps> = ({
               {
                 color: colors.textSubtle,
                 marginTop: 2,
-                textAlign: isRTL ? 'right' : 'left',
+                textAlign: 'left',
               },
             ]}
           >

@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon } from '../components/ui';
-import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName } from '../store/useAppStore';
+import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName, getLocalizedRoutineName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 const DIFFUSER_IMAGES = {
@@ -116,7 +116,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   fontSize: 18,
                   lineHeight: 26,
                   fontWeight: '600',
-                  textTransform: isRTL ? 'none' : 'uppercase',
+                  textTransform: isRTL ? "none" : "uppercase",
                   marginStart: 8,
                 },
               ]}
@@ -189,8 +189,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   color: colors.text,
                   fontSize: 26,
                   lineHeight: 34,
-                  textAlign: 'auto',
-                  writingDirection: isRTL ? 'rtl' : 'ltr',
+                  textAlign: 'left',
                 },
               ]}
             >
@@ -202,8 +201,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 {
                   color: colors.textMuted,
                   marginTop: 2,
-                  textAlign: 'auto',
-                  writingDirection: isRTL ? 'rtl' : 'ltr',
+                  textAlign: 'left',
                 },
               ]}
             >
@@ -260,8 +258,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       lineHeight: 28,
                       fontWeight: '600',
                       marginTop: 2,
-                      textAlign: 'auto',
-                      writingDirection: isRTL ? 'rtl' : 'ltr',
+                      textAlign: 'left',
                     },
                   ]}
                 >
@@ -442,7 +439,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 {nextRoutine ? nextRoutine.startTime : '08:00'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {nextRoutine ? nextRoutine.name : t('home.nextRoutineDefault', 'هدوء المساء')}
+                {nextRoutine ? getLocalizedRoutineName(nextRoutine.name, isRTL) : t('home.nextRoutineDefault', 'هدوء المساء')}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
@@ -545,7 +542,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         resizeMode="contain"
                       />
                     </View>
-                    <View style={{ flex: 1, marginStart: 12 }}>
+                    <View style={{ flex: 1, marginStart: 12, minWidth: 0 }}>
                       <Text
                         numberOfLines={1}
                         style={[
@@ -554,8 +551,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                             color: colors.text,
                             fontSize: 16,
                             fontWeight: '600',
-                            textAlign: 'auto',
-                            writingDirection: isRTL ? 'rtl' : 'ltr',
+                            textAlign: 'left',
                           },
                         ]}
                       >
@@ -640,12 +636,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       fontWeight: '600',
                       fontSize: 18,
                       marginTop: 6,
-                      textAlign: 'auto',
-                      writingDirection: isRTL ? 'rtl' : 'ltr',
+                      textAlign: 'left',
                     },
                   ]}
                 >
-                  {t('home.curatedTitle', 'هينوكي مدخن وشاي أبيض')}
+                  {t('home.curatedTitle')}
                 </Text>
 
                 <Text
@@ -655,8 +650,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {
                       color: colors.textMuted,
                       marginTop: 4,
-                      textAlign: 'auto',
-                      writingDirection: isRTL ? 'rtl' : 'ltr',
+                      textAlign: 'left',
                     },
                   ]}
                 >
@@ -668,7 +662,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {t('home.discoverNow')}
                   </Text>
                   <Icon
-                    name={isRTL ? 'arrow_back' : 'arrow_forward'}
+                    name={isRTL ? "arrow_back" : "arrow_forward"}
                     size={16}
                     color={colors.primary}
                     style={{ marginHorizontal: 4 }}
@@ -892,7 +886,7 @@ const styles = StyleSheet.create({
     paddingEnd: 8,
   },
   sanctuaryCardTouch: {
-    width: 210,
+    width: 220,
     marginEnd: 12,
   },
   sanctuaryCard: {
@@ -938,17 +932,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   storeTeaserCard: {
-    padding: 16,
+    padding: 24,
     borderRadius: 24,
-    position: 'relative',
     overflow: 'hidden',
-    minHeight: 160,
-    justifyContent: 'center',
+    minHeight: 176,
   },
   storeTeaserTextContent: {
-    maxWidth: '65%',
-    alignItems: 'flex-start',
-    zIndex: 2,
+    maxWidth: '70%',
+    zIndex: 1,
   },
   curatedPill: {
     paddingHorizontal: 10,
@@ -962,15 +953,12 @@ const styles = StyleSheet.create({
   },
   teaserImageContainer: {
     position: 'absolute',
-    bottom: 0,
-    end: 0,
-    width: 130,
+    bottom: -8,
+    end: -4,
+    width: 128,
     height: 144,
-    borderTopStartRadius: 20,
+    borderTopStartRadius: 16,
     overflow: 'hidden',
   },
-  teaserBottleImage: {
-    width: '100%',
-    height: '100%',
-  },
+  teaserBottleImage: { width: '100%', height: '100%' },
 });

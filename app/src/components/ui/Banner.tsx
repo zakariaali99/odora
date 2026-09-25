@@ -80,7 +80,7 @@ export const Banner: React.FC<BannerProps> = ({
             typography.bodyMd,
             {
               color: textColor,
-              textAlign: isRTL ? 'right' : 'left',
+              textAlign: 'left',
               lineHeight: 20,
             },
           ]}

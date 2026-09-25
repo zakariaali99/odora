@@ -50,7 +50,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
     if (previewConfig?.sheet !== undefined) {
       setSetupSheetVisible(Boolean(previewConfig.sheet));
     }
-  }, [previewConfig?.sheet, previewConfig?.timestamp]);
+  }, [previewConfig?.sheet]);
 
   // Radar pulse animation (3s cycle matching Stitch)
   const pulseAnim = useRef(new Animated.Value(0)).current;
@@ -121,7 +121,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
       intensity: 7,
       mode: 'interval',
       oilLevel: 100,
-      oilName: isRTL ? 'لم يتم تحميل زيت' : 'No oil loaded',
+      oilName: 'seed.noOilLoaded',
       oilRemainingDays: 30,
       oilSensor: false,
       burst: false,
@@ -174,7 +174,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 {
                   color: colors.text,
                   fontWeight: '700',
-                  textTransform: isRTL ? 'none' : 'uppercase',
+                  textTransform: isRTL ? "none" : "uppercase",
                   letterSpacing: isRTL ? 0 : 1,
                   marginStart: 6,
                 },
@@ -240,7 +240,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                     color: colors.textSubtle,
                     fontWeight: '700',
                     letterSpacing: isRTL ? 0 : 1.2,
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    textTransform: isRTL ? "none" : "uppercase",
                   },
                 ]}
               >
@@ -453,7 +453,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                     {
                       color: colors.primary,
                       fontWeight: '700',
-                      textTransform: isRTL ? 'none' : 'uppercase',
+                      textTransform: isRTL ? "none" : "uppercase",
                       letterSpacing: isRTL ? 0 : 1,
                     },
                   ]}

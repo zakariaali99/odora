@@ -24,6 +24,7 @@ import {
   StatusPill,
 } from '../components/ui';
 import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName } from '../store/useAppStore';
+import { getDeviceController } from '../device/DeviceController';
 import { previewConfig } from '../previewTarget';
 
 const DIFFUSER_IMAGES = {
@@ -169,7 +170,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         <View style={styles.subHeaderSection}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus })}
+            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus, deviceId: activeDevice.id })}
             style={styles.statusPillLeft}
           >
             <View style={styles.blePingContainer}>
@@ -221,7 +222,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         {connectionStatus !== 'connected' && (
           <TouchableOpacity
             activeOpacity={0.88}
-            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus })}
+            onPress={() => activeNav.navigate('ConnectionStates', { initialState: connectionStatus, deviceId: activeDevice.id })}
             style={[styles.connectionAlertBanner, { backgroundColor: colors.accent }]}
           >
             <Icon
@@ -318,7 +319,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   {
                     color: colors.textSubtle,
                     fontWeight: '700',
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 1,
                   },
                 ]}
@@ -461,7 +462,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             >
               <Icon name="history" size={18} color={colors.text} />
               <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
-                {t('deviceControl.scentHistory', 'سجل العطور')}
+                {t('deviceControl.scentHistory')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -471,10 +472,10 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         <View style={styles.bentoSection}>
           <View style={styles.bentoHeader}>
             <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
-              {t('deviceControl.deviceAmbience', 'أجواء الجهاز')}
+              {t('deviceControl.ambienceTitle')}
             </Text>
             <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
-              {t('scheduleScreen.routinesCount', { count: 2, defaultValue: isRTL ? 'أتمتتان نشطتان' : '2 automations active' })}
+              {t('scheduleScreen.routinesCount', { count: 2 })}
             </Text>
           </View>
 
@@ -518,7 +519,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   {t('deviceSettings.autoOffTimer', 'مؤقت الإيقاف التلقائي')}
                 </Text>
                 <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
-                  {timerActive ? (isRTL ? 'ساعتان متبقيتان · إيقاف سلس' : '2 Hours remaining · Gentle fade') : t('deviceSettings.disabled', 'معطّل')}
+                  {timerActive ? t('deviceControl.timerActiveDesc') : t('deviceSettings.disabled')}
                 </Text>
               </View>
             </View>

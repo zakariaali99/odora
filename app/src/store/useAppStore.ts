@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { changeAppLanguage, reloadApp, STORAGE_KEY_LANGUAGE } from '../i18n';
+import i18n, { changeAppLanguage, reloadApp, STORAGE_KEY_LANGUAGE } from '../i18n';
 
 export type ThemeMode = 'system' | 'light' | 'dark';
 
@@ -46,7 +46,10 @@ export const getLocalizedRoomName = (roomKeyOrName: string, isRTL: boolean): str
   return roomKeyOrName;
 };
 
-export const getLocalizedDeviceName = (nameOrKey: string, isRTL: boolean): string => {
+export const getLocalizedDeviceName = (nameOrKey: string, isRTL?: boolean): string => {
+  if (nameOrKey.startsWith('seed.')) {
+    return i18n.t(nameOrKey);
+  }
   if (nameOrKey === 'موزع غرفة المعيشة' || nameOrKey === 'Living Room Diffuser') {
     return isRTL ? 'موزع غرفة المعيشة' : 'Living Room Diffuser';
   }
@@ -64,7 +67,26 @@ export const getLocalizedDeviceName = (nameOrKey: string, isRTL: boolean): strin
   return nameOrKey;
 };
 
-export const getLocalizedOilName = (nameOrKey: string, isRTL: boolean): string => {
+export const getLocalizedRoutineName = (nameOrKey: string, isRTL?: boolean): string => {
+  if (nameOrKey.startsWith('seed.')) {
+    return i18n.t(nameOrKey);
+  }
+  if (nameOrKey === 'وضوح الصباح' || nameOrKey === 'Morning Clarity') {
+    return isRTL ? 'وضوح الصباح' : 'Morning Clarity';
+  }
+  if (nameOrKey === 'تركيز الظهيرة' || nameOrKey === 'Midday Focus') {
+    return isRTL ? 'تركيز الظهيرة' : 'Midday Focus';
+  }
+  if (nameOrKey === 'هدوء المساء' || nameOrKey === 'Evening Unwind') {
+    return isRTL ? 'هدوء المساء' : 'Evening Unwind';
+  }
+  return nameOrKey;
+};
+
+export const getLocalizedOilName = (nameOrKey: string, isRTL?: boolean): string => {
+  if (nameOrKey.startsWith('seed.')) {
+    return i18n.t(nameOrKey);
+  }
   if (nameOrKey === 'مريمية الغابة والأرز' || nameOrKey === 'Forest Sage & Cedar') {
     return isRTL ? 'مريمية الغابة والأرز' : 'Forest Sage & Cedar';
   }
@@ -130,7 +152,7 @@ interface AppState {
 const INITIAL_DEVICES: AppDevice[] = [
   {
     id: 'living',
-    name: 'موزع غرفة المعيشة',
+    name: 'seed.deviceLiving',
     roomName: 'غرفة المعيشة',
     colorway: 'sage',
     model: 'Odora A316',
@@ -148,7 +170,7 @@ const INITIAL_DEVICES: AppDevice[] = [
   },
   {
     id: 'reading',
-    name: 'ركن القراءة',
+    name: 'seed.deviceReading',
     roomName: 'المكتب',
     colorway: 'white',
     model: 'Odora A316',
@@ -166,7 +188,7 @@ const INITIAL_DEVICES: AppDevice[] = [
   },
   {
     id: 'bedroom',
-    name: 'غرفة النوم الرئيسية',
+    name: 'seed.deviceBedroom',
     roomName: 'غرفة النوم',
     colorway: 'black',
     model: 'Odora A316',
@@ -188,7 +210,7 @@ const INITIAL_ROUTINES: AppRoutine[] = [
   {
     id: 'routine-1',
     deviceId: 'living',
-    name: 'وضوح الصباح',
+    name: 'seed.routineMorning',
     days: ['Su', 'M', 'Tu', 'W', 'Th'],
     startTime: '07:00',
     endTime: '09:30',
@@ -201,7 +223,7 @@ const INITIAL_ROUTINES: AppRoutine[] = [
   {
     id: 'routine-2',
     deviceId: 'living',
-    name: 'تركيز الظهيرة',
+    name: 'seed.routineAfternoon',
     days: ['Su', 'Tu', 'Th'],
     startTime: '13:00',
     endTime: '16:30',
@@ -214,7 +236,7 @@ const INITIAL_ROUTINES: AppRoutine[] = [
   {
     id: 'routine-3',
     deviceId: 'living',
-    name: 'هدوء المساء',
+    name: 'seed.routineEvening',
     days: ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'],
     startTime: '19:00',
     endTime: '22:30',

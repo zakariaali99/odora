@@ -125,7 +125,7 @@ export const StoreScreen: React.FC<StoreScreenProps> = ({ navigation }) => {
             onPress={() => navigation.navigate('Search')}
           >
             <Icon name="search" size={20} color={colors.textMuted} />
-            <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 8, flex: 1, textAlign: isRTL ? 'right' : 'left' }]}>
+            <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 8, flex: 1, textAlign: 'left' }]}>
               {isRTL ? 'ابحث عن العطور النباتية والموزعات...' : 'Search botanical fragrances, diffusers...'}
             </Text>
           </TouchableOpacity>

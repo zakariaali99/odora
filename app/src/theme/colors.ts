@@ -104,3 +104,14 @@ export const colors = {
   colorwayWhite: '#E8E3DA',
   colorwayBlack: '#1C1C1A',
 };
+
+export const withAlpha = (hexOrColor: string, alpha: number): string => {
+  if (hexOrColor.startsWith('#')) {
+    const clean = hexOrColor.slice(1);
+    const r = parseInt(clean.substring(0, 2), 16);
+    const g = parseInt(clean.substring(2, 4), 16);
+    const b = parseInt(clean.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return hexOrColor;
+};

@@ -14,7 +14,7 @@ import { useTheme } from '../theme';
 import { AppBar } from '../components/ui/AppBar';
 import { Icon } from '../components/ui/Icon';
 import { Card } from '../components/ui/Card';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, getLocalizedDeviceName, getLocalizedRoomName, getLocalizedOilName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 interface DevicesScreenProps {
@@ -42,11 +42,14 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
 
   const filteredDevices = devices.filter((d) => {
     const query = searchQuery.trim().toLowerCase();
+    const localizedName = getLocalizedDeviceName(d.name, isRTL).toLowerCase();
+    const localizedRoom = getLocalizedRoomName(d.roomName, isRTL).toLowerCase();
+    const localizedOil = getLocalizedOilName(d.oilName, isRTL).toLowerCase();
     const matchesSearch =
       !query ||
-      d.name.toLowerCase().includes(query) ||
-      d.roomName.toLowerCase().includes(query) ||
-      d.oilName.toLowerCase().includes(query);
+      localizedName.includes(query) ||
+      localizedRoom.includes(query) ||
+      localizedOil.includes(query);
     if (selectedFilter === 'active') {
       return matchesSearch && d.power;
     }
@@ -70,7 +73,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   fontSize: 18,
                   lineHeight: 26,
                   fontWeight: '500',
-                  textTransform: isRTL ? 'none' : 'uppercase',
+                  textTransform: isRTL ? "none" : "uppercase",
                   marginStart: 8,
                   letterSpacing: 0,
                 },
@@ -108,7 +111,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   typography.labelSm,
                   {
                     color: colors.textSubtle,
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 1.2,
                   },
                 ]}
@@ -148,7 +151,6 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   styles.searchInput,
                   {
                     color: colors.text,
-                    fontFamily: isRTL ? 'IBMPlexSansArabic_400Regular' : 'PlusJakartaSans_400Regular',
                   },
                 ]}
                 placeholder={t('devicesScreen.searchPlaceholder', 'البحث عن الغرف أو العطور...')}
@@ -217,16 +219,16 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   {
                     color: colors.text,
                     fontWeight: '700',
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 1,
                   },
                 ]}
               >
-                {isRTL ? 'الأجهزة المتصلة' : 'Connected Units'}
+                {t('devicesScreen.connectedUnits')}
               </Text>
             </View>
             <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
-              {isRTL ? `${filteredDevices.length} أجهزة` : `${filteredDevices.length} Devices`}
+              {t('devicesScreen.devicesCount', { count: filteredDevices.length })}
             </Text>
           </View>
 
@@ -249,7 +251,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   navigation.navigate('DeviceControl');
                 }}
                 testID={`device-card-${device.id}`}
-                accessibilityLabel={device.name}
+                accessibilityLabel={getLocalizedDeviceName(device.name, isRTL)}
               >
                 <View style={styles.deviceCardTop}>
                   <View style={[styles.deviceThumbnailContainer, { backgroundColor: colors.bgAlt }]}>
@@ -286,7 +288,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                       <Text
                         style={[
                           typography.labelSm,
-                          { color: colors.textSubtle, textTransform: isRTL ? 'none' : 'uppercase', letterSpacing: 0 },
+                          { color: colors.textSubtle, textTransform: isRTL ? "none" : "uppercase", letterSpacing: 0 },
                         ]}
                       >
                         {device.model}
@@ -303,11 +305,11 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                         { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2, letterSpacing: 0 },
                       ]}
                     >
-                      {device.name}
+                      {getLocalizedDeviceName(device.name, isRTL)}
                     </Text>
 
                     <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
-                      {device.roomName} • {device.oilName}
+                      {getLocalizedRoomName(device.roomName, isRTL)} • {getLocalizedOilName(device.oilName, isRTL)}
                     </Text>
 
                     {/* Pill Gauge */}

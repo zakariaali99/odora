@@ -15,7 +15,13 @@ import { typography } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
-import { useAppStore } from '../store/useAppStore';
+import { EmptyState } from '../components/ui/EmptyState';
+import {
+  useAppStore,
+  getLocalizedDeviceName,
+  getLocalizedOilName,
+  getLocalizedRoomName,
+} from '../store/useAppStore';
 import { useTranslation } from 'react-i18next';
 import { previewConfig } from '../previewTarget';
 
@@ -31,9 +37,9 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { colors, isDark, isRTL } = useTheme();
+  const { colors, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
-  const { devices, selectedDeviceId, connectionStatus, setConnectionStatus } = useAppStore();
+  const { devices, selectedDeviceId, setConnectionStatus } = useAppStore();
   const scrollRef = useRef<ScrollView>(null);
 
   useEffect(() => {
@@ -44,30 +50,17 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
     }
   }, []);
 
-  const activeDevice = devices.find((d) => d.id === selectedDeviceId) || devices[0] || {
-    id: 'default',
-    name: isRTL ? 'موزع أودورا 01' : 'Odora Air 01',
-    roomName: isRTL ? 'غرفة المعيشة' : 'Living Room',
-    oilLevel: 74,
-    oilName: isRTL ? 'كانوبي الهينوكي' : 'Hinoki Canopy',
-    oilSensor: true,
-    power: true,
-    intensity: 8,
-    mode: 'interval' as const,
-    colorway: 'sage' as const,
-    burst: true,
-  };
+  const [isReconnecting, setIsReconnecting] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const initialTab: ConnectionStateTab =
-    route?.params?.initialState === 'out_of_range'
+    route?.params?.initialState === 'out_of_range' || route?.params?.initialTab === 'out_of_range'
       ? 'out_of_range'
-      : route?.params?.initialState === 'syncing'
+      : route?.params?.initialState === 'syncing' || route?.params?.initialTab === 'syncing'
       ? 'syncing'
       : 'disabled';
 
   const [activeTab, setActiveTab] = useState<ConnectionStateTab>(initialTab);
-  const [isReconnecting, setIsReconnecting] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Sync animation spin
   const spinAnim = useRef(new Animated.Value(0)).current;
@@ -87,6 +80,30 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
     outputRange: ['0deg', '360deg'],
   });
 
+  if (devices.length === 0) {
+    return (
+      <View style={[styles.root, { backgroundColor: colors.surface }]}>
+        <AppBar
+          title={t('connection.title')}
+          showBack={true}
+          onBack={() => navigation?.goBack?.()}
+        />
+        <EmptyState
+          icon="air"
+          title={t('connection.noDevicesTitle')}
+          description=""
+          actionTitle={t('connection.pairCta')}
+          onAction={() => (navigation as any)?.navigate?.('DevicePairing')}
+        />
+      </View>
+    );
+  }
+
+  const activeDevice =
+    (route?.params?.deviceId ? devices.find((d) => d.id === route.params.deviceId) : null) ||
+    devices.find((d) => d.id === selectedDeviceId) ||
+    devices[0];
+
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => {
@@ -96,21 +113,21 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
 
   const handleRetry = () => {
     setIsReconnecting(true);
-    showToast(isRTL ? 'جاري محاولة إعادة الاتصال...' : 'Attempting to reconnect...');
+    showToast(t('connection.toastReconnecting'));
     setTimeout(() => {
       setIsReconnecting(false);
       setConnectionStatus('connected');
-      showToast(isRTL ? 'تم الاتصال بالجهاز بنجاح' : 'Connected successfully');
+      showToast(t('connection.toastConnected'));
     }, 1800);
   };
 
   const handleOpenSettings = () => {
-    showToast(isRTL ? 'فتح إعدادات النظام...' : 'Opening system settings...');
+    showToast(t('connection.toastOpeningSettings'));
     Linking.openSettings?.();
   };
 
   const handleOfflineMode = () => {
-    showToast(isRTL ? 'تم التبديل إلى وضع عدم الاتصال للقراءة فقط' : 'Switched to offline read-only mode');
+    showToast(t('connection.toastOfflineMode'));
     navigation?.goBack?.();
   };
 
@@ -118,14 +135,14 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
     <View style={[styles.root, { backgroundColor: colors.surface }]}>
       {/* 64pt App Bar with leading title */}
       <AppBar
-        title={t('connectionStates.title', 'حالات الاتصال')}
+        title={t('connection.title')}
         showBack={true}
         onBack={() => navigation?.goBack?.()}
         centerTitle={false}
         actions={[
           {
             avatar: require('../../assets/photos/avatar.jpg'),
-            onPress: () => navigation?.navigate?.('Account'),
+            onPress: () => (navigation as any)?.navigate?.('MainTabs', { screen: 'Account' }),
             label: 'Profile',
           },
         ]}
@@ -151,19 +168,19 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
       >
         {/* Centered Header per Stitch idea-02 */}
         <View style={styles.headerSection}>
-          <View style={[styles.telemetryBadge, { backgroundColor: colors.surfaceMuted }]}>
+          <View style={[styles.liveStatusBadge, { backgroundColor: colors.surfaceMuted }]}>
             <Icon name="sensors" size={14} color={colors.primary} />
-            <Text style={[styles.telemetryBadgeText, { color: colors.primary, letterSpacing: 0 }]}>
-              {t('connectionStates.badge', 'تشخيص الاتصال اللاسلكي')}
+            <Text style={[styles.liveStatusBadgeText, { color: colors.primary, letterSpacing: 0 }]}>
+              {t('connection.badge')}
             </Text>
           </View>
 
           <Text style={[styles.screenTitle, { color: colors.text, letterSpacing: 0 }]}>
-            {t('connectionStates.title', 'حالة اتصال الموزع')}
+            {t('connection.title')}
           </Text>
 
           <Text style={[styles.screenSubtitle, { color: colors.textMuted, letterSpacing: 0 }]}>
-            {t('connectionStates.subtitle', 'تشخيص حالة العتاد ومزامنة البلوتوث اللاسلكي')}
+            {t('connection.subtitle')}
           </Text>
 
           {/* 3-State Switcher Pills per Stitch idea-02 */}
@@ -200,7 +217,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   },
                 ]}
               >
-                {t('connectionStates.tabDisabled', 'معطل')}
+                {t('connection.tabDisabled')}
               </Text>
             </TouchableOpacity>
 
@@ -236,7 +253,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   },
                 ]}
               >
-                {t('connectionStates.tabOutOfRange', 'خارج النطاق')}
+                {t('connection.tabOutOfRange')}
               </Text>
             </TouchableOpacity>
 
@@ -272,13 +289,13 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   },
                 ]}
               >
-                {t('connectionStates.tabSyncing', 'مزامنة')}
+                {t('connection.tabSyncing')}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* STATE A: Bluetooth Disabled (Matching Stitch idea-02) */}
+        {/* STATE A: Bluetooth Disabled */}
         {activeTab === 'disabled' && (
           <View style={styles.stateAContainer}>
             {/* Visual Halo & Botanical Device Art */}
@@ -307,16 +324,16 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.textSubtle }]} />
               <Text style={[styles.badgePillText, { color: colors.textMuted, letterSpacing: 0 }]}>
-                {t('connectionStates.radioSilent', 'جهاز الإرسال والاستقبال صامت')}
+                {t('connection.radioSilent')}
               </Text>
             </View>
 
             <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
-              {t('connectionStates.bluetoothOffTitle', 'البلوتوث متوقف')}
+              {t('connection.bluetoothOffTitle')}
             </Text>
 
             <Text style={[styles.stateBodyText, { color: colors.textMuted, letterSpacing: 0 }]}>
-              {t('connectionStates.bluetoothOffDesc', 'يتطلب أودورا تقنية البلوتوث لإدارة الانتشار الدقيق وقراءة مستوى الزيت. يرجى تفعيل البلوتوث في إعدادات جهازك.')}
+              {t('connection.bluetoothOffDesc')}
             </Text>
 
             {/* Buttons per Stitch */}
@@ -328,7 +345,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               >
                 <Icon name="bluetooth" size={20} color={colors.onInk} />
                 <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
-                  {t('connectionStates.openSettings', 'فتح إعدادات النظام')}
+                  {t('connection.openSettings')}
                 </Text>
               </TouchableOpacity>
 
@@ -339,7 +356,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               >
                 <Icon name="cloud_off" size={18} color={colors.text} />
                 <Text style={[styles.secondaryBtnText, { color: colors.text, letterSpacing: 0 }]}>
-                  {t('connectionStates.continueOffline', 'المتابعة في وضع عدم الاتصال للقراءة فقط')}
+                  {t('connection.continueOffline')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -351,17 +368,17 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               </View>
               <View style={styles.autoRhythmTextBox}>
                 <Text style={[styles.autoRhythmTitle, { color: colors.primary, letterSpacing: 0 }]}>
-                  {t('connectionStates.autonomousRhythmTitle', 'الإيقاع المستقل')}
+                  {t('connection.autonomousRhythmTitle')}
                 </Text>
                 <Text style={[styles.autoRhythmBody, { color: colors.textMuted, letterSpacing: 0 }]}>
-                  {t('connectionStates.autonomousRhythmDesc', 'سيواصل الموزع دورته المجدولة الأخيرة بشكل مستقل دون الحاجة لاتصال مستمر.')}
+                  {t('connection.autonomousRhythmDesc')}
                 </Text>
               </View>
             </View>
           </View>
         )}
 
-        {/* STATE B: Out of Range / Disconnected (Matching Stitch idea-02) */}
+        {/* STATE B: Out of Range / Disconnected */}
         {activeTab === 'out_of_range' && (
           <View style={[styles.stateCardBox, { backgroundColor: colors.bgAlt }]}>
             {/* Header with Beacon Ripple */}
@@ -372,29 +389,29 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 </View>
                 <View style={{ marginStart: 12 }}>
                   <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
-                    {activeDevice.name}
+                    {getLocalizedDeviceName(activeDevice.name, isRTL)}
                   </Text>
                   <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
-                    {isRTL ? 'أودورا إير 01 · طراز SA-200' : 'Odora Air 01 • Model SA-200'}
+                    {`Odora A316 · ${getLocalizedRoomName(activeDevice.roomName, isRTL)}`}
                   </Text>
                 </View>
               </View>
               <View style={[styles.disconnectBadge, { backgroundColor: colors.surfaceHigh }]}>
                 <Text style={[typography.labelSm, { color: colors.textMuted, fontSize: 11, letterSpacing: 0 }]}>
-                  {isRTL ? 'غير متصل' : 'Disconnected'}
+                  {t('connection.disconnected')}
                 </Text>
               </View>
             </View>
 
-            {/* Ambient Telemetry Status Banner */}
-            <View style={[styles.telemetryBanner, { backgroundColor: colors.surfaceMuted }]}>
+            {/* Ambient Status Banner */}
+            <View style={[styles.ambientStatusBanner, { backgroundColor: colors.surfaceMuted }]}>
               <Icon name="history" size={22} color={colors.primary} />
               <View style={{ marginStart: 10, flex: 1 }}>
                 <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
-                  {isRTL ? 'آخر ظهور منذ 18 دقيقة' : 'Last seen 18 minutes ago'}
+                  {t('connection.lastSeen')}
                 </Text>
                 <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
-                  {isRTL ? 'المسافة التقديرية أكثر من 18.5 متراً' : 'Estimated distance > 18.5 meters away'}
+                  {t('connection.estimatedDistance')}
                 </Text>
               </View>
             </View>
@@ -402,26 +419,26 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             {/* Reconnection Checklist */}
             <View style={styles.reconnectSection}>
               <Text style={[styles.reconnectHeaderTitle, { color: colors.text, letterSpacing: 0 }]}>
-                {isRTL ? 'بروتوكول استعادة الاتصال' : 'RECONNECTION PROTOCOL'}
+                {t('connection.reconnectionProtocol')}
               </Text>
               <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
                 <Icon name="power" size={20} color={colors.primary} />
                 <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
-                  {isRTL ? 'تأكد من توصيل الموزع بمصدر الطاقة' : 'Ensure diffuser is plugged into AC power'}
+                  {t('connection.checkPower')}
                 </Text>
                 <Icon name="check_circle" size={18} color={colors.primary} />
               </View>
               <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
                 <Icon name="straighten" size={20} color={colors.primary} />
                 <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
-                  {isRTL ? 'اقترب من الجهاز لمسافة أقل من 15 متراً' : 'Bring phone within 15 meters line-of-sight'}
+                  {t('connection.checkDistance')}
                 </Text>
                 <Icon name="radio_button_unchecked" size={18} color={colors.textSubtle} />
               </View>
               <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
                 <Icon name="lightbulb" size={20} color={colors.primary} />
                 <Text style={[styles.checklistText, { color: colors.text, letterSpacing: 0 }]}>
-                  {isRTL ? 'تأكد من إضاءة مؤشر التشغيل على القاعدة' : 'Check that base ceramic LED is on'}
+                  {t('connection.checkLed')}
                 </Text>
                 <Icon name="radio_button_unchecked" size={18} color={colors.textSubtle} />
               </View>
@@ -437,8 +454,8 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               <Icon name="refresh" size={20} color={colors.onInk} />
               <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
                 {isReconnecting
-                  ? (isRTL ? 'جاري إعادة الاتصال...' : 'Attempting BLE Reconnect...')
-                  : (isRTL ? 'محاولة إعادة الاتصال' : 'Attempt BLE Reconnect')}
+                  ? t('connection.reconnectingBle')
+                  : t('connection.attemptReconnect')}
               </Text>
             </TouchableOpacity>
 
@@ -447,17 +464,17 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                 <Icon name="opacity" size={16} color={colors.primary} />
                 <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
-                  {isRTL ? `الزيت: ${activeDevice.oilName}` : `Cartridge: ${activeDevice.oilName}`}
+                  {`${t('deviceControl.activeOil')}: ${getLocalizedOilName(activeDevice.oilName, isRTL)}`}
                 </Text>
               </View>
               <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
-                {isRTL ? `المحفوظ: ${activeDevice.oilLevel}% متبقٍ` : `Cached: ${activeDevice.oilLevel}% remaining`}
+                {`${activeDevice.oilLevel}%`}
               </Text>
             </View>
           </View>
         )}
 
-        {/* STATE C: Connecting & Synchronizing (Matching Stitch idea-02) */}
+        {/* STATE C: Connecting & Synchronizing */}
         {activeTab === 'syncing' && (
           <View style={[styles.stateCardBox, { backgroundColor: colors.bgAlt, alignItems: 'center' }]}>
             {/* Pulsing Concentric Visual */}
@@ -477,60 +494,75 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.primary }]} />
               <Text style={[styles.badgePillText, { color: colors.primary, letterSpacing: 0 }]}>
-                {isRTL ? 'مصافحة القناة' : 'CHANNEL HANDSHAKE'}
+                {t('connection.channelHandshake')}
               </Text>
             </View>
 
             <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
-              {isRTL ? 'جارٍ مزامنة الأجواء...' : 'Synchronizing Atmosphere...'}
+              {t('connection.syncingAtmosphere')}
             </Text>
 
             <Text style={[styles.stateBodyText, { color: colors.textMuted, letterSpacing: 0 }]}>
-              {isRTL
-                ? 'جارٍ إنشاء اتصال مشفر مع موزع أودورا وقراءة مستشعرات العبوة.'
-                : 'Establishing encrypted handshake with Odora Air 01 and querying cartridge piezo sensors.'}
+              {t('connection.syncingBody', { name: getLocalizedDeviceName(activeDevice.name, isRTL) })}
             </Text>
 
-            {/* Real-time Telemetry Checklist */}
+            {/* Exactly 3 rows (or 4 when activeDevice.oilSensor === true) */}
             <View style={[styles.syncChecklist, { backgroundColor: colors.surfaceMuted }]}>
               <View style={styles.syncRow}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                  <Icon name="lock" size={18} color={colors.primary} />
+                  <Icon name="done" size={18} color={colors.primary} />
                   <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
-                    {isRTL ? 'الاتفاق على المفتاح الآمن' : 'Secure Key Agreement'}
+                    {t('connection.checkDeviceFound')}
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Icon name="done" size={16} color={colors.primary} />
                   <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
-                    {isRTL ? 'تم التحقق' : 'Verified'}
+                    {t('connection.verified')}
                   </Text>
                 </View>
               </View>
 
               <View style={styles.syncRow}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                  <Icon name="analytics" size={18} color={colors.primary} />
+                  <Icon name="bluetooth" size={18} color={colors.primary} />
                   <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
-                    {isRTL ? 'مستوى الزيت الدقيق' : 'Cartridge Sensor Level'}
+                    {t('connection.checkConnected')}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Icon name="done" size={16} color={colors.primary} />
+                  <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+                    {t('connection.verified')}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.syncRow}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Icon name="sync" size={18} color={colors.primary} />
+                  <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
+                    {t('connection.checkSyncSettings')}
                   </Text>
                 </View>
                 <Text style={[typography.labelSm, { color: colors.textMuted, fontWeight: '600', letterSpacing: 0 }]}>
-                  {isRTL ? 'جارٍ المزامنة...' : 'Syncing...'}
+                  {t('connection.syncingStatus')}
                 </Text>
               </View>
 
-              <View style={styles.syncRow}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                  <Icon name="schedule" size={18} color={colors.primary} />
-                  <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
-                    {isRTL ? 'جدول الرذاذ الميكروي' : 'Micro-Mist Schedule'}
+              {activeDevice.oilSensor && (
+                <View style={styles.syncRow}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <Icon name="water_drop" size={18} color={colors.primary} />
+                    <Text style={[typography.bodySm, { color: colors.text, letterSpacing: 0 }]}>
+                      {t('connection.checkReadOil')}
+                    </Text>
+                  </View>
+                  <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
+                    {t('connection.queuedStatus')}
                   </Text>
                 </View>
-                <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
-                  {isRTL ? 'في الانتظار' : 'Queued'}
-                </Text>
-              </View>
+              )}
 
               {/* Progress Bar */}
               <View style={[styles.progressTrack, { backgroundColor: colors.surfaceHigh }]}>
@@ -547,7 +579,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               style={styles.cancelSyncBtn}
             >
               <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
-                {isRTL ? 'إلغاء المزامنة' : 'Cancel Pairing Sequence'}
+                {t('connection.cancelSync')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -562,18 +594,18 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
           />
           <View style={styles.deviceCardTextCol}>
             <Text style={[styles.deviceCardOverline, { color: colors.primary, letterSpacing: 0 }]}>
-              {t('connectionStates.activeHardware', 'الجهاز النشط')}
+              {t('connection.activeHardware')}
             </Text>
             <Text style={[styles.deviceCardTitle, { color: colors.text, letterSpacing: 0 }]} numberOfLines={1}>
-              {activeDevice.name}
+              {getLocalizedDeviceName(activeDevice.name, isRTL)}
             </Text>
             <Text style={[styles.deviceCardSubtitle, { color: colors.textMuted, letterSpacing: 0 }]} numberOfLines={1}>
-              {isRTL ? 'موزع رذاذ بارد هادئ' : 'Cold-Air Acoustic Atomizer'}
+              {t('connection.quietDiffuser')}
             </Text>
             <View style={styles.deviceCardBadgeRow}>
               <View style={[styles.greenDot, { backgroundColor: colors.primary }]} />
               <Text style={[styles.deviceCardBadgeText, { color: colors.text, letterSpacing: 0 }]}>
-                {isRTL ? 'معتمد بهدوء فائق أقل من 22 ديسيبل' : 'Sub-22dB Quiet Mark Certified'}
+                {t('connection.quietMark')}
               </Text>
             </View>
           </View>
@@ -584,11 +616,11 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
           <View style={styles.footerBadgeRow}>
             <Icon name="verified_user" size={16} color={colors.textSubtle} />
             <Text style={[styles.footerBadgeText, { color: colors.textSubtle, letterSpacing: 0 }]}>
-              {t('connectionStates.offlineIntegrityTitle', 'أولوية العمل دون اتصال')}
+              {t('connection.offlineIntegrityTitle')}
             </Text>
           </View>
           <Text style={[styles.footerText, { color: colors.textMuted, letterSpacing: 0 }]}>
-            {t('connectionStates.offlineIntegrityDesc', 'يحفظ جهاز أودورا جميع الجداول محلياً على الجهاز ولا يعتمد على خوادم سحابية للتشغيل الأساسي.')}
+            {t('connection.offlineIntegrityDesc')}
           </Text>
         </View>
       </ScrollView>
@@ -631,7 +663,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     textAlign: 'center',
   },
-  telemetryBadge: {
+  liveStatusBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
@@ -640,7 +672,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     marginBottom: 8,
   },
-  telemetryBadgeText: {
+  liveStatusBadgeText: {
     fontSize: 10,
     fontWeight: '700',
     textTransform: 'uppercase',
@@ -659,104 +691,100 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    width: '100%',
-    padding: 4,
     borderRadius: radii.full,
+    padding: 4,
     marginTop: 18,
+    width: '100%',
   },
   tabBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
-    borderRadius: radii.full,
     gap: 6,
+    paddingVertical: 9,
+    borderRadius: radii.full,
   },
   tabBtnText: {
     fontSize: 12,
   },
   stateAContainer: {
     alignItems: 'center',
-    width: '100%',
-    marginTop: 8,
+    paddingTop: 10,
   },
   deviceArtBox: {
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 16,
     position: 'relative',
-    marginVertical: 12,
   },
   haloGlowRing: {
     position: 'absolute',
-    width: 170,
-    height: 170,
-    borderRadius: 85,
-    opacity: 0.35,
+    width: 210,
+    height: 210,
+    borderRadius: 105,
+    opacity: 0.45,
   },
   circularArtBackdrop: {
-    width: 192,
-    height: 192,
-    borderRadius: 96,
+    width: 176,
+    height: 176,
+    borderRadius: 88,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   circularArtImg: {
-    position: 'absolute',
     width: '100%',
     height: '100%',
-    opacity: 0.25,
   },
   circularArtOverlay: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: 'rgba(0,0,0,0.04)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.18)',
   },
   btCenterNode: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    position: 'absolute',
+    width: 68,
+    height: 68,
+    borderRadius: 34,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
   },
   btSlashLine: {
     position: 'absolute',
-    width: 56,
-    height: 3,
-    borderRadius: 2,
+    width: 2,
+    height: 48,
     transform: [{ rotate: '45deg' }],
   },
   botanicalBadge: {
     position: 'absolute',
-    bottom: 24,
-    right: 24,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    bottom: 8,
+    end: 8,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
   },
   badgePill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     paddingHorizontal: 12,
-    paddingVertical: 5,
+    paddingVertical: 4,
     borderRadius: radii.full,
-    marginBottom: 8,
+    marginBottom: 10,
   },
   statusDot: {
     width: 6,
@@ -771,62 +799,58 @@ const styles = StyleSheet.create({
   stateTitleText: {
     fontSize: 22,
     fontWeight: '600',
-    marginBottom: 6,
     textAlign: 'center',
+    marginBottom: 8,
   },
   stateBodyText: {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 20,
     textAlign: 'center',
-    maxWidth: 320,
-    marginBottom: 20,
-    paddingHorizontal: 4,
+    paddingHorizontal: 16,
+    marginBottom: 24,
   },
   buttonsColumn: {
     width: '100%',
     gap: 10,
-    marginBottom: 16,
+    marginBottom: 20,
   },
   primaryBtn: {
-    height: 52,
-    borderRadius: 26,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    paddingVertical: 14,
+    borderRadius: radii.full,
   },
   primaryBtnText: {
     fontSize: 14,
     fontWeight: '600',
   },
   secondaryBtn: {
-    height: 48,
-    borderRadius: 24,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
+    paddingVertical: 14,
+    borderRadius: radii.full,
   },
   secondaryBtnText: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '500',
   },
   autoRhythmCard: {
-    width: '100%',
-    borderRadius: 20,
-    padding: 16,
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 20,
+    width: '100%',
+    gap: 14,
+    marginBottom: 16,
   },
   autoRhythmIconBox: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -834,28 +858,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   autoRhythmTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight: '600',
     marginBottom: 2,
   },
   autoRhythmBody: {
     fontSize: 12,
-    lineHeight: 18,
+    lineHeight: 16,
   },
   stateCardBox: {
-    width: '100%',
     borderRadius: 24,
     padding: 20,
-    marginTop: 8,
+    marginBottom: 20,
   },
   beaconHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.06)',
   },
   beaconHeaderLeft: {
     flexDirection: 'row',
@@ -873,7 +892,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: radii.full,
   },
-  telemetryBanner: {
+  ambientStatusBanner: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 14,
@@ -905,30 +924,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 14,
     paddingTop: 14,
-    borderTopWidth: 1,
+    marginTop: 14,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: 'rgba(0,0,0,0.06)',
   },
   syncVisualBox: {
-    width: 160,
-    height: 160,
+    width: 140,
+    height: 140,
     alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 12,
     position: 'relative',
-    marginVertical: 16,
   },
   syncPulseOuter: {
     position: 'absolute',
-    width: 160,
-    height: 160,
-    borderRadius: 80,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
   },
   syncPulseMid: {
     position: 'absolute',
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: 108,
+    height: 108,
+    borderRadius: 54,
   },
   syncNodeCenter: {
     width: 76,
@@ -937,14 +956,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
     shadowRadius: 6,
     elevation: 3,
   },
   syncBleText: {
     fontSize: 9,
-    fontWeight: '700',
+    fontWeight: '800',
     marginTop: 2,
   },
   syncChecklist: {
@@ -952,7 +971,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 14,
     gap: 12,
-    marginBottom: 14,
+    marginVertical: 14,
   },
   syncRow: {
     flexDirection: 'row',
@@ -960,31 +979,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   progressTrack: {
-    height: 6,
-    borderRadius: 3,
+    height: 4,
+    borderRadius: 2,
     overflow: 'hidden',
     marginTop: 4,
   },
   progressFill: {
     height: '100%',
-    borderRadius: 3,
+    borderRadius: 2,
   },
   cancelSyncBtn: {
-    paddingVertical: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   deviceCard: {
-    width: '100%',
-    borderRadius: 20,
-    padding: 14,
     flexDirection: 'row',
     alignItems: 'center',
+    padding: 16,
+    borderRadius: 20,
     gap: 14,
-    marginTop: 16,
+    marginBottom: 20,
   },
   deviceCardThumb: {
-    width: 72,
-    height: 72,
-    borderRadius: 14,
+    width: 60,
+    height: 60,
+    borderRadius: 12,
   },
   deviceCardTextCol: {
     flex: 1,
@@ -993,21 +1012,21 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '700',
     textTransform: 'uppercase',
+    marginBottom: 2,
   },
   deviceCardTitle: {
     fontSize: 15,
     fontWeight: '600',
-    marginTop: 2,
+    marginBottom: 2,
   },
   deviceCardSubtitle: {
     fontSize: 12,
-    marginTop: 1,
+    marginBottom: 4,
   },
   deviceCardBadgeRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginTop: 6,
   },
   greenDot: {
     width: 6,
@@ -1019,27 +1038,22 @@ const styles = StyleSheet.create({
   },
   footerSection: {
     alignItems: 'center',
-    marginTop: 20,
-    paddingBottom: 8,
-    maxWidth: 300,
-    alignSelf: 'center',
+    paddingBottom: 24,
+    paddingHorizontal: 12,
   },
   footerBadgeRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   footerBadgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    textTransform: 'uppercase',
+    fontSize: 12,
+    fontWeight: '600',
   },
   footerText: {
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: 12,
+    lineHeight: 17,
     textAlign: 'center',
   },
 });
-
-export default ConnectionStatesScreen;

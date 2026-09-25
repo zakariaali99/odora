@@ -8,6 +8,7 @@ import {
   TextStyle,
   StyleProp,
   TextInputProps,
+  I18nManager,
 } from 'react-native';
 import { useTheme } from '../../theme';
 import { Icon, IconName } from './Icon';
@@ -56,7 +57,7 @@ export const Input: React.FC<InputProps> = ({
             {
               color: colors.textMuted,
               marginBottom: 6,
-              textAlign: isRTL ? 'right' : 'left',
+              textAlign: 'left',
             },
           ]}
         >
@@ -91,7 +92,6 @@ export const Input: React.FC<InputProps> = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           multiline={multiline}
-          textAlign={isRTL ? 'right' : 'left'}
           style={[
             styles.textInput,
             typography.bodyMd,
@@ -99,6 +99,8 @@ export const Input: React.FC<InputProps> = ({
               color: colors.text,
               textAlignVertical: multiline ? 'top' : 'center',
               paddingVertical: multiline ? spacing.sm : 0,
+              textAlign: I18nManager.isRTL ? 'right' : 'left',
+              writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
             },
             style,
           ]}
@@ -122,7 +124,7 @@ export const Input: React.FC<InputProps> = ({
             {
               color: colors.error,
               marginTop: 4,
-              textAlign: isRTL ? 'right' : 'left',
+              textAlign: 'left',
               textTransform: 'none',
               letterSpacing: 0,
             },

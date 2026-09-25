@@ -20,7 +20,7 @@ import { Toggle } from '../components/ui/Toggle';
 import { Sheet } from '../components/ui/Sheet';
 import { Button } from '../components/ui/Button';
 import { useTranslation } from 'react-i18next';
-import { useAppStore, SHARED_ROOMS } from '../store/useAppStore';
+import { useAppStore, SHARED_ROOMS, getLocalizedDeviceName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 const SAGE_DIFFUSER = require('../../assets/photos/diffuser-a316-sage.png');
@@ -76,9 +76,9 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
     };
 
   // State
-  const [deviceName, setDeviceName] = useState(activeDevice.name);
+  const [deviceName, setDeviceName] = useState(getLocalizedDeviceName(activeDevice.name, isRTL));
   const [isRenaming, setIsRenaming] = useState(false);
-  const [tempName, setTempName] = useState(activeDevice.name);
+  const [tempName, setTempName] = useState(getLocalizedDeviceName(activeDevice.name, isRTL));
 
   // Shared Rooms (Item 7: One shared room list between Pairing and Settings)
   const roomOptions = SHARED_ROOMS.map((r) => ({
@@ -133,12 +133,12 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
       setDeviceName(tempName.trim());
       updateDevice(activeDevice.id, { name: tempName.trim() });
       setIsRenaming(false);
-      showToast(isRTL ? `تمت إعادة التسمية إلى "${tempName.trim()}"` : `Renamed to "${tempName.trim()}"`);
+      showToast(t('deviceSettings.toastRenamed', { name: tempName.trim() }));
     }
   };
 
   const handleCopySerial = () => {
-    showToast(isRTL ? 'تم نسخ الرقم التسلسلي للحافظة' : 'Serial number copied to clipboard');
+    showToast(t('deviceSettings.toastSerialCopied'));
   };
 
   const handleForgetDevice = () => {
@@ -403,8 +403,8 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                         setSelectedTimerIndex(idx);
                         showToast(
                           idx === 0
-                            ? (isRTL ? 'تم إلغاء مؤقت الإيقاف' : 'Sleep timer deactivated')
-                            : (isRTL ? `تم ضبط مؤقت الإيقاف على ${opt}` : `Sleep timer set for ${opt}`)
+                            ? t('deviceSettings.toastSleepOff')
+                            : t('deviceSettings.toastSleepSet', { opt })
                         );
                       }}
                       style={[
@@ -460,8 +460,8 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                   setLowOilGuard(val);
                   showToast(
                     val
-                      ? (isRTL ? 'تم تفعيل حماية انخفاض الزيت' : 'Low-oil guard enabled')
-                      : (isRTL ? 'تم تعطيل حماية انخفاض الزيت' : 'Low-oil guard disabled')
+                      ? t('deviceSettings.toastLowOilGuardOn')
+                      : t('deviceSettings.toastLowOilGuardOff')
                   );
                 }}
               />
@@ -473,7 +473,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
         <View style={[styles.craftCard, { backgroundColor: colors.bgAlt }]}>
           <View style={styles.craftTextCol}>
             <Text style={[styles.craftEyebrow, { color: colors.primary }]}>
-              {activeDevice.name || 'Odora A316'}
+              {getLocalizedDeviceName(activeDevice.name, isRTL) || 'Odora A316'}
             </Text>
             <Text style={[styles.craftTitle, { color: colors.text }]}>
               {t('deviceSettings.deviceCraftTitle', 'خزف ميرمية مصقول يدوياً')}
@@ -535,7 +535,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                 {t('deviceSettings.dateAdded', 'تاريخ الإضافة')}
               </Text>
               <Text style={[styles.specValue, { color: colors.text }]}>
-                {isRTL ? '12 سبتمبر 2026' : 'Sep 12, 2026'}
+                {t('deviceSettings.manufactureDateValue')}
               </Text>
             </View>
             <View style={[styles.divider, { backgroundColor: colors.surfaceMuted }]} />

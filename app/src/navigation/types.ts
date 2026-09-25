@@ -13,7 +13,13 @@ export type RootStackParamList = {
   DeviceControl: { deviceId?: string } | undefined;
   DevicePairing: undefined;
   DeviceSettings: { deviceId?: string; name?: string; room?: string } | undefined;
-  ConnectionStates: { initialTab?: 'disabled' | 'out_of_range' | 'syncing' } | undefined;
+  ConnectionStates:
+    | {
+        initialTab?: 'disabled' | 'out_of_range' | 'syncing';
+        initialState?: 'disabled' | 'out_of_range' | 'syncing' | 'connected';
+        deviceId?: string;
+      }
+    | undefined;
   Schedule: undefined;
   Category: { categoryId?: string; title?: string } | undefined;
   Search: undefined;

@@ -77,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <Text
             style={[
               typography.labelSm,
-              { color: colors.textSubtle, textAlign: isRTL ? 'right' : 'left' },
+              { color: colors.textSubtle, textAlign: 'left' },
             ]}
           >
             {category}
@@ -92,7 +92,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               color: colors.text,
               fontWeight: '600',
               marginTop: 2,
-              textAlign: isRTL ? 'right' : 'left',
+              textAlign: 'left',
             },
           ]}
         >

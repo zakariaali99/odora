@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '../../theme';
+import { useTheme, withAlpha } from '../../theme';
 import { Icon, IconName } from './Icon';
 
 export type TabKey = 'home' | 'devices' | 'store' | 'account';
@@ -50,7 +50,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
       style={[
         styles.container,
         {
-          backgroundColor: colors.bg,
+          backgroundColor: withAlpha(colors.bg, 0.94),
           borderTopWidth: StyleSheet.hairlineWidth,
           borderTopColor: colors.border,
           shadowColor: colors.ink,

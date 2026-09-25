@@ -100,7 +100,7 @@ export const ConnectionState: React.FC<ConnectionStateProps> = ({
             <Text
               style={[
                 typography.bodyMd,
-                { color: colors.text, fontWeight: '600', textAlign: isRTL ? 'right' : 'left' },
+                { color: colors.text, fontWeight: '600', textAlign: 'left' },
               ]}
             >
               {title}
@@ -109,7 +109,7 @@ export const ConnectionState: React.FC<ConnectionStateProps> = ({
               numberOfLines={2}
               style={[
                 typography.bodySm,
-                { color: colors.textMuted, textAlign: isRTL ? 'right' : 'left' },
+                { color: colors.textMuted, textAlign: 'left' },
               ]}
             >
               {description}

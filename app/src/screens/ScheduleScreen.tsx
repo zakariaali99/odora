@@ -7,13 +7,14 @@ import {
   ScrollView,
   Modal,
   TextInput,
+  I18nManager,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { toArabicNumerals } from '../i18n';
 import { AppBar, Card, Icon, Toggle, Button, SegmentedControl, Slider } from '../components/ui';
-import { useAppStore, AppRoutine } from '../store/useAppStore';
+import { useAppStore, AppRoutine, getLocalizedRoutineName, getLocalizedDeviceName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 interface ScheduleScreenProps {
@@ -31,33 +32,24 @@ const getRoutineIcon = (startTime: string): string => {
 };
 
 // Item 9: Seed routines & calendar: Libyan work week is Sun–Thu
-const formatRoutineDays = (days: string[], isRTL: boolean): string => {
-  if (days.length === 7) return isRTL ? 'يومياً' : 'Daily';
+const formatRoutineDays = (days: string[], t: any): string => {
+  if (days.length === 7) return t('scheduleScreen.daily');
   const isWorkWeek =
     days.length === 5 && ['Su', 'M', 'Tu', 'W', 'Th'].every((d) => days.includes(d));
-  if (isWorkWeek) return isRTL ? 'الأحد – الخميس' : 'Sun–Thu';
+  if (isWorkWeek) return t('scheduleScreen.workWeek');
   const isWeekend = days.length === 2 && ['F', 'Sa'].every((d) => days.includes(d));
-  if (isWeekend) return isRTL ? 'الجمعة والسبت' : 'Fri–Sat';
+  if (isWeekend) return t('scheduleScreen.weekend');
 
-  const dayLabelsAr: Record<string, string> = {
-    Su: 'الأحد',
-    M: 'الإثنين',
-    Tu: 'الثلاثاء',
-    W: 'الأربعاء',
-    Th: 'الخميس',
-    F: 'الجمعة',
-    Sa: 'السبت',
+  const dayMap: Record<string, string> = {
+    Su: t('days.su'),
+    M: t('days.m'),
+    Tu: t('days.tu'),
+    W: t('days.w'),
+    Th: t('days.th'),
+    F: t('days.f'),
+    Sa: t('days.sa'),
   };
-  const dayLabelsEn: Record<string, string> = {
-    Su: 'Sun',
-    M: 'Mon',
-    Tu: 'Tue',
-    W: 'Wed',
-    Th: 'Thu',
-    F: 'Fri',
-    Sa: 'Sat',
-  };
-  return days.map((d) => (isRTL ? dayLabelsAr[d] : dayLabelsEn[d]) || d).join(isRTL ? '، ' : ', ');
+  return days.map((d) => dayMap[d] || d).join(t('common.listSeparator'));
 };
 
 export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, route }) => {
@@ -91,7 +83,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
     if (previewConfig?.sheet !== undefined) {
       setNewRoutineVisible(Boolean(previewConfig.sheet));
     }
-  }, [previewConfig?.sheet, previewConfig?.timestamp]);
+  }, [previewConfig?.sheet]);
 
   const [routineName, setRoutineName] = useState('');
   const [startTime, setStartTime] = useState('08:00');
@@ -104,13 +96,13 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
 
   // Libyan week: Sun, Mon, Tue, Wed, Thu, Fri (weekend), Sat (weekend)
   const days = [
-    { key: 'Su', label: isRTL ? 'ح' : 'Su', isWeekend: false, fullName: isRTL ? 'الأحد' : 'Sun' },
-    { key: 'M', label: isRTL ? 'إ' : 'M', isWeekend: false, fullName: isRTL ? 'الإثنين' : 'Mon' },
-    { key: 'Tu', label: isRTL ? 'ث' : 'Tu', isWeekend: false, fullName: isRTL ? 'الثلاثاء' : 'Tue' },
-    { key: 'W', label: isRTL ? 'ر' : 'W', isWeekend: false, fullName: isRTL ? 'الأربعاء' : 'Wed' },
-    { key: 'Th', label: isRTL ? 'خ' : 'Th', isWeekend: false, fullName: isRTL ? 'الخميس' : 'Thu' },
-    { key: 'F', label: isRTL ? 'ج' : 'F', isWeekend: true, fullName: isRTL ? 'الجمعة' : 'Fri' },
-    { key: 'Sa', label: isRTL ? 'س' : 'Sa', isWeekend: true, fullName: isRTL ? 'السبت' : 'Sat' },
+    { key: 'Su', label: t('days.su_short'), isWeekend: false, fullName: t('days.su') },
+    { key: 'M', label: t('days.m_short'), isWeekend: false, fullName: t('days.m') },
+    { key: 'Tu', label: t('days.tu_short'), isWeekend: false, fullName: t('days.tu') },
+    { key: 'W', label: t('days.w_short'), isWeekend: false, fullName: t('days.w') },
+    { key: 'Th', label: t('days.th_short'), isWeekend: false, fullName: t('days.th') },
+    { key: 'F', label: t('days.f_short'), isWeekend: true, fullName: t('days.f') },
+    { key: 'Sa', label: t('days.sa_short'), isWeekend: true, fullName: t('days.sa') },
   ];
 
   const toggleDay = (key: string) => {
@@ -167,7 +159,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
       mode: newMode,
       enabled: true,
       isBurst: false,
-      oilName: activeDevice?.oilName || (isRTL ? 'مريمية الغابة' : 'Forest Sage'),
+      oilName: activeDevice?.oilName || 'seed.oilForestSage',
     };
     addRoutine(routine);
     setRoutineName('');
@@ -203,7 +195,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
           <TouchableOpacity activeOpacity={0.8} style={[styles.devicePickerPill, { backgroundColor: colors.surfaceMuted }]}>
             <View style={[styles.statusDotLive, { backgroundColor: colors.primary }]} />
             <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600', fontSize: 12, letterSpacing: 0 }]}>
-              {activeDevice?.name || t('home.livingRoomDiffuser', 'موزع غرفة المعيشة')}
+              {activeDevice ? getLocalizedDeviceName(activeDevice.name, isRTL) : t('home.livingRoomDiffuser', 'موزع غرفة المعيشة')}
             </Text>
             <Icon name="expand_more" size={16} color={colors.textMuted} style={{ marginStart: 4 }} />
           </TouchableOpacity>
@@ -223,7 +215,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                   {
                     color: colors.textMuted,
                     fontWeight: '700',
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 0.8,
                     marginStart: 6,
                   },
@@ -351,7 +343,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                     <View style={{ marginStart: 12, flex: 1 }}>
                       <View style={styles.routineTitleRow}>
                         <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', letterSpacing: 0 }]}>
-                          {routine.name}
+                          {getLocalizedRoutineName(routine.name, isRTL)}
                         </Text>
                         {/* Item 17: Hide Boost chip when burst is off */}
                         {isBurst && (
@@ -363,7 +355,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                         )}
                       </View>
                       <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
-                        {`${routine.startTime} – ${routine.endTime} · ${formatRoutineDays(routine.days, isRTL)}`}
+                        {`${routine.startTime} – ${routine.endTime} · ${formatRoutineDays(routine.days, t)}`}
                       </Text>
                     </View>
                   </View>
@@ -436,6 +428,8 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                   {
                     backgroundColor: colors.bgAlt,
                     color: colors.text,
+                    textAlign: I18nManager.isRTL ? "right" : "left",
+                    writingDirection: I18nManager.isRTL ? "rtl" : "ltr",
                   },
                 ]}
                 placeholder={t('scheduleScreen.routineNamePlaceholder', 'مثال: وضوح الصباح')}

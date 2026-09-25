@@ -8,6 +8,7 @@ export interface PreviewConfig {
     | 'DeviceSettings'
     | 'ConnectionStates'
     | 'Store'
+    | 'Account'
     | null;
   lang: 'ar' | 'en' | null;
   scrollToEnd?: boolean;

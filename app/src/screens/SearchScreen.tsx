@@ -95,7 +95,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
               style={[
                 styles.searchInput,
                 typography.bodyMd,
-                { color: colors.text, textAlign: isRTL ? 'right' : 'left' },
+                { color: colors.text, textAlign: 'left' },
               ]}
               placeholder={isRTL ? 'هينوكي، ميرمية، ترافيرتين، 50 مل...' : 'Hinoki, sage, travertine, 50ml...'}
               placeholderTextColor={colors.textMuted}
