@@ -7,17 +7,16 @@ export interface PreviewConfig {
     | 'Schedule'
     | 'DeviceSettings'
     | 'ConnectionStates'
+    | 'Store'
     | null;
   lang: 'ar' | 'en' | null;
   scrollToEnd?: boolean;
   sheet?: boolean;
-  timestamp?: number;
 }
 
 export const previewConfig: PreviewConfig = {
-  screen: 'Home',
-  lang: 'ar',
+  screen: null,
+  lang: null,
   scrollToEnd: false,
   sheet: false,
-  timestamp: 1790306324447,
 };

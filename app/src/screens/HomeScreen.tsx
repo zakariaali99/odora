@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
 import { AppBar, Card, Icon } from '../components/ui';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 const DIFFUSER_IMAGES = {
@@ -182,10 +182,31 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           </View>
 
           <View style={styles.greetingHeader}>
-            <Text style={[typography.display, { color: colors.text, fontSize: 26, lineHeight: 34 }]}>
+            <Text
+              style={[
+                typography.display,
+                {
+                  color: colors.text,
+                  fontSize: 26,
+                  lineHeight: 34,
+                  textAlign: 'auto',
+                  writingDirection: isRTL ? 'rtl' : 'ltr',
+                },
+              ]}
+            >
               {t('home.greeting')}
             </Text>
-            <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2 }]}>
+            <Text
+              style={[
+                typography.bodySm,
+                {
+                  color: colors.textMuted,
+                  marginTop: 2,
+                  textAlign: 'auto',
+                  writingDirection: isRTL ? 'rtl' : 'ltr',
+                },
+              ]}
+            >
               {t('home.subGreeting')}
             </Text>
           </View>
@@ -222,7 +243,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       },
                     ]}
                   >
-                    {activeDevice.roomName}
+                    {getLocalizedRoomName(activeDevice.roomName, isRTL)}
                   </Text>
                   <View style={[styles.eyebrowDot, { backgroundColor: colors.border }]} />
                   <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
@@ -239,10 +260,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       lineHeight: 28,
                       fontWeight: '600',
                       marginTop: 2,
+                      textAlign: 'auto',
+                      writingDirection: isRTL ? 'rtl' : 'ltr',
                     },
                   ]}
                 >
-                  {activeDevice.name}
+                  {getLocalizedDeviceName(activeDevice.name, isRTL)}
                 </Text>
 
                 <View style={styles.statusRow}>
@@ -497,6 +520,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
+            style={styles.sanctuariesScrollView}
             contentContainerStyle={styles.sanctuariesCarousel}
           >
             {devices.map((device, idx) => (
@@ -530,10 +554,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                             color: colors.text,
                             fontSize: 16,
                             fontWeight: '600',
+                            textAlign: 'auto',
+                            writingDirection: isRTL ? 'rtl' : 'ltr',
                           },
                         ]}
                       >
-                        {device.name}
+                        {getLocalizedDeviceName(device.name, isRTL)}
                       </Text>
                       <View style={styles.sanctuaryStatusLine}>
                         <View
@@ -551,11 +577,11 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
                   <View style={styles.sanctuaryFooter}>
                     <Text style={[typography.bodySm, { color: colors.textSubtle }]}>
-                      {device.oilName}
+                      {getLocalizedOilName(device.oilName, isRTL)}
                     </Text>
                     <View style={[styles.colorBadge, { backgroundColor: colors.surfaceMuted }]}>
                       <Text style={[typography.labelSm, { color: colors.text, fontSize: 11, fontWeight: '600' }]}>
-                        {device.roomName}
+                        {getLocalizedRoomName(device.roomName, isRTL)}
                       </Text>
                     </View>
                   </View>
@@ -581,14 +607,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 },
               ]}
             >
-              <View
-                style={[
-                  styles.storeTeaserTextContent,
-                  {
-                    paddingEnd: 16,
-                  },
-                ]}
-              >
+              <View style={styles.storeTeaserTextContent}>
                 <View
                   style={[
                     styles.curatedPill,
@@ -621,10 +640,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       fontWeight: '600',
                       fontSize: 18,
                       marginTop: 6,
+                      textAlign: 'auto',
+                      writingDirection: isRTL ? 'rtl' : 'ltr',
                     },
                   ]}
                 >
-                  {isRTL ? 'هينوكي مدخن وشاي أبيض' : 'Smoky Hinoki & White Tea'}
+                  {t('home.curatedTitle', 'هينوكي مدخن وشاي أبيض')}
                 </Text>
 
                 <Text
@@ -634,6 +655,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {
                       color: colors.textMuted,
                       marginTop: 4,
+                      textAlign: 'auto',
+                      writingDirection: isRTL ? 'rtl' : 'ltr',
                     },
                   ]}
                 >
@@ -645,7 +668,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     {t('home.discoverNow')}
                   </Text>
                   <Icon
-                    name="arrow_forward"
+                    name={isRTL ? 'arrow_back' : 'arrow_forward'}
                     size={16}
                     color={colors.primary}
                     style={{ marginHorizontal: 4 }}
@@ -653,12 +676,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 </View>
               </View>
 
-              {/* Real Bottle Image */}
+              {/* Real Curated Image bleeding to bottom-end corner */}
               <View style={styles.teaserImageContainer}>
                 <Image
-                  source={require('../../assets/photos/oil-cotton-linen.png')}
+                  source={require('../../assets/photos/hinoki-curated.jpg')}
                   style={styles.teaserBottleImage}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
               </View>
             </Card>
@@ -861,11 +884,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
   },
+  sanctuariesScrollView: {
+    marginHorizontal: -20,
+  },
   sanctuariesCarousel: {
+    paddingHorizontal: 20,
     paddingEnd: 8,
   },
   sanctuaryCardTouch: {
-    width: 220,
+    width: 210,
     marginEnd: 12,
   },
   sanctuaryCard: {
@@ -913,10 +940,15 @@ const styles = StyleSheet.create({
   storeTeaserCard: {
     padding: 16,
     borderRadius: 24,
-    alignItems: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+    minHeight: 160,
+    justifyContent: 'center',
   },
   storeTeaserTextContent: {
-    flex: 1,
+    maxWidth: '65%',
+    alignItems: 'flex-start',
+    zIndex: 2,
   },
   curatedPill: {
     paddingHorizontal: 10,
@@ -929,10 +961,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   teaserImageContainer: {
-    width: 90,
-    height: 110,
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    end: 0,
+    width: 130,
+    height: 144,
+    borderTopStartRadius: 20,
+    overflow: 'hidden',
   },
   teaserBottleImage: {
     width: '100%',

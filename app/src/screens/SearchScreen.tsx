@@ -80,7 +80,7 @@ export const SearchScreen: React.FC<SearchScreenProps> = ({ navigation }) => {
         actions={[
           {
             avatar: require('../../assets/photos/avatar.jpg'),
-            onPress: () => navigation.navigate('Account'),
+            onPress: () => (navigation as any).navigate('MainTabs', { screen: 'Account' }),
             label: 'Profile',
           },
         ]}

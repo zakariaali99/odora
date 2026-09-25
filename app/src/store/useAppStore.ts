@@ -46,6 +46,44 @@ export const getLocalizedRoomName = (roomKeyOrName: string, isRTL: boolean): str
   return roomKeyOrName;
 };
 
+export const getLocalizedDeviceName = (nameOrKey: string, isRTL: boolean): string => {
+  if (nameOrKey === 'موزع غرفة المعيشة' || nameOrKey === 'Living Room Diffuser') {
+    return isRTL ? 'موزع غرفة المعيشة' : 'Living Room Diffuser';
+  }
+  if (nameOrKey === 'ركن القراءة' || nameOrKey === 'Reading Nook') {
+    return isRTL ? 'ركن القراءة' : 'Reading Nook';
+  }
+  if (
+    nameOrKey === 'غرفة النوم الرئيسية' ||
+    nameOrKey === 'Master Bedroom' ||
+    nameOrKey === 'موزع غرفة النوم' ||
+    nameOrKey === 'غرفة النوم'
+  ) {
+    return isRTL ? 'غرفة النوم الرئيسية' : 'Master Bedroom';
+  }
+  return nameOrKey;
+};
+
+export const getLocalizedOilName = (nameOrKey: string, isRTL: boolean): string => {
+  if (nameOrKey === 'مريمية الغابة والأرز' || nameOrKey === 'Forest Sage & Cedar') {
+    return isRTL ? 'مريمية الغابة والأرز' : 'Forest Sage & Cedar';
+  }
+  if (
+    nameOrKey === 'صندل وسوسن' ||
+    nameOrKey === 'White Santal & Iris' ||
+    nameOrKey === 'Sandalwood & Iris'
+  ) {
+    return isRTL ? 'صندل وسوسن' : 'Sandalwood & Iris';
+  }
+  if (nameOrKey === 'سرو مدخن' || nameOrKey === 'Smoky Cypress') {
+    return isRTL ? 'سرو مدخن' : 'Smoky Cypress';
+  }
+  if (nameOrKey === 'كتان قطني ناعم' || nameOrKey === 'Cotton Linen') {
+    return isRTL ? 'كتان قطني ناعم' : 'Cotton Linen';
+  }
+  return nameOrKey;
+};
+
 export interface AppRoutine {
   id: string;
   deviceId?: string;

@@ -73,7 +73,7 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ navigation }
 
   const handleComplete = () => {
     setHasCompletedOnboarding(true);
-    navigation.replace('Home');
+    (navigation as any).replace('MainTabs');
   };
 
   const slide = slides[currentStep];

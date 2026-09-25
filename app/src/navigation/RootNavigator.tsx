@@ -3,15 +3,12 @@ import { Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './types';
 import { MainTabsNavigator } from './MainTabsNavigator';
-import { HomeScreen } from '../screens/HomeScreen';
-import { DevicesScreen } from '../screens/DevicesScreen';
 import { DeviceControlScreen } from '../screens/DeviceControlScreen';
 import { DevicePairingScreen } from '../screens/DevicePairingScreen';
 import { DeviceSettingsScreen } from '../screens/DeviceSettingsScreen';
 import { ConnectionStatesScreen } from '../screens/ConnectionStatesScreen';
 import { ScheduleScreen } from '../screens/ScheduleScreen';
 import { OnboardingScreen } from '../screens/OnboardingScreen';
-import { StoreScreen } from '../screens/StoreScreen';
 import { CategoryScreen } from '../screens/CategoryScreen';
 import { SearchScreen } from '../screens/SearchScreen';
 import { ProductDetailScreen } from '../screens/ProductDetailScreen';
@@ -45,10 +42,16 @@ export const RootNavigator: React.FC = () => {
     }
   }
 
-  const initialRoute: keyof RootStackParamList =
-    (previewConfig.screen as keyof RootStackParamList) || 'Home';
+  const TAB_ROUTES = ['Home', 'Devices', 'Store', 'Account'] as const;
+  type TabRoute = (typeof TAB_ROUTES)[number];
 
-  const navigatorKey = `${previewConfig.screen || 'MainTabs'}-${previewConfig.lang || 'ar'}-${previewConfig.sheet ? 'sheet' : 'nosheet'}-${previewConfig.scrollToEnd ? 'end' : 'top'}-${previewConfig.timestamp || 0}`;
+  const previewScreen = __DEV__ ? previewConfig.screen : null;
+  const isTabPreview = !!previewScreen && (TAB_ROUTES as readonly string[]).includes(previewScreen);
+
+  const initialRoute: keyof RootStackParamList =
+    !previewScreen || isTabPreview ? 'MainTabs' : (previewScreen as keyof RootStackParamList);
+
+  const navigatorKey = `${previewConfig.screen || 'MainTabs'}-${previewConfig.lang || 'default'}-${previewConfig.sheet ? 'sheet' : 'nosheet'}-${previewConfig.scrollToEnd ? 'end' : 'top'}`;
 
   return (
     <Stack.Navigator
@@ -60,10 +63,11 @@ export const RootNavigator: React.FC = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Stack.Screen name="MainTabs" component={MainTabsNavigator} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Devices" component={DevicesScreen} />
-      <Stack.Screen name="Store" component={StoreScreen} />
+      <Stack.Screen
+        name="MainTabs"
+        component={MainTabsNavigator}
+        initialParams={isTabPreview ? { screen: previewScreen as TabRoute } : undefined}
+      />
       <Stack.Screen name="DevUiKit" component={DevUiKitScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="DeviceControl" component={DeviceControlScreen} />

@@ -43,7 +43,7 @@ export const OrderConfirmationScreen: React.FC<OrderConfirmationScreenProps> = (
           <View style={styles.appBarLeading}>
             <TouchableOpacity
               activeOpacity={0.7}
-              onPress={() => navigation.navigate('Home')}
+              onPress={() => (navigation as any).navigate('MainTabs', { screen: 'Home' })}
               style={styles.backButton}
             >
               <Icon name="close" size={20} color={colors.text} />
@@ -421,7 +421,7 @@ export const OrderConfirmationScreen: React.FC<OrderConfirmationScreenProps> = (
 
           <TouchableOpacity
             activeOpacity={0.85}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => (navigation as any).navigate('MainTabs', { screen: 'Home' })}
             style={[styles.returnHomeBtn, { backgroundColor: colors.surfaceLow }]}
           >
             <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700' }]}>

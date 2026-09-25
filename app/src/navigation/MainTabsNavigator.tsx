@@ -7,10 +7,11 @@ import { StoreScreen } from '../screens/StoreScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
 import { BottomTabBar, TabKey } from '../components/ui/BottomTabBar';
 import { useTranslation } from 'react-i18next';
+import { previewConfig } from '../previewTarget';
 
 const Tab = createBottomTabNavigator<MainTabsParamList>();
 
-export const MainTabsNavigator: React.FC = () => {
+export const MainTabsNavigator: React.FC<any> = ({ route }) => {
   const { t } = useTranslation();
 
   const localizedTabs = [
@@ -20,9 +21,12 @@ export const MainTabsNavigator: React.FC = () => {
     { key: 'account' as TabKey, label: t('nav.account', 'Account'), icon: 'person' as const },
   ];
 
+  const initialTab: keyof MainTabsParamList =
+    (route?.params?.screen as keyof MainTabsParamList) || 'Home';
+
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName={initialTab}
       screenOptions={{
         headerShown: false,
       }}

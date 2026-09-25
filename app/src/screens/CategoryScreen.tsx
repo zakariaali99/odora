@@ -148,7 +148,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({ navigation, rout
         actions={[
           {
             avatar: require('../../assets/photos/avatar.jpg'),
-            onPress: () => navigation.navigate('Account'),
+            onPress: () => (navigation as any).navigate('MainTabs', { screen: 'Account' }),
             label: 'Profile',
           },
         ]}
@@ -436,7 +436,7 @@ export const CategoryScreen: React.FC<CategoryScreenProps> = ({ navigation, rout
             <TouchableOpacity
               activeOpacity={0.85}
               style={[styles.bannerCtaBtn, { backgroundColor: colors.primary }]}
-              onPress={() => navigation.navigate('Store')}
+              onPress={() => (navigation as any).navigate('MainTabs', { screen: 'Store' })}
             >
               <Text style={[typography.labelMd, { color: colors.surface, fontWeight: '600' }]}>
                 {isRTL ? 'تهيئة خطة الملاذ' : 'Configure Sanctuary Plan'}

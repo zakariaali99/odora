@@ -50,9 +50,10 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
       style={[
         styles.container,
         {
-          backgroundColor: isDark ? 'rgba(28, 25, 23, 0.94)' : 'rgba(253, 249, 245, 0.94)',
+          backgroundColor: colors.bg,
           borderTopWidth: StyleSheet.hairlineWidth,
-          borderTopColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(35, 40, 33, 0.08)',
+          borderTopColor: colors.border,
+          shadowColor: colors.ink,
           height: 64 + bottomInset,
           paddingBottom: bottomInset,
         },

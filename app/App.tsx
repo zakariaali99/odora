@@ -114,10 +114,7 @@ export default function App() {
         ]}
       >
         <StatusBar style={isDark ? 'light' : 'dark'} />
-        <NavigationContainer
-          key={`${previewConfig.screen || 'Home'}-${previewConfig.lang || 'ar'}-${previewConfig.scrollToEnd ? 'end' : 'top'}`}
-          linking={linking}
-        >
+        <NavigationContainer linking={linking}>
           <RootNavigator />
         </NavigationContainer>
         <LanguageConfirmSheet />

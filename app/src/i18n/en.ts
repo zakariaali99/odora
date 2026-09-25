@@ -23,6 +23,7 @@ export const en = {
     loading: 'Loading...',
     settings: 'Settings',
     close: 'Close',
+    disconnected: 'Disconnected',
   },
   tabs: {
     home: 'Home',
@@ -90,6 +91,7 @@ export const en = {
     discoverNow: 'Discover Collection',
     nextRoutineDefault: 'Evening Calm',
     intervalTiming: '30s on · 60s off',
+    curatedTitle: 'Smoky Hinoki & White Tea',
   },
   device: {
     livingRoom: 'Living Room',
@@ -138,6 +140,10 @@ export const en = {
     signalStrong: 'Signal Strong',
     connectionDiagnostic: 'Connection Diagnostic',
     dispersionSpeed: '1.2 ml/hr dispersion',
+    scentHistory: 'Scent History',
+    deviceAmbience: 'Device Ambience',
+    fragranceNotes: 'Eucalyptus, Mediterranean Pine & Wild Moss',
+    daysRemainingEstimate: 'Approx. {{count}} days remaining {{estimate}}',
   },
   deviceSettings: {
     title: 'Device Settings',
@@ -170,9 +176,15 @@ export const en = {
     forgetDesc: 'Removing this diffuser will clear scheduled routines and unbind it from your account. You can pair it again at any time.',
     forgetConfirmTitle: 'Forget Device?',
     forgetConfirmDesc: 'Are you sure you want to forget this device? Scheduled routines will be cleared and it will be unlinked from your account.',
-    confirmForget: 'Forget & Remove',
     deviceForgottenToast: 'Device forgotten successfully',
     roomMovedToast: 'Moved to {{room}}',
+    toastRenamed: 'Renamed to "{{name}}"',
+    toastSerialCopied: 'Serial number copied to clipboard',
+    toastSleepOff: 'Sleep timer deactivated',
+    toastSleepSet: 'Sleep timer set for {{opt}}',
+    toastLowOilGuardOn: 'Low-oil guard enabled',
+    toastLowOilGuardOff: 'Low-oil guard disabled',
+    manufactureDateValue: 'Sep 12, 2026',
   },
   devicesScreen: {
     ecosystem: 'Ecosystem',

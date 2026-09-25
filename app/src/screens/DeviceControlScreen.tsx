@@ -23,8 +23,7 @@ import {
   Toggle,
   StatusPill,
 } from '../components/ui';
-import { getDeviceController } from '../device/DeviceController';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
 
 const DIFFUSER_IMAGES = {
@@ -152,7 +151,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           },
           {
             avatar: require('../../assets/photos/avatar.jpg'),
-            onPress: () => activeNav.navigate('Account'),
+            onPress: () => (activeNav as any).navigate('MainTabs', { screen: 'Account' }),
             label: t('nav.account', 'Profile'),
           },
         ]}
@@ -201,7 +200,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               ·
             </Text>
             <Text style={[typography.labelMd, { color: colors.textMuted, fontSize: 12, letterSpacing: 0 }]}>
-              {activeDevice.roomName}
+              {getLocalizedRoomName(activeDevice.roomName, isRTL)}
             </Text>
           </TouchableOpacity>
 
@@ -294,7 +293,8 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             <View style={styles.telemetryItem}>
               <Icon name="signal_cellular_alt" size={14} color={colors.primary} />
               <Text style={[typography.labelMd, { color: colors.textMuted, marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
-                {t('deviceControl.signalStrong', 'إشارة قوية ')}
+                {t('deviceControl.signalStrong', 'إشارة قوية')}
+                {' '}
                 <Text style={{ writingDirection: 'ltr' }}>{'\u202A'}({activeDevice.signalDbm} dBm){'\u202C'}</Text>
               </Text>
             </View>
@@ -399,10 +399,10 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               </View>
               <View style={{ marginStart: 12, flex: 1 }}>
                 <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
-                  {activeDevice.oilName}
+                  {getLocalizedOilName(activeDevice.oilName, isRTL)}
                 </Text>
                 <Text numberOfLines={1} style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
-                  {isRTL ? 'أوكالبتوس، صنوبر متوسطي، طحلب بري' : 'Eucalyptus, Mediterranean Pine & Wild Moss'}
+                  {t('deviceControl.fragranceNotes', 'أوكالبتوس، صنوبر متوسطي، طحلب بري')}
                 </Text>
               </View>
             </View>
@@ -427,9 +427,13 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             </View>
             <View style={styles.cartridgeMetaRow}>
               <Text style={[typography.bodySm, { color: colors.textMuted, letterSpacing: 0 }]}>
-                {isRTL
-                  ? `حوالي ${activeDevice.oilRemainingDays} يوم متبقي ${activeDevice.oilSensor ? '' : '(تقديري)'}`
-                  : `Approx. ${activeDevice.oilRemainingDays} days remaining ${activeDevice.oilSensor ? '' : '(Est.)'}`}
+                {t('deviceControl.daysRemainingEstimate', {
+                  count: activeDevice.oilRemainingDays,
+                  estimate: activeDevice.oilSensor ? '' : t('home.oilEstimated', '(تقديري)'),
+                  defaultValue: isRTL
+                    ? `حوالي ${activeDevice.oilRemainingDays} يوم متبقي ${activeDevice.oilSensor ? '' : '(تقديري)'}`
+                    : `Approx. ${activeDevice.oilRemainingDays} days remaining ${activeDevice.oilSensor ? '' : '(Est.)'}`,
+                })}
               </Text>
               <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
                 {Math.round(50 * (activeDevice.oilLevel / 100))} ml / 50 ml
@@ -441,7 +445,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           <View style={styles.cartridgeActionButtons}>
             <TouchableOpacity
               activeOpacity={0.85}
-              onPress={() => navigation.navigate('Store')}
+              onPress={() => (navigation as any).navigate('MainTabs', { screen: 'Store' })}
               style={[styles.reorderBtn, { backgroundColor: colors.accent }]}
             >
               <Icon name="shopping_bag" size={18} color={colors.text} />
@@ -457,7 +461,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             >
               <Icon name="history" size={18} color={colors.text} />
               <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
-                {t('home.scentsCollection', 'سجل العطور')}
+                {t('deviceControl.scentHistory', 'سجل العطور')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -467,7 +471,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         <View style={styles.bentoSection}>
           <View style={styles.bentoHeader}>
             <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
-              {t('devicesScreen.ecosystem', 'أجواء الجهاز')}
+              {t('deviceControl.deviceAmbience', 'أجواء الجهاز')}
             </Text>
             <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
               {t('scheduleScreen.routinesCount', { count: 2, defaultValue: isRTL ? 'أتمتتان نشطتان' : '2 automations active' })}

@@ -73,3 +73,26 @@ State: **uncommitted** (20 files, +2497/−1305), no report. `tsc --noEmit` exit
 | S10 | All routine icons became the same clock; Stitch uses a distinct icon per routine (sunrise / sun / moon by start time). |
 | S11 | Pairing success toast covers the app-bar title; Devices button still shows "+ + إقران جهاز" (icon plus a "+" in the text). |
 | S12 | Not committed; no report. |
+
+---
+
+## Re-review of commit `7b7677b` (2026-09-25, native iPhone 17 Pro, Arabic)
+Committed. `tsc` exit 0. **No report written** (asked for ✅/❌ per item).
+
+**Verified fixed:** native RTL (0 `row-reverse`; app bar back chevron on the right, title next to it) · Home hero photo fills the 192 square · real time picker (hour ± and :00/:15/:30/:45) · low-oil alert reworded as an estimate · "أخضر ميرمية" · shared `SHARED_ROOMS` · Schedule filtered by `deviceId` · Sun–Thu seed routines, weekend Fri/Sat · per-routine icons · pairing sets "No oil loaded".
+
+**New regressions — critical**
+| # | Finding |
+|---|---|
+| R1 | **No tab bar anywhere.** `RootNavigator` now uses `previewConfig.screen \|\| 'Home'` as the initial route, so the app opens the bare `Home` stack screen instead of `MainTabs`. Before (9c29830) it defaulted to `MainTabs`. Also `previewTarget.ts` was committed with `screen: 'Home'`. |
+| R2 | **Home curated card broke:** the image now sits under the text (stacked) instead of side by side, and the text block is indented. Stitch = text at the start, image bleeding at the end-bottom corner. |
+
+**Still open / new small issues**
+| # | Finding |
+|---|---|
+| O1 | Home greeting and subtitle are left-aligned in Arabic (should start from the right). The routine-name placeholder is also left-aligned. |
+| O2 | Connection States shows an **invented device** — "Odora Air 01 · Model SA-200", "Hinoki Canopy", "cartridge piezo sensors" — instead of the real device from `DeviceController`. |
+| O3 | Inline strings: 85 remain in Batch A (ConnectionStates 30, Schedule 14, Settings 12, Pairing 11, Devices 11). |
+| O4 | Copy drift: "سجل العطور" became "مجموعة العطور الفاخرة" (wrong meaning — it's scent history); "أجواء الجهاز" became "المنظومة". |
+| O5 | The Home carousel peek card shows no device name. There is also a missing space in "إشارة قوية(-58 dBm)". |
+| O6 | The tab bar uses hard-coded rgba colours instead of tokens. |

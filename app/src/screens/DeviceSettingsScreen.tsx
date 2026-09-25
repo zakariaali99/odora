@@ -150,7 +150,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
     removeDevice(activeDevice.id);
     showToast(t('deviceSettings.deviceForgottenToast', 'تم إلغاء اقتران الجهاز بنجاح'));
     setTimeout(() => {
-      activeNav.navigate('Devices');
+      (activeNav as any).navigate('MainTabs', { screen: 'Devices' });
     }, 400);
   };
 
