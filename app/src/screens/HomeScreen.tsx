@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 import { useTheme } from '../theme';
+import { weightFamily } from '../theme/typography';
 import { AppBar, Card, Icon } from '../components/ui';
 import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName, getLocalizedRoutineName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
@@ -115,8 +116,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   color: colors.text,
                   fontSize: 18,
                   lineHeight: 26,
-                  fontWeight: '600',
-                  textTransform: isRTL ? "none" : "uppercase",
+                  fontFamily: weightFamily(isRTL, 'semiBold'),
                   marginStart: 8,
                 },
               ]}
@@ -159,7 +159,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                   typography.labelSm,
                   {
                     color: colors.text,
-                    fontWeight: '600',
+                    fontFamily: weightFamily(isRTL, 'semiBold'),
                     fontSize: 11,
                     letterSpacing: 0,
                   },
@@ -236,7 +236,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       typography.labelSm,
                       {
                         color: colors.primary,
-                        fontWeight: '700',
+                        fontFamily: weightFamily(isRTL, 'bold'),
                         letterSpacing: 0,
                       },
                     ]}
@@ -256,7 +256,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       color: colors.text,
                       fontSize: 20,
                       lineHeight: 28,
-                      fontWeight: '600',
+                      fontFamily: weightFamily(isRTL, 'semiBold'),
                       marginTop: 2,
                       textAlign: 'left',
                     },
@@ -272,7 +272,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       { backgroundColor: isPowerOn ? colors.primary : colors.textSubtle },
                     ]}
                   />
-                  <Text style={[typography.bodySm, { color: colors.text, fontWeight: '500' }]}>
+                  <Text style={[typography.bodySm, { color: colors.text, fontFamily: weightFamily(isRTL, 'medium') }]}>
                     {isPowerOn ? t('home.statusActive') : t('home.statusStandby')}
                   </Text>
                 </View>
@@ -321,7 +321,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 ]}
               >
                 <Icon name="spa" size={16} color={colors.primary} />
-                <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600' }]}>
+                <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                   {activeDevice.oilName}
                 </Text>
               </View>
@@ -341,7 +341,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 >
                   {t('home.dispersionRate', 'معدل الانتشار')}
                 </Text>
-                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600' }]}>
+                <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                   {isPowerOn
                     ? `\u2066${intensityLevel * 10}%\u2069 · ${t('device.level', { level: intensityLevel })}`
                     : t('common.off')}
@@ -396,7 +396,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Icon name="opacity" size={16} color={colors.primary} />
             </View>
             <View style={styles.statValueBlock}>
-              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+              <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                 {`\u2066${activeDevice.oilLevel}%\u2069`}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
@@ -435,7 +435,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Icon name="schedule" size={16} color={colors.primarySoft} />
             </View>
             <View style={styles.statValueBlock}>
-              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+              <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                 {nextRoutine ? nextRoutine.startTime : '08:00'}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
@@ -474,7 +474,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Icon name="airwave" size={16} color={colors.primary} />
             </View>
             <View style={styles.statValueBlock}>
-              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+              <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                 {activeDevice.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
               </Text>
               <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
@@ -498,7 +498,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         {/* 5. Connected Diffusers Carousel (Dynamic from store, no chamber/sanctuary wording) */}
         <View style={styles.sanctuariesSection}>
           <View style={styles.sanctuariesHeader}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600' }]}>
+            <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
               {t('home.connectedDiffusers')}
             </Text>
             <TouchableOpacity
@@ -508,7 +508,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               accessibilityLabel="Manage Devices"
               accessibilityRole="button"
             >
-              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
+              <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                 {t('home.manageCount', { count: devices.length })}
               </Text>
             </TouchableOpacity>
@@ -550,7 +550,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                           {
                             color: colors.text,
                             fontSize: 16,
-                            fontWeight: '600',
+                            fontFamily: weightFamily(isRTL, 'semiBold'),
                             textAlign: 'left',
                           },
                         ]}
@@ -583,7 +583,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         numberOfLines={1}
                         style={[
                           typography.labelSm,
-                          { color: colors.text, fontSize: 11, fontWeight: '600', letterSpacing: 0 },
+                          { color: colors.text, fontSize: 11, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 },
                         ]}
                       >
                         {getLocalizedRoomName(device.roomName, isRTL)}
@@ -627,7 +627,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                       typography.labelSm,
                       {
                         color: colors.text,
-                        fontWeight: '700',
+                        fontFamily: weightFamily(isRTL, 'bold'),
                         fontSize: 10,
                         letterSpacing: 0,
                       },
@@ -643,7 +643,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                     typography.headlineSm,
                     {
                       color: colors.text,
-                      fontWeight: '600',
+                      fontFamily: weightFamily(isRTL, 'semiBold'),
                       fontSize: 18,
                       marginTop: 6,
                       textAlign: 'left',
@@ -668,7 +668,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 </Text>
 
                 <View style={styles.exploreLinkRow}>
-                  <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
+                  <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                     {t('home.discoverNow')}
                   </Text>
                   <Icon

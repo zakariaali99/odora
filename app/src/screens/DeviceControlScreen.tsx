@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 import { useTheme } from '../theme';
+import { weightFamily } from '../theme/typography';
 import {
   AppBar,
   Card,
@@ -25,6 +26,7 @@ import {
 } from '../components/ui';
 import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName } from '../store/useAppStore';
 import { getDeviceController } from '../device/DeviceController';
+import { DeviceState } from '../device/types';
 import { previewConfig } from '../previewTarget';
 
 const DIFFUSER_IMAGES = {
@@ -92,28 +94,50 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
   const intensity = activeDevice.intensity || 6;
   const sprayMode = activeDevice.mode;
 
+  const [deviceState, setDeviceState] = useState<DeviceState>(controller.getState());
+
+  useEffect(() => {
+    if (activeDevice.mode) {
+      controller.setMode?.(activeDevice.mode);
+    }
+    controller.setPower(activeDevice.power);
+    const unsub = controller.onStateChange((st) => {
+      setDeviceState(st);
+    });
+    return unsub;
+  }, [controller, activeDevice.id]);
+
   const [scheduleActive, setScheduleActive] = useState(true);
   const [timerActive, setTimerActive] = useState(true);
 
-  // Mist animation
+  // Mist animation follows phase === 'spraying' (per 05 §5)
+  const isSpraying = isPowerOn && deviceState.phase === 'spraying';
   const mistAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(mistAnim, {
-          toValue: 1,
-          duration: 2200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(mistAnim, {
-          toValue: 0,
-          duration: 2200,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
-  }, [mistAnim]);
+    if (isSpraying) {
+      const loop = Animated.loop(
+        Animated.sequence([
+          Animated.timing(mistAnim, {
+            toValue: 1,
+            duration: 2200,
+            useNativeDriver: true,
+          }),
+          Animated.timing(mistAnim, {
+            toValue: 0,
+            duration: 2200,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      loop.start();
+      return () => {
+        loop.stop();
+      };
+    } else {
+      mistAnim.setValue(0);
+    }
+  }, [mistAnim, isSpraying]);
 
   const handleIntensityChange = (val: number) => {
     setDeviceIntensity(activeDevice.id, val);
@@ -121,12 +145,28 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
   };
 
   const handleTogglePower = () => {
+    const nextPower = !activeDevice.power;
     toggleDevicePower(activeDevice.id);
-    controller.setPower(!activeDevice.power);
+    controller.setPower(nextPower);
   };
 
   const handleModeChange = (mode: 'continuous' | 'interval') => {
     updateDevice(activeDevice.id, { mode });
+    controller.setMode?.(mode);
+  };
+
+  const getPhaseText = () => {
+    if (!isPowerOn || deviceState.phase === 'off') {
+      return t('deviceControl.phaseOff', 'متوقف');
+    }
+    if (sprayMode === 'continuous' || deviceState.mode === 'continuous') {
+      return t('deviceControl.phaseContinuous', 'ينتشر باستمرار');
+    }
+    const secStr = `\u2066${deviceState.phaseRemainingSec}\u2069`;
+    if (deviceState.phase === 'spraying') {
+      return t('deviceControl.phaseSpraying', { sec: secStr });
+    }
+    return t('deviceControl.phasePaused', { sec: secStr });
   };
 
   const mistTranslateY = mistAnim.interpolate({
@@ -190,7 +230,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             <Text
               style={[
                 typography.labelMd,
-                { color: colors.textMuted, marginStart: 8, fontWeight: '600', fontSize: 11, letterSpacing: 0 },
+                { color: colors.textMuted, marginStart: 8, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 11, letterSpacing: 0 },
               ]}
             >
               {connectionStatus === 'connected'
@@ -210,7 +250,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             <Text
               style={[
                 typography.labelSm,
-                { color: colors.primary, fontWeight: '700', marginStart: 4, fontSize: 10, letterSpacing: 0 },
+                { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), marginStart: 4, fontSize: 10, letterSpacing: 0 },
               ]}
             >
               {isPowerOn ? t('common.active', 'نشط') : t('common.idle', 'استعداد')}
@@ -231,7 +271,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               color={colors.text}
             />
             <View style={{ marginStart: 10, flex: 1 }}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '700', letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                 {connectionStatus === 'disabled'
                   ? t('connectionStates.bluetoothOffTitle', 'البلوتوث متوقف على الهاتف')
                   : t('connectionStates.outOfRangeTitle', 'الموزع خارج النطاق أو غير متصل')}
@@ -247,7 +287,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         {/* 3. Hardware Presentation & Mist Canvas */}
         <Card surface="low" style={styles.hardwareCard}>
           {/* Subtle mist effect above device */}
-          {isPowerOn && (
+          {isSpraying && (
             <Animated.View
               style={[
                 styles.mistContainer,
@@ -302,7 +342,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
             <View style={[styles.metaDot, { backgroundColor: colors.border }]} />
             <View style={styles.telemetryItem}>
               <Icon name="eco" size={14} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 4, fontSize: 11, letterSpacing: 0 }]}>
                 {t('deviceControl.waterlessColdAir', 'انتشار بارد')}
               </Text>
             </View>
@@ -318,7 +358,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   typography.labelSm,
                   {
                     color: colors.textSubtle,
-                    fontWeight: '700',
+                    fontFamily: weightFamily(isRTL, 'bold'),
                     textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 1,
                   },
@@ -326,16 +366,16 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               >
                 {t('deviceControl.dispersionRate', 'DIFFUSION RATE')}
               </Text>
-              <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '500', fontSize: 18, marginTop: 2, letterSpacing: 0 }]}>
+              <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'medium'), fontSize: 18, marginTop: 2, letterSpacing: 0 }]}>
                 {t('deviceControl.scentDensity', 'Aroma Intensity')}
               </Text>
-              <Text style={[typography.labelMd, { color: colors.textMuted, fontWeight: '600', marginTop: 2, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.textMuted, fontFamily: weightFamily(isRTL, 'semiBold'), marginTop: 2, letterSpacing: 0 }]}>
                 {`\u2066${intensity * 10}%\u2069 · ${t('device.level', { level: intensity })}`}
               </Text>
             </View>
 
             <View style={[styles.modeBadge, { backgroundColor: colors.accent }]}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 11, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 11, letterSpacing: 0 }]}>
                 {sprayMode === 'interval' ? t('home.interval', 'فترات') : t('home.continuous', 'مستمر')}
               </Text>
             </View>
@@ -374,14 +414,36 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
           <View style={[styles.dialFooterRow, { borderTopColor: colors.surfaceMuted }]}>
             <View style={styles.dialFooterItem}>
               <Icon name="airwave" size={16} color={colors.primary} />
-              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '500', marginStart: 6, letterSpacing: 0 }]}>
-                {isPowerOn ? t('home.statusActive', 'ينتشر الآن') : t('home.statusStandby', 'في وضع الاستعداد')}
+              <Text
+                numberOfLines={1}
+                style={[
+                  typography.bodySm,
+                  {
+                    color: colors.text,
+                    fontFamily: weightFamily(isRTL, 'medium'),
+                    marginStart: 6,
+                    letterSpacing: 0,
+                  },
+                ]}
+              >
+                {getPhaseText()}
               </Text>
             </View>
             <View style={styles.dialFooterItem}>
               <Icon name="check_circle" size={16} color={colors.primarySoft} />
-              <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6, letterSpacing: 0 }]}>
-                {t('deviceControl.waterlessColdAir', 'هواء بارد بدون ماء')}
+              <Text
+                numberOfLines={1}
+                style={[
+                  typography.bodySm,
+                  {
+                    color: colors.textMuted,
+                    fontFamily: weightFamily(isRTL, 'regular'),
+                    marginStart: 6,
+                    letterSpacing: 0,
+                  },
+                ]}
+              >
+                {t('deviceControl.waterlessShort', 'بدون ماء')}
               </Text>
             </View>
           </View>
@@ -399,7 +461,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 />
               </View>
               <View style={{ marginStart: 12, flex: 1 }}>
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
                   {getLocalizedOilName(activeDevice.oilName, isRTL)}
                 </Text>
                 <Text numberOfLines={1} style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
@@ -410,7 +472,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
 
             {/* Percentage in its own column at the end of header row (Item 7) */}
             <View style={styles.cartridgePercentCol}>
-              <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '700', fontSize: 22, letterSpacing: 0 }]}>
+              <Text style={[typography.headlineSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), fontSize: 22, letterSpacing: 0 }]}>
                 {`\u2066${activeDevice.oilLevel}%\u2069`}
               </Text>
             </View>
@@ -436,7 +498,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                     : `Approx. ${activeDevice.oilRemainingDays} days remaining ${activeDevice.oilSensor ? '' : '(Est.)'}`,
                 })}
               </Text>
-              <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+              <Text style={[typography.bodySm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                 {`\u2066${Math.round(50 * (activeDevice.oilLevel / 100))} ml / 50 ml\u2069`}
               </Text>
             </View>
@@ -450,7 +512,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               style={[styles.reorderBtn, { backgroundColor: colors.accent }]}
             >
               <Icon name="shopping_bag" size={18} color={colors.text} />
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 6, letterSpacing: 0 }]}>
                 {t('device.reorderOil', 'إعادة طلب الزيت')}
               </Text>
             </TouchableOpacity>
@@ -461,7 +523,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
               style={[styles.historyBtn, { backgroundColor: colors.surfaceMuted }]}
             >
               <Icon name="history" size={18} color={colors.text} />
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginStart: 6, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 6, letterSpacing: 0 }]}>
                 {t('deviceControl.scentHistory')}
               </Text>
             </TouchableOpacity>
@@ -471,7 +533,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
         {/* 6. Quick Settings Shortcuts Bento */}
         <View style={styles.bentoSection}>
           <View style={styles.bentoHeader}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
               {t('deviceControl.ambienceTitle')}
             </Text>
             <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
@@ -493,7 +555,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                   <Icon name="schedule" size={20} color={colors.primary} />
                 </View>
                 <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                  <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                     {t('deviceControl.dailySchedule', 'الجدول اليومي')}
                   </Text>
                   <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
@@ -515,7 +577,7 @@ export const DeviceControlScreen: React.FC<DeviceControlScreenProps> = ({
                 <Icon name="timer" size={20} color={colors.primary} />
               </View>
               <View style={{ marginStart: 12, flex: 1 }}>
-                <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                   {t('deviceSettings.autoOffTimer', 'مؤقت الإيقاف التلقائي')}
                 </Text>
                 <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
@@ -660,12 +722,14 @@ const styles = StyleSheet.create({
   },
   dialFooterRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 12,
     borderTopWidth: 1,
     paddingTop: 12,
   },
   dialFooterItem: {
+    flexShrink: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },

@@ -11,6 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
+import { weightFamily } from '../theme/typography';
 import { AppBar } from '../components/ui/AppBar';
 import { Icon } from '../components/ui/Icon';
 import { Card } from '../components/ui/Card';
@@ -72,8 +73,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   color: colors.text,
                   fontSize: 18,
                   lineHeight: 26,
-                  fontWeight: '500',
-                  textTransform: isRTL ? "none" : "uppercase",
+                  fontFamily: weightFamily(isRTL, 'medium'),
                   marginStart: 8,
                   letterSpacing: 0,
                 },
@@ -136,7 +136,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
               accessibilityRole="button"
             >
               <Icon name="add" size={18} color={colors.onPrimary} />
-              <Text style={[typography.labelMd, { color: colors.onPrimary, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.onPrimary, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 4, letterSpacing: 0 }]}>
                 {t('devicesScreen.pairDevice', 'إقران جهاز')}
               </Text>
             </TouchableOpacity>
@@ -175,7 +175,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                     typography.labelMd,
                     {
                       color: selectedFilter === 'all' ? colors.text : colors.textMuted,
-                      fontWeight: selectedFilter === 'all' ? '600' : '500',
+                      fontFamily: weightFamily(isRTL, selectedFilter === 'all' ? 'semiBold' : 'medium'),
                       letterSpacing: 0,
                     },
                   ]}
@@ -196,7 +196,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                     typography.labelMd,
                     {
                       color: selectedFilter === 'active' ? colors.text : colors.textMuted,
-                      fontWeight: selectedFilter === 'active' ? '600' : '500',
+                      fontFamily: weightFamily(isRTL, selectedFilter === 'active' ? 'semiBold' : 'medium'),
                       letterSpacing: 0,
                     },
                   ]}
@@ -218,7 +218,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                   typography.labelSm,
                   {
                     color: colors.text,
-                    fontWeight: '700',
+                    fontFamily: weightFamily(isRTL, 'bold'),
                     textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 1,
                   },
@@ -273,7 +273,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                           {
                             color: isPowerOn ? colors.text : colors.textSubtle,
                             fontSize: 9,
-                            fontWeight: '700',
+                            fontFamily: weightFamily(isRTL, 'bold'),
                             letterSpacing: 0,
                           },
                         ]}
@@ -302,7 +302,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                     <Text
                       style={[
                         typography.headlineSm,
-                        { color: colors.text, fontSize: 17, fontWeight: '500', marginTop: 2, letterSpacing: 0 },
+                        { color: colors.text, fontSize: 17, fontFamily: weightFamily(isRTL, 'medium'), marginTop: 2, letterSpacing: 0 },
                       ]}
                     >
                       {getLocalizedDeviceName(device.name, isRTL)}
@@ -316,7 +316,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                     <View style={[styles.pillGauge, { backgroundColor: colors.bgAlt }]}>
                       <View style={styles.pillGaugeLeft}>
                         <Icon name="opacity" size={14} color={colors.primary} />
-                        <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+                        <Text style={[typography.labelSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 4, letterSpacing: 0 }]}>
                           {t('devicesScreen.oilPill', { percent: `\u2066${device.oilLevel}%\u2069` }) + (device.oilSensor ? '' : ` ${t('home.oilEstimated')}`)}
                         </Text>
                       </View>
@@ -346,7 +346,7 @@ export const DevicesScreen: React.FC<DevicesScreenProps> = ({ navigation }) => {
                           typography.labelSm,
                           {
                             color: isPowerOn ? colors.text : colors.textMuted,
-                            fontWeight: '600',
+                            fontFamily: weightFamily(isRTL, 'semiBold'),
                             marginStart: 4,
                             fontSize: 11,
                             letterSpacing: 0,

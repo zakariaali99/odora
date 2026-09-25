@@ -187,6 +187,11 @@ export const en = {
     fragranceNotes: 'Eucalyptus, Mediterranean Pine & Wild Moss',
     daysRemainingEstimate: 'Approx. {{count}} days remaining {{estimate}}',
     timerActiveDesc: '2 Hours remaining · Gentle fade',
+    phaseSpraying: 'Spraying · {{sec}}s',
+    phasePaused: 'Paused · {{sec}}s',
+    phaseContinuous: 'Spraying continuously',
+    phaseOff: 'Off',
+    waterlessShort: 'Waterless',
   },
   deviceSettings: {
     title: 'Device Settings',

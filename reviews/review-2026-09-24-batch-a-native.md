@@ -118,3 +118,17 @@ Report: `reviews/report-2026-09-25-batch-a-closeout.md` (all ✅). `tsc` exit 0.
 | F9 | Forget-device sheet title "إلغاء اقتران الجهاز؟" renders in a fallback font with spaced letters: `DeviceSettingsScreen.tsx` `sheetTitle` sets `fontWeight: '700'` over the Arabic family. |
 
 **Verdict:** very close. After F1–F9, Batch A goes to the owner.
+
+---
+
+## Re-review of commit `550287c` (2026-09-25, native iPhone 17 Pro)
+F1–F10 all verified on native (Arabic) and in AG's new English proofs: no red toast; the curated card text clears the image; the carousel footer truncates cleanly; arrows mirror correctly; acoustic claims removed; Connection States hero, background and device card fixed; "circadian" gone; "الزيت 68%"; the sheet title font is fixed; "فترات" is used everywhere. `tsc` 0.
+
+**Last 3 small items**
+| # | Finding |
+|---|---|
+| L1 | Device Control dial footer (`DeviceControlScreen.tsx` ~374–386): in English the two items collide ("…micro-diffusion✓ Waterless Cold-Air") and the second one touches the card edge. It also lost the phase countdown that 08 §4 requires ("Spraying · 12s" / "Paused · 48s"). |
+| L2 | Forget sheet: the description and the "إلغاء" button still render in a fallback font (letters spaced apart). `fontWeight` on the Arabic family: 18 occurrences in `DeviceSettingsScreen.tsx`, and `Button` `textStyle` `fontWeight: '700'` plus a hard-coded `#FFFFFF` (line ~622). |
+| L3 | English eyebrows use wide letter-spacing and uppercase ("ACTIVE", "LIVING ROOM", "HOME"). That's fine in English, but the tab labels ("HOME / DEVICES / STORE / ACCOUNT") are uppercase, which Stitch does not do → use sentence case for the tab labels. |
+
+**Verdict:** Batch A is ready for the owner's review now. L1–L3 are polish and can go in with Batch B's review.

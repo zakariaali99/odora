@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
+import { weightFamily } from '../theme/typography';
 import { AppBar, Card, Icon, Button, Chip } from '../components/ui';
 import { useAppStore, AppDevice, SHARED_ROOMS } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
@@ -153,7 +154,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
       {toastMessage && (
         <View style={[styles.toastContainer, { top: insets.top + 68, backgroundColor: colors.ink }]}>
           <Icon name="check_circle" size={18} color={colors.accent} />
-          <Text style={[typography.bodySm, { color: colors.onInk, marginStart: 8, fontWeight: '600' }]}>
+          <Text style={[typography.bodySm, { color: colors.onInk, marginStart: 8, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
             {toastMessage}
           </Text>
         </View>
@@ -173,7 +174,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 typography.labelSm,
                 {
                   color: colors.text,
-                  fontWeight: '700',
+                  fontFamily: weightFamily(isRTL, 'bold'),
                   textTransform: isRTL ? "none" : "uppercase",
                   letterSpacing: isRTL ? 0 : 1,
                   marginStart: 6,
@@ -238,7 +239,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                   typography.labelSm,
                   {
                     color: colors.textSubtle,
-                    fontWeight: '700',
+                    fontFamily: weightFamily(isRTL, 'bold'),
                     letterSpacing: isRTL ? 0 : 1.2,
                     textTransform: isRTL ? "none" : "uppercase",
                   },
@@ -251,7 +252,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
             {/* Scanning Badge floating top-right */}
             <View style={[styles.scanningBadge, { backgroundColor: colors.surface, borderColor: colors.border }]}>
               <Icon name="sensors" size={16} color={colors.primary} />
-              <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 4 }]}>
+              <Text style={[typography.labelSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 4 }]}>
                 {t('pairing.scanningBle', 'جاري المسح')}
               </Text>
             </View>
@@ -260,7 +261,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
           {/* Searching Status Pill */}
           <View style={[styles.searchingPill, { backgroundColor: colors.bgAlt }]}>
             <View style={[styles.pulseDot, { backgroundColor: colors.primary }]} />
-            <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6, fontWeight: '500' }]}>
+            <Text style={[typography.bodySm, { color: colors.textMuted, marginStart: 6, fontFamily: weightFamily(isRTL, 'medium') }]}>
               {t('pairing.scanning', 'جاري البحث عن موزعات أودورا القريبة...')}
             </Text>
           </View>
@@ -269,10 +270,10 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
         {/* 4. Available Devices List */}
         <View style={styles.devicesListSection}>
           <View style={styles.devicesHeaderRow}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500' }]}>
+            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontFamily: weightFamily(isRTL, 'medium') }]}>
               {t('pairing.nearbyTitle', 'الأجهزة المتاحة')}
             </Text>
-            <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600' }]}>
+            <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
               {t('pairing.detectedCount', { count: 2 })}
             </Text>
           </View>
@@ -289,11 +290,11 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               </View>
               <View style={{ marginStart: 14, flex: 1 }}>
                 <View style={styles.deviceNameRow}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 14 }]}>
+                  <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 14 }]}>
                     Odora A316
                   </Text>
                   <View style={[styles.colorPill, { backgroundColor: colors.accent }]}>
-                    <Text style={[typography.labelSm, { color: colors.text, fontSize: 10, fontWeight: '600' }]}>
+                    <Text style={[typography.labelSm, { color: colors.text, fontSize: 10, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                       {t('pairing.diffuserSage', 'أخضر ميرمية')}
                     </Text>
                   </View>
@@ -324,7 +325,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               }
               style={[styles.connectBtn, { backgroundColor: colors.ink }]}
             >
-              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                 {t('pairing.connect', 'اتصال')}
               </Text>
             </TouchableOpacity>
@@ -342,7 +343,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               </View>
               <View style={{ marginStart: 14, flex: 1 }}>
                 <View style={styles.deviceNameRow}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', fontSize: 14, letterSpacing: 0 }]}>
+                  <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 14, letterSpacing: 0 }]}>
                     Odora A316
                   </Text>
                   <View style={[styles.colorPill, { backgroundColor: colors.surfaceMuted }]}>
@@ -378,7 +379,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
               }
               style={[styles.connectBtn, { backgroundColor: colors.surfaceHigh }]}
             >
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                 {t('pairing.connect', 'اتصال')}
               </Text>
             </TouchableOpacity>
@@ -393,7 +394,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
         >
           <Icon name="bluetooth_disabled" size={20} color={colors.primary} />
           <View style={{ flex: 1, marginStart: 10 }}>
-            <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+            <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
               {t('pairing.bluetoothTrouble', 'البلوتوث متوقف أو يواجه مشكلة؟')}
             </Text>
             <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
@@ -416,7 +417,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 </Text>
                 <View style={styles.helpLinksRow}>
                   <TouchableOpacity activeOpacity={0.7} style={styles.serialLink}>
-                    <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '700', letterSpacing: 0 }]}>
+                    <Text style={[typography.labelSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                       {t('pairing.enterSerial', 'إدخال الرقم التسلسلي')}
                     </Text>
                     <Icon name="arrow_forward" size={13} color={colors.primary} style={{ marginStart: 4 }} />
@@ -452,7 +453,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                     typography.labelSm,
                     {
                       color: colors.primary,
-                      fontWeight: '700',
+                      fontFamily: weightFamily(isRTL, 'bold'),
                       textTransform: isRTL ? "none" : "uppercase",
                       letterSpacing: isRTL ? 0 : 1,
                     },
@@ -460,7 +461,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 >
                   {t('pairing.deviceSynchronized', 'تمت مزامنة الجهاز')}
                 </Text>
-                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '500', marginTop: 2, letterSpacing: 0 }]}>
+                <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontFamily: weightFamily(isRTL, 'medium'), marginTop: 2, letterSpacing: 0 }]}>
                   {selectedDevice || 'Odora A316'}
                 </Text>
               </View>
@@ -481,7 +482,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                   <Icon name="spa" size={24} color={colors.primary} />
                 </View>
                 <View style={{ marginStart: 12, flex: 1 }}>
-                  <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                  <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                     {t('pairing.noOilLoaded', 'لم يتم تحميل كبسولة عطرية')}
                   </Text>
                   <Text style={[typography.bodySm, { color: colors.textMuted, marginTop: 2, letterSpacing: 0 }]}>
@@ -493,7 +494,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
 
             {/* Device Name Input (Item 3: Add name step) */}
             <View style={styles.nameInputSection}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginBottom: 6, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginBottom: 6, letterSpacing: 0 }]}>
                 {t('pairing.deviceName', 'اسم الجهاز')}
               </Text>
               <View style={[styles.nameInputField, { backgroundColor: colors.surfaceMuted }]}>
@@ -514,7 +515,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
 
             {/* Room Location Selection (Item 7: Shared room list) */}
             <View style={styles.roomSelectSection}>
-              <Text style={[typography.labelMd, { color: colors.text, fontWeight: '600', marginBottom: 8, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginBottom: 8, letterSpacing: 0 }]}>
                 {t('pairing.assignRoom', 'تحديد موقع الغرفة')}
               </Text>
               <View style={styles.roomChipsRow}>
@@ -540,7 +541,7 @@ export const DevicePairingScreen: React.FC<DevicePairingScreenProps> = ({
                 onPress={handleCompleteSetup}
                 style={[styles.completeBtn, { backgroundColor: colors.ink }]}
               >
-                <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15, letterSpacing: 0 }]}>
+                <Text style={[typography.labelMd, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 15, letterSpacing: 0 }]}>
                   {t('pairing.completeSetup', 'إكمال الإعداد والتشغيل')}
                 </Text>
                 <Icon name="check_circle" size={18} color={colors.onInk} style={{ marginStart: 6 }} />

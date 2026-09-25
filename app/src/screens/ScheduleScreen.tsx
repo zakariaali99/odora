@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
+import { weightFamily } from '../theme/typography';
 import { toArabicNumerals } from '../i18n';
 import { AppBar, Card, Icon, Toggle, Button, SegmentedControl, Slider } from '../components/ui';
 import { useAppStore, AppRoutine, getLocalizedRoutineName, getLocalizedDeviceName } from '../store/useAppStore';
@@ -194,7 +195,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
         <View style={styles.subHeaderSection}>
           <TouchableOpacity activeOpacity={0.8} style={[styles.devicePickerPill, { backgroundColor: colors.surfaceMuted }]}>
             <View style={[styles.statusDotLive, { backgroundColor: colors.primary }]} />
-            <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontWeight: '600', fontSize: 12, letterSpacing: 0 }]}>
+            <Text style={[typography.labelMd, { color: colors.text, marginStart: 6, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 12, letterSpacing: 0 }]}>
               {activeDevice ? getLocalizedDeviceName(activeDevice.name, isRTL) : t('home.livingRoomDiffuser', 'موزع غرفة المعيشة')}
             </Text>
             <Icon name="expand_more" size={16} color={colors.textMuted} style={{ marginStart: 4 }} />
@@ -214,7 +215,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                   typography.labelSm,
                   {
                     color: colors.textMuted,
-                    fontWeight: '700',
+                    fontFamily: weightFamily(isRTL, 'bold'),
                     textTransform: isRTL ? "none" : "uppercase",
                     letterSpacing: isRTL ? 0 : 0.8,
                     marginStart: 6,
@@ -224,7 +225,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                 {t('scheduleScreen.weeklyRhythm', 'الإيقاع الأسبوعي')}
               </Text>
             </View>
-            <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+            <Text style={[typography.labelSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
               {t('scheduleScreen.routinesCount', { count: enabledRoutines.length })}
             </Text>
           </View>
@@ -251,7 +252,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                       typography.labelSm,
                       {
                         color: day.isWeekend ? colors.primary : colors.textMuted,
-                        fontWeight: day.isWeekend ? '700' : '500',
+                        fontFamily: weightFamily(isRTL, day.isWeekend ? 'bold' : 'medium'),
                         marginBottom: 6,
                         letterSpacing: 0,
                       },
@@ -315,7 +316,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
         {/* 4. Active Schedules Section */}
         <View style={styles.schedulesSection}>
           <View style={styles.schedulesHeaderRow}>
-            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontWeight: '500', letterSpacing: 0 }]}>
+            <Text style={[typography.headlineSm, { color: colors.text, fontSize: 18, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
               {t('scheduleScreen.activeRoutines', 'الجداول النشطة')}
             </Text>
             <TouchableOpacity
@@ -324,7 +325,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
               style={styles.newRoutineBtn}
             >
               <Icon name="add" size={16} color={colors.primary} />
-              <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '600', marginStart: 4, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 4, letterSpacing: 0 }]}>
                 {t('scheduleScreen.newRoutine', 'روتين جديد')}
               </Text>
             </TouchableOpacity>
@@ -342,13 +343,13 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                     </View>
                     <View style={{ marginStart: 12, flex: 1 }}>
                       <View style={styles.routineTitleRow}>
-                        <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontWeight: '500', letterSpacing: 0 }]}>
+                        <Text style={[typography.headlineSm, { color: colors.text, fontSize: 17, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
                           {getLocalizedRoutineName(routine.name, isRTL)}
                         </Text>
                         {/* Item 17: Hide Boost chip when burst is off */}
                         {isBurst && (
                           <View style={[styles.routineBoostBadge, { backgroundColor: colors.accent }]}>
-                            <Text style={[typography.labelSm, { color: colors.text, fontSize: 9, fontWeight: '700', letterSpacing: 0 }]}>
+                            <Text style={[typography.labelSm, { color: colors.text, fontSize: 9, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                               {t('scheduleScreen.boostChip', 'تعزيز')}
                             </Text>
                           </View>
@@ -405,7 +406,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
             </View>
 
             <View style={styles.sheetHeader}>
-              <Text style={[typography.headlineSm, { color: colors.text, fontSize: 19, fontWeight: '500', letterSpacing: 0 }]}>
+              <Text style={[typography.headlineSm, { color: colors.text, fontSize: 19, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
                 {t('scheduleScreen.newRoutine', 'إنشاء روتين جديد')}
               </Text>
               <TouchableOpacity
@@ -464,7 +465,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                           typography.labelMd,
                           {
                             color: active ? colors.onPrimary : colors.text,
-                            fontWeight: active ? '700' : '500',
+                            fontFamily: weightFamily(isRTL, active ? 'bold' : 'medium'),
                             letterSpacing: 0,
                           },
                         ]}
@@ -497,10 +498,10 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                     },
                   ]}
                 >
-                  <Text style={[typography.labelSm, { color: activeTimeField === 'start' ? colors.primary : colors.textMuted, fontWeight: '600' }]}>
+                  <Text style={[typography.labelSm, { color: activeTimeField === 'start' ? colors.primary : colors.textMuted, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                     {t('scheduleScreen.startTime', 'وقت البدء')}
                   </Text>
-                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '700', marginTop: 4 }]}>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontFamily: weightFamily(isRTL, 'bold'), marginTop: 4 }]}>
                     {startTime}
                   </Text>
                 </TouchableOpacity>
@@ -517,10 +518,10 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                     },
                   ]}
                 >
-                  <Text style={[typography.labelSm, { color: activeTimeField === 'end' ? colors.primary : colors.textMuted, fontWeight: '600' }]}>
+                  <Text style={[typography.labelSm, { color: activeTimeField === 'end' ? colors.primary : colors.textMuted, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                     {t('scheduleScreen.endTime', 'وقت الانتهاء')}
                   </Text>
-                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontWeight: '700', marginTop: 4 }]}>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontSize: 20, fontFamily: weightFamily(isRTL, 'bold'), marginTop: 4 }]}>
                     {endTime}
                   </Text>
                 </TouchableOpacity>
@@ -540,7 +541,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                     >
                       <Icon name="remove" size={16} color={colors.text} />
                     </TouchableOpacity>
-                    <Text style={[typography.headlineSm, { color: colors.primary, fontWeight: '700', marginHorizontal: 12, minWidth: 28, textAlign: 'center' }]}>
+                    <Text style={[typography.headlineSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), marginHorizontal: 12, minWidth: 28, textAlign: 'center' }]}>
                       {String(activeTimeField === 'start' ? startHour : endHour).padStart(2, '0')}
                     </Text>
                     <TouchableOpacity
@@ -579,7 +580,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                               typography.labelSm,
                               {
                                 color: active ? colors.onPrimary : colors.text,
-                                fontWeight: active ? '700' : '500',
+                                fontFamily: weightFamily(isRTL, active ? 'bold' : 'medium'),
                               },
                             ]}
                           >
@@ -595,7 +596,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                 {isOvernight && (
                   <View style={[styles.overnightBadge, { backgroundColor: colors.accent }]}>
                     <Icon name="bedtime" size={15} color={colors.primary} />
-                    <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', marginStart: 6 }]}>
+                    <Text style={[typography.labelSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), marginStart: 6 }]}>
                       {t('scheduleScreen.overnight', 'يمتد حتى اليوم التالي (+1)')}
                     </Text>
                   </View>
@@ -609,7 +610,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
                 <Text style={[typography.labelMd, { color: colors.textMuted, letterSpacing: 0 }]}>
                   {t('scheduleScreen.intensity', 'الكثافة')}
                 </Text>
-                <Text style={[typography.labelMd, { color: colors.primary, fontWeight: '700', letterSpacing: 0 }]}>
+                <Text style={[typography.labelMd, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                   {t('device.level', { level: newIntensity })}
                 </Text>
               </View>
@@ -637,7 +638,7 @@ export const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation, rout
               onPress={handleSaveRoutine}
               style={[styles.saveBtn, { backgroundColor: colors.ink }]}
             >
-              <Text style={[typography.labelMd, { color: colors.onInk, fontWeight: '600', fontSize: 15, letterSpacing: 0 }]}>
+              <Text style={[typography.labelMd, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), fontSize: 15, letterSpacing: 0 }]}>
                 {t('scheduleScreen.saveRoutine', 'حفظ الروتين')}
               </Text>
             </TouchableOpacity>

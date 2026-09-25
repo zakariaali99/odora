@@ -35,6 +35,9 @@ export interface DeviceState {
   connected: boolean;
   activeTransport: 'mock' | 'ble' | 'wifi' | 'cloud';
   lastUpdated: number;
+  phase: 'spraying' | 'paused' | 'off';
+  phaseRemainingSec: number;
+  mode?: 'continuous' | 'interval';
 }
 
 export type Unsubscribe = () => void;
@@ -49,4 +52,5 @@ export interface DeviceController {
   readOilLevel(): Promise<number>;
   onStateChange(cb: (state: DeviceState) => void): Unsubscribe;
   getState(): DeviceState;
+  setMode?(mode: 'continuous' | 'interval'): Promise<void>;
 }

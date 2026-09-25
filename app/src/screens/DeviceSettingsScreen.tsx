@@ -12,7 +12,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme';
-import { typography, fontFamilies } from '../theme/typography';
+import { typography, fontFamilies, weightFamily } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
@@ -423,7 +423,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
                           styles.timerBtnText,
                           {
                             color: isSelected ? colors.onPrimary : colors.textMuted,
-                            fontWeight: isSelected ? '600' : '400',
+                            fontFamily: weightFamily(isRTL, isSelected ? 'semiBold' : 'regular'),
                           },
                         ]}
                       >
@@ -619,7 +619,7 @@ export const DeviceSettingsScreen: React.FC<DeviceSettingsScreenProps> = ({
               onPress={handleConfirmForget}
               testID="confirm-forget-button"
               style={{ width: '100%', marginBottom: 12, backgroundColor: colors.error }}
-              textStyle={{ color: '#FFFFFF', fontWeight: '700' }}
+              textStyle={{ color: colors.onError, fontFamily: weightFamily(isRTL, 'bold') }}
             />
             <Button
               title={t('common.cancel', 'إلغاء')}
@@ -661,7 +661,6 @@ const styles = StyleSheet.create({
   },
   toastText: {
     fontSize: 13,
-    fontWeight: '600',
   },
   heroCard: {
     borderRadius: 24,
@@ -714,7 +713,6 @@ const styles = StyleSheet.create({
   },
   activeText: {
     fontSize: 11,
-    fontWeight: '700',
     letterSpacing: 0,
   },
   nameRow: {
@@ -725,7 +723,6 @@ const styles = StyleSheet.create({
   },
   deviceNameText: {
     fontSize: 20,
-    fontWeight: '600',
     textAlign: 'center',
   },
   renameBtn: {
@@ -787,7 +784,6 @@ const styles = StyleSheet.create({
   },
   telemetryText: {
     fontSize: 12,
-    fontWeight: '600',
   },
   sectionContainer: {
     marginBottom: 20,
@@ -801,13 +797,11 @@ const styles = StyleSheet.create({
   },
   sectionHeaderTitle: {
     fontSize: 12,
-    fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0,
   },
   zoneBadge: {
     fontSize: 12,
-    fontWeight: '600',
   },
   cardContainer: {
     borderRadius: 20,
@@ -841,7 +835,6 @@ const styles = StyleSheet.create({
   },
   sanctuaryTitle: {
     fontSize: 16,
-    fontWeight: '600',
   },
   changeActionRow: {
     flexDirection: 'row',
@@ -864,7 +857,6 @@ const styles = StyleSheet.create({
   },
   roomPillText: {
     fontSize: 13,
-    fontWeight: '500',
   },
   timerSection: {
     marginBottom: 16,
@@ -882,7 +874,6 @@ const styles = StyleSheet.create({
   },
   timerValueText: {
     fontSize: 12,
-    fontWeight: '600',
   },
   timerSegmentGroup: {
     flexDirection: 'row',
@@ -925,7 +916,6 @@ const styles = StyleSheet.create({
   },
   settingTitle: {
     fontSize: 15,
-    fontWeight: '600',
   },
   settingSubtitle: {
     fontSize: 12,
@@ -946,13 +936,11 @@ const styles = StyleSheet.create({
   },
   craftEyebrow: {
     fontSize: 11,
-    fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0,
   },
   craftTitle: {
     fontSize: 15,
-    fontWeight: '600',
     marginTop: 2,
   },
   craftDesc: {
@@ -982,7 +970,6 @@ const styles = StyleSheet.create({
   },
   specValue: {
     fontSize: 13,
-    fontWeight: '500',
   },
   serialValueRow: {
     flexDirection: 'row',
@@ -991,7 +978,6 @@ const styles = StyleSheet.create({
   },
   serialCode: {
     fontSize: 13,
-    fontWeight: '600',
     letterSpacing: 0,
   },
   copyBtn: {
@@ -1013,7 +999,6 @@ const styles = StyleSheet.create({
   },
   dangerTitle: {
     fontSize: 16,
-    fontWeight: '600',
   },
   dangerDesc: {
     fontSize: 13,
@@ -1031,7 +1016,6 @@ const styles = StyleSheet.create({
   forgetBtnText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontWeight: '600',
   },
   sheetContent: {
     alignItems: 'center',

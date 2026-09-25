@@ -188,6 +188,11 @@ export const ar = {
     fragranceNotes: 'أوكالبتوس، صنوبر متوسطي، طحلب بري',
     daysRemainingEstimate: 'حوالي {{count}} يوم متبقي {{estimate}}',
     timerActiveDesc: 'ساعتان متبقيتان · إيقاف سلس',
+    phaseSpraying: 'ينتشر الآن · {{sec}} ث',
+    phasePaused: 'متوقف مؤقتاً · {{sec}} ث',
+    phaseContinuous: 'ينتشر باستمرار',
+    phaseOff: 'متوقف',
+    waterlessShort: 'بدون ماء',
   },
   deviceSettings: {
     title: 'إعدادات الجهاز',

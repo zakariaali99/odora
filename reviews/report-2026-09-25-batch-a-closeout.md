@@ -78,6 +78,23 @@ All screenshot artifacts (native simulator captures and side-by-side Stitch comp
 
 ---
 
-## 4. Code Quality & Compilation
+## 4. Final Polish Resolution (Items L1–L3)
+
+| Item | Title | Status | What Changed |
+|---|---|:---:|---|
+| **L1** | Device Control dial footer collision & phase countdown | ✅ | Added `phase` and `phaseRemainingSec` to `DeviceState`; implemented 1-second interval countdown tick in `MockTransport`; synced mist animation to `phase === 'spraying'`; added localized phase strings with bidi isolate; shortened Item 2 to "بدون ماء" / "Waterless"; styled dial footer row with `justifyContent: 'space-between', gap: 12` and items with `flexShrink: 1, numberOfLines={1}`. |
+| **L2** | Arabic fallback font caused by `fontWeight` | ✅ | Stripped all `fontWeight` fields from Arabic typography tokens in `typography.ts`; introduced `weightFamily(isRTL, w)` helper; eliminated all `fontWeight` occurrences across the 7 Batch A screens, `BottomTabBar`, and `Button.tsx` (`grep -c "fontWeight"` = 0 everywhere); added `onError: '#FFFFFF'` token; verified Forget sheet renders purely in IBM Plex Sans Arabic. |
+| **L3** | English tab labels: sentence case (no uppercase) | ✅ | Removed uppercase text transform and set `letterSpacing: 0` (`textTransform: 'none'`) in `BottomTabBar.tsx`; removed uppercase transform on Home app bar title in `HomeScreen.tsx`; verified native display is "Home · Devices · Store · Account" and "Home". |
+
+### Visual Proof Re-verification:
+- **Device Control End Countdown (EN):** `device_control_en_end_native_tick1.png` & `device_control_en_end_native_tick2.png` — Real-time countdown tick verified ("Paused · 116s" → "Paused · 113s"); wide gap between phase countdown and "✓ Waterless"; zero card edge collision.
+- **Device Control End Countdown (AR):** `device_control_ar_end_native_tick1.png` & `device_control_ar_end_native_tick2.png` — Real-time countdown tick verified ("متوقف مؤقتاً · 108 ث" → "متوقف مؤقتاً · 105 ث"); wide gap to "✓ بدون ماء"; mist animation synced to active spray phase.
+- **Forget Sheet (AR):** `device_settings_ar_sheet_native.png` — Title ("إلغاء اقتران الجهاز؟"), description ("هل أنت متأكد من رغبتك في إلغاء اقتران هذا الجهاز؟..."), destructive button ("إلغاء الاقتران والحذف"), and cancel button ("إلغاء") all render uniformly in IBM Plex Sans Arabic without letter spacing or system fallback fonts.
+- **Home Top & Tab Bar (EN):** `home_en_top_native.png` — App bar title is "Home" and bottom tab bar labels read "Home", "Devices", "Store", "Account" in sentence case with zero tracking drift.
+
+---
+
+## 5. Code Quality & Compilation
 - `npx tsc --noEmit` exited with code `0`.
+- `grep -c "fontWeight" app/src/screens/{Home,Devices,DeviceControl,DevicePairing,Schedule,DeviceSettings,ConnectionStates}Screen.tsx app/src/components/ui/Button.tsx` returns 0 for every file.
 - `previewTarget.ts` committed with `screen: null, lang: null, scrollToEnd: false, sheet: false`.

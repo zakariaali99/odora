@@ -26,6 +26,20 @@ export const fontFamilies = {
   },
 };
 
+export const weightFamily = (
+  isRTL: boolean,
+  w: 'regular' | 'medium' | 'semiBold' | 'bold'
+): string =>
+  isRTL
+    ? fontFamilies.arabic[w]
+    : fontFamilies.latin[
+        w === 'regular'
+          ? 'displayRegular'
+          : w === 'medium'
+          ? 'displayMedium'
+          : 'displaySemiBold'
+      ];
+
 export interface TypographyTokens {
   display: TextStyle;
   headlineLg: TextStyle;
@@ -54,77 +68,66 @@ export function getTypography(isRTL: boolean = false): TypographyTokens {
         fontFamily: arabic.regular,
         fontSize: 36,
         lineHeight: 46,
-        fontWeight: '400',
         letterSpacing: 0,
       },
       headlineLg: {
         fontFamily: arabic.regular,
         fontSize: 26,
         lineHeight: 36,
-        fontWeight: '400',
         letterSpacing: 0,
       },
       headlineMd: {
         fontFamily: arabic.medium,
         fontSize: 22,
         lineHeight: 32,
-        fontWeight: '500',
         letterSpacing: 0,
       },
       headlineSm: {
         fontFamily: arabic.medium,
         fontSize: 18,
         lineHeight: 28,
-        fontWeight: '500',
         letterSpacing: 0,
       },
       bodyLg: {
         fontFamily: arabic.regular,
         fontSize: 16,
         lineHeight: 28,
-        fontWeight: '400',
         letterSpacing: 0,
       },
       bodyMd: {
         fontFamily: arabic.regular,
         fontSize: 14,
         lineHeight: 24,
-        fontWeight: '400',
         letterSpacing: 0,
       },
       bodySm: {
         fontFamily: arabic.regular,
         fontSize: 12,
         lineHeight: 20,
-        fontWeight: '400',
         letterSpacing: 0,
       },
       labelLg: {
         fontFamily: arabic.semiBold,
         fontSize: 14,
         lineHeight: 22,
-        fontWeight: '600',
         letterSpacing: 0,
       },
       labelMd: {
         fontFamily: arabic.medium,
         fontSize: 12,
         lineHeight: 18,
-        fontWeight: '500',
         letterSpacing: 0,
       },
       labelSm: {
         fontFamily: arabic.semiBold,
         fontSize: 10,
         lineHeight: 16,
-        fontWeight: '600',
         letterSpacing: 0,
       },
       numeric: {
         fontFamily: latin.displayLight,
         fontSize: 56,
         lineHeight: 60,
-        fontWeight: '300',
         letterSpacing: -1,
       },
     };

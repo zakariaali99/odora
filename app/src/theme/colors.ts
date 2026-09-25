@@ -28,6 +28,7 @@ export interface ColorTokens {
   warning: string;
   error: string;
   errorSoft: string;
+  onError: string;
 }
 
 export const lightColors: ColorTokens = {
@@ -53,6 +54,7 @@ export const lightColors: ColorTokens = {
   warning: '#B7892F',
   error: '#BA1A1A',
   errorSoft: '#FFDAD6',
+  onError: '#FFFFFF',
 };
 
 export const darkColors: ColorTokens = {
@@ -79,6 +81,7 @@ export const darkColors: ColorTokens = {
   warning: '#E7C08A',
   error: '#FFB4AB',
   errorSoft: '#93000A',
+  onError: '#111512',
 };
 
 // Default export with compatibility mappings for existing screens

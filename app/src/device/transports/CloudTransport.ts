@@ -44,4 +44,8 @@ export class CloudTransport implements DeviceController {
   getState(): DeviceState {
     throw new Error('CloudTransport is gated and not implemented.');
   }
+
+  setMode(_mode: 'continuous' | 'interval'): Promise<void> {
+    throw new Error('CloudTransport is gated and not implemented.');
+  }
 }

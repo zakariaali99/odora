@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
-import { typography } from '../theme/typography';
+import { weightFamily } from '../theme/typography';
 import { radii } from '../theme/radii';
 import { Icon } from '../components/ui/Icon';
 import { AppBar } from '../components/ui/AppBar';
@@ -37,7 +37,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { colors, isRTL } = useTheme();
+  const { colors, typography, isRTL } = useTheme();
   const insets = useSafeAreaInsets();
   const { devices, selectedDeviceId, setConnectionStatus } = useAppStore();
   const scrollRef = useRef<ScrollView>(null);
@@ -152,7 +152,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
       {toastMessage && (
         <View style={[styles.toastContainer, { backgroundColor: colors.ink }]}>
           <Icon name="info" size={18} color={colors.accent} />
-          <Text style={[styles.toastText, { color: colors.onInk, letterSpacing: 0 }]}>
+          <Text style={[styles.toastText, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
             {toastMessage}
           </Text>
         </View>
@@ -170,12 +170,12 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
         <View style={styles.headerSection}>
           <View style={[styles.liveStatusBadge, { backgroundColor: colors.surfaceMuted }]}>
             <Icon name="sensors" size={14} color={colors.primary} />
-            <Text style={[styles.liveStatusBadgeText, { color: colors.primary, letterSpacing: 0 }]}>
+            <Text style={[styles.liveStatusBadgeText, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
               {t('connection.badge')}
             </Text>
           </View>
 
-          <Text style={[styles.screenTitle, { color: colors.text, letterSpacing: 0 }]}>
+          <Text style={[styles.screenTitle, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
             {t('connection.title')}
           </Text>
 
@@ -212,7 +212,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   styles.tabBtnText,
                   {
                     color: activeTab === 'disabled' ? colors.onPrimary : colors.textMuted,
-                    fontWeight: activeTab === 'disabled' ? '600' : '400',
+                    fontFamily: weightFamily(isRTL, activeTab === 'disabled' ? 'semiBold' : 'regular'),
                     letterSpacing: 0,
                   },
                 ]}
@@ -248,7 +248,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   styles.tabBtnText,
                   {
                     color: activeTab === 'out_of_range' ? colors.onPrimary : colors.textMuted,
-                    fontWeight: activeTab === 'out_of_range' ? '600' : '400',
+                    fontFamily: weightFamily(isRTL, activeTab === 'out_of_range' ? 'semiBold' : 'regular'),
                     letterSpacing: 0,
                   },
                 ]}
@@ -284,7 +284,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   styles.tabBtnText,
                   {
                     color: activeTab === 'syncing' ? colors.onPrimary : colors.textMuted,
-                    fontWeight: activeTab === 'syncing' ? '600' : '400',
+                    fontFamily: weightFamily(isRTL, activeTab === 'syncing' ? 'semiBold' : 'regular'),
                     letterSpacing: 0,
                   },
                 ]}
@@ -322,12 +322,12 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             {/* Context & Description */}
             <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.textSubtle }]} />
-              <Text style={[styles.badgePillText, { color: colors.textMuted, letterSpacing: 0 }]}>
+              <Text style={[styles.badgePillText, { color: colors.textMuted, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                 {t('connection.radioSilent')}
               </Text>
             </View>
 
-            <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
+            <Text style={[styles.stateTitleText, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
               {t('connection.bluetoothOffTitle')}
             </Text>
 
@@ -343,7 +343,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 style={[styles.primaryBtn, { backgroundColor: colors.ink }]}
               >
                 <Icon name="bluetooth" size={20} color={colors.onInk} />
-                <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
+                <Text style={[styles.primaryBtnText, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                   {t('connection.openSettings')}
                 </Text>
               </TouchableOpacity>
@@ -354,7 +354,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 style={[styles.secondaryBtn, { backgroundColor: colors.surfaceMuted }]}
               >
                 <Icon name="cloud_off" size={18} color={colors.text} />
-                <Text style={[styles.secondaryBtnText, { color: colors.text, letterSpacing: 0 }]}>
+                <Text style={[styles.secondaryBtnText, { color: colors.text, fontFamily: weightFamily(isRTL, 'medium'), letterSpacing: 0 }]}>
                   {t('connection.continueOffline')}
                 </Text>
               </TouchableOpacity>
@@ -366,7 +366,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 <Icon name="wb_twilight" size={20} color={colors.primary} />
               </View>
               <View style={styles.autoRhythmTextBox}>
-                <Text style={[styles.autoRhythmTitle, { color: colors.primary, letterSpacing: 0 }]}>
+                <Text style={[styles.autoRhythmTitle, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                   {t('connection.autonomousRhythmTitle')}
                 </Text>
                 <Text style={[styles.autoRhythmBody, { color: colors.textMuted, letterSpacing: 0 }]}>
@@ -387,7 +387,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   <Icon name="podcasts" size={24} color={colors.primary} />
                 </View>
                 <View style={{ marginStart: 12 }}>
-                  <Text style={[typography.headlineSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                  <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                     {getLocalizedDeviceName(activeDevice.name, isRTL)}
                   </Text>
                   <Text style={[typography.labelSm, { color: colors.textSubtle, letterSpacing: 0 }]}>
@@ -406,7 +406,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             <View style={[styles.ambientStatusBanner, { backgroundColor: colors.surfaceMuted }]}>
               <Icon name="history" size={22} color={colors.primary} />
               <View style={{ marginStart: 10, flex: 1 }}>
-                <Text style={[typography.bodySm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+                <Text style={[typography.bodySm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                   {t('connection.lastSeen')}
                 </Text>
                 <Text style={[typography.labelSm, { color: colors.textMuted, letterSpacing: 0 }]}>
@@ -417,7 +417,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
 
             {/* Reconnection Checklist */}
             <View style={styles.reconnectSection}>
-              <Text style={[styles.reconnectHeaderTitle, { color: colors.text, letterSpacing: 0 }]}>
+              <Text style={[styles.reconnectHeaderTitle, { color: colors.text, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                 {t('connection.reconnectionProtocol')}
               </Text>
               <View style={[styles.checklistItem, { backgroundColor: colors.surface }]}>
@@ -451,7 +451,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
               style={[styles.primaryBtn, { backgroundColor: colors.ink }]}
             >
               <Icon name="refresh" size={20} color={colors.onInk} />
-              <Text style={[styles.primaryBtnText, { color: colors.onInk, letterSpacing: 0 }]}>
+              <Text style={[styles.primaryBtnText, { color: colors.onInk, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                 {isReconnecting
                   ? t('connection.reconnectingBle')
                   : t('connection.attemptReconnect')}
@@ -466,7 +466,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                   {`${t('deviceControl.activeOil')}: ${getLocalizedOilName(activeDevice.oilName, isRTL)}`}
                 </Text>
               </View>
-              <Text style={[typography.labelSm, { color: colors.text, fontWeight: '600', letterSpacing: 0 }]}>
+              <Text style={[typography.labelSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                 {`${activeDevice.oilLevel}%`}
               </Text>
             </View>
@@ -484,7 +484,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 <Animated.View style={{ transform: [{ rotate: spin }] }}>
                   <Icon name="sync" size={32} color={colors.primary} />
                 </Animated.View>
-                <Text style={[styles.syncBleText, { color: colors.primary, letterSpacing: 0 }]}>
+                <Text style={[styles.syncBleText, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                   BLE 5.2
                 </Text>
               </View>
@@ -492,12 +492,12 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
 
             <View style={[styles.badgePill, { backgroundColor: colors.surfaceMuted }]}>
               <View style={[styles.statusDot, { backgroundColor: colors.primary }]} />
-              <Text style={[styles.badgePillText, { color: colors.primary, letterSpacing: 0 }]}>
+              <Text style={[styles.badgePillText, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
                 {t('connection.channelHandshake')}
               </Text>
             </View>
 
-            <Text style={[styles.stateTitleText, { color: colors.text, letterSpacing: 0 }]}>
+            <Text style={[styles.stateTitleText, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
               {t('connection.syncingAtmosphere')}
             </Text>
 
@@ -516,7 +516,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Icon name="done" size={16} color={colors.primary} />
-                  <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+                  <Text style={[typography.labelSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                     {t('connection.verified')}
                   </Text>
                 </View>
@@ -531,7 +531,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <Icon name="done" size={16} color={colors.primary} />
-                  <Text style={[typography.labelSm, { color: colors.primary, fontWeight: '600', letterSpacing: 0 }]}>
+                  <Text style={[typography.labelSm, { color: colors.primary, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                     {t('connection.verified')}
                   </Text>
                 </View>
@@ -544,7 +544,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
                     {t('connection.checkSyncSettings')}
                   </Text>
                 </View>
-                <Text style={[typography.labelSm, { color: colors.textMuted, fontWeight: '600', letterSpacing: 0 }]}>
+                <Text style={[typography.labelSm, { color: colors.textMuted, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
                   {t('connection.syncingStatus')}
                 </Text>
               </View>
@@ -592,10 +592,10 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
             resizeMode="cover"
           />
           <View style={styles.deviceCardTextCol}>
-            <Text style={[styles.deviceCardOverline, { color: colors.primary, letterSpacing: 0 }]}>
+            <Text style={[styles.deviceCardOverline, { color: colors.primary, fontFamily: weightFamily(isRTL, 'bold'), letterSpacing: 0 }]}>
               {t('connection.activeHardware')}
             </Text>
-            <Text style={[styles.deviceCardTitle, { color: colors.text, letterSpacing: 0 }]} numberOfLines={1}>
+            <Text style={[styles.deviceCardTitle, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]} numberOfLines={1}>
               {getLocalizedDeviceName(activeDevice.name, isRTL)}
             </Text>
             <Text style={[styles.deviceCardSubtitle, { color: colors.textMuted, letterSpacing: 0 }]} numberOfLines={1}>
@@ -617,7 +617,7 @@ export const ConnectionStatesScreen: React.FC<ConnectionStatesScreenProps> = ({
         <View style={styles.footerSection}>
           <View style={styles.footerBadgeRow}>
             <Icon name="verified_user" size={16} color={colors.textSubtle} />
-            <Text style={[styles.footerBadgeText, { color: colors.textSubtle, letterSpacing: 0 }]}>
+            <Text style={[styles.footerBadgeText, { color: colors.textSubtle, fontFamily: weightFamily(isRTL, 'semiBold'), letterSpacing: 0 }]}>
               {t('connection.offlineIntegrityTitle')}
             </Text>
           </View>
@@ -657,7 +657,6 @@ const styles = StyleSheet.create({
   },
   toastText: {
     fontSize: 13,
-    fontWeight: '600',
   },
   headerSection: {
     alignItems: 'center',
@@ -676,12 +675,10 @@ const styles = StyleSheet.create({
   },
   liveStatusBadgeText: {
     fontSize: 10,
-    fontWeight: '700',
     textTransform: 'uppercase',
   },
   screenTitle: {
     fontSize: 26,
-    fontWeight: '600',
     marginBottom: 4,
     textAlign: 'center',
   },
@@ -789,12 +786,10 @@ const styles = StyleSheet.create({
   },
   badgePillText: {
     fontSize: 10,
-    fontWeight: '700',
     textTransform: 'uppercase',
   },
   stateTitleText: {
     fontSize: 22,
-    fontWeight: '600',
     textAlign: 'center',
     marginBottom: 8,
   },
@@ -820,7 +815,6 @@ const styles = StyleSheet.create({
   },
   primaryBtnText: {
     fontSize: 14,
-    fontWeight: '600',
   },
   secondaryBtn: {
     flexDirection: 'row',
@@ -832,7 +826,6 @@ const styles = StyleSheet.create({
   },
   secondaryBtnText: {
     fontSize: 14,
-    fontWeight: '500',
   },
   autoRhythmCard: {
     flexDirection: 'row',
@@ -855,7 +848,6 @@ const styles = StyleSheet.create({
   },
   autoRhythmTitle: {
     fontSize: 14,
-    fontWeight: '600',
     marginBottom: 2,
   },
   autoRhythmBody: {
@@ -901,7 +893,6 @@ const styles = StyleSheet.create({
   },
   reconnectHeaderTitle: {
     fontSize: 11,
-    fontWeight: '700',
     textTransform: 'uppercase',
     marginBottom: 4,
   },
@@ -959,7 +950,6 @@ const styles = StyleSheet.create({
   },
   syncBleText: {
     fontSize: 9,
-    fontWeight: '800',
     marginTop: 2,
   },
   syncChecklist: {
@@ -1006,13 +996,11 @@ const styles = StyleSheet.create({
   },
   deviceCardOverline: {
     fontSize: 10,
-    fontWeight: '700',
     textTransform: 'uppercase',
     marginBottom: 2,
   },
   deviceCardTitle: {
     fontSize: 15,
-    fontWeight: '600',
     marginBottom: 2,
   },
   deviceCardSubtitle: {
@@ -1045,7 +1033,6 @@ const styles = StyleSheet.create({
   },
   footerBadgeText: {
     fontSize: 12,
-    fontWeight: '600',
   },
   footerText: {
     fontSize: 12,

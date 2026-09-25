@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme, withAlpha } from '../../theme';
+import { weightFamily } from '../../theme/typography';
 import { Icon, IconName } from './Icon';
 
 export type TabKey = 'home' | 'devices' | 'store' | 'account';
@@ -84,10 +85,10 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = ({
                   typography.labelSm,
                   {
                     color: tintColor,
-                    fontWeight: isActive ? '600' : '500',
+                    fontFamily: weightFamily(isRTL, isActive ? 'semiBold' : 'medium'),
                     fontSize: 10,
-                    letterSpacing: isRTL ? 0 : 0.8,
-                    textTransform: isRTL ? 'none' : 'uppercase',
+                    letterSpacing: 0,
+                    textTransform: 'none',
                     marginTop: 2,
                   },
                 ]}
