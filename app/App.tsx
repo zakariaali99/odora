@@ -30,6 +30,7 @@ import { useTheme } from './src/theme';
 import { useAppStore } from './src/store/useAppStore';
 import { LanguageConfirmSheet } from './src/components/LanguageConfirmSheet';
 import { previewConfig } from './src/previewTarget';
+import { initSessionId } from './src/services/api';
 
 export default function App() {
   const isRTL = useAppStore((s) => s.isRTL);
@@ -55,6 +56,7 @@ export default function App() {
   useEffect(() => {
     async function initApp() {
       try {
+        await initSessionId();
         const storedLang = await AsyncStorage.getItem(STORAGE_KEY_LANGUAGE);
         const previewLang = __DEV__ ? previewConfig.lang : null;
         const activeLang: 'ar' | 'en' =

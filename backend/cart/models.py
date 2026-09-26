@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import models
+from django.conf import settings
 from core.models import TimeStampedModel
 from django.contrib.auth import get_user_model
 from products.models import Product, ProductColorway
@@ -28,10 +29,11 @@ class Cart(TimeStampedModel):
 
     @property
     def delivery_fee(self):
-        # Free delivery on orders over 300 LYD
-        if self.subtotal >= Decimal('300.00') or self.subtotal == Decimal('0.00'):
+        fee = Decimal(settings.ODORA_BUSINESS['delivery_fee'])
+        threshold = Decimal(settings.ODORA_BUSINESS['free_delivery_threshold'])
+        if self.subtotal >= threshold or self.subtotal == Decimal('0.00'):
             return Decimal('0.00')
-        return Decimal('15.00')
+        return fee
 
     @property
     def total_price(self):
@@ -39,7 +41,8 @@ class Cart(TimeStampedModel):
 
     @property
     def free_delivery_remaining(self):
-        diff = Decimal('300.00') - self.subtotal
+        threshold = Decimal(settings.ODORA_BUSINESS['free_delivery_threshold'])
+        diff = threshold - self.subtotal
         return max(Decimal('0.00'), diff)
 
 

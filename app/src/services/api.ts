@@ -1,3 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  BusinessConfig,
+  Cart,
+  Category,
+  PaginatedResponse,
+  ProductListItem,
+} from '../types/shop';
+
 /**
  * Odora Mobile API Client
  * Connects to the shared Django + DRF backend (http://localhost:8000/api/v1)
@@ -7,15 +16,19 @@
 // Default to localhost for emulator/simulator; can be customized for physical devices via EXPO_PUBLIC_API_URL
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
-// In-memory guest session ID for mobile
+const SESSION_KEY = 'odora.cartSessionId';
 let cachedSessionId: string = '';
 
-export const getSessionId = (): string => {
-  if (!cachedSessionId) {
-    cachedSessionId = 'mobile_' + Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
-  }
+export const initSessionId = async (): Promise<string> => {
+  if (cachedSessionId) return cachedSessionId;
+  const stored = await AsyncStorage.getItem(SESSION_KEY);
+  cachedSessionId =
+    stored || 'mobile_' + Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+  if (!stored) await AsyncStorage.setItem(SESSION_KEY, cachedSessionId);
   return cachedSessionId;
 };
+
+export const getSessionId = (): string => cachedSessionId;
 
 interface RequestOptions {
   method?: string;
@@ -66,6 +79,11 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
 }
 
 export const api = {
+  // Business Config
+  getConfig: async () => {
+    return request<BusinessConfig>('/config/');
+  },
+
   // Products & Categories
   getProducts: async (params?: Record<string, any>) => {
     let queryString = '';
@@ -79,7 +97,7 @@ export const api = {
       const qs = searchParams.toString();
       if (qs) queryString = `?${qs}`;
     }
-    return request<any>(`/products/${queryString}`);
+    return request<PaginatedResponse<ProductListItem>>(`/products/${queryString}`);
   },
 
   getProductDetail: async (slug: string) => {
@@ -87,16 +105,16 @@ export const api = {
   },
 
   getCategories: async () => {
-    return request<any>('/products/categories/');
+    return request<Category[]>('/products/categories/');
   },
 
   getFeaturedProducts: async () => {
-    return request<any>('/products/featured/');
+    return request<PaginatedResponse<ProductListItem>>('/products/featured/');
   },
 
   // In-App Cart
   getCart: async () => {
-    return request<any>('/cart/');
+    return request<Cart>('/cart/');
   },
 
   addToCart: async (productId: string | number, colorwayId?: string | number | null, quantity: number = 1) => {

@@ -8,7 +8,7 @@ export interface CartItem {
     name_ar: string;
     name_en?: string;
     price: string;
-    main_image?: string;
+    main_image?: string | null;
     product_type: string;
   };
   colorway?: {
@@ -19,7 +19,8 @@ export interface CartItem {
   } | null;
   quantity: number;
   unit_price: string;
-  total_price: string;
+  total_price?: string;
+  line_total?: string;
 }
 
 export interface CartData {

@@ -13,6 +13,9 @@
 > 4. If a path you need is outside `odora/`, **stop and ask the owner** instead of linking or editing it.
 
 
+> # 📘 Mobile app work: read `plans/claude plans/09-ag-rulebook.md` in full before EVERY task
+> It covers the product facts, architecture, design tokens (colours, type, shapes), the RTL/Arabic rules, the screen-building method, and the exact run/verify/proof steps. The reviewer checks your work against it.
+
 This repository builds **Odora**: a white-label smart aroma-diffuser mobile app + store.
 This file tells you **what to implement, what to only understand, and how we work.** Read it fully before doing anything.
 

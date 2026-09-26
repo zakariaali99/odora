@@ -46,6 +46,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     final_price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
     has_discount = serializers.BooleanField(read_only=True)
     colorways = ProductColorwaySerializer(many=True, read_only=True)
+    scent_notes = ScentNotePyramidSerializer(read_only=True)
 
     class Meta:
         model = Product
@@ -54,7 +55,7 @@ class ProductListSerializer(serializers.ModelSerializer):
             'category', 'category_name', 'category_name_ar', 'category_slug',
             'subtitle', 'subtitle_ar', 'price', 'discount_price', 'final_price', 'has_discount',
             'stock', 'sku', 'main_image', 'is_featured', 'rating', 'reviews_count',
-            'colorways', 'created_at'
+            'colorways', 'capacity', 'scent_notes', 'created_at'
         ]
 
 

@@ -163,3 +163,33 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = int(os.environ.get('SECURE_HSTS_SECONDS', '31536000'))
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+# Business config — PLACEHOLDER values until the owner confirms them.
+ODORA_BUSINESS = {
+    'currency': 'LYD',
+    'currency_symbol_ar': 'د.ل',
+    'currency_symbol_en': 'LYD',
+    'delivery_fee': os.environ.get('ODORA_DELIVERY_FEE', '15.00'),
+    'free_delivery_threshold': os.environ.get('ODORA_FREE_DELIVERY_THRESHOLD', '300.00'),
+    'cod_enabled': True,
+    'card_enabled': False,
+    'warranty_months': None,        # unknown → the app hides the warranty row
+    'whatsapp_number': None,        # unknown → the app hides WhatsApp
+    'cities': [
+        {'key': 'tripoli', 'ar': 'طرابلس', 'en': 'Tripoli'},
+        {'key': 'benghazi', 'ar': 'بنغازي', 'en': 'Benghazi'},
+        {'key': 'misrata', 'ar': 'مصراتة', 'en': 'Misrata'},
+        {'key': 'zawiya', 'ar': 'الزاوية', 'en': 'Zawiya'},
+        {'key': 'zliten', 'ar': 'زليتن', 'en': 'Zliten'},
+        {'key': 'khoms', 'ar': 'الخمس', 'en': 'Khoms'},
+        {'key': 'gharyan', 'ar': 'غريان', 'en': 'Gharyan'},
+        {'key': 'sabratha', 'ar': 'صبراتة', 'en': 'Sabratha'},
+        {'key': 'tarhuna', 'ar': 'ترهونة', 'en': 'Tarhuna'},
+        {'key': 'sirte', 'ar': 'سرت', 'en': 'Sirte'},
+        {'key': 'ajdabiya', 'ar': 'أجدابيا', 'en': 'Ajdabiya'},
+        {'key': 'bayda', 'ar': 'البيضاء', 'en': 'Bayda'},
+        {'key': 'derna', 'ar': 'درنة', 'en': 'Derna'},
+        {'key': 'tobruk', 'ar': 'طبرق', 'en': 'Tobruk'},
+        {'key': 'sabha', 'ar': 'سبها', 'en': 'Sabha'},
+    ],
+}

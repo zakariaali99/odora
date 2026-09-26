@@ -132,3 +132,12 @@ F1–F10 all verified on native (Arabic) and in AG's new English proofs: no red 
 | L3 | English eyebrows use wide letter-spacing and uppercase ("ACTIVE", "LIVING ROOM", "HOME"). That's fine in English, but the tab labels ("HOME / DEVICES / STORE / ACCOUNT") are uppercase, which Stitch does not do → use sentence case for the tab labels. |
 
 **Verdict:** Batch A is ready for the owner's review now. L1–L3 are polish and can go in with Batch B's review.
+
+---
+
+## Re-review of commit `faca1af` (2026-09-26, native iPhone 17 Pro)
+L1–L3 are verified on native: the countdown ticks ("ينتشر الآن · 10 ث"), the two footer items don't collide, `fontWeight` = 0 in the Batch A screens and Button, tab labels are in sentence case. `tsc` 0.
+
+**Batch A: CLOSED visually.** Handed to the owner for review.
+
+**One logic gap (device layer, 07 Phase 2 item 2):** intensity doesn't drive the spray timing. There is no `intensityMap.ts`; `setIntensity` only stores the number; the mock stays at 15s on / 120s off at every level. Home's mode tile shows a hard-coded "30ث تشغيل · 60ث إيقاف" (`home.intervalTiming`), which doesn't match the real 15/120.
