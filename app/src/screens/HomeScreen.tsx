@@ -16,6 +16,9 @@ import { weightFamily } from '../theme/typography';
 import { AppBar, Card, Icon } from '../components/ui';
 import { useAppStore, getLocalizedDeviceName, getLocalizedOilName, getLocalizedRoomName, getLocalizedRoutineName } from '../store/useAppStore';
 import { previewConfig } from '../previewTarget';
+import { getDeviceController } from '../device/DeviceController';
+import { DeviceState } from '../device/types';
+import { dutyCycle } from '../device/intensityMap';
 
 const DIFFUSER_IMAGES = {
   sage: require('../../assets/photos/diffuser-a316-sage.png'),
@@ -33,13 +36,29 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
 
+  const controller = getDeviceController();
+  const [deviceState, setDeviceState] = useState<DeviceState>(controller.getState());
+  useEffect(() => controller.onStateChange(setDeviceState), [controller]);
+
   useEffect(() => {
+    if (__DEV__) {
+      if (previewConfig.intensity !== undefined) {
+        controller.setIntensity(previewConfig.intensity);
+      }
+      if (previewConfig.mode !== undefined) {
+        controller.setMode?.(previewConfig.mode);
+      }
+    }
     if (previewConfig.scrollToEnd) {
       setTimeout(() => {
         scrollRef.current?.scrollToEnd({ animated: false });
       }, 150);
+    } else if (previewConfig.scrollY !== undefined) {
+      setTimeout(() => {
+        scrollRef.current?.scrollTo({ y: previewConfig.scrollY, animated: false });
+      }, 150);
     }
-  }, []);
+  }, [controller]);
 
   const { devices, selectedDeviceId, setSelectedDeviceId, toggleDevicePower, routines } = useAppStore();
   const nextRoutine = routines?.find((r) => r.enabled) || routines?.[0];
@@ -477,8 +496,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
               <Text style={[typography.headlineSm, { color: colors.text, fontFamily: weightFamily(isRTL, 'semiBold') }]}>
                 {activeDevice.mode === 'continuous' ? t('home.continuous') : t('home.interval')}
               </Text>
-              <Text style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}>
-                {t('home.intervalTiming', '30ث / 60ث')}
+              <Text
+                style={[typography.bodySm, { color: colors.textSubtle, fontSize: 11 }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.75}
+              >
+                {activeDevice.mode === 'continuous'
+                  ? t('home.continuousHint')
+                  : t('home.intervalTiming', {
+                      on: `\u2066${deviceState.sprayOnSec}\u2069`,
+                      off: `\u2066${deviceState.sprayOffSec}\u2069`,
+                    })}
               </Text>
             </View>
             <View style={[styles.statProgressTrack, { backgroundColor: colors.surfaceMuted }]}>
@@ -486,7 +515,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 style={[
                   styles.statProgressFill,
                   {
-                    width: '50%',
+                    width: `${Math.round((activeDevice.mode === 'continuous'
+                      ? 1
+                      : dutyCycle(deviceState.sprayOnSec, deviceState.sprayOffSec)) * 100)}%`,
                     backgroundColor: colors.primarySoft,
                   },
                 ]}

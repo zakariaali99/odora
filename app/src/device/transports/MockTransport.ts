@@ -4,21 +4,22 @@
  */
 
 import { DeviceController, DeviceRef, DeviceSchedule, DeviceState, Unsubscribe } from '../types';
+import { timingForLevel } from '../intensityMap';
 
 export class MockTransport implements DeviceController {
   private timer: any = null;
   private state: DeviceState = {
     power: true,
     intensity: 8,
-    sprayOnSec: 15,
-    sprayOffSec: 120,
+    sprayOnSec: timingForLevel(8).onSec,       // 20
+    sprayOffSec: timingForLevel(8).offSec,     // 60
     oilLevel: 78,
     currentScentName: 'Forest Sage',
     connected: true,
     activeTransport: 'mock',
     lastUpdated: Date.now(),
     phase: 'spraying',
-    phaseRemainingSec: 15,
+    phaseRemainingSec: timingForLevel(8).onSec, // 20
     mode: 'interval',
   };
 
@@ -149,8 +150,8 @@ export class MockTransport implements DeviceController {
 
   async setIntensity(level: number): Promise<void> {
     this.state.intensity = Math.max(0, Math.min(10, level));
-    this.state.lastUpdated = Date.now();
-    this.notify();
+    const { onSec, offSec } = timingForLevel(this.state.intensity);
+    await this.setSpray(onSec, offSec);
   }
 
   async setSpray(onSec: number, offSec: number): Promise<void> {

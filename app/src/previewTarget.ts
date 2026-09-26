@@ -13,6 +13,9 @@ export interface PreviewConfig {
   lang: 'ar' | 'en' | null;
   scrollToEnd?: boolean;
   sheet?: boolean;
+  scrollY?: number;
+  intensity?: number;
+  mode?: 'continuous' | 'interval';
 }
 
 export const previewConfig: PreviewConfig = {

@@ -132,7 +132,8 @@ export const en = {
     curatedDesc: 'Warm amber, cedarwood & wild sage organic botanicals',
     discoverNow: 'Discover Collection',
     nextRoutineDefault: 'Evening Calm',
-    intervalTiming: '30s on · 60s off',
+    intervalTiming: '{{on}}s on · {{off}}s off',
+    continuousHint: 'Runs without pause',
     curatedTitle: 'Smoky Hinoki & White Tea',
   },
   device: {

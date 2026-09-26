@@ -133,7 +133,8 @@ export const ar = {
     curatedDesc: 'مزيج دافئ من مستخلصات خشب الأرز النقي والمريمية البرية',
     discoverNow: 'اكتشف التشكيلة',
     nextRoutineDefault: 'هدوء المساء',
-    intervalTiming: '30ث تشغيل · 60ث إيقاف',
+    intervalTiming: '{{on}}ث تشغيل · {{off}}ث إيقاف',
+    continuousHint: 'ينتشر بدون توقف',
     curatedTitle: 'هينوكي مدخن وشاي أبيض',
   },
   device: {

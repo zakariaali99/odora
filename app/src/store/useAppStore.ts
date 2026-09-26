@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n, { changeAppLanguage, reloadApp, STORAGE_KEY_LANGUAGE } from '../i18n';
+import { previewConfig } from '../previewTarget';
 
 export type ThemeMode = 'system' | 'light' | 'dark';
 
@@ -157,8 +158,8 @@ const INITIAL_DEVICES: AppDevice[] = [
     colorway: 'sage',
     model: 'Odora A316',
     power: true,
-    intensity: 8,
-    mode: 'interval',
+    intensity: previewConfig?.intensity !== undefined ? previewConfig.intensity : 8,
+    mode: (previewConfig?.mode || 'interval') as 'continuous' | 'interval',
     oilLevel: 68,
     oilName: 'مريمية الغابة والأرز',
     oilRemainingDays: 18,
@@ -247,8 +248,6 @@ const INITIAL_ROUTINES: AppRoutine[] = [
     oilName: 'صندل وسوسن',
   },
 ];
-
-import { previewConfig } from '../previewTarget';
 
 const initialLang = previewConfig?.lang || 'ar';
 const initialRTL = initialLang === 'ar';

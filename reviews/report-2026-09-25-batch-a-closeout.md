@@ -98,3 +98,15 @@ All screenshot artifacts (native simulator captures and side-by-side Stitch comp
 - `npx tsc --noEmit` exited with code `0`.
 - `grep -c "fontWeight" app/src/screens/{Home,Devices,DeviceControl,DevicePairing,Schedule,DeviceSettings,ConnectionStates}Screen.tsx app/src/components/ui/Button.tsx` returns 0 for every file.
 - `previewTarget.ts` committed with `screen: null, lang: null, scrollToEnd: false, sheet: false`.
+
+---
+
+## D1 — Intensity drives spray timing
+| Check | Result | Evidence |
+|---|---|---|
+| tsc exit 0 | ✅ | `npx tsc --noEmit` exited with code 0 across the entire workspace with zero type errors. |
+| Home level 8 = "20ث تشغيل · 60ث إيقاف", bar ~25% | ✅ | Verified on native iPhone 17 Pro (`d1_ar_home_level8.png`): "فترات", "20ث تشغيل · 60ث إيقاف" in correct bidi order, progress bar is 25%. |
+| Level 3 cycle 10/150, Home caption + bar ~6% | ✅ | Verified on native iPhone 17 Pro (`d1_ar_control_level3.png` & `d1_ar_home_level3.png`): gauge 3, Home caption "10ث تشغيل · 150ث إيقاف", bar ~6% (10/160 = 6.25%). |
+| Preset مكثف → 20/60 | ✅ | Preset chips delegate to `controller.setIntensity(8)`, restoring 20s spray / 60s pause cycle. |
+| Continuous: footer + Home caption + full bar | ✅ | Verified on native iPhone 17 Pro (`d1_ar_home_continuous.png`): value "مستمر", caption "ينتشر بدون توقف", progress bar full (100%). |
+| English caption on one line | ✅ | Verified on native iPhone 17 Pro (`d1_en_home_level8.png`): "20s on · 60s off" renders cleanly on a single line without wrapping or ellipsis. |
